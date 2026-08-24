@@ -2,10 +2,14 @@
 
 this repo will have :
 
--ci/cd piepline 
--multiple branches for deployement 
--developemnt will be by 3 accounts , this main account and another 2 which are me , to improve my pull and teamwork abilities 
+- ci/cd piepline
+
+- multiple branches for deployement 
+
+- developemnt will be by 3 accounts , this main account and another 2 which are me , to improve my pull and teamwork abilities 
+
 - every accoutn will get 2 days of developement
+
 - role based access(by account)
 - vercel deployement
 -  server database : postgrsql
