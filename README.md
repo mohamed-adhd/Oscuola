@@ -6,7 +6,7 @@ this repo will have :
 
 - multiple branches for deployement 
 
-- developemnt will be by 3 accounts , this main account and another 2 which are me , to improve my pull and teamwork abilities 
+- developemnt will be by 3 accounts , this main account and another 2 which are me , to improve my pull and teamwork abilities , and another account that only reviews PR and code
 
 - every accoutn will get 2 days of developement
 
