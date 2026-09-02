@@ -2,25 +2,26 @@
 
 this repo will have :
 
-- ci/cd piepline
+- ci/cd pipeline
 
-- multiple branches for deployement 
+- multiple branches for deployment 
 
-- developemnt will be by 3 accounts , this main account and another 2 which are me , to improve my pull and teamwork abilities , and another account that only reviews PR and code
-
-- every accoutn will get 2 days of developement
+- development will be by 3 accounts , this main account and another 2 which are me , to improve my pull and teamwork abilities
+- every account will get assigned  days of development
 
 - role based access(by account)
-- vercel deployement
--  server database : postgrsql
+- vercel deployment
+-  server database : PostgreSQL
 -  stack will be c++/qt
 -  smtp integration
 -  api calls to public models for rapport generation
--  dbus system integration o nlinux for notification and attempt for windows
+-  dbus system integration on linux for notification and attempt for windows
 -  tests
--  public website for dahsboard and status
+-  public website for dashboard and status
 -  packaging and releases  for windows and linux (adding to yay)
 
 -  ETA: 30 days
 
-repo queued after the fortran allocator
+monday/tuesday : mohamed-adhd
+thrusday/friday : Eve-boo
+sunday : galactus-mc
