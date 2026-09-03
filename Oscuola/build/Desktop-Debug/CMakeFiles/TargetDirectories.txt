@@ -1,9 +1,0 @@
-/home/bro/my-creations/Oscuola/Oscuola/build/Desktop-Debug/CMakeFiles/Oscuola.dir
-/home/bro/my-creations/Oscuola/Oscuola/build/Desktop-Debug/CMakeFiles/edit_cache.dir
-/home/bro/my-creations/Oscuola/Oscuola/build/Desktop-Debug/CMakeFiles/rebuild_cache.dir
-/home/bro/my-creations/Oscuola/Oscuola/build/Desktop-Debug/CMakeFiles/list_install_components.dir
-/home/bro/my-creations/Oscuola/Oscuola/build/Desktop-Debug/CMakeFiles/install.dir
-/home/bro/my-creations/Oscuola/Oscuola/build/Desktop-Debug/CMakeFiles/install/local.dir
-/home/bro/my-creations/Oscuola/Oscuola/build/Desktop-Debug/CMakeFiles/install/strip.dir
-/home/bro/my-creations/Oscuola/Oscuola/build/Desktop-Debug/CMakeFiles/Oscuola_autogen_timestamp_deps.dir
-/home/bro/my-creations/Oscuola/Oscuola/build/Desktop-Debug/CMakeFiles/Oscuola_autogen.dir
