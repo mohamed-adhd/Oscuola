@@ -1,2 +1,2 @@
 [tool.vercel]
-entrypoint = "Oscuola/api/index.py"
+entrypoint = "Oscuola.api.index:app"
