@@ -73,11 +73,14 @@ void database::login_check(std::string email, std::string passwd, std::function<
 
     QMap<QString, QString> bs = loadEnvResolved();
     QString dakey = bs.value("API_KEY");
+    qDebug() << dakey;
     QByteArray auth = "Bearer " + dakey.toUtf8();
     request.setRawHeader("Authorization", auth);
     QJsonObject json;
     json["email"] = QString::fromStdString(email);
     json["passwd"] = QString::fromStdString(passwd);
+    qDebug() << json["email"].toString();
+    qDebug() << json["passwd"].toString();
     QJsonDocument doc(json);
     QByteArray data = doc.toJson();
     QNetworkReply *res = manager->post(request, data);
