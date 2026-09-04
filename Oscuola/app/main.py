@@ -7,7 +7,7 @@ from database.fetch import test,check_login
 from pydantic import BaseModel
 class LoginRequest(BaseModel):
     gmail: str
-    password: str
+    passwd: str
 
 app = FastAPI()
 from fastapi import Header, HTTPException
@@ -22,7 +22,7 @@ def root():
 
 @app.post("/login_check")
 def check(data: LoginRequest, authorized: None = Depends(verify_key)):
-    if check_login(data.gmail, data.password) =="pass":
+    if check_login(data.gmail, data.passwd) =="pass":
         return {"message": "pass"}
     return {"message": "not found"}
 
