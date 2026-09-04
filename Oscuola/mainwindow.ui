@@ -14,7 +14,7 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QStackedWidget" name="stackedWidget">
+   <widget class="QStackedWidget" name="pages">
     <property name="geometry">
      <rect>
       <x>-1</x>
@@ -37,7 +37,7 @@
        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:12pt; font-weight:700;&quot;&gt;dont have an account ?&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
      </widget>
-     <widget class="QLineEdit" name="lineEdit">
+     <widget class="QLineEdit" name="login_email">
       <property name="geometry">
        <rect>
         <x>530</x>
@@ -86,7 +86,7 @@
        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:22pt; font-weight:700; font-style:italic;&quot;&gt;Oscuola&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButton">
+     <widget class="QPushButton" name="login_but">
       <property name="geometry">
        <rect>
         <x>590</x>
@@ -99,7 +99,7 @@
        <string>login</string>
       </property>
      </widget>
-     <widget class="QLineEdit" name="lineEdit_2">
+     <widget class="QLineEdit" name="login_passwd">
       <property name="geometry">
        <rect>
         <x>530</x>
@@ -109,7 +109,7 @@
        </rect>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButton_2">
+     <widget class="QPushButton" name="reg_but">
       <property name="geometry">
        <rect>
         <x>660</x>
@@ -122,8 +122,21 @@
        <string>sign up</string>
       </property>
      </widget>
+     <widget class="QLabel" name="login_alert">
+      <property name="geometry">
+       <rect>
+        <x>840</x>
+        <y>550</y>
+        <width>191</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+     </widget>
     </widget>
-    <widget class="QWidget" name="register_2">
+    <widget class="QWidget" name="registerr">
      <widget class="QLineEdit" name="lineEdit_3">
       <property name="geometry">
        <rect>

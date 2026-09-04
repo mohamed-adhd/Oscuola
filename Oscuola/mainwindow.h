@@ -16,8 +16,10 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow() override;
+    void switchpg(int to);
 
 private:
     Ui::MainWindow *ui;
+
 };
 #endif // MAINWINDOW_H
