@@ -12,22 +12,16 @@ def test():
     cur.close()
     s.close()
     return res
-
-def check_login(gmail,pswd):
+def check_login(gmail, pswd):
     load_dotenv()
-    cons=os.environ["CON_STRING"]
-    s=psycopg2.connect(os.environ["DATABASE_URL"])
+    s = psycopg2.connect(os.environ["DATABASE_URL"])
     cur = s.cursor()
-    pswd.encode()
-    bcrypt.gensalt()
-    hs= bcrypt.hashpw(pswd.encode(), bcrypt.gensalt())
-    cur.execute("SELECT * FROM users WHERE gmail=%s AND password=%s ;")(gmail,hs)
-    res=(cur.fetchone())
+    cur.execute("SELECT password FROM users WHERE gmail=%s;", (gmail,))
+    res = cur.fetchone()
     cur.close()
     s.close()
-    if res:
-       return "pass"
-    else:
-        return "no"
+    if res and bcrypt.checkpw(pswd.encode(), res[0].encode()):
+        return "pass"
+    return "no"
 
 
