@@ -74,7 +74,7 @@ void database::login_check(std::string email, std::string passwd, std::function<
     QJsonObject json;
     json["email"] = QString::fromStdString(email);
     json["passwd"] = QString::fromStdString(passwd);
-    qDebug() << json["email"].toString();
+    qDebug() << json["gmail"].toString();
     qDebug() << json["passwd"].toString();
     QJsonDocument doc(json);
     QByteArray data = doc.toJson();
