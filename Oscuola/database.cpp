@@ -63,7 +63,7 @@ QMap<QString, QString> loadEnvResolved()
 void database::login_check(std::string email, std::string passwd, std::function<void(bool)> callback)
 {
     QNetworkAccessManager *manager = new QNetworkAccessManager(this);
-    QNetworkRequest request(QUrl("https://oscuola-git-develop-midouamdouni4-7219s-projects.vercel.app/login_check"));
+    QNetworkRequest request(QUrl("https://oscuola-oo7pv2ele-midouamdouni4-7219s-projects.vercel.app/login_check"));
     request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
 
     QMap<QString, QString> bs = loadEnvResolved();
@@ -72,9 +72,9 @@ void database::login_check(std::string email, std::string passwd, std::function<
     QByteArray auth = "Bearer " + dakey.toUtf8();
     request.setRawHeader("Authorization", auth);
     QJsonObject json;
-    json["email"] = QString::fromStdString(email);
+    json["gmail"] = QString::fromStdString(email);
     json["passwd"] = QString::fromStdString(passwd);
-    qDebug() << json["gmail"].toString();
+    qDebug() << json["email"].toString();
     qDebug() << json["passwd"].toString();
     QJsonDocument doc(json);
     QByteArray data = doc.toJson();
@@ -83,6 +83,7 @@ void database::login_check(std::string email, std::string passwd, std::function<
         QByteArray responseData = res->readAll();
         QJsonDocument docs = QJsonDocument::fromJson(responseData);
         QJsonObject obj = docs.object();
+
         std::cout << obj["message"].toString().toStdString() << std::endl;
         qDebug() << obj["message"].toString();
         bool success = (obj["message"].toString() == "pass");

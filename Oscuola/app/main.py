@@ -36,8 +36,10 @@ def debug_key(authorization: str = Header(None)):
 
 @app.post("/login_check")
 def check(data: LoginRequest, authorized: None = Depends(verify_key)):
-    if check_login(data.gmail, data.passwd) =="pass":
+    result = check_login(data.gmail, data.passwd)
+    if result == "pass":
         return {"message": "pass"}
-    return {"message": "not found"}
+
+    return {"message": result}
 
 
