@@ -3,6 +3,10 @@
 Oscuola/.qtcreator/
 Oscuola/build/
 .idea/
+Oscuola/.qtcreator
+.env
+.venv
+=======
 *~
 *.autosave
 *.a
@@ -83,4 +87,4 @@ CMakeLists.txt.user*
 .rcc/
 .uic/
 /Oscuola/build/
-/.qtcreator/
+/.qtcreator
