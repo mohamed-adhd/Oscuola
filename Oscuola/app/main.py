@@ -12,7 +12,7 @@ class LoginRequest(BaseModel):
 app = FastAPI()
 from fastapi import Header, HTTPException
 def verify_key(authorization: str = Header(None)):
-    if authorization != f"Bearer {os.environ['auth_key']}":
+    if authorization != f"Bearer {os.environ['API_KEY']}":
         raise HTTPException(status_code=401, detail="Unauthorized ass bitch")
 @app.get("/")
 def root():
