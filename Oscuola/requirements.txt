@@ -1,3 +1,5 @@
 fastapi
 psycopg2-binary
 dotenv
+bcrypt
+pydantic

@@ -5,7 +5,8 @@
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    MainWindow w;
+    database s;
+    MainWindow w(s);
     w.show();
     return QApplication::exec();
 }

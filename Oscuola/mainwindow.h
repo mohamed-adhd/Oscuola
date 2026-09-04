@@ -2,7 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-
+#include "database.h"
 QT_BEGIN_NAMESPACE
 namespace Ui {
 class MainWindow;
@@ -14,10 +14,13 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit MainWindow(QWidget *parent = nullptr);
+    database& db;
+    explicit MainWindow(database& dbo,QWidget *parent = nullptr);
     ~MainWindow() override;
+    void switchpg(int to);
 
 private:
     Ui::MainWindow *ui;
+
 };
 #endif // MAINWINDOW_H
