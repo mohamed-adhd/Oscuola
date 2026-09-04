@@ -1,6 +1,5 @@
 from fastapi import FastAPI
-import database
-from Oscuola.app.database.fetch import test
+from database.fetch import test
 
 app = FastAPI()
 @app.get("/")
