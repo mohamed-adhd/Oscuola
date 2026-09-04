@@ -20,8 +20,20 @@ def root():
     return {"message": s}
 
 @app.get("/debug-key")
-def debug_key():
-    return {"key_length": len(os.environ.get("API_KEY", "MISSING")), "starts_with": os.environ.get("API_KEY", "")[:4]}
+def debug_key(authorization: str = Header(None)):
+    expected = f"Bearer {os.environ['API_KEY']}"
+
+    print("RECEIVED:", repr(authorization))
+    print("EXPECTED:", repr(expected))
+    print("RECEIVED LENGTH:", len(authorization) if authorization else None)
+    print("EXPECTED LENGTH:", len(expected))
+    if authorization != expected:
+        raise HTTPException(status_code=401, detail="Unauthorized")
+
+    return None
+
+
+
 @app.post("/login_check")
 def check(data: LoginRequest, authorized: None = Depends(verify_key)):
     if check_login(data.gmail, data.passwd) =="pass":
