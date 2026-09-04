@@ -10,11 +10,13 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
         if(ui->login_email->text()==""){
             ui->login_alert->setText("fill all fields please");
         }else{
-            if(db.login_check(ui->login_email->text().toStdString(),ui->login_passwd->text().toStdString())){
-                switchpg(2);
-            }else{
-                ui->login_alert->setText("user not found");
-            }
+            db.login_check(ui->login_email->text().toStdString(), ui->login_passwd->text().toStdString(), [this](bool success) {
+                if (success) {
+                    switchpg(2);
+                } else {
+                    ui->login_alert->setText("user not found");
+                }
+            });
         }
     });
 
