@@ -7,9 +7,11 @@ def test():
     s=psycopg2.connect(os.environ["DATABASE_URL"])
     cur = s.cursor()
     cur.execute("SELECT NOW();")
-    print(cur.fetchone())
+    res=(cur.fetchone())
     cur.close()
     s.close()
+    return res
+
 
 
 
