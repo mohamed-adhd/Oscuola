@@ -1,14 +1,48 @@
 #include "mainwindow.h"
 #include "./ui_mainwindow.h"
-
-MainWindow::MainWindow(QWidget *parent)
+#include "database.h"
+MainWindow::MainWindow(database& dbo,QWidget *parent)
     : QMainWindow(parent)
-    , ui(new Ui::MainWindow)
-{
+    , ui(new Ui::MainWindow),db(dbo){
     ui->setupUi(this);
+    setFixedSize(1280, 720);
+    connect(ui->login_but,&QPushButton::clicked,this,[this]() {
+        if(ui->login_email->text()==""){
+            ui->login_alert->setText("fill all fields please");
+        }else{
+            db.login_check(ui->login_email->text().toStdString(), ui->login_passwd->text().toStdString(), [this](bool success) {
+                if (success) {
+                    switchpg(2);
+                } else {
+                    ui->login_alert->setText("user not found");
+                }
+            });
+        }
+    });
+
+    connect(ui->reg_but,&QPushButton::clicked,this,[this]() {
+        switchpg(1);
+    });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+void MainWindow::switchpg(int to){
+    ui->pages->setCurrentIndex(to);
 }
