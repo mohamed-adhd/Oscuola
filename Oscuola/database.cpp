@@ -10,13 +10,16 @@
 #include <QString>
 #include <stdio.h>
 #include <iostream>
+#include <QDir>
 #include <stdlib.h>
+#include<QCoreApplication>
 using namespace std;
 QMap<QString, QString> loadEnv(const QString &path = ".env")
 {
     QMap<QString, QString> env;
     QFile file(path);
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        qDebug() << "Working dir:" << QDir::currentPath();
         qWarning() << "Couldnt open that shi:" << path;
         return env;
     }
@@ -42,7 +45,18 @@ QMap<QString, QString> loadEnv(const QString &path = ".env")
     return env;
 }
 
-
+QMap<QString, QString> loadEnvResolved()
+{
+    QDir dir(QCoreApplication::applicationDirPath());
+    for (int i = 0; i < 5; ++i) {
+        if (dir.exists(".env")) {
+            return loadEnv(dir.filePath(".env"));
+        }
+        dir.cdUp();
+    }
+    qWarning() << ".env not found gang";
+    return {};
+}
 
 
 
@@ -51,7 +65,13 @@ void database::login_check(std::string email, std::string passwd, std::function<
     QNetworkAccessManager *manager = new QNetworkAccessManager(this);
     QNetworkRequest request(QUrl("https://oscuola-git-develop-midouamdouni4-7219s-projects.vercel.app/login_check"));
     request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
-    QMap<QString, QString> bs = loadEnv();
+
+
+
+
+
+
+    QMap<QString, QString> bs = loadEnvResolved();
     QString dakey = bs.value("API_KEY");
     QByteArray auth = "Bearer " + dakey.toUtf8();
     request.setRawHeader("Authorization", auth);
