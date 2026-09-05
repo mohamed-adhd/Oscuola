@@ -43,11 +43,10 @@ def check(data: LoginRequest, authorized: None = Depends(verify_key)):
 
     return {"message": result}
 
-
+#this shi aint fun no more
 @app.post("/insert_request")
 def insert(data: insert_Request, authorized: None = Depends(verify_key)):
     result = insert_request(data.gmail, data.passwd)
     if result == True:
         return {"message": "inserted"}
-
     return {"message": result}
