@@ -11,7 +11,7 @@ class LoginRequest(BaseModel):
 class insert_Request(BaseModel):
     gmail: str
     passwd: str
-    time : data
+    time : str
 app = FastAPI()
 from fastapi import Header, HTTPException
 def verify_key(authorization: str = Header(None)):
