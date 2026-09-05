@@ -38,7 +38,7 @@ def debug_key(authorization: str = Header(None)):
 @app.post("/login_check")
 def check(data: LoginRequest, authorized: None = Depends(verify_key)):
     result = check_login(data.gmail, data.passwd)
-    if result ==True:
+    if result =="pass":
         return {"message": "pass"}
 
     return {"message": result}
@@ -47,7 +47,7 @@ def check(data: LoginRequest, authorized: None = Depends(verify_key)):
 @app.post("/insert_request")
 def insert(data: insert_Request, authorized: None = Depends(verify_key)):
     result = insert_request(data.gmail, data.passwd)
-    if result == "pass":
+    if result == True:
         return {"message": "inserted"}
 
     return {"message": result}

@@ -7,10 +7,11 @@ def insert_request(email,password):
     try:
         conn = psycopg2.connect(os.environ["DATABASE_URL"])
         cur = conn.cursor()
-        s= pswd.encode()
+        s = bcrypt.hashpw(password.encode(), bcrypt.gensalt())
         cur.execute("INSERT INTO requests (email, password) VALUES (%s, %s);",(email,s))
         conn.commit()
         cur.close()
+        conn.close()
         return True
     except psycopg2.Error as e:
         conn.close()
