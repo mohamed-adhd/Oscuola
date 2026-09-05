@@ -99,7 +99,7 @@ void database::login_check(std::string email, std::string passwd, std::function<
 void database::registerr(std::string email, std::string passwd, std::function<void(bool)> callback)
 {
     QNetworkAccessManager *manager = new QNetworkAccessManager(this);
-    QNetworkRequest request(QUrl("https://oscuola-kbqny06rq-midouamdouni4-7219s-projects.vercel.app/login_check"));
+    QNetworkRequest request(QUrl("https://oscuola-oagj7k7rr-midouamdouni4-7219s-projects.vercel.app/insert_request"));
     request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
 
     QMap<QString, QString> bs = loadEnvResolved();
@@ -110,10 +110,8 @@ void database::registerr(std::string email, std::string passwd, std::function<vo
     QJsonObject json;
     json["gmail"] = QString::fromStdString(email);
     json["passwd"] = QString::fromStdString(passwd);
-    json["time"] =time;
     qDebug() << json["email"].toString();
     qDebug() << json["passwd"].toString();
-    qDebug() << json["time"].toString();
     QJsonDocument doc(json);
     QByteArray data = doc.toJson();
     QNetworkReply *res = manager->post(request, data);
@@ -121,7 +119,6 @@ void database::registerr(std::string email, std::string passwd, std::function<vo
         QByteArray responseData = res->readAll();
         QJsonDocument docs = QJsonDocument::fromJson(responseData);
         QJsonObject obj = docs.object();
-
         std::cout << obj["message"].toString().toStdString() << std::endl;
         qDebug() << obj["message"].toString();
         bool success = (obj["message"].toString() == "inserted");

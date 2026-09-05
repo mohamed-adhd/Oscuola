@@ -18,9 +18,9 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
                 }
             });}
     });
-    connect(ui->login_but,&QPushButton::clicked,this,[this]() {
+    connect(ui->submit,&QPushButton::clicked,this,[this]() {
         if(ui->reg_email->text()=="" || ui->reg_pswd->text()=="" || ui->pswd_conf->text()==""){
-            ui->login_alert->setText("fill all fields please");
+            ui->login_alert->setText("fill all fields please(reg)");
         }else if(ui->reg_pswd->text()!= ui->pswd_conf->text()){
             ui->login_alert->setText("passwords must match");
         }
@@ -33,9 +33,10 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
                        }
                                                                    });}});
 
+
     connect(ui->reg_but,&QPushButton::clicked,this,[this]() {
         switchpg(1);
-    });
+});
 
 
 
