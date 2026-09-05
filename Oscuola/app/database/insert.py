@@ -10,7 +10,7 @@ def insert_request(email,password):
         conn = psycopg2.connect(os.environ["DATABASE_URL"])
         cur = conn.cursor()
         s= pswd.encode()
-        cur.execute("INSERT INTO requests (email, password) VALUES (%s, %s);",(email, s))
+        cur.execute("INSERT INTO requests (email, password) VALUES (%s, %s;",(email, s,))
         conn.commit()
         cur.close()
         return True
