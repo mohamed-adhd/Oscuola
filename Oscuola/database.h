@@ -10,6 +10,7 @@ class database : public QObject{
 private:
 public :
     void login_check(std::string email, std::string passwd, std::function<void(bool)> callback);
+    void registerr(std::string email, std::string passwd, std::function<void(bool)> callback);
     database(QObject *parent = nullptr) : QObject(parent)
     {
     }
