@@ -46,7 +46,7 @@ def check(data: LoginRequest, authorized: None = Depends(verify_key)):
 
 @app.post("/insert_request")
 def insert(data: insert_Request, authorized: None = Depends(verify_key)):
-    result = insert(data.gmail, data.passwd)
+    result = insert_request(data.gmail, data.passwd)
     if result == "pass":
         return {"message": "inserted"}
 
