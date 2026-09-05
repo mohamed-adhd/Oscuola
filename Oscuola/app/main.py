@@ -4,6 +4,7 @@ sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 from fastapi import FastAPI
 from fastapi import Depends
 from database.fetch import test,check_login
+from database.insert import insert_request
 from pydantic import BaseModel
 class LoginRequest(BaseModel):
     gmail: str
@@ -11,7 +12,6 @@ class LoginRequest(BaseModel):
 class insert_Request(BaseModel):
     gmail: str
     passwd: str
-    time : str
 app = FastAPI()
 from fastapi import Header, HTTPException
 def verify_key(authorization: str = Header(None)):
@@ -46,7 +46,7 @@ def check(data: LoginRequest, authorized: None = Depends(verify_key)):
 
 @app.post("/insert_request")
 def insert(data: insert_Request, authorized: None = Depends(verify_key)):
-    result = insert(data.gmail, data.passwd,data.time)
+    result = insert(data.gmail, data.passwd)
     if result == "pass":
         return {"message": "inserted"}
 

@@ -2,8 +2,6 @@ from dotenv import load_dotenv
 import psycopg2
 import os
 import bcrypt
-
-
 def insert_request(email,password):
     conn = None
     try:
