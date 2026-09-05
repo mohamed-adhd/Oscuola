@@ -94,12 +94,10 @@ void database::login_check(std::string email, std::string passwd, std::function<
 
 
 
-
-
 void database::registerr(std::string email, std::string passwd, std::function<void(bool)> callback)
 {
     QNetworkAccessManager *manager = new QNetworkAccessManager(this);
-    QNetworkRequest request(QUrl("https://oscuola-kevr9fesu-midouamdouni4-7219s-projects.vercel.app/insert_request"));
+QNetworkRequest request(QUrl("https://oscuola-65alqz1pf-midouamdouni4-7219s-projects.vercel.app/insert_request"));
     request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
 
     QMap<QString, QString> bs = loadEnvResolved();
