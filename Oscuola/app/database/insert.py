@@ -13,6 +13,6 @@ def insert_request(email,password):
         cur.close()
         conn.close()
         return True
-    except psycopg2.Error as e:
+    except Exception as e:
         conn.close()
         return (f"Insert failed my friend: {e}")
