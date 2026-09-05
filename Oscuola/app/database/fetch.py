@@ -74,7 +74,6 @@ def check_login(gmail, pswd):
         except Exception as e:
             return f"STEP 10 ERROR: bcrypt.checkpw failed: {e}"
 
-        # Step 11: result
         if password_match:
             return "pass"
 
