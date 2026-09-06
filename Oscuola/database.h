@@ -9,7 +9,7 @@ class database : public QObject{
     Q_OBJECT
 private:
 public :
-    void login_check(std::string email, std::string passwd, std::function<void(bool)> callback);
+    std::vector<std::string> login_check(std::string email, std::string passwd);
     void registerr(std::string email, std::string passwd, std::function<void(bool)> callback);
     database(QObject *parent = nullptr) : QObject(parent)
     {

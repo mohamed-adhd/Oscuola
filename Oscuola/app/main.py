@@ -38,10 +38,13 @@ def debug_key(authorization: str = Header(None)):
 @app.post("/login_check")
 def check(data: LoginRequest, authorized: None = Depends(verify_key)):
     result = check_login(data.gmail, data.passwd)
-    if result =="pass":
-        return {"message": "pass"}
-
-    return {"message": result}
+    if isinstance(result, tuple):
+        role, name, aftername = result
+        return {"message": "pass", "role": role, "name": name, "aftername": aftername}
+    elif result is None:
+        return {"message": "not found"}
+    else:
+        return {"message": result}
 
 #this shi aint fun no more
 @app.post("/insert_request")

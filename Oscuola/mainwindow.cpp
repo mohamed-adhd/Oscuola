@@ -10,14 +10,13 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
         if(ui->login_email->text()==""){
             ui->login_alert->setText("fill all fields please");
         }else{
-            db.login_check(ui->login_email->text().toStdString(), ui->login_passwd->text().toStdString(), [this](bool success) {
-                if (success) {
-                    switchpg(2);
-                } else {
-                    ui->login_alert->setText("user not found");
-                }
-            });}
-    });
+            std::vector<std::string> s=db.login_check(ui->login_email->text().toStdString(), ui->login_passwd->text().toStdString());
+            if (s[0]!="false") {
+                switchpg(2);
+            } else {
+                ui->login_alert->setText("user not found");
+            }
+        }});
     connect(ui->submit,&QPushButton::clicked,this,[this]() {
         if(ui->reg_email->text()=="" || ui->reg_pswd->text()=="" || ui->pswd_conf->text()==""){
             ui->login_alert->setText("fill all fields please(reg)");
