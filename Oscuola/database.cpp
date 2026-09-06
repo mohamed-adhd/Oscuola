@@ -60,7 +60,7 @@ QMap<QString, QString> loadEnvResolved()
 
 
 
-void database::login_check(std::string email, std::string passwd, std::function<void(bool)> callback)
+std::vector<std::string> database::login_check(std::string email, std::string passwd)
 {
     QNetworkAccessManager *manager = new QNetworkAccessManager(this);
     QNetworkRequest request(QUrl("https://oscuola-kbqny06rq-midouamdouni4-7219s-projects.vercel.app/login_check"));
@@ -79,18 +79,33 @@ void database::login_check(std::string email, std::string passwd, std::function<
     QJsonDocument doc(json);
     QByteArray data = doc.toJson();
     QNetworkReply *res = manager->post(request, data);
-    connect(res, &QNetworkReply::finished, this, [res, callback]() {
-        QByteArray responseData = res->readAll();
-        QJsonDocument docs = QJsonDocument::fromJson(responseData);
-        QJsonObject obj = docs.object();
+    QByteArray responseData = res->readAll();
+    QJsonDocument docs = QJsonDocument::fromJson(responseData);
+    QJsonObject obj = docs.object();
 
-        std::cout << obj["message"].toString().toStdString() << std::endl;
-        qDebug() << obj["message"].toString();
-        bool success = (obj["message"].toString() == "pass");
+
+
+
+    std::cout << obj["message"].toString().toStdString() << std::endl;
+    qDebug() << obj["message"].toString();
+    qDebug() << obj["role"].toString();
+    qDebug() << obj["name"].toString();
+    if(obj["message"].toString().toStdString()=="pass"){
+        std::vector <std::string> temp;
+        temp.push_back(obj["role"].toString().toStdString());
+        temp.push_back(obj["name"].toString().toStdString());
+        temp.push_back(obj["aftername"].toString().toStdString());
         res->deleteLater();
-        callback(success);
-    });
-}
+        return temp;
+    }else{
+        std::vector <std::string> temp;
+        temp.push_back("false");
+        return temp;
+    }
+
+
+    };
+
 
 
 
