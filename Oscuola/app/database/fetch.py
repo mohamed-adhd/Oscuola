@@ -34,10 +34,7 @@ def check_login(gmail, pswd):
             return f"STEP 4 ERROR: Could not create cursor: {e}"
 
         try:
-            cur.execute(
-                "SELECT password FROM users WHERE gmail=%s;",
-                (gmail,)
-            )
+            cur.execute("SELECT password FROM users WHERE gmail=%s;",(gmail,))
         except Exception as e:
             cur.close()
             s.close()
@@ -75,7 +72,16 @@ def check_login(gmail, pswd):
             return f"STEP 10 ERROR: bcrypt.checkpw failed: {e}"
 
         if password_match:
-            return "pass"
+            try:
+                cur.execute("SELECT role,name,aftername FROM users WHERE gmail=%s;", (gmail,))
+                res = cur.fetchone()
+                return {"success": True, "role": res[0], "name": res[1], "aftername": res[2]}
+            except Exception as e:
+                cur.close()
+                s.close()
+                return f"STEP 5 ERROR: 2nd SQL query failed: {e}"
+
+
 
         return "STEP 11 ERROR: User found, but password does not match"
 
