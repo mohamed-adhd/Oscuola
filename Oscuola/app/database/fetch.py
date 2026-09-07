@@ -47,9 +47,6 @@ def check_login(gmail, pswd):
             s.close()
             return f"STEP 6 ERROR: fetchone() failed: {e}"
 
-        cur.close()
-        s.close()
-
         if not res:
             return f"STEP 7 ERROR: User not found for gmail={gmail}"
 
