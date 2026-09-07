@@ -1,5 +1,6 @@
 import sys
 import os
+
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 from fastapi import FastAPI
 from fastapi import Depends
@@ -19,8 +20,7 @@ def verify_key(authorization: str = Header(None)):
         raise HTTPException(status_code=401, detail="Unauthorized ass bitch")
 @app.get("/")
 def root():
-    s = test()
-    return {"message": s}
+    return {"message": "online"}
 
 @app.get("/debug-key")
 def debug_key(authorization: str = Header(None)):
@@ -38,13 +38,9 @@ def debug_key(authorization: str = Header(None)):
 @app.post("/login_check")
 def check(data: LoginRequest, authorized: None = Depends(verify_key)):
     result = check_login(data.gmail, data.passwd)
-    if isinstance(result, tuple):
-        role, name, aftername = result
-        return {"message": "pass", "role": role, "name": name, "aftername": aftername}
-    elif result is None:
-        return {"message": "not found"}
-    else:
-        return {"message": result}
+    if isinstance(result, dict):
+        return result
+    return {"message": result}
 
 #this shi aint fun no more
 @app.post("/insert_request")
@@ -53,3 +49,10 @@ def insert(data: insert_Request, authorized: None = Depends(verify_key)):
     if result == True:
         return {"message": "inserted"}
     return {"message": result}
+
+
+
+
+@app.get("/pfp")
+def insrtpfp():
+    return test()

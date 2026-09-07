@@ -2,16 +2,19 @@ from dotenv import load_dotenv
 import psycopg2
 import os
 import bcrypt
+import base64
 def test():
     load_dotenv()
-    cons=os.environ["CON_STRING"]
-    s=psycopg2.connect(os.environ["DATABASE_URL"])
+    cons = os.environ["CON_STRING"]
+    s = psycopg2.connect(os.environ["DATABASE_URL"])
     cur = s.cursor()
-    cur.execute("SELECT NOW();")
-    res=(cur.fetchone())
+    with open("pg.jpg", "rb") as f:
+        img_data = f.read()
+    cur.execute("UPDATE users SET pfp = %s ;",(psycopg2.Binary(img_data),) )
+    s.commit()
     cur.close()
     s.close()
-    return res
+    return {"success": True}
 def check_login(gmail, pswd):
     try:
         load_dotenv()
@@ -47,9 +50,6 @@ def check_login(gmail, pswd):
             s.close()
             return f"STEP 6 ERROR: fetchone() failed: {e}"
 
-        cur.close()
-        s.close()
-
         if not res:
             return f"STEP 7 ERROR: User not found for gmail={gmail}"
 
@@ -73,9 +73,12 @@ def check_login(gmail, pswd):
 
         if password_match:
             try:
-                cur.execute("SELECT role,name,aftername FROM users WHERE gmail=%s;", (gmail,))
+                cur.execute("SELECT role,name,aftername,pfp FROM users WHERE gmail=%s;", (gmail,))
                 res = cur.fetchone()
-                return {"success": True, "role": res[0], "name": res[1], "aftername": res[2]}
+                if isinstance(res[3], memoryview):
+                    ps = res[3].tobytes()
+                p64 = base64.b64encode(ps).decode("ascii")
+                return {"success": True, "role": res[0], "name": res[1], "aftername": res[2],"pfp":p64}
             except Exception as e:
                 cur.close()
                 s.close()
