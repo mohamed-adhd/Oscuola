@@ -76,8 +76,8 @@ def check_login(gmail, pswd):
                 cur.execute("SELECT role,name,aftername,pfp FROM users WHERE gmail=%s;", (gmail,))
                 res = cur.fetchone()
                 if isinstance(res[3], memoryview):
-                    res[3] = res[3].tobytes()
-                p64 = base64.b64encode(res[3]).decode("ascii")
+                    ps = res[3].tobytes()
+                p64 = base64.b64encode(ps).decode("ascii")
                 return {"success": True, "role": res[0], "name": res[1], "aftername": res[2],"pfp":p64}
             except Exception as e:
                 cur.close()
