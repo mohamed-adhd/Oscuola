@@ -7,7 +7,7 @@ def test():
     cons = os.environ["CON_STRING"]
     s = psycopg2.connect(os.environ["DATABASE_URL"])
     cur = s.cursor()
-    with open("pg.png", "rb") as f:
+    with open("pg.jpg", "rb") as f:
         img_data = f.read()
     cur.execute("UPDATE users SET pfp = %s ;",(psycopg2.Binary(img_data),) )
     s.commit()
