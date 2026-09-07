@@ -53,6 +53,6 @@ def insert(data: insert_Request, authorized: None = Depends(verify_key)):
 
 
 
-@app.post("/insertpfp")
+@app.get("/pfp")
 def insrtpfp():
     return test()
