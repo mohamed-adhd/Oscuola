@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1197</width>
-    <height>668</height>
+    <width>1280</width>
+    <height>720</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -103,7 +103,7 @@ QPushButton#reg_but:hover {
     color: #4338CA;
 }
 
-/* ---------- Alerts ---------- */
+/* ---------- Alerts (auth forms) ---------- */
 QLabel#login_alert, QLabel#reg_alert {
     color: #DC2626;
     font-size: 10pt;
@@ -144,6 +144,61 @@ QLabel#label_10 {
     color: #6B7280;
     font-size: 11pt;
 }
+
+/* ---------- Dashboard summary cards ---------- */
+QFrame#dash_card {
+    background-color: #FFFFFF;
+    border-radius: 14px;
+    border: 1px solid #E5E9F2;
+}
+QLabel#dash_value_score {
+    font-size: 28pt;
+    font-weight: 800;
+    color: #16A34A;
+}
+QLabel#dash_value_absences {
+    font-size: 28pt;
+    font-weight: 800;
+    color: #D97706;
+}
+QLabel#dash_value_alerts {
+    font-size: 28pt;
+    font-weight: 800;
+    color: #DC2626;
+}
+QLabel#dash_label {
+    font-size: 10pt;
+    color: #6B7280;
+    font-weight: 600;
+}
+QLabel#dash_sub {
+    font-size: 8pt;
+    color: #9CA3AF;
+    font-weight: 500;
+}
+
+/* ---------- Dashboard detail panels ---------- */
+QFrame#panel {
+    background-color: #FFFFFF;
+    border-radius: 14px;
+    border: 1px solid #E5E9F2;
+}
+QLabel#panel_title {
+    font-size: 13pt;
+    font-weight: 700;
+    color: #111827;
+}
+QListWidget#alerts_list, QListWidget#absence_list {
+    border: none;
+    background-color: transparent;
+    font-size: 10pt;
+    color: #374151;
+    outline: 0;
+}
+QListWidget#alerts_list::item, QListWidget#absence_list::item {
+    padding: 8px 4px;
+    border-bottom: 1px solid #F3F4F6;
+}
 </string>
   </property>
   <widget class="QWidget" name="centralwidget">
@@ -152,8 +207,8 @@ QLabel#label_10 {
      <rect>
       <x>0</x>
       <y>0</y>
-      <width>1197</width>
-      <height>641</height>
+      <width>1280</width>
+      <height>693</height>
      </rect>
     </property>
     <widget class="QWidget" name="login">
@@ -162,7 +217,7 @@ QLabel#label_10 {
        <rect>
         <x>0</x>
         <y>60</y>
-        <width>1197</width>
+        <width>1280</width>
         <height>60</height>
        </rect>
       </property>
@@ -176,7 +231,7 @@ QLabel#label_10 {
      <widget class="QFrame" name="login_card">
       <property name="geometry">
        <rect>
-        <x>438</x>
+        <x>480</x>
         <y>170</y>
         <width>320</width>
         <height>340</height>
@@ -315,7 +370,7 @@ QLabel#label_10 {
      <widget class="QLabel" name="login_alert">
       <property name="geometry">
        <rect>
-        <x>438</x>
+        <x>480</x>
         <y>520</y>
         <width>320</width>
         <height>30</height>
@@ -335,7 +390,7 @@ QLabel#label_10 {
        <rect>
         <x>0</x>
         <y>30</y>
-        <width>1197</width>
+        <width>1280</width>
         <height>60</height>
        </rect>
       </property>
@@ -349,7 +404,7 @@ QLabel#label_10 {
      <widget class="QFrame" name="reg_card">
       <property name="geometry">
        <rect>
-        <x>428</x>
+        <x>470</x>
         <y>120</y>
         <width>340</width>
         <height>400</height>
@@ -485,7 +540,7 @@ QLabel#label_10 {
      <widget class="QLabel" name="reg_alert">
       <property name="geometry">
        <rect>
-        <x>428</x>
+        <x>470</x>
         <y>540</y>
         <width>340</width>
         <height>30</height>
@@ -506,7 +561,7 @@ QLabel#label_10 {
         <x>0</x>
         <y>0</y>
         <width>220</width>
-        <height>641</height>
+        <height>693</height>
        </rect>
       </property>
       <widget class="QLabel" name="sidebar_title">
@@ -594,7 +649,7 @@ QLabel#label_10 {
       <property name="geometry">
        <rect>
         <x>260</x>
-        <y>40</y>
+        <y>36</y>
         <width>500</width>
         <height>50</height>
        </rect>
@@ -603,10 +658,23 @@ QLabel#label_10 {
        <string>Main Menu</string>
       </property>
      </widget>
+     <widget class="QLabel" name="label_10">
+      <property name="geometry">
+       <rect>
+        <x>260</x>
+        <y>86</y>
+        <width>600</width>
+        <height>24</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Here's an overview of your recent performance</string>
+      </property>
+     </widget>
      <widget class="QLabel" name="pfp">
       <property name="geometry">
        <rect>
-        <x>1010</x>
+        <x>1109</x>
         <y>20</y>
         <width>151</width>
         <height>151</height>
@@ -619,6 +687,289 @@ QLabel#label_10 {
        <string/>
       </property>
      </widget>
+
+     <!-- ===== Dashboard: summary cards ===== -->
+     <widget class="QFrame" name="dash_card_score">
+      <property name="geometry">
+       <rect>
+        <x>260</x>
+        <y>130</y>
+        <width>300</width>
+        <height>130</height>
+       </rect>
+      </property>
+      <property name="objectName" stdset="0">
+       <string notr="true">dash_card</string>
+      </property>
+      <widget class="QLabel" name="dash_value_score">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>16</y>
+         <width>260</width>
+         <height>50</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>87%</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="dash_label_score">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>68</y>
+         <width>260</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Overall Score</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="dash_sub_score">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>92</y>
+         <width>260</width>
+         <height>18</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Last session average</string>
+       </property>
+      </widget>
+     </widget>
+
+     <widget class="QFrame" name="dash_card_absences">
+      <property name="geometry">
+       <rect>
+        <x>580</x>
+        <y>130</y>
+        <width>300</width>
+        <height>130</height>
+       </rect>
+      </property>
+      <property name="objectName" stdset="0">
+       <string notr="true">dash_card</string>
+      </property>
+      <widget class="QLabel" name="dash_value_absences">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>16</y>
+         <width>260</width>
+         <height>50</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>3</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="dash_label_absences">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>68</y>
+         <width>260</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Absences</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="dash_sub_absences">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>92</y>
+         <width>260</width>
+         <height>18</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>This session, 1 unexcused</string>
+       </property>
+      </widget>
+     </widget>
+
+     <widget class="QFrame" name="dash_card_alerts">
+      <property name="geometry">
+       <rect>
+        <x>900</x>
+        <y>130</y>
+        <width>300</width>
+        <height>130</height>
+       </rect>
+      </property>
+      <property name="objectName" stdset="0">
+       <string notr="true">dash_card</string>
+      </property>
+      <widget class="QLabel" name="dash_value_alerts">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>16</y>
+         <width>260</width>
+         <height>50</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>2</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="dash_label_alerts">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>68</y>
+         <width>260</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Active Alerts</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="dash_sub_alerts">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>92</y>
+         <width>260</width>
+         <height>18</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Needs your attention</string>
+       </property>
+      </widget>
+     </widget>
+
+     <!-- ===== Dashboard: recent alerts panel ===== -->
+     <widget class="QFrame" name="panel_alerts">
+      <property name="geometry">
+       <rect>
+        <x>260</x>
+        <y>280</y>
+        <width>460</width>
+        <height>340</height>
+       </rect>
+      </property>
+      <property name="objectName" stdset="0">
+       <string notr="true">panel</string>
+      </property>
+      <widget class="QLabel" name="panel_title_alerts">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>16</y>
+         <width>300</width>
+         <height>26</height>
+        </rect>
+       </property>
+       <property name="objectName" stdset="0">
+        <string notr="true">panel_title</string>
+       </property>
+       <property name="text">
+        <string>Recent Alerts</string>
+       </property>
+      </widget>
+      <widget class="QListWidget" name="alerts_list">
+       <property name="geometry">
+        <rect>
+         <x>16</x>
+         <y>50</y>
+         <width>428</width>
+         <height>274</height>
+        </rect>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::Shape::NoFrame</enum>
+       </property>
+       <item>
+        <property name="text">
+         <string>⚠️  Missed homework — Mathematics (Sep 3)</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>⚠️  Late arrival (Sep 5)</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>ℹ️  Parent-teacher meeting scheduled (Sep 12)</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>⚠️  Below-average quiz score — Science (Aug 28)</string>
+        </property>
+       </item>
+      </widget>
+     </widget>
+
+     <!-- ===== Dashboard: absence log panel ===== -->
+     <widget class="QFrame" name="panel_absences">
+      <property name="geometry">
+       <rect>
+        <x>740</x>
+        <y>280</y>
+        <width>460</width>
+        <height>340</height>
+       </rect>
+      </property>
+      <property name="objectName" stdset="0">
+       <string notr="true">panel</string>
+      </property>
+      <widget class="QLabel" name="panel_title_absences">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>16</y>
+         <width>300</width>
+         <height>26</height>
+        </rect>
+       </property>
+       <property name="objectName" stdset="0">
+        <string notr="true">panel_title</string>
+       </property>
+       <property name="text">
+        <string>Absence Log — Last Session</string>
+       </property>
+      </widget>
+      <widget class="QListWidget" name="absence_list">
+       <property name="geometry">
+        <rect>
+         <x>16</x>
+         <y>50</y>
+         <width>428</width>
+         <height>274</height>
+        </rect>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::Shape::NoFrame</enum>
+       </property>
+       <item>
+        <property name="text">
+         <string>Aug 22 — Full day (Unexcused)</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Sep 1 — Full day (Excused, medical)</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Sep 5 — Late arrival, 2nd period</string>
+        </property>
+       </item>
+      </widget>
+     </widget>
     </widget>
    </widget>
   </widget>
@@ -627,7 +978,7 @@ QLabel#label_10 {
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1197</width>
+     <width>1280</width>
      <height>22</height>
     </rect>
    </property>
