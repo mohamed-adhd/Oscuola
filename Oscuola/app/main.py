@@ -1,5 +1,7 @@
 import sys
 import os
+import formidable
+import pg
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 from fastapi import FastAPI
 from fastapi import Depends
@@ -49,3 +51,10 @@ def insert(data: insert_Request, authorized: None = Depends(verify_key)):
     if result == True:
         return {"message": "inserted"}
     return {"message": result}
+
+
+
+
+@app.post("/insertpfp")
+def insrtpfp():
+    return test()

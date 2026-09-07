@@ -3,3 +3,5 @@ psycopg2-binary
 dotenv
 bcrypt
 pydantic
+formidable
+pg
