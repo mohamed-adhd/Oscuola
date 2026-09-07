@@ -11,7 +11,7 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
             ui->login_alert->setText("fill all fields please");
         }else{
             std::tuple<std::string, std::string, std::string, QByteArray> s=db.login_check(ui->login_email->text().toStdString(), ui->login_passwd->text().toStdString());
-            if (get<0>(s)=="false") {
+            if (get<0>(s)!="false") {
                 switchpg(2);
             } else {
                 ui->login_alert->setText("user not found");
