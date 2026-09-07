@@ -60,7 +60,7 @@ QMap<QString, QString> loadEnvResolved()
 
 
 
-std::tuple<std::string, std::string, std::string, QByteArray> database::login_check(std::string email, std::string passwd)
+std::tuple<std::string, std::string, std::string, std::string> database::login_check(std::string email, std::string passwd)
 {
     QNetworkAccessManager *manager = new QNetworkAccessManager(this);
     QNetworkRequest request(QUrl("https://oscuola-cfrspd9cj-midouamdouni4-7219s-projects.vercel.app/login_check"));
@@ -97,16 +97,16 @@ std::tuple<std::string, std::string, std::string, QByteArray> database::login_ch
         qDebug() << obj["name"].toString();
         qDebug() << obj["pfp"].toString();
         if(obj["success"].toBool()==true){
-            std::tuple<std::string, std::string, std::string, QByteArray> temp;
+            std::tuple<std::string, std::string, std::string, std::string> temp;
             std::get<0>(temp) =obj["role"].toString().toStdString();
             std::get<1>(temp) =obj["name"].toString().toStdString();
             std::get<2>(temp) =obj["aftername"].toString().toStdString();
-            std::get<3>(temp) = obj["pfp"].toString().toUtf8();
+            std::get<3>(temp) = obj["pfp"].toString().toStdString();
             res->deleteLater();
             manager->deleteLater();
             return temp;
         }else{
-            std::tuple<std::string, std::string, std::string, QByteArray> temp;
+            std::tuple<std::string, std::string, std::string, std::string> temp;
             std::get<0>(temp) ="false";
             res->deleteLater();
             manager->deleteLater();

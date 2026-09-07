@@ -10,7 +10,7 @@ class database : public QObject{
 private:
 public :
 
-    std::tuple<std::string, std::string, std::string, QByteArray> login_check(std::string email, std::string passwd);
+    std::tuple<std::string, std::string, std::string, std::string> login_check(std::string email, std::string passwd);
     void registerr(std::string email, std::string passwd, std::function<void(bool)> callback);
     database(QObject *parent = nullptr) : QObject(parent)
     {
