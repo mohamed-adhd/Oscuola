@@ -2,6 +2,7 @@ from dotenv import load_dotenv
 import psycopg2
 import os
 import bcrypt
+import base64
 def test():
     load_dotenv()
     cons = os.environ["CON_STRING"]
@@ -74,7 +75,10 @@ def check_login(gmail, pswd):
             try:
                 cur.execute("SELECT role,name,aftername,pfp FROM users WHERE gmail=%s;", (gmail,))
                 res = cur.fetchone()
-                return {"success": True, "role": res[0], "name": res[1], "aftername": res[2],"pfp":res[3]}
+                if isinstance(res[3], memoryview):
+                    res[3] = res[3].tobytes()
+                p64 = base64.b64encode(res[3]).decode("ascii")
+                return {"success": True, "role": res[0], "name": res[1], "aftername": res[2],"pfp":p64}
             except Exception as e:
                 cur.close()
                 s.close()

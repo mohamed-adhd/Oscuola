@@ -10,8 +10,8 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
         if(ui->login_email->text()==""){
             ui->login_alert->setText("fill all fields please");
         }else{
-            std::vector<std::string> s=db.login_check(ui->login_email->text().toStdString(), ui->login_passwd->text().toStdString());
-            if (s[0]!="false") {
+            std::tuple<std::string, std::string, std::string, QByteArray> s=db.login_check(ui->login_email->text().toStdString(), ui->login_passwd->text().toStdString());
+            if (get<0>(s)=="false") {
                 switchpg(2);
             } else {
                 ui->login_alert->setText("user not found");

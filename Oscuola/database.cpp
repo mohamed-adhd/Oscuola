@@ -60,10 +60,10 @@ QMap<QString, QString> loadEnvResolved()
 
 
 
-std::vector<std::string> database::login_check(std::string email, std::string passwd)
+std::tuple<std::string, std::string, std::string, QByteArray> database::login_check(std::string email, std::string passwd)
 {
     QNetworkAccessManager *manager = new QNetworkAccessManager(this);
-    QNetworkRequest request(QUrl("https://oscuola-q780bqkuf-midouamdouni4-7219s-projects.vercel.app/login_check"));
+    QNetworkRequest request(QUrl("https://oscuola-oefbrc8j0-midouamdouni4-7219s-projects.vercel.app/login_check"));
     request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
 
     QMap<QString, QString> bs = loadEnvResolved();
@@ -95,17 +95,19 @@ std::vector<std::string> database::login_check(std::string email, std::string pa
         qDebug() << obj["success"].toString();
         qDebug() << obj["role"].toString();
         qDebug() << obj["name"].toString();
+        qDebug() << obj["pfp"].toString();
         if(obj["success"].toBool()==true){
-            std::vector <std::string> temp;
-            temp.push_back(obj["role"].toString().toStdString());
-            temp.push_back(obj["name"].toString().toStdString());
-            temp.push_back(obj["aftername"].toString().toStdString());
+            std::tuple<std::string, std::string, std::string, QByteArray> temp;
+            std::get<0>(temp) =obj["role"].toString().toStdString();
+            std::get<1>(temp) =obj["name"].toString().toStdString();
+            std::get<2>(temp) =obj["aftername"].toString().toStdString();
+            std::get<3>(temp) = obj["pfp"].toString().toUtf8();
             res->deleteLater();
             manager->deleteLater();
             return temp;
         }else{
-            std::vector <std::string> temp;
-            temp.push_back("false");
+            std::tuple<std::string, std::string, std::string, QByteArray> temp;
+            std::get<0>(temp) ="false";
             res->deleteLater();
             manager->deleteLater();
             return temp;
