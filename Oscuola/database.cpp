@@ -60,10 +60,10 @@ QMap<QString, QString> loadEnvResolved()
 
 
 
-std::vector<std::string> database::login_check(std::string email, std::string passwd)
+std::tuple<std::string, std::string, std::string, std::string> database::login_check(std::string email, std::string passwd)
 {
     QNetworkAccessManager *manager = new QNetworkAccessManager(this);
-    QNetworkRequest request(QUrl("https://oscuola-kbqny06rq-midouamdouni4-7219s-projects.vercel.app/login_check"));
+    QNetworkRequest request(QUrl("https://oscuola-cfrspd9cj-midouamdouni4-7219s-projects.vercel.app/login_check"));
     request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
 
     QMap<QString, QString> bs = loadEnvResolved();
@@ -79,32 +79,48 @@ std::vector<std::string> database::login_check(std::string email, std::string pa
     QJsonDocument doc(json);
     QByteArray data = doc.toJson();
     QNetworkReply *res = manager->post(request, data);
-    QByteArray responseData = res->readAll();
-    QJsonDocument docs = QJsonDocument::fromJson(responseData);
-    QJsonObject obj = docs.object();
+    QEventLoop loop;
 
+    connect(
+        res,
+        &QNetworkReply::finished,
+        &loop,
+        &QEventLoop::quit
+        );
 
-
-
-    std::cout << obj["message"].toString().toStdString() << std::endl;
-    qDebug() << obj["message"].toString();
-    qDebug() << obj["role"].toString();
-    qDebug() << obj["name"].toString();
-    if(obj["message"].toString().toStdString()=="pass"){
-        std::vector <std::string> temp;
-        temp.push_back(obj["role"].toString().toStdString());
-        temp.push_back(obj["name"].toString().toStdString());
-        temp.push_back(obj["aftername"].toString().toStdString());
-        res->deleteLater();
-        return temp;
-    }else{
-        std::vector <std::string> temp;
-        temp.push_back("false");
-        return temp;
-    }
-
+    loop.exec();
+        QByteArray responseData = res->readAll();
+        QJsonDocument docs = QJsonDocument::fromJson(responseData);
+        QJsonObject obj = docs.object();
+        qDebug() << obj["success"].toString();
+        qDebug() << obj["role"].toString();
+        qDebug() << obj["name"].toString();
+        qDebug() << obj["pfp"].toString();
+        if(obj["success"].toBool()==true){
+            std::tuple<std::string, std::string, std::string, std::string> temp;
+            std::get<0>(temp) =obj["role"].toString().toStdString();
+            std::get<1>(temp) =obj["name"].toString().toStdString();
+            std::get<2>(temp) =obj["aftername"].toString().toStdString();
+            std::get<3>(temp) = obj["pfp"].toString().toStdString();
+            res->deleteLater();
+            manager->deleteLater();
+            return temp;
+        }else{
+            std::tuple<std::string, std::string, std::string, std::string> temp;
+            std::get<0>(temp) ="false";
+            res->deleteLater();
+            manager->deleteLater();
+            return temp;
+        }
 
     };
+
+
+
+
+
+
+    ;
 
 
 

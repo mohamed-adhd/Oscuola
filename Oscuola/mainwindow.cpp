@@ -10,10 +10,24 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
         if(ui->login_email->text()==""){
             ui->login_alert->setText("fill all fields please");
         }else{
-            std::vector<std::string> s=db.login_check(ui->login_email->text().toStdString(), ui->login_passwd->text().toStdString());
-            if (s[0]!="false") {
+            std::tuple<std::string, std::string, std::string, std::string> s=db.login_check(ui->login_email->text().toStdString(), ui->login_passwd->text().toStdString());
+            if (get<0>(s)!="false") {
                 switchpg(2);
-            } else {
+                QByteArray pfp = QByteArray::fromBase64(QString::fromStdString(std::get<3>(s)).toUtf8());
+                QPixmap p;
+                if (!p.loadFromData(pfp, "JPEG")) {
+                    qDebug() << "pix map failed ma guy!";
+                } else {
+                    QPixmap scaled = p.scaled(
+                        ui->pfp->size(),
+                        Qt::KeepAspectRatio,
+                        Qt::SmoothTransformation
+                        );
+
+                    ui->pfp->setPixmap(scaled);
+                    ui->pfp->setAlignment(Qt::AlignCenter);
+
+                }} else {
                 ui->login_alert->setText("user not found");
             }
         }});
