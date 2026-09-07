@@ -20,7 +20,7 @@ def verify_key(authorization: str = Header(None)):
         raise HTTPException(status_code=401, detail="Unauthorized ass bitch")
 @app.get("/")
 def root():
-    return {"message": s}
+    return {"message": "online"}
 
 @app.get("/debug-key")
 def debug_key(authorization: str = Header(None)):
