@@ -655,7 +655,7 @@ QPlainTextEdit#request_message:focus {
         <set>Qt::AlignmentFlag::AlignCenter</set>
        </property>
       </widget>
-      <widget class="QPushButton" name="grades_button_student">
+      <widget class="QPushButton" name="grades_button_student_1">
        <property name="geometry">
         <rect>
          <x>20</x>
@@ -1279,7 +1279,7 @@ QPlainTextEdit#request_message:focus {
         <set>Qt::AlignmentFlag::AlignCenter</set>
        </property>
       </widget>
-      <widget class="QPushButton" name="pushButton_13">
+      <widget class="QPushButton" name="grades_button_student_4">
        <property name="geometry">
         <rect>
          <x>20</x>
@@ -1480,7 +1480,7 @@ QPlainTextEdit#request_message:focus {
         <set>Qt::AlignmentFlag::AlignCenter</set>
        </property>
       </widget>
-      <widget class="QPushButton" name="pushButton_17">
+      <widget class="QPushButton" name="grades_button_student_2">
        <property name="geometry">
         <rect>
          <x>20</x>
@@ -1705,7 +1705,7 @@ QPlainTextEdit#request_message:focus {
         <set>Qt::AlignmentFlag::AlignCenter</set>
        </property>
       </widget>
-      <widget class="QPushButton" name="pushButton_21">
+      <widget class="QPushButton" name="grades_button_student_3">
        <property name="geometry">
         <rect>
          <x>20</x>

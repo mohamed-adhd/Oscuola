@@ -1,13 +1,29 @@
 #include "mainwindow.h"
 #include "./ui_mainwindow.h"
 #include "database.h"
+#include <QButtonGroup>
 MainWindow::MainWindow(database& dbo,QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow),db(dbo){
     ui->setupUi(this);
     switchpg(2);
     setFixedSize(1280, 720);
-    connect(ui->grades_button_student,&QPushButton::clicked,this,[this]() {
+
+    QButtonGroup *grades_buts= new QButtonGroup(this);
+    for(int i=1;i<5;i++){
+        QString name=QString("grades_button_student_%1").arg(i);
+        QPushButton *button=this->findChild<QPushButton*>(name);
+        if(button){
+            grades_buts->addButton(button);
+        }}
+    connect(grades_buts,&QButtonGroup::buttonClicked,this,[this]() {switchpg(3);});
+
+
+
+
+
+
+    connect(ui->grades_button_student_1,&QPushButton::clicked,this,[this]() {
         switchpg(3);
     });
     connect(ui->alerts_student_but,&QPushButton::clicked,this,[this]() {
@@ -19,6 +35,8 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
     connect(ui->timetable_but_student,&QPushButton::clicked,this,[this]() {
         switchpg(6);
     });
+
+
 
 
 
