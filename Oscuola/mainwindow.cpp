@@ -18,15 +18,24 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
         }}
     connect(grades_buts,&QButtonGroup::buttonClicked,this,[this]() {switchpg(3);});
 
+    QButtonGroup *alerts_buts= new QButtonGroup(this);
+    for(int i=1;i<5;i++){
+        QString name=QString("alerts_student_but_%1").arg(i);
+        QPushButton *button=this->findChild<QPushButton*>(name);
+        if(button){
+            alerts_buts->addButton(button);
+        }}
+    connect(alerts_buts,&QButtonGroup::buttonClicked,this,[this]() {switchpg(3);});
 
 
 
 
 
-    connect(ui->grades_button_student_1,&QPushButton::clicked,this,[this]() {
-        switchpg(3);
-    });
-    connect(ui->alerts_student_but,&QPushButton::clicked,this,[this]() {
+
+
+
+
+    connect(ui->alerts_student_but_1,&QPushButton::clicked,this,[this]() {
         switchpg(4);
     });
     connect(ui->post_button_student,&QPushButton::clicked,this,[this]() {

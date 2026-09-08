@@ -671,7 +671,7 @@ QPlainTextEdit#request_message:focus {
         <string>📘  Grades</string>
        </property>
       </widget>
-      <widget class="QPushButton" name="alerts_student_but">
+      <widget class="QPushButton" name="alerts_student_but_1">
        <property name="geometry">
         <rect>
          <x>20</x>
@@ -1059,7 +1059,7 @@ QPlainTextEdit#request_message:focus {
         <string>📘  Grades</string>
        </property>
       </widget>
-      <widget class="QPushButton" name="pushButton_10">
+      <widget class="QPushButton" name="alerts_student_but_4">
        <property name="geometry">
         <rect>
          <x>20</x>
@@ -1496,7 +1496,7 @@ QPlainTextEdit#request_message:focus {
         <string>📘  Grades</string>
        </property>
       </widget>
-      <widget class="QPushButton" name="pushButton_18">
+      <widget class="QPushButton" name="alerts_student_but_2">
        <property name="geometry">
         <rect>
          <x>20</x>
@@ -1721,7 +1721,7 @@ QPlainTextEdit#request_message:focus {
         <string>📘  Grades</string>
        </property>
       </widget>
-      <widget class="QPushButton" name="pushButton_22">
+      <widget class="QPushButton" name="alerts_student_but_3">
        <property name="geometry">
         <rect>
          <x>20</x>
