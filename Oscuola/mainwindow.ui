@@ -687,7 +687,7 @@ QPlainTextEdit#request_message:focus {
         <string>🔔  Alerts</string>
        </property>
       </widget>
-      <widget class="QPushButton" name="post_button_student">
+      <widget class="QPushButton" name="post_button_student_1">
        <property name="geometry">
         <rect>
          <x>20</x>
@@ -703,7 +703,7 @@ QPlainTextEdit#request_message:focus {
         <string>✉️  Post request</string>
        </property>
       </widget>
-      <widget class="QPushButton" name="timetable_but_student">
+      <widget class="QPushButton" name="timetable_but_student_1">
        <property name="geometry">
         <rect>
          <x>20</x>
@@ -1075,7 +1075,7 @@ QPlainTextEdit#request_message:focus {
         <string>🔔  Alerts</string>
        </property>
       </widget>
-      <widget class="QPushButton" name="pushButton_11">
+      <widget class="QPushButton" name="post_button_student_2">
        <property name="geometry">
         <rect>
          <x>20</x>
@@ -1091,7 +1091,7 @@ QPlainTextEdit#request_message:focus {
         <string>✉️  Post request</string>
        </property>
       </widget>
-      <widget class="QPushButton" name="pushButton_12">
+      <widget class="QPushButton" name="timetable_but_student_3">
        <property name="geometry">
         <rect>
          <x>20</x>
@@ -1311,7 +1311,7 @@ QPlainTextEdit#request_message:focus {
         <string>🔔  Alerts</string>
        </property>
       </widget>
-      <widget class="QPushButton" name="pushButton_15">
+      <widget class="QPushButton" name="post_button_student_3">
        <property name="geometry">
         <rect>
          <x>20</x>
@@ -1327,7 +1327,7 @@ QPlainTextEdit#request_message:focus {
         <string>✉️  Post request</string>
        </property>
       </widget>
-      <widget class="QPushButton" name="pushButton_16">
+      <widget class="QPushButton" name="timetable_but_student_2">
        <property name="geometry">
         <rect>
          <x>20</x>
@@ -1528,7 +1528,7 @@ QPlainTextEdit#request_message:focus {
         <string>✉️  Post request</string>
        </property>
       </widget>
-      <widget class="QPushButton" name="pushButton_20">
+      <widget class="QPushButton" name="timetable_but_student_4">
        <property name="geometry">
         <rect>
          <x>20</x>
@@ -1737,7 +1737,7 @@ QPlainTextEdit#request_message:focus {
         <string>🔔  Alerts</string>
        </property>
       </widget>
-      <widget class="QPushButton" name="pushButton_23">
+      <widget class="QPushButton" name="post_button_student_4">
        <property name="geometry">
         <rect>
          <x>20</x>

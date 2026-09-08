@@ -29,21 +29,26 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
 
 
 
+    QButtonGroup *post_buts= new QButtonGroup(this);
+    for(int i=1;i<5;i++){
+        QString name=QString("post_button_student_%1").arg(i);
+        QPushButton *button=this->findChild<QPushButton*>(name);
+        if(button){
+            post_buts->addButton(button);
+        }}
+    connect(post_buts,&QButtonGroup::buttonClicked,this,[this]() {switchpg(5);});
 
 
 
+    QButtonGroup *time_buts= new QButtonGroup(this);
+    for(int i=1;i<5;i++){
+        QString name=QString("timetable_but_student_%1").arg(i);
+        QPushButton *button=this->findChild<QPushButton*>(name);
+        if(button){
+            time_buts->addButton(button);
+        }}
+    connect(time_buts,&QButtonGroup::buttonClicked,this,[this]() {switchpg(6);});
 
-
-
-    connect(ui->alerts_student_but_1,&QPushButton::clicked,this,[this]() {
-        switchpg(4);
-    });
-    connect(ui->post_button_student,&QPushButton::clicked,this,[this]() {
-        switchpg(5);
-    });
-    connect(ui->timetable_but_student,&QPushButton::clicked,this,[this]() {
-        switchpg(6);
-    });
 
 
 
