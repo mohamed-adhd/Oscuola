@@ -1134,7 +1134,7 @@ QPlainTextEdit#request_message:focus {
        <string>Your grades for the current session</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="back_home_btn">
+     <widget class="QPushButton" name="back_home_btn_1">
       <property name="geometry">
        <rect>
         <x>1130</x>
