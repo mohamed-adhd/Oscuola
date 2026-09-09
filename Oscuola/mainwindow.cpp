@@ -8,7 +8,18 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
     ui->setupUi(this);
     switchpg(2);
     setFixedSize(1280, 720);
-    db.st1_student_grade(1);
+    QMap<QString, double> s=db.st1_student_grade(1);
+    for (int row = 0; row < ui->grades_table->rowCount(); ++row) {
+        QString subject = ui->grades_table->item(row, 0)->text();
+        if (s.contains(subject)) {
+            double value = s[subject];
+            ui->grades_table->setItem(row, 1, new QTableWidgetItem(QString::number(value)));
+        }
+    }
+
+
+
+
     QButtonGroup *grades_buts= new QButtonGroup(this);
     for(int i=1;i<5;i++){
         QString name=QString("grades_button_student_%1").arg(i);
@@ -16,7 +27,9 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
         if(button){
             grades_buts->addButton(button);
         }}
-    connect(grades_buts,&QButtonGroup::buttonClicked,this,[this]() {switchpg(3);});
+    connect(grades_buts,&QButtonGroup::buttonClicked,this,[this]() {
+
+        switchpg(3);});
 
 
 

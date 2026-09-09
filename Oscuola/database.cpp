@@ -162,10 +162,10 @@ QNetworkRequest request(QUrl("https://oscuola-65alqz1pf-midouamdouni4-7219s-proj
 
 
 
-std::vector<int> database::st1_student_grade(int id)
+ QMap<QString, double> database::st1_student_grade(int id)
 {
     QNetworkAccessManager *manager = new QNetworkAccessManager(this);
-    QNetworkRequest request(QUrl("https://oscuola-7mjaohwl9-midouamdouni4-7219s-projects.vercel.app/s1t_year_student"));
+    QNetworkRequest request(QUrl("https://oscuola-8nioe46mp-midouamdouni4-7219s-projects.vercel.app/s1t_year_student"));
     request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
 
     QMap<QString, QString> bs = loadEnvResolved();
@@ -189,16 +189,18 @@ std::vector<int> database::st1_student_grade(int id)
     qDebug() << obj["success"].toString();
     qDebug() << obj["math"].toString();
     qDebug() << obj["cs"].toString();
-    std::vector<int> temp;
-    temp.push_back(obj["math"].toInt());
-    temp.push_back(obj["french"].toInt());
-    temp.push_back(obj["english"].toInt());
-    temp.push_back(obj["cs"].toInt());
-    temp.push_back(obj["ph"].toInt());
-    temp.push_back(obj["scvt"].toInt());
-    temp.push_back(obj["og"].toInt());
-    return temp;
 
+    QMap<QString, double> temp = {
+        {"math", obj["math"].toDouble()},
+        {"french", obj["french"].toDouble()},
+        {"english", obj["english"].toDouble()},
+        {"cs", obj["cs"].toDouble()},
+        {"ph",obj["ph"].toDouble()},
+        {"scvt", obj["scvt"].toDouble()},
+        {"overallg",obj["og"].toDouble()}
+    };
+
+    return temp;
 
 
 
