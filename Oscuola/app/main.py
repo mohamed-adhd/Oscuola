@@ -45,7 +45,7 @@ def check(data: LoginRequest, authorized: None = Depends(verify_key)):
         return result
     return {"message": result}
 
-#this shi aint fun no more
+#this shi aint fun no more twin
 @app.post("/insert_request")
 def insert(data: insert_Request, authorized: None = Depends(verify_key)):
     result = insert_request(data.gmail, data.passwd)
@@ -57,7 +57,7 @@ def insert(data: insert_Request, authorized: None = Depends(verify_key)):
 @app.post("/s1t_year_student")
 def syst(data : ids, authorized: None = Depends(verify_key)):
     return get_grades_1st(data.id)
-
+#testing 
 @app.get("/pfp")
 def insrtpfp():
     return test()
