@@ -60,10 +60,10 @@ QMap<QString, QString> loadEnvResolved()
 
 
 
-std::tuple<std::string, std::string, std::string, std::string> database::login_check(std::string email, std::string passwd)
+std::tuple<std::string, std::string, std::string, std::string,int > database::login_check(std::string email, std::string passwd)
 {
     QNetworkAccessManager *manager = new QNetworkAccessManager(this);
-    QNetworkRequest request(QUrl("https://oscuola-cfrspd9cj-midouamdouni4-7219s-projects.vercel.app/login_check"));
+    QNetworkRequest request(QUrl("https://oscuola-vh4lm2roc-midouamdouni4-7219s-projects.vercel.app/login_check"));
     request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
 
     QMap<QString, QString> bs = loadEnvResolved();
@@ -95,18 +95,19 @@ std::tuple<std::string, std::string, std::string, std::string> database::login_c
         qDebug() << obj["success"].toString();
         qDebug() << obj["role"].toString();
         qDebug() << obj["name"].toString();
-        qDebug() << obj["pfp"].toString();
+        qDebug() << obj["pfp"].toString();qDebug() << obj["ids"].toString();
         if(obj["success"].toBool()==true){
-            std::tuple<std::string, std::string, std::string, std::string> temp;
+            std::tuple<std::string, std::string, std::string, std::string,int> temp;
             std::get<0>(temp) =obj["role"].toString().toStdString();
             std::get<1>(temp) =obj["name"].toString().toStdString();
             std::get<2>(temp) =obj["aftername"].toString().toStdString();
             std::get<3>(temp) = obj["pfp"].toString().toStdString();
+            std::get<4>(temp) = obj["ids"].toInt();
             res->deleteLater();
             manager->deleteLater();
             return temp;
         }else{
-            std::tuple<std::string, std::string, std::string, std::string> temp;
+            std::tuple<std::string, std::string, std::string, std::string,int> temp;
             std::get<0>(temp) ="false";
             res->deleteLater();
             manager->deleteLater();
@@ -165,7 +166,7 @@ QNetworkRequest request(QUrl("https://oscuola-65alqz1pf-midouamdouni4-7219s-proj
  QMap<QString, double> database::st1_student_grade(int id)
 {
     QNetworkAccessManager *manager = new QNetworkAccessManager(this);
-    QNetworkRequest request(QUrl("https://oscuola-8nioe46mp-midouamdouni4-7219s-projects.vercel.app/s1t_year_student"));
+    QNetworkRequest request(QUrl("https://oscuola-cnb10ca6y-midouamdouni4-7219s-projects.vercel.app/s1t_year_student"));
     request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
 
     QMap<QString, QString> bs = loadEnvResolved();
