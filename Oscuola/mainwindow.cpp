@@ -8,6 +8,17 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
     ui->setupUi(this);
     switchpg(0);
     setFixedSize(1280, 720);
+    QMap<QString, double> s=db.st1_student_grade(1);
+    for (int row = 0; row < ui->grades_table->rowCount(); ++row) {
+        QString subject = ui->grades_table->item(row, 0)->text();
+        if (s.contains(subject)) {
+            double value = s[subject];
+            ui->grades_table->setItem(row, 1, new QTableWidgetItem(QString::number(value)));
+        }
+    }
+
+
+
 
 
 
