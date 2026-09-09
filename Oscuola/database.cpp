@@ -63,7 +63,7 @@ QMap<QString, QString> loadEnvResolved()
 std::tuple<std::string, std::string, std::string, std::string,int > database::login_check(std::string email, std::string passwd)
 {
     QNetworkAccessManager *manager = new QNetworkAccessManager(this);
-    QNetworkRequest request(QUrl("https://oscuola-cfrspd9cj-midouamdouni4-7219s-projects.vercel.app/login_check"));
+    QNetworkRequest request(QUrl("https://oscuola-vh4lm2roc-midouamdouni4-7219s-projects.vercel.app/login_check"));
     request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
 
     QMap<QString, QString> bs = loadEnvResolved();
