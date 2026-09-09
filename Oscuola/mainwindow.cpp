@@ -6,16 +6,25 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow),db(dbo){
     ui->setupUi(this);
-    switchpg(2);
+    switchpg(0);
     setFixedSize(1280, 720);
-    QMap<QString, double> s=db.st1_student_grade(1);
-    for (int row = 0; row < ui->grades_table->rowCount(); ++row) {
-        QString subject = ui->grades_table->item(row, 0)->text();
-        if (s.contains(subject)) {
-            double value = s[subject];
-            ui->grades_table->setItem(row, 1, new QTableWidgetItem(QString::number(value)));
-        }
-    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -27,7 +36,18 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
         if(button){
             grades_buts->addButton(button);
         }}
-    connect(grades_buts,&QButtonGroup::buttonClicked,this,[this]() {
+    connect(grades_buts,&QButtonGroup::buttonClicked,this,[this](QAbstractButton*) {
+        if (!loaded_grades){
+            QMap<QString, double> ss=db.st1_student_grade(std::get<4>(f));
+            for (int row = 0; row < ui->grades_table->rowCount(); ++row) {
+                QString subject = ui->grades_table->item(row, 0)->text();
+                if (ss.contains(subject)) {
+                    double value = ss[subject];
+                    ui->grades_table->setItem(row, 1, new QTableWidgetItem(QString::number(value)));
+                }
+            }
+            loaded_grades=true;
+        }
 
         switchpg(3);});
 
@@ -85,7 +105,8 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
         if(ui->login_email->text()==""){
             ui->login_alert->setText("fill all fields please");
         }else{
-            std::tuple<std::string, std::string, std::string, std::string> s=db.login_check(ui->login_email->text().toStdString(), ui->login_passwd->text().toStdString());
+            std::tuple<std::string, std::string, std::string, std::string,int> s=db.login_check(ui->login_email->text().toStdString(), ui->login_passwd->text().toStdString());
+            f=s;
             if (get<0>(s)!="false") {
                 if(get<0>(s)=="student"){
                     switchpg(2);
@@ -116,17 +137,17 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
         }
         else{
             db.registerr(ui->reg_email->text().toStdString(),ui->reg_pswd->text().toStdString(),[this](bool success){
-                       if (success) {
-                            ui->reg_alert->setText("we have submitted you account request , you will be notified by email when done ");
-                       } else {
-                           ui->reg_alert->setText("something went wrong , try again later");
-                       }
-                                                                   });}});
+                if (success) {
+                    ui->reg_alert->setText("we have submitted you account request , you will be notified by email when done ");
+                } else {
+                    ui->reg_alert->setText("something went wrong , try again later");
+                }
+            });}});
 
 
     connect(ui->reg_but,&QPushButton::clicked,this,[this]() {
         switchpg(1);
-});
+    });
 
 
 
