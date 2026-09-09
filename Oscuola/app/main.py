@@ -57,7 +57,7 @@ def insert(data: insert_Request, authorized: None = Depends(verify_key)):
 @app.post("/s1t_year_student")
 def syst(data : ids, authorized: None = Depends(verify_key)):
     return get_grades_1st(data.id)
-
+#testing 
 @app.get("/pfp")
 def insrtpfp():
     return test()
