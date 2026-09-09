@@ -4,7 +4,7 @@ import os
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 from fastapi import FastAPI
 from fastapi import Depends
-from database.fetch import test,check_login
+from database.fetch import test,check_login,get_grades_1st
 from database.insert import insert_request
 from pydantic import BaseModel
 class LoginRequest(BaseModel):
@@ -13,6 +13,9 @@ class LoginRequest(BaseModel):
 class insert_Request(BaseModel):
     gmail: str
     passwd: str
+
+class ids(BaseModel):
+    id : int
 app = FastAPI()
 from fastapi import Header, HTTPException
 def verify_key(authorization: str = Header(None)):
@@ -51,8 +54,13 @@ def insert(data: insert_Request, authorized: None = Depends(verify_key)):
     return {"message": result}
 
 
-
+@app.post("/s1t_year_student")
+def syst(data : ids, authorized: None = Depends(verify_key)):
+    return get_grades_1st(data.id)
 
 @app.get("/pfp")
 def insrtpfp():
     return test()
+@app.get("/__routes")
+def list_routes():
+    return [r.path for r in app.routes]
