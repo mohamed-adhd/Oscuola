@@ -8,7 +8,7 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
     ui->setupUi(this);
     switchpg(2);
     setFixedSize(1280, 720);
-
+    db.st1_student_grade(1);
     QButtonGroup *grades_buts= new QButtonGroup(this);
     for(int i=1;i<5;i++){
         QString name=QString("grades_button_student_%1").arg(i);
