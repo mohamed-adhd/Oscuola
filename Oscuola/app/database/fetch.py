@@ -78,7 +78,7 @@ def check_login(gmail, pswd):
                 if isinstance(res[3], memoryview):
                     ps = res[3].tobytes()
                 p64 = base64.b64encode(ps).decode("ascii")
-                return {"success": True, "role": res[0], "name": res[1], "aftername": res[2],"pfp":p64,"id":res[4]}
+                return {"success": True, "role": res[0], "name": res[1], "aftername": res[2],"pfp":p64,"ids":res[4]}
             except Exception as e:
                 cur.close()
                 s.close()
