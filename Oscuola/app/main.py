@@ -1,12 +1,11 @@
 import sys
 import os
 
-from Oscuola.app.database.fetch import timetable
 
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 from fastapi import FastAPI
 from fastapi import Depends
-from database.fetch import test,check_login,get_grades_1st,get_alerts_1st
+from database.fetch import test,check_login,get_grades_1st,get_alerts_1st,timetable
 from database.insert import insert_request
 from pydantic import BaseModel
 class LoginRequest(BaseModel):
