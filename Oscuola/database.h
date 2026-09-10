@@ -10,9 +10,10 @@ class database : public QObject{
 private:
 public :
     QMap<QString, double> st1_student_grade(int);
-    std::tuple<std::string, std::string, std::string, std::string,int> login_check(std::string email, std::string passwd);
+    std::tuple<std::string, std::string, std::string, std::string,int,int,int> login_check(std::string email, std::string passwd);
     void registerr(std::string email, std::string passwd, std::function<void(bool)> callback);
     std::vector<QString> st1_student_alerts(int id);
+    std::string fetch_timetable(int year,int classs);
 
 
 

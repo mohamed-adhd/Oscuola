@@ -1,10 +1,11 @@
 import sys
 import os
 
+
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 from fastapi import FastAPI
 from fastapi import Depends
-from database.fetch import test,check_login,get_grades_1st,get_alerts_1st
+from database.fetch import test,check_login,get_grades_1st,get_alerts_1st,timetable
 from database.insert import insert_request
 from pydantic import BaseModel
 class LoginRequest(BaseModel):
@@ -13,7 +14,9 @@ class LoginRequest(BaseModel):
 class insert_Request(BaseModel):
     gmail: str
     passwd: str
-
+class tb_Request(BaseModel):
+    classs: int
+    year: int
 class ids(BaseModel):
     id : int
 app = FastAPI()
@@ -69,3 +72,7 @@ def list_routes():
 @app.post("/s1t_alerts")
 def sysa(data : ids, authorized: None = Depends(verify_key)):
     return get_alerts_1st(data.id)
+
+@app.post("/timetable")
+def sysb(data : tb_Request, authorized: None = Depends(verify_key)):
+    return timetable(data.classs,data.year)
