@@ -4,7 +4,7 @@ import os
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 from fastapi import FastAPI
 from fastapi import Depends
-from database.fetch import test,check_login,get_grades_1st
+from database.fetch import test,check_login,get_grades_1st,get_alerts_1st
 from database.insert import insert_request
 from pydantic import BaseModel
 class LoginRequest(BaseModel):
@@ -64,3 +64,8 @@ def insrtpfp():
 @app.get("/__routes")
 def list_routes():
     return [r.path for r in app.routes]
+
+
+@app.post("/s1t_alerts")
+def sysa(data : ids, authorized: None = Depends(verify_key)):
+    return get_alerts_1st(data.id)
