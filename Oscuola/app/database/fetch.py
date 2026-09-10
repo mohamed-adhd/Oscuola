@@ -10,7 +10,7 @@ def test():
     cur = s.cursor()
     with open("pg.jpg", "rb") as f:
         img_data = f.read()
-    cur.execute("UPDATE users SET pfp = %s ;",(psycopg2.Binary(img_data),) )
+    cur.execute("UPDATE timetables SET tb = %s ;",(psycopg2.Binary(img_data),) )
     s.commit()
     cur.close()
     s.close()
@@ -73,12 +73,12 @@ def check_login(gmail, pswd):
 
         if password_match:
             try:
-                cur.execute("SELECT role,name,aftername,pfp,id FROM users WHERE gmail=%s;", (gmail,))
+                cur.execute("SELECT role,name,aftername,pfp,id,class FROM users WHERE gmail=%s;", (gmail,))
                 res = cur.fetchone()
                 if isinstance(res[3], memoryview):
                     ps = res[3].tobytes()
                 p64 = base64.b64encode(ps).decode("ascii")
-                return {"success": True, "role": res[0], "name": res[1], "aftername": res[2],"pfp":p64,"ids":res[4]}
+                return {"success": True, "role": res[0], "name": res[1], "aftername": res[2],"pfp":p64,"ids":res[4],"class":res[5]}
             except Exception as e:
                 cur.close()
                 s.close()
