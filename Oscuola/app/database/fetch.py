@@ -111,7 +111,14 @@ def get_grades_1st(id):
 
 
 
-
+def timetable(classs, year):
+    load_dotenv()
+    cons = os.environ["CON_STRING"]
+    s = psycopg2.connect(os.environ["DATABASE_URL"])
+    cur = s.cursor()
+    cur.execute("SELECT tb FROM timetables WHERE year = %s AND class=%;", (classs,year))
+    res = cur.fetchone()
+    return {"success":True,"tb":res[0]}
 
 
 

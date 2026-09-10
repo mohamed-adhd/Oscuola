@@ -82,6 +82,7 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
             for (int i=0;i<alerts1st.size();i++){
                 ui->alerts_list_full->addItem(alerts1st[i]);
             }
+            alertsloaded=true;
 
         }
 
