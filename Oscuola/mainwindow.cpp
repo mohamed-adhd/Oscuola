@@ -116,25 +116,20 @@ switchpg(4);});
             time_buts->addButton(button);
         }}
     connect(time_buts,&QButtonGroup::buttonClicked,this,[this]() {
-        QString soi=db.fetch_timetable(std::get<5>(f),std::get<6>(f));
-        QByteArray pfp = QByteArray::fromBase64(soi.toUtf8());
-        QPixmap p;
-        QPixmap scaled = p.scaled(
-            ui->timetable_picture_label->size(),
-            Qt::KeepAspectRatio,
-            Qt::SmoothTransformation
-            );
-
-        ui->timetable_picture_label->setPixmap(scaled);
-        ui->timetable_picture_label->setAlignment(Qt::AlignCenter);
-
-
-
-
-
-
-
-switchpg(6);});
+        if(!tbloaded){
+            std::string  soi=db.fetch_timetable(std::get<5>(f),std::get<6>(f));
+            QByteArray pfp = QByteArray::fromBase64(QString::fromStdString(soi).toUtf8());
+            QPixmap p;
+            QPixmap scaled = p.scaled(
+                ui->timetable_picture_label->size(),
+                Qt::KeepAspectRatio,
+                Qt::SmoothTransformation
+                );
+            ui->timetable_picture_label->setPixmap(scaled);
+            ui->timetable_picture_label->setAlignment(Qt::AlignCenter);
+            tbloaded=true;
+        }
+        switchpg(6);});
 
 
 
@@ -149,7 +144,33 @@ switchpg(6);});
             f=s;
             if (get<0>(s)!="false") {
                 if(get<0>(s)=="student"){
-                    switchpg(2);
+
+
+                    std::string soi=db.fetch_timetable(std::get<5>(f),std::get<6>(f));
+                    QByteArray pfp = QByteArray::fromBase64(QString::fromStdString(soi).toUtf8());
+                    QPixmap p;
+                    QPixmap scaled = p.scaled(
+                        ui->timetable_picture_label->size(),
+                        Qt::KeepAspectRatio,
+                        Qt::SmoothTransformation
+                        );
+                    ui->timetable_picture_label->setPixmap(scaled);
+                    ui->timetable_picture_label->setAlignment(Qt::AlignCenter);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    switchpg(6);
                 }
                 QByteArray pfp = QByteArray::fromBase64(QString::fromStdString(std::get<3>(s)).toUtf8());
                 QPixmap p;
@@ -185,9 +206,7 @@ switchpg(6);});
             });}});
 
 
-    connect(ui->reg_but,&QPushButton::clicked,this,[this]() {
-        switchpg(1);
-    });
+
 
 
 

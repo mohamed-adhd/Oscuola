@@ -212,7 +212,7 @@ QNetworkRequest request(QUrl("https://oscuola-65alqz1pf-midouamdouni4-7219s-proj
 
 };
 
-QString database::fetch_timetable(int year,int classs)
+std::string database::fetch_timetable(int year,int classs)
 {
     QNetworkAccessManager *manager = new QNetworkAccessManager(this);
     QNetworkRequest request(QUrl("https://oscuola-4gdg2pi6c-midouamdouni4-7219s-projects.vercel.app/timetable"));
@@ -237,7 +237,8 @@ QString database::fetch_timetable(int year,int classs)
     QByteArray responseData = res->readAll();
     QJsonDocument docs = QJsonDocument::fromJson(responseData);
     QJsonObject obj = docs.object();
-    return obj["tb"].toString();
+    qDebug() << obj["pfp"].toString();
+    return obj["tb"].toString().toStdString();
 
 }
 
