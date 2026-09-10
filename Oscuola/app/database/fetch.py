@@ -118,7 +118,12 @@ def timetable(classs, year):
     cur = s.cursor()
     cur.execute("SELECT tb FROM timetables WHERE year = %s AND class=%s;", (classs,year))
     res = cur.fetchone()
-    return {"success":True,"tb":res[0]}
+    if isinstance(res[0], memoryview):
+        ps = res[0].tobytes()
+    p64 = base64.b64encode(ps).decode("ascii")
+    cur.close()
+    s.close()
+    return {"success":True,"tb":p64}
 
 
 
