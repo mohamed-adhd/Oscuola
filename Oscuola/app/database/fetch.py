@@ -118,6 +118,21 @@ def get_grades_1st(id):
 
 
 
+def get_alerts_1st(id):
+    load_dotenv()
+    cons = os.environ["CON_STRING"]
+    s = psycopg2.connect(os.environ["DATABASE_URL"])
+    cur = s.cursor()
+    cur.execute("SELECT message FROM alerts_1st WHERE student_id = %s ;", (id,))
+    res = cur.fetchall()
+    cur.close()
+    s.close()
+    ss = {
+        "success": True,
+        "data": res
+    }
+
+    return  ss
 
 
 

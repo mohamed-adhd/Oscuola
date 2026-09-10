@@ -11,6 +11,9 @@
 #include <stdio.h>
 #include <iostream>
 #include <QDir>
+#include <QJsonDocument>
+#include <QJsonObject>
+#include <QJsonArray>
 #include <stdlib.h>
 #include<QCoreApplication>
 using namespace std;
@@ -206,6 +209,70 @@ QNetworkRequest request(QUrl("https://oscuola-65alqz1pf-midouamdouni4-7219s-proj
 
 
 };
+
+
+
+
+
+
+
+std::vector<QString> database::st1_student_alerts(int id)
+{
+    QNetworkAccessManager *manager = new QNetworkAccessManager(this);
+    QNetworkRequest request(QUrl("https://oscuola-jka2tv75x-midouamdouni4-7219s-projects.vercel.app/s1t_alerts"));
+    request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
+
+    QMap<QString, QString> bs = loadEnvResolved();
+    QString dakey = bs.value("API_KEY");
+    qDebug() << dakey;
+    QByteArray auth = "Bearer " + dakey.toUtf8();
+    request.setRawHeader("Authorization", auth);
+    QJsonObject json;
+    json["id"] = QString::fromStdString(std::to_string(id));
+    QJsonDocument doc(json);
+    QByteArray data = doc.toJson();
+    QNetworkReply *res = manager->post(request, data);
+    QEventLoop loop;
+
+    connect(res,&QNetworkReply::finished,&loop,&QEventLoop::quit);
+
+    loop.exec();
+    QByteArray responseData = res->readAll();
+    QJsonDocument docs = QJsonDocument::fromJson(responseData);
+    QJsonObject obj = docs.object();
+    QJsonArray dataArray = obj.value("data").toArray();
+    std::vector<QString> temp;
+    for (const QJsonValue &enntry : dataArray){
+        if (enntry.isArray()){
+            QJsonArray inner = enntry.toArray();
+            for (const QJsonValue &ennntry : inner){
+                temp.push_back(ennntry.toString());
+            }
+        }
+    }
+
+
+    return temp;
+
+
+
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
