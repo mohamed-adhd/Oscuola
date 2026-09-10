@@ -63,7 +63,7 @@ QMap<QString, QString> loadEnvResolved()
 
 
 
-std::tuple<std::string, std::string, std::string, std::string,int > database::login_check(std::string email, std::string passwd)
+std::tuple<std::string, std::string, std::string, std::string,int,int,int > database::login_check(std::string email, std::string passwd)
 {
     QNetworkAccessManager *manager = new QNetworkAccessManager(this);
     QNetworkRequest request(QUrl("https://oscuola-vh4lm2roc-midouamdouni4-7219s-projects.vercel.app/login_check"));
@@ -100,17 +100,19 @@ std::tuple<std::string, std::string, std::string, std::string,int > database::lo
         qDebug() << obj["name"].toString();
         qDebug() << obj["pfp"].toString();qDebug() << obj["ids"].toString();
         if(obj["success"].toBool()==true){
-            std::tuple<std::string, std::string, std::string, std::string,int> temp;
+            std::tuple<std::string, std::string, std::string, std::string,int,int,int> temp;
             std::get<0>(temp) =obj["role"].toString().toStdString();
             std::get<1>(temp) =obj["name"].toString().toStdString();
             std::get<2>(temp) =obj["aftername"].toString().toStdString();
             std::get<3>(temp) = obj["pfp"].toString().toStdString();
             std::get<4>(temp) = obj["ids"].toInt();
+            std::get<5>(temp) = obj["year"].toInt();
+            std::get<6>(temp) = obj["class"].toInt();
             res->deleteLater();
             manager->deleteLater();
             return temp;
         }else{
-            std::tuple<std::string, std::string, std::string, std::string,int> temp;
+            std::tuple<std::string, std::string, std::string, std::string,int,int,int> temp;
             std::get<0>(temp) ="false";
             res->deleteLater();
             manager->deleteLater();
@@ -210,9 +212,34 @@ QNetworkRequest request(QUrl("https://oscuola-65alqz1pf-midouamdouni4-7219s-proj
 
 };
 
+QString database::fetch_timetable(int year,int classs)
+{
+    QNetworkAccessManager *manager = new QNetworkAccessManager(this);
+    QNetworkRequest request(QUrl("https://oscuola-4gdg2pi6c-midouamdouni4-7219s-projects.vercel.app/timetable"));
+    request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
 
+    QMap<QString, QString> bs = loadEnvResolved();
+    QString dakey = bs.value("API_KEY");
+    qDebug() << dakey;
+    QByteArray auth = "Bearer " + dakey.toUtf8();
+    request.setRawHeader("Authorization", auth);
+    QJsonObject json;
+    json["year"] = QString::fromStdString(std::to_string(year));
+    json["class"] = QString::fromStdString(std::to_string(classs));
+    QJsonDocument doc(json);
+    QByteArray data = doc.toJson();
+    QNetworkReply *res = manager->post(request, data);
+    QEventLoop loop;
 
+    connect(res,&QNetworkReply::finished,&loop,&QEventLoop::quit);
 
+    loop.exec();
+    QByteArray responseData = res->readAll();
+    QJsonDocument docs = QJsonDocument::fromJson(responseData);
+    QJsonObject obj = docs.object();
+    return obj["tb"].toString();
+
+}
 
 
 
