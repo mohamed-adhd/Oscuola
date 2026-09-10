@@ -1414,37 +1414,6 @@ QPlainTextEdit#request_message:focus {
        <property name="frameShape">
         <enum>QFrame::Shape::NoFrame</enum>
        </property>
-       <item>
-        <property name="text">
-         <string>⚠️  Missed homework — Mathematics (Sep 3)</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>⚠️  Late arrival (Sep 5)</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>ℹ️  Parent-teacher meeting scheduled (Sep 12)</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>⚠️  Below-average quiz score — Science (Aug 28)</string>
-        </property>
-       </item>
-      </widget>
-      <widget class="QWidget" name="horizontalLayoutWidget">
-       <property name="geometry">
-        <rect>
-         <x>390</x>
-         <y>290</y>
-         <width>160</width>
-         <height>80</height>
-        </rect>
-       </property>
-       <layout class="QHBoxLayout" name="horizontalLayout"/>
       </widget>
      </widget>
     </widget>
