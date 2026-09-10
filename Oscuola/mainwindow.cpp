@@ -8,14 +8,7 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
     ui->setupUi(this);
     switchpg(0);
     setFixedSize(1280, 720);
-    QMap<QString, double> s=db.st1_student_grade(1);
-    for (int row = 0; row < ui->grades_table->rowCount(); ++row) {
-        QString subject = ui->grades_table->item(row, 0)->text();
-        if (s.contains(subject)) {
-            double value = s[subject];
-            ui->grades_table->setItem(row, 1, new QTableWidgetItem(QString::number(value)));
-        }
-    }
+
 
 
 
@@ -83,7 +76,23 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
         if(button){
             alerts_buts->addButton(button);
         }}
-    connect(alerts_buts,&QButtonGroup::buttonClicked,this,[this]() {switchpg(4);});
+    connect(alerts_buts,&QButtonGroup::buttonClicked,this,[this]() {
+        if(!alertsloaded){
+            std::vector<QString> alerts1st=db.st1_student_alerts(std::get<4>(f));
+            for (int i=0;i<alerts1st.size();i++){
+                ui->alerts_list_full->addItem(alerts1st[i]);
+            }
+
+        }
+
+
+
+
+
+
+
+
+switchpg(4);});
 
 
 
