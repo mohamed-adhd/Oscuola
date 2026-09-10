@@ -12,6 +12,11 @@ public :
     QMap<QString, double> st1_student_grade(int);
     std::tuple<std::string, std::string, std::string, std::string,int> login_check(std::string email, std::string passwd);
     void registerr(std::string email, std::string passwd, std::function<void(bool)> callback);
+    std::vector<QString> st1_student_alerts(int id);
+
+
+
+
     database(QObject *parent = nullptr) : QObject(parent)
     {
     }
