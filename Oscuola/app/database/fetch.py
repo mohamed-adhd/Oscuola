@@ -73,7 +73,7 @@ def check_login(gmail, pswd):
 
         if password_match:
             try:
-                cur.execute("SELECT role,name,aftername,pfp,id,class,year FROM users WHERE gmail=%s;", (gmail,))
+                cur.execute("SELECT role,name,aftername,pfp,id,syear,classs FROM users WHERE gmail=%s;", (gmail,))
                 res = cur.fetchone()
                 if isinstance(res[3], memoryview):
                     ps = res[3].tobytes()
