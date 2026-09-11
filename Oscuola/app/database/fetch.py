@@ -79,7 +79,7 @@ def check_login(gmail, pswd):
                     ps = res[3].tobytes()
                 p64 = base64.b64encode(ps).decode("ascii")
                 if res[0]=="student":
-                    cur.execute("SELECT syear,classs FROM users WHERE id=%s;", (res[4],))
+                    cur.execute("SELECT syear,classs FROM students WHERE id=%s;", (res[4],))
                     rs2=cur.fetchone()
                     return {"success": True, "role": res[0], "name": res[1], "aftername": res[2],"pfp":p64,"ids":res[4],"class":rs2[0],"year":rs2[1]}
                 else:
