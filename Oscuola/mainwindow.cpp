@@ -42,6 +42,7 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
         }}
     connect(grades_buts,&QButtonGroup::buttonClicked,this,[this](QAbstractButton*) {
         if (!loaded_grades){
+            loaded_grades=true;
             QMap<QString, double> ss=db.st1_student_grade(std::get<4>(f));
             for (int row = 0; row < ui->grades_table->rowCount(); ++row) {
                 QString subject = ui->grades_table->item(row, 0)->text();
@@ -50,7 +51,7 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
                     ui->grades_table->setItem(row, 1, new QTableWidgetItem(QString::number(value)));
                 }
             }
-            loaded_grades=true;
+
         }
 
         switchpg(3);});
@@ -78,11 +79,12 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
         }}
     connect(alerts_buts,&QButtonGroup::buttonClicked,this,[this]() {
         if(!alertsloaded){
+            alertsloaded=true;
             std::vector<QString> alerts1st=db.st1_student_alerts(std::get<4>(f));
             for (int i=0;i<alerts1st.size();i++){
                 ui->alerts_list_full->addItem(alerts1st[i]);
             }
-            alertsloaded=true;
+
 
         }
 
@@ -105,7 +107,9 @@ switchpg(4);});
             post_buts->addButton(button);
         }}
     connect(post_buts,&QButtonGroup::buttonClicked,this,[this]() {switchpg(5);});
-
+    connect(ui->btn_send_request,&QPushButton::clicked,this,[this](){
+        db.sendpost(ui->request_subject->text(),ui->request_message->toPlainText());
+    });
 
 
     QButtonGroup *time_buts= new QButtonGroup(this);
@@ -117,6 +121,7 @@ switchpg(4);});
         }}
     connect(time_buts,&QButtonGroup::buttonClicked,this,[this]() {
         if(!tbloaded){
+            tbloaded=true;
             std::string  soi=db.fetch_timetable(std::get<5>(f),std::get<6>(f));
             QByteArray pfp = QByteArray::fromBase64(QString::fromStdString(soi).toUtf8());
             QPixmap p;
@@ -127,7 +132,7 @@ switchpg(4);});
                 );
             ui->timetable_picture_label->setPixmap(scaled);
             ui->timetable_picture_label->setAlignment(Qt::AlignCenter);
-            tbloaded=true;
+
         }
         switchpg(6);});
 
