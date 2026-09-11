@@ -73,12 +73,18 @@ def check_login(gmail, pswd):
 
         if password_match:
             try:
-                cur.execute("SELECT role,name,aftername,pfp,id,class,year FROM users WHERE gmail=%s;", (gmail,))
+                cur.execute("SELECT role,name,aftername,pfp,id FROM users WHERE gmail=%s;", (gmail,))
                 res = cur.fetchone()
                 if isinstance(res[3], memoryview):
                     ps = res[3].tobytes()
                 p64 = base64.b64encode(ps).decode("ascii")
-                return {"success": True, "role": res[0], "name": res[1], "aftername": res[2],"pfp":p64,"ids":res[4],"class":res[5],"year":res[6]}
+                if res[0]=="student":
+                    cur.execute("SELECT syear,classs FROM students WHERE id=%s;", (res[4],))
+                    rs2=cur.fetchone()
+                    return {"success": True, "role": res[0], "name": res[1], "aftername": res[2],"pfp":p64,"ids":res[4],"class":rs2[0],"year":rs2[1]}
+                else:
+                    return {"success": True, "role": res[0], "name": res[1], "aftername": res[2],"pfp":p64,"ids":res[4]}
+
             except Exception as e:
                 cur.close()
                 s.close()
