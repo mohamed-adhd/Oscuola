@@ -142,7 +142,7 @@ std::tuple<std::string, std::string, std::string, std::string,int,int,int > data
 void database::registerr(std::string email, std::string passwd, std::function<void(bool)> callback)
 {
     QNetworkAccessManager *manager = new QNetworkAccessManager(this);
-QNetworkRequest request(QUrl("https://oscuola-65alqz1pf-midouamdouni4-7219s-projects.vercel.app/insert_request"));
+    QNetworkRequest request(QUrl("https://oscuola-65alqz1pf-midouamdouni4-7219s-projects.vercel.app/insert_request"));
     request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
 
     QMap<QString, QString> bs = loadEnvResolved();
@@ -172,10 +172,35 @@ QNetworkRequest request(QUrl("https://oscuola-65alqz1pf-midouamdouni4-7219s-proj
 
 
 
+bool database::sendpost(QString subject,QString message){
+    QNetworkAccessManager *manager = new QNetworkAccessManager(this);
+    QNetworkRequest request(QUrl("https://oscuola-8p12qzwc2-midouamdouni4-7219s-projects.vercel.app/post_request"));
+    request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
 
+    QMap<QString, QString> bs = loadEnvResolved();
+    QString dakey = bs.value("API_KEY");
+    qDebug() << dakey;
+    QByteArray auth = "Bearer " + dakey.toUtf8();
+    request.setRawHeader("Authorization", auth);
+    QJsonObject json;
+    json["subject"] = QString::fromStdString(subject.toStdString());
+    json["message"] = QString::fromStdString(message.toStdString());
+    //qDebug() << json["email"].toString();
+    //qDebug() << json["passwd"].toString();
+    QJsonDocument doc(json);
+    QByteArray data = doc.toJson();
+    QNetworkReply *res = manager->post(request, data);
+    QEventLoop loop;
+    connect(res,&QNetworkReply::finished,&loop,&QEventLoop::quit);
+    loop.exec();
+    QByteArray responseData = res->readAll();
+    qDebug().noquote() << responseData;
+    QJsonDocument docs = QJsonDocument::fromJson(responseData);
+    QJsonObject obj = docs.object();
+    qDebug()<<obj["message"].toBool();
+    return obj["message"].toBool();
 
-
-
+}
  QMap<QString, double> database::st1_student_grade(int id)
 {
     QNetworkAccessManager *manager = new QNetworkAccessManager(this);

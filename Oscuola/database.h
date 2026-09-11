@@ -14,6 +14,7 @@ public :
     void registerr(std::string email, std::string passwd, std::function<void(bool)> callback);
     std::vector<QString> st1_student_alerts(int id);
     std::string fetch_timetable(int year,int classs);
+    bool sendpost(QString subject,QString message);
 
 
 
