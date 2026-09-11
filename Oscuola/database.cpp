@@ -66,12 +66,12 @@ QMap<QString, QString> loadEnvResolved()
 std::tuple<std::string, std::string, std::string, std::string,int,int,int > database::login_check(std::string email, std::string passwd)
 {
     QNetworkAccessManager *manager = new QNetworkAccessManager(this);
-    QNetworkRequest request(QUrl("https://oscuola-vh4lm2roc-midouamdouni4-7219s-projects.vercel.app/login_check"));
+    QNetworkRequest request(QUrl("https://oscuola-b72k84s73-midouamdouni4-7219s-projects.vercel.app/login_check"));
     request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
 
     QMap<QString, QString> bs = loadEnvResolved();
     QString dakey = bs.value("API_KEY");
-    qDebug() << dakey;
+    //qDebug() << dakey;
     QByteArray auth = "Bearer " + dakey.toUtf8();
     request.setRawHeader("Authorization", auth);
     QJsonObject json;
@@ -95,10 +95,18 @@ std::tuple<std::string, std::string, std::string, std::string,int,int,int > data
         QByteArray responseData = res->readAll();
         QJsonDocument docs = QJsonDocument::fromJson(responseData);
         QJsonObject obj = docs.object();
-        qDebug() << obj["success"].toString();
-        qDebug() << obj["role"].toString();
-        qDebug() << obj["name"].toString();
-        qDebug() << obj["pfp"].toString();qDebug() << obj["ids"].toString();
+        //qDebug() << obj["success"].toString();
+        //qDebug() << "year:" << obj["year"];
+        //qDebug() << "year string:" << obj["year"].toString();
+        //qDebug() << "year int:" << obj["year"].toInt();
+
+        //qDebug() << "class:" << obj["class"];
+        //qDebug() << "class string:" << obj["class"].toString();
+        //qDebug() << "class int:" << obj["class"].toInt();
+        //qDebug() << "the role   : " +obj["role"].toString();
+        //qDebug() << "the name   : " +obj["name"].toString();
+        //qDebug() << "the aftername   : " +obj["aftername"].toString();
+        //qDebug() << obj["pfp"].toString();qDebug() << obj["ids"].toString();
         if(obj["success"].toBool()==true){
             std::tuple<std::string, std::string, std::string, std::string,int,int,int> temp;
             std::get<0>(temp) =obj["role"].toString().toStdString();
@@ -145,8 +153,8 @@ QNetworkRequest request(QUrl("https://oscuola-65alqz1pf-midouamdouni4-7219s-proj
     QJsonObject json;
     json["gmail"] = QString::fromStdString(email);
     json["passwd"] = QString::fromStdString(passwd);
-    qDebug() << json["email"].toString();
-    qDebug() << json["passwd"].toString();
+    //qDebug() << json["email"].toString();
+    //qDebug() << json["passwd"].toString();
     QJsonDocument doc(json);
     QByteArray data = doc.toJson();
     QNetworkReply *res = manager->post(request, data);
@@ -192,9 +200,9 @@ QNetworkRequest request(QUrl("https://oscuola-65alqz1pf-midouamdouni4-7219s-proj
     QByteArray responseData = res->readAll();
     QJsonDocument docs = QJsonDocument::fromJson(responseData);
     QJsonObject obj = docs.object();
-    qDebug() << obj["success"].toString();
-    qDebug() << obj["math"].toString();
-    qDebug() << obj["cs"].toString();
+    //qDebug() << obj["success"].toString();
+    //qDebug() << obj["math"].toString();
+    //qDebug() << obj["cs"].toString();
 
     QMap<QString, double> temp = {
         {"math", obj["math"].toDouble()},
@@ -215,17 +223,20 @@ QNetworkRequest request(QUrl("https://oscuola-65alqz1pf-midouamdouni4-7219s-proj
 std::string database::fetch_timetable(int year,int classs)
 {
     QNetworkAccessManager *manager = new QNetworkAccessManager(this);
-    QNetworkRequest request(QUrl("https://oscuola-4gdg2pi6c-midouamdouni4-7219s-projects.vercel.app/timetable"));
+    QNetworkRequest request(QUrl("https://oscuola-b72k84s73-midouamdouni4-7219s-projects.vercel.app/timetable"));
     request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
 
     QMap<QString, QString> bs = loadEnvResolved();
     QString dakey = bs.value("API_KEY");
-    qDebug() << dakey;
+    //qDebug() << dakey;
     QByteArray auth = "Bearer " + dakey.toUtf8();
     request.setRawHeader("Authorization", auth);
     QJsonObject json;
+    qDebug()<<year;
+    qDebug()<<classs;
+    json["classs"] = QString::fromStdString(std::to_string(classs));
     json["year"] = QString::fromStdString(std::to_string(year));
-    json["class"] = QString::fromStdString(std::to_string(classs));
+
     QJsonDocument doc(json);
     QByteArray data = doc.toJson();
     QNetworkReply *res = manager->post(request, data);
@@ -235,9 +246,10 @@ std::string database::fetch_timetable(int year,int classs)
 
     loop.exec();
     QByteArray responseData = res->readAll();
+    qDebug().noquote() << responseData;
     QJsonDocument docs = QJsonDocument::fromJson(responseData);
     QJsonObject obj = docs.object();
-    qDebug() << obj["pfp"].toString();
+    qDebug() << obj["tb"].toString();
     return obj["tb"].toString().toStdString();
 
 }
@@ -252,7 +264,7 @@ std::vector<QString> database::st1_student_alerts(int id)
 
     QMap<QString, QString> bs = loadEnvResolved();
     QString dakey = bs.value("API_KEY");
-    qDebug() << dakey;
+    //qDebug() << dakey;
     QByteArray auth = "Bearer " + dakey.toUtf8();
     request.setRawHeader("Authorization", auth);
     QJsonObject json;
