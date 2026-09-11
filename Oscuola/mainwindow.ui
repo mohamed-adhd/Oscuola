@@ -310,6 +310,245 @@ QPlainTextEdit#request_message:focus {
     border: 1px solid #4F46E5;
     background-color: #FFFFFF;
 }
+
+/* ================= Teacher pages ================= */
+
+/* ---------- Teacher sidebar frames / titles ---------- */
+QFrame#sidebar_teacher_1, QFrame#sidebar_teacher_2, QFrame#sidebar_teacher_3, QFrame#sidebar_teacher_4 {
+    background-color: #111827;
+}
+QLabel#sidebar_title_teacher_1, QLabel#sidebar_title_teacher_2, QLabel#sidebar_title_teacher_3, QLabel#sidebar_title_teacher_4 {
+    color: #FFFFFF;
+    font-size: 18pt;
+    font-weight: 800;
+    font-style: italic;
+}
+
+/* ---------- Teacher sidebar nav buttons ---------- */
+QPushButton#timetable_but_teacher_1, QPushButton#grades_button_teacher_1, QPushButton#requests_button_teacher_1,
+QPushButton#timetable_but_teacher_2, QPushButton#grades_button_teacher_2, QPushButton#requests_button_teacher_2,
+QPushButton#timetable_but_teacher_3, QPushButton#grades_button_teacher_3, QPushButton#requests_button_teacher_3,
+QPushButton#timetable_but_teacher_4, QPushButton#grades_button_teacher_4, QPushButton#requests_button_teacher_4 {
+    background-color: transparent;
+    color: #D1D5DB;
+    border: none;
+    border-radius: 8px;
+    text-align: left;
+    padding-left: 18px;
+    font-size: 11pt;
+    font-weight: 600;
+}
+QPushButton#timetable_but_teacher_1:hover, QPushButton#grades_button_teacher_1:hover, QPushButton#requests_button_teacher_1:hover,
+QPushButton#timetable_but_teacher_2:hover, QPushButton#grades_button_teacher_2:hover, QPushButton#requests_button_teacher_2:hover,
+QPushButton#timetable_but_teacher_3:hover, QPushButton#grades_button_teacher_3:hover, QPushButton#requests_button_teacher_3:hover,
+QPushButton#timetable_but_teacher_4:hover, QPushButton#grades_button_teacher_4:hover, QPushButton#requests_button_teacher_4:hover {
+    background-color: #1F2937;
+    color: #FFFFFF;
+}
+QPushButton#timetable_but_teacher_1:pressed, QPushButton#grades_button_teacher_1:pressed, QPushButton#requests_button_teacher_1:pressed,
+QPushButton#timetable_but_teacher_2:pressed, QPushButton#grades_button_teacher_2:pressed, QPushButton#requests_button_teacher_2:pressed,
+QPushButton#timetable_but_teacher_3:pressed, QPushButton#grades_button_teacher_3:pressed, QPushButton#requests_button_teacher_3:pressed,
+QPushButton#timetable_but_teacher_4:pressed, QPushButton#grades_button_teacher_4:pressed, QPushButton#requests_button_teacher_4:pressed {
+    background-color: #111827;
+    color: #FFFFFF;
+}
+
+/* ---------- Teacher logout buttons ---------- */
+QPushButton#logout_but_teacher_1, QPushButton#logout_but_teacher_2, QPushButton#logout_but_teacher_3, QPushButton#logout_but_teacher_4 {
+    background-color: transparent;
+    color: #F87171;
+    border: none;
+    border-top: 1px solid #1F2937;
+    border-radius: 0px;
+    text-align: left;
+    padding-left: 18px;
+    font-size: 11pt;
+    font-weight: 600;
+}
+QPushButton#logout_but_teacher_1:hover, QPushButton#logout_but_teacher_2:hover, QPushButton#logout_but_teacher_3:hover, QPushButton#logout_but_teacher_4:hover {
+    background-color: #1F2937;
+    color: #EF4444;
+}
+QPushButton#logout_but_teacher_1:pressed, QPushButton#logout_but_teacher_2:pressed, QPushButton#logout_but_teacher_3:pressed, QPushButton#logout_but_teacher_4:pressed {
+    background-color: #111827;
+    color: #EF4444;
+}
+
+/* ---------- Teacher top bar (name + titles) ---------- */
+QLabel#teacher_name_label {
+    color: #111827;
+    font-size: 12pt;
+    font-weight: 700;
+}
+QLabel#teacher_dash_title, QLabel#teacher_timetable_title, QLabel#teacher_grades_title, QLabel#teacher_requests_title {
+    color: #111827;
+    font-size: 22pt;
+    font-weight: 800;
+}
+QLabel#teacher_dash_subtitle, QLabel#teacher_timetable_subtitle, QLabel#teacher_grades_subtitle, QLabel#teacher_requests_subtitle {
+    color: #6B7280;
+    font-size: 11pt;
+}
+
+/* ---------- Teacher dashboard summary cards ---------- */
+QFrame#dash_card_success_rate, QFrame#dash_card_student_absences, QFrame#dash_card_requests {
+    background-color: #FFFFFF;
+    border-radius: 14px;
+    border: 1px solid #E5E9F2;
+}
+QLabel#dash_value_success_rate {
+    font-size: 28pt;
+    font-weight: 800;
+    color: #16A34A;
+}
+QLabel#dash_value_student_absences {
+    font-size: 28pt;
+    font-weight: 800;
+    color: #D97706;
+}
+QLabel#dash_value_requests_pending {
+    font-size: 28pt;
+    font-weight: 800;
+    color: #4F46E5;
+}
+QLabel#dash_label_success_rate, QLabel#dash_label_student_absences, QLabel#dash_label_requests_pending {
+    font-size: 10pt;
+    color: #6B7280;
+    font-weight: 600;
+}
+QLabel#dash_sub_success_rate, QLabel#dash_sub_student_absences, QLabel#dash_sub_requests_pending {
+    font-size: 8pt;
+    color: #9CA3AF;
+    font-weight: 500;
+}
+
+/* ---------- Teacher detail panels ---------- */
+QFrame#panel_class_success, QFrame#panel_absence_overview, QFrame#panel_timetable_picture_teacher,
+QFrame#panel_grades_teacher, QFrame#panel_requests_teacher {
+    background-color: #FFFFFF;
+    border-radius: 14px;
+    border: 1px solid #E5E9F2;
+}
+QLabel#panel_title_class_success, QLabel#panel_title_absence_overview, QLabel#panel_title_timetable_picture_teacher,
+QLabel#panel_title_grades_teacher, QLabel#panel_title_requests_teacher {
+    font-size: 13pt;
+    font-weight: 700;
+    color: #111827;
+}
+QListWidget#teacher_class_success_list, QListWidget#teacher_absence_overview_list, QListWidget#teacher_grades_list {
+    border: none;
+    background-color: transparent;
+    font-size: 10pt;
+    color: #374151;
+    outline: 0;
+}
+QListWidget#teacher_class_success_list::item, QListWidget#teacher_absence_overview_list::item, QListWidget#teacher_grades_list::item {
+    padding: 8px 4px;
+    border-bottom: 1px solid #F3F4F6;
+}
+QLabel#timetable_picture_label_teacher {
+    background-color: #F9FAFB;
+    border: 2px dashed #D1D5DB;
+    border-radius: 10px;
+    color: #9CA3AF;
+    font-size: 10pt;
+    font-weight: 600;
+}
+
+/* ---------- Teacher back-home buttons ---------- */
+QPushButton#back_home_btn_teacher_2, QPushButton#back_home_btn_teacher_3, QPushButton#back_home_btn_teacher_4 {
+    background-color: #FFFFFF;
+    color: #4F46E5;
+    border: 1px solid #4F46E5;
+    border-radius: 8px;
+    font-size: 10pt;
+    font-weight: 700;
+    padding: 6px 14px;
+}
+QPushButton#back_home_btn_teacher_2:hover, QPushButton#back_home_btn_teacher_3:hover, QPushButton#back_home_btn_teacher_4:hover {
+    background-color: #EEF2FF;
+}
+QPushButton#back_home_btn_teacher_2:pressed, QPushButton#back_home_btn_teacher_3:pressed, QPushButton#back_home_btn_teacher_4:pressed {
+    background-color: #E0E7FF;
+}
+
+/* ---------- Teacher class / year selectors ---------- */
+QComboBox#teacher_timetable_class_combo, QComboBox#teacher_grades_class_combo, QComboBox#teacher_grades_year_combo {
+    background-color: #F9FAFB;
+    border: 1px solid #D1D5DB;
+    border-radius: 8px;
+    padding: 4px 10px;
+    font-size: 10pt;
+    color: #111827;
+}
+QComboBox#teacher_timetable_class_combo:focus, QComboBox#teacher_grades_class_combo:focus, QComboBox#teacher_grades_year_combo:focus {
+    border: 1px solid #4F46E5;
+}
+QComboBox#teacher_timetable_class_combo::drop-down, QComboBox#teacher_grades_class_combo::drop-down, QComboBox#teacher_grades_year_combo::drop-down {
+    border: none;
+    width: 24px;
+}
+QLabel#class_select_label_timetable, QLabel#class_select_label_grades, QLabel#year_select_label_grades {
+    color: #374151;
+    font-size: 10pt;
+    font-weight: 600;
+}
+
+/* ---------- Teacher "Load" buttons ---------- */
+QPushButton#teacher_timetable_load_btn, QPushButton#teacher_grades_load_btn {
+    background-color: #4F46E5;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 8px;
+    font-size: 10pt;
+    font-weight: 700;
+}
+QPushButton#teacher_timetable_load_btn:hover, QPushButton#teacher_grades_load_btn:hover {
+    background-color: #4338CA;
+}
+QPushButton#teacher_timetable_load_btn:pressed, QPushButton#teacher_grades_load_btn:pressed {
+    background-color: #3730A3;
+}
+
+/* ---------- Teacher requests list (accept / decline rows) ---------- */
+QFrame#request_row_1, QFrame#request_row_2, QFrame#request_row_3, QFrame#request_row_4, QFrame#request_row_5 {
+    background-color: #F9FAFB;
+    border: 1px solid #E5E9F2;
+    border-radius: 10px;
+}
+QLabel#request_label_1, QLabel#request_label_2, QLabel#request_label_3, QLabel#request_label_4, QLabel#request_label_5 {
+    font-size: 10pt;
+    color: #374151;
+    font-weight: 600;
+}
+QPushButton#accept_btn_1, QPushButton#accept_btn_2, QPushButton#accept_btn_3, QPushButton#accept_btn_4, QPushButton#accept_btn_5 {
+    background-color: #16A34A;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 8px;
+    font-size: 10pt;
+    font-weight: 700;
+}
+QPushButton#accept_btn_1:hover, QPushButton#accept_btn_2:hover, QPushButton#accept_btn_3:hover, QPushButton#accept_btn_4:hover, QPushButton#accept_btn_5:hover {
+    background-color: #15803D;
+}
+QPushButton#accept_btn_1:pressed, QPushButton#accept_btn_2:pressed, QPushButton#accept_btn_3:pressed, QPushButton#accept_btn_4:pressed, QPushButton#accept_btn_5:pressed {
+    background-color: #166534;
+}
+QPushButton#decline_btn_1, QPushButton#decline_btn_2, QPushButton#decline_btn_3, QPushButton#decline_btn_4, QPushButton#decline_btn_5 {
+    background-color: #DC2626;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 8px;
+    font-size: 10pt;
+    font-weight: 700;
+}
+QPushButton#decline_btn_1:hover, QPushButton#decline_btn_2:hover, QPushButton#decline_btn_3:hover, QPushButton#decline_btn_4:hover, QPushButton#decline_btn_5:hover {
+    background-color: #B91C1C;
+}
+QPushButton#decline_btn_1:pressed, QPushButton#decline_btn_2:pressed, QPushButton#decline_btn_3:pressed, QPushButton#decline_btn_4:pressed, QPushButton#decline_btn_5:pressed {
+    background-color: #991B1B;
+}
 </string>
   </property>
   <widget class="QWidget" name="centralwidget">
@@ -1988,6 +2227,1442 @@ No image set</string>
        <property name="wordWrap">
         <bool>true</bool>
        </property>
+      </widget>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="main_menu_teacher">
+     <widget class="QFrame" name="sidebar_teacher_1">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>220</width>
+        <height>698</height>
+       </rect>
+      </property>
+      <widget class="QLabel" name="sidebar_title_teacher_1">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>30</y>
+         <width>220</width>
+         <height>40</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Oscuola</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignmentFlag::AlignCenter</set>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="timetable_but_teacher_1">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>120</y>
+         <width>180</width>
+         <height>42</height>
+        </rect>
+       </property>
+       <property name="cursor">
+        <cursorShape>PointingHandCursor</cursorShape>
+       </property>
+       <property name="text">
+        <string>🗓️  Timetables</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="grades_button_teacher_1">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>172</y>
+         <width>180</width>
+         <height>42</height>
+        </rect>
+       </property>
+       <property name="cursor">
+        <cursorShape>PointingHandCursor</cursorShape>
+       </property>
+       <property name="text">
+        <string>📘  Grades</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="requests_button_teacher_1">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>224</y>
+         <width>180</width>
+         <height>42</height>
+        </rect>
+       </property>
+       <property name="cursor">
+        <cursorShape>PointingHandCursor</cursorShape>
+       </property>
+       <property name="text">
+        <string>📥  Requests</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="logout_but_teacher_1">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>636</y>
+         <width>180</width>
+         <height>42</height>
+        </rect>
+       </property>
+       <property name="cursor">
+        <cursorShape>PointingHandCursor</cursorShape>
+       </property>
+       <property name="text">
+        <string>🚪  Logout</string>
+       </property>
+      </widget>
+     </widget>
+     <widget class="QLabel" name="teacher_dash_title">
+      <property name="geometry">
+       <rect>
+        <x>260</x>
+        <y>36</y>
+        <width>500</width>
+        <height>50</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Teacher Dashboard</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="teacher_dash_subtitle">
+      <property name="geometry">
+       <rect>
+        <x>260</x>
+        <y>86</y>
+        <width>600</width>
+        <height>24</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Here's an overview of your classes</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="teacher_pfp">
+      <property name="geometry">
+       <rect>
+        <x>1070</x>
+        <y>20</y>
+        <width>101</width>
+        <height>91</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true"/>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QLabel" name="teacher_name_label">
+      <property name="geometry">
+       <rect>
+        <x>770</x>
+        <y>50</y>
+        <width>210</width>
+        <height>30</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
+      </property>
+     </widget>
+     <widget class="QFrame" name="dash_card_success_rate">
+      <property name="geometry">
+       <rect>
+        <x>260</x>
+        <y>130</y>
+        <width>300</width>
+        <height>130</height>
+       </rect>
+      </property>
+      <widget class="QLabel" name="dash_value_success_rate">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>16</y>
+         <width>260</width>
+         <height>50</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>82%</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="dash_label_success_rate">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>68</y>
+         <width>260</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Success Rate</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="dash_sub_success_rate">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>92</y>
+         <width>260</width>
+         <height>18</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Across all your classes</string>
+       </property>
+      </widget>
+     </widget>
+     <widget class="QFrame" name="dash_card_student_absences">
+      <property name="geometry">
+       <rect>
+        <x>580</x>
+        <y>130</y>
+        <width>300</width>
+        <height>130</height>
+       </rect>
+      </property>
+      <widget class="QLabel" name="dash_value_student_absences">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>16</y>
+         <width>260</width>
+         <height>50</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>46</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="dash_label_student_absences">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>68</y>
+         <width>260</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Student Absences</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="dash_sub_student_absences">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>92</y>
+         <width>260</width>
+         <height>18</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>This session, all classes</string>
+       </property>
+      </widget>
+     </widget>
+     <widget class="QFrame" name="dash_card_requests">
+      <property name="geometry">
+       <rect>
+        <x>900</x>
+        <y>130</y>
+        <width>300</width>
+        <height>130</height>
+       </rect>
+      </property>
+      <widget class="QLabel" name="dash_value_requests_pending">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>16</y>
+         <width>260</width>
+         <height>50</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>5</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="dash_label_requests_pending">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>68</y>
+         <width>260</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Pending Requests</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="dash_sub_requests_pending">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>92</y>
+         <width>260</width>
+         <height>18</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Awaiting your response</string>
+       </property>
+      </widget>
+     </widget>
+     <widget class="QFrame" name="panel_class_success">
+      <property name="geometry">
+       <rect>
+        <x>260</x>
+        <y>280</y>
+        <width>460</width>
+        <height>340</height>
+       </rect>
+      </property>
+      <widget class="QLabel" name="panel_title_class_success">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>16</y>
+         <width>300</width>
+         <height>26</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Success Rate by Class</string>
+       </property>
+      </widget>
+      <widget class="QListWidget" name="teacher_class_success_list">
+       <property name="geometry">
+        <rect>
+         <x>16</x>
+         <y>50</y>
+         <width>428</width>
+         <height>274</height>
+        </rect>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::Shape::NoFrame</enum>
+       </property>
+       <item>
+        <property name="text">
+         <string>10A — 88% success rate</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>10B — 79% success rate</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>11A — 91% success rate</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>11B — 74% success rate</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>12A — 85% success rate</string>
+        </property>
+       </item>
+      </widget>
+     </widget>
+     <widget class="QFrame" name="panel_absence_overview">
+      <property name="geometry">
+       <rect>
+        <x>740</x>
+        <y>280</y>
+        <width>460</width>
+        <height>340</height>
+       </rect>
+      </property>
+      <widget class="QLabel" name="panel_title_absence_overview">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>16</y>
+         <width>300</width>
+         <height>26</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Student Absences Overview</string>
+       </property>
+      </widget>
+      <widget class="QListWidget" name="teacher_absence_overview_list">
+       <property name="geometry">
+        <rect>
+         <x>16</x>
+         <y>50</y>
+         <width>428</width>
+         <height>274</height>
+        </rect>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::Shape::NoFrame</enum>
+       </property>
+       <item>
+        <property name="text">
+         <string>10A — 12 absences this session</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>10B — 9 absences this session</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>11A — 6 absences this session</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>11B — 14 absences this session</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>12A — 5 absences this session</string>
+        </property>
+       </item>
+      </widget>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="timetable_teacher">
+     <widget class="QFrame" name="sidebar_teacher_2">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>220</width>
+        <height>698</height>
+       </rect>
+      </property>
+      <widget class="QLabel" name="sidebar_title_teacher_2">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>30</y>
+         <width>220</width>
+         <height>40</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Oscuola</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignmentFlag::AlignCenter</set>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="timetable_but_teacher_2">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>120</y>
+         <width>180</width>
+         <height>42</height>
+        </rect>
+       </property>
+       <property name="cursor">
+        <cursorShape>PointingHandCursor</cursorShape>
+       </property>
+       <property name="text">
+        <string>🗓️  Timetables</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="grades_button_teacher_2">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>172</y>
+         <width>180</width>
+         <height>42</height>
+        </rect>
+       </property>
+       <property name="cursor">
+        <cursorShape>PointingHandCursor</cursorShape>
+       </property>
+       <property name="text">
+        <string>📘  Grades</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="requests_button_teacher_2">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>224</y>
+         <width>180</width>
+         <height>42</height>
+        </rect>
+       </property>
+       <property name="cursor">
+        <cursorShape>PointingHandCursor</cursorShape>
+       </property>
+       <property name="text">
+        <string>📥  Requests</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="logout_but_teacher_2">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>636</y>
+         <width>180</width>
+         <height>42</height>
+        </rect>
+       </property>
+       <property name="cursor">
+        <cursorShape>PointingHandCursor</cursorShape>
+       </property>
+       <property name="text">
+        <string>🚪  Logout</string>
+       </property>
+      </widget>
+     </widget>
+     <widget class="QLabel" name="teacher_timetable_title">
+      <property name="geometry">
+       <rect>
+        <x>260</x>
+        <y>36</y>
+        <width>500</width>
+        <height>50</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Timetables</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="teacher_timetable_subtitle">
+      <property name="geometry">
+       <rect>
+        <x>260</x>
+        <y>86</y>
+        <width>600</width>
+        <height>24</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Select a class to view its weekly schedule</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="back_home_btn_teacher_2">
+      <property name="geometry">
+       <rect>
+        <x>1130</x>
+        <y>40</y>
+        <width>130</width>
+        <height>36</height>
+       </rect>
+      </property>
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
+      </property>
+      <property name="text">
+       <string>🏠  Back Home</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="class_select_label_timetable">
+      <property name="geometry">
+       <rect>
+        <x>260</x>
+        <y>136</y>
+        <width>50</width>
+        <height>24</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Class</string>
+      </property>
+     </widget>
+     <widget class="QComboBox" name="teacher_timetable_class_combo">
+      <property name="geometry">
+       <rect>
+        <x>310</x>
+        <y>130</y>
+        <width>160</width>
+        <height>34</height>
+       </rect>
+      </property>
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
+      </property>
+      <item>
+       <property name="text">
+        <string>9A</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>9B</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>10A</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>10B</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>11A</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>11B</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>12A</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>12B</string>
+       </property>
+      </item>
+     </widget>
+     <widget class="QPushButton" name="teacher_timetable_load_btn">
+      <property name="geometry">
+       <rect>
+        <x>490</x>
+        <y>130</y>
+        <width>100</width>
+        <height>34</height>
+       </rect>
+      </property>
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
+      </property>
+      <property name="text">
+       <string>Load</string>
+      </property>
+     </widget>
+     <widget class="QFrame" name="panel_timetable_picture_teacher">
+      <property name="geometry">
+       <rect>
+        <x>260</x>
+        <y>184</y>
+        <width>940</width>
+        <height>446</height>
+       </rect>
+      </property>
+      <widget class="QLabel" name="panel_title_timetable_picture_teacher">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>16</y>
+         <width>300</width>
+         <height>26</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Schedule Photo</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="timetable_picture_label_teacher">
+       <property name="geometry">
+        <rect>
+         <x>16</x>
+         <y>50</y>
+         <width>908</width>
+         <height>380</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>🖼️
+No image set — select a class and press Load</string>
+       </property>
+       <property name="scaledContents">
+        <bool>false</bool>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignmentFlag::AlignCenter</set>
+       </property>
+       <property name="wordWrap">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="grades_teacher">
+     <widget class="QFrame" name="sidebar_teacher_3">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>220</width>
+        <height>698</height>
+       </rect>
+      </property>
+      <widget class="QLabel" name="sidebar_title_teacher_3">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>30</y>
+         <width>220</width>
+         <height>40</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Oscuola</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignmentFlag::AlignCenter</set>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="timetable_but_teacher_3">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>120</y>
+         <width>180</width>
+         <height>42</height>
+        </rect>
+       </property>
+       <property name="cursor">
+        <cursorShape>PointingHandCursor</cursorShape>
+       </property>
+       <property name="text">
+        <string>🗓️  Timetables</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="grades_button_teacher_3">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>172</y>
+         <width>180</width>
+         <height>42</height>
+        </rect>
+       </property>
+       <property name="cursor">
+        <cursorShape>PointingHandCursor</cursorShape>
+       </property>
+       <property name="text">
+        <string>📘  Grades</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="requests_button_teacher_3">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>224</y>
+         <width>180</width>
+         <height>42</height>
+        </rect>
+       </property>
+       <property name="cursor">
+        <cursorShape>PointingHandCursor</cursorShape>
+       </property>
+       <property name="text">
+        <string>📥  Requests</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="logout_but_teacher_3">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>636</y>
+         <width>180</width>
+         <height>42</height>
+        </rect>
+       </property>
+       <property name="cursor">
+        <cursorShape>PointingHandCursor</cursorShape>
+       </property>
+       <property name="text">
+        <string>🚪  Logout</string>
+       </property>
+      </widget>
+     </widget>
+     <widget class="QLabel" name="teacher_grades_title">
+      <property name="geometry">
+       <rect>
+        <x>260</x>
+        <y>36</y>
+        <width>500</width>
+        <height>50</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Grades</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="teacher_grades_subtitle">
+      <property name="geometry">
+       <rect>
+        <x>260</x>
+        <y>86</y>
+        <width>600</width>
+        <height>24</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Filter and view student grades</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="back_home_btn_teacher_3">
+      <property name="geometry">
+       <rect>
+        <x>1130</x>
+        <y>40</y>
+        <width>130</width>
+        <height>36</height>
+       </rect>
+      </property>
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
+      </property>
+      <property name="text">
+       <string>🏠  Back Home</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="class_select_label_grades">
+      <property name="geometry">
+       <rect>
+        <x>260</x>
+        <y>136</y>
+        <width>50</width>
+        <height>24</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Class</string>
+      </property>
+     </widget>
+     <widget class="QComboBox" name="teacher_grades_class_combo">
+      <property name="geometry">
+       <rect>
+        <x>310</x>
+        <y>130</y>
+        <width>160</width>
+        <height>34</height>
+       </rect>
+      </property>
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
+      </property>
+      <item>
+       <property name="text">
+        <string>9A</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>9B</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>10A</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>10B</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>11A</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>11B</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>12A</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>12B</string>
+       </property>
+      </item>
+     </widget>
+     <widget class="QLabel" name="year_select_label_grades">
+      <property name="geometry">
+       <rect>
+        <x>490</x>
+        <y>136</y>
+        <width>40</width>
+        <height>24</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Year</string>
+      </property>
+     </widget>
+     <widget class="QComboBox" name="teacher_grades_year_combo">
+      <property name="geometry">
+       <rect>
+        <x>530</x>
+        <y>130</y>
+        <width>160</width>
+        <height>34</height>
+       </rect>
+      </property>
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
+      </property>
+      <item>
+       <property name="text">
+        <string>2025-2026</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>2024-2025</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>2023-2024</string>
+       </property>
+      </item>
+     </widget>
+     <widget class="QPushButton" name="teacher_grades_load_btn">
+      <property name="geometry">
+       <rect>
+        <x>710</x>
+        <y>130</y>
+        <width>100</width>
+        <height>34</height>
+       </rect>
+      </property>
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
+      </property>
+      <property name="text">
+       <string>Load</string>
+      </property>
+     </widget>
+     <widget class="QFrame" name="panel_grades_teacher">
+      <property name="geometry">
+       <rect>
+        <x>260</x>
+        <y>184</y>
+        <width>940</width>
+        <height>446</height>
+       </rect>
+      </property>
+      <widget class="QLabel" name="panel_title_grades_teacher">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>16</y>
+         <width>300</width>
+         <height>26</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Grades — Filtered Results</string>
+       </property>
+      </widget>
+      <widget class="QListWidget" name="teacher_grades_list">
+       <property name="geometry">
+        <rect>
+         <x>16</x>
+         <y>50</y>
+         <width>908</width>
+         <height>380</height>
+        </rect>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::Shape::NoFrame</enum>
+       </property>
+       <item>
+        <property name="text">
+         <string>John Doe — Mathematics — 85%</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Sarah Connor — Mathematics — 91%</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Mike Ross — Mathematics — 68%</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Emma Stone — Mathematics — 77%</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Select a class and year, then press Load to refresh this list</string>
+        </property>
+       </item>
+      </widget>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="requests_teacher">
+     <widget class="QFrame" name="sidebar_teacher_4">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>220</width>
+        <height>698</height>
+       </rect>
+      </property>
+      <widget class="QLabel" name="sidebar_title_teacher_4">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>30</y>
+         <width>220</width>
+         <height>40</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Oscuola</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignmentFlag::AlignCenter</set>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="timetable_but_teacher_4">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>120</y>
+         <width>180</width>
+         <height>42</height>
+        </rect>
+       </property>
+       <property name="cursor">
+        <cursorShape>PointingHandCursor</cursorShape>
+       </property>
+       <property name="text">
+        <string>🗓️  Timetables</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="grades_button_teacher_4">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>172</y>
+         <width>180</width>
+         <height>42</height>
+        </rect>
+       </property>
+       <property name="cursor">
+        <cursorShape>PointingHandCursor</cursorShape>
+       </property>
+       <property name="text">
+        <string>📘  Grades</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="requests_button_teacher_4">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>224</y>
+         <width>180</width>
+         <height>42</height>
+        </rect>
+       </property>
+       <property name="cursor">
+        <cursorShape>PointingHandCursor</cursorShape>
+       </property>
+       <property name="text">
+        <string>📥  Requests</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="logout_but_teacher_4">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>636</y>
+         <width>180</width>
+         <height>42</height>
+        </rect>
+       </property>
+       <property name="cursor">
+        <cursorShape>PointingHandCursor</cursorShape>
+       </property>
+       <property name="text">
+        <string>🚪  Logout</string>
+       </property>
+      </widget>
+     </widget>
+     <widget class="QLabel" name="teacher_requests_title">
+      <property name="geometry">
+       <rect>
+        <x>260</x>
+        <y>36</y>
+        <width>500</width>
+        <height>50</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Requests</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="teacher_requests_subtitle">
+      <property name="geometry">
+       <rect>
+        <x>260</x>
+        <y>86</y>
+        <width>600</width>
+        <height>24</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Review and respond to student requests</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="back_home_btn_teacher_4">
+      <property name="geometry">
+       <rect>
+        <x>1130</x>
+        <y>40</y>
+        <width>130</width>
+        <height>36</height>
+       </rect>
+      </property>
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
+      </property>
+      <property name="text">
+       <string>🏠  Back Home</string>
+      </property>
+     </widget>
+     <widget class="QFrame" name="panel_requests_teacher">
+      <property name="geometry">
+       <rect>
+        <x>260</x>
+        <y>130</y>
+        <width>940</width>
+        <height>500</height>
+       </rect>
+      </property>
+      <widget class="QLabel" name="panel_title_requests_teacher">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>16</y>
+         <width>300</width>
+         <height>26</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Pending Requests</string>
+       </property>
+      </widget>
+      <widget class="QFrame" name="request_row_1">
+       <property name="geometry">
+        <rect>
+         <x>16</x>
+         <y>50</y>
+         <width>908</width>
+         <height>64</height>
+        </rect>
+       </property>
+       <widget class="QLabel" name="request_label_1">
+        <property name="geometry">
+         <rect>
+          <x>16</x>
+          <y>8</y>
+          <width>550</width>
+          <height>48</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Sarah Connor (10A)
+Absence excuse request — Sep 8</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="accept_btn_1">
+        <property name="geometry">
+         <rect>
+          <x>590</x>
+          <y>12</y>
+          <width>140</width>
+          <height>40</height>
+         </rect>
+        </property>
+        <property name="cursor">
+         <cursorShape>PointingHandCursor</cursorShape>
+        </property>
+        <property name="text">
+         <string>✅  Accept</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="decline_btn_1">
+        <property name="geometry">
+         <rect>
+          <x>740</x>
+          <y>12</y>
+          <width>140</width>
+          <height>40</height>
+         </rect>
+        </property>
+        <property name="cursor">
+         <cursorShape>PointingHandCursor</cursorShape>
+        </property>
+        <property name="text">
+         <string>❌  Decline</string>
+        </property>
+       </widget>
+      </widget>
+      <widget class="QFrame" name="request_row_2">
+       <property name="geometry">
+        <rect>
+         <x>16</x>
+         <y>122</y>
+         <width>908</width>
+         <height>64</height>
+        </rect>
+       </property>
+       <widget class="QLabel" name="request_label_2">
+        <property name="geometry">
+         <rect>
+          <x>16</x>
+          <y>8</y>
+          <width>550</width>
+          <height>48</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Mike Ross (10B)
+Grade review request — Sep 6</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="accept_btn_2">
+        <property name="geometry">
+         <rect>
+          <x>590</x>
+          <y>12</y>
+          <width>140</width>
+          <height>40</height>
+         </rect>
+        </property>
+        <property name="cursor">
+         <cursorShape>PointingHandCursor</cursorShape>
+        </property>
+        <property name="text">
+         <string>✅  Accept</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="decline_btn_2">
+        <property name="geometry">
+         <rect>
+          <x>740</x>
+          <y>12</y>
+          <width>140</width>
+          <height>40</height>
+         </rect>
+        </property>
+        <property name="cursor">
+         <cursorShape>PointingHandCursor</cursorShape>
+        </property>
+        <property name="text">
+         <string>❌  Decline</string>
+        </property>
+       </widget>
+      </widget>
+      <widget class="QFrame" name="request_row_3">
+       <property name="geometry">
+        <rect>
+         <x>16</x>
+         <y>194</y>
+         <width>908</width>
+         <height>64</height>
+        </rect>
+       </property>
+       <widget class="QLabel" name="request_label_3">
+        <property name="geometry">
+         <rect>
+          <x>16</x>
+          <y>8</y>
+          <width>550</width>
+          <height>48</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Emma Stone (11A)
+Late submission request — Sep 5</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="accept_btn_3">
+        <property name="geometry">
+         <rect>
+          <x>590</x>
+          <y>12</y>
+          <width>140</width>
+          <height>40</height>
+         </rect>
+        </property>
+        <property name="cursor">
+         <cursorShape>PointingHandCursor</cursorShape>
+        </property>
+        <property name="text">
+         <string>✅  Accept</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="decline_btn_3">
+        <property name="geometry">
+         <rect>
+          <x>740</x>
+          <y>12</y>
+          <width>140</width>
+          <height>40</height>
+         </rect>
+        </property>
+        <property name="cursor">
+         <cursorShape>PointingHandCursor</cursorShape>
+        </property>
+        <property name="text">
+         <string>❌  Decline</string>
+        </property>
+       </widget>
+      </widget>
+      <widget class="QFrame" name="request_row_4">
+       <property name="geometry">
+        <rect>
+         <x>16</x>
+         <y>266</y>
+         <width>908</width>
+         <height>64</height>
+        </rect>
+       </property>
+       <widget class="QLabel" name="request_label_4">
+        <property name="geometry">
+         <rect>
+          <x>16</x>
+          <y>8</y>
+          <width>550</width>
+          <height>48</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>John Doe (11B)
+Parent meeting request — Sep 4</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="accept_btn_4">
+        <property name="geometry">
+         <rect>
+          <x>590</x>
+          <y>12</y>
+          <width>140</width>
+          <height>40</height>
+         </rect>
+        </property>
+        <property name="cursor">
+         <cursorShape>PointingHandCursor</cursorShape>
+        </property>
+        <property name="text">
+         <string>✅  Accept</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="decline_btn_4">
+        <property name="geometry">
+         <rect>
+          <x>740</x>
+          <y>12</y>
+          <width>140</width>
+          <height>40</height>
+         </rect>
+        </property>
+        <property name="cursor">
+         <cursorShape>PointingHandCursor</cursorShape>
+        </property>
+        <property name="text">
+         <string>❌  Decline</string>
+        </property>
+       </widget>
+      </widget>
+      <widget class="QFrame" name="request_row_5">
+       <property name="geometry">
+        <rect>
+         <x>16</x>
+         <y>338</y>
+         <width>908</width>
+         <height>64</height>
+        </rect>
+       </property>
+       <widget class="QLabel" name="request_label_5">
+        <property name="geometry">
+         <rect>
+          <x>16</x>
+          <y>8</y>
+          <width>550</width>
+          <height>48</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Olivia Pope (12A)
+Extra credit assignment request — Sep 2</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="accept_btn_5">
+        <property name="geometry">
+         <rect>
+          <x>590</x>
+          <y>12</y>
+          <width>140</width>
+          <height>40</height>
+         </rect>
+        </property>
+        <property name="cursor">
+         <cursorShape>PointingHandCursor</cursorShape>
+        </property>
+        <property name="text">
+         <string>✅  Accept</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="decline_btn_5">
+        <property name="geometry">
+         <rect>
+          <x>740</x>
+          <y>12</y>
+          <width>140</width>
+          <height>40</height>
+         </rect>
+        </property>
+        <property name="cursor">
+         <cursorShape>PointingHandCursor</cursorShape>
+        </property>
+        <property name="text">
+         <string>❌  Decline</string>
+        </property>
+       </widget>
       </widget>
      </widget>
     </widget>
