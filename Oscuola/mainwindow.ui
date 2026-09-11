@@ -1641,6 +1641,19 @@ QPlainTextEdit#request_message:focus {
        </property>
       </widget>
      </widget>
+     <widget class="QLabel" name="post_res">
+      <property name="geometry">
+       <rect>
+        <x>870</x>
+        <y>550</y>
+        <width>291</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
     </widget>
     <widget class="QWidget" name="timetable_student">
      <widget class="QFrame" name="sidebar_5">

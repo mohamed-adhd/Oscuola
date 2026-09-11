@@ -108,7 +108,14 @@ switchpg(4);});
         }}
     connect(post_buts,&QButtonGroup::buttonClicked,this,[this]() {switchpg(5);});
     connect(ui->btn_send_request,&QPushButton::clicked,this,[this](){
-        db.sendpost(ui->request_subject->text(),ui->request_message->toPlainText());
+        if(db.sendpost(ui->request_subject->text(),ui->request_message->toPlainText())){
+            ui->post_res->setText("request submitted");
+        }else{
+            ui->post_res->setText("something went wrong");
+        }
+
+
+        ;
     });
 
 
