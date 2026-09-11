@@ -126,6 +126,7 @@ switchpg(4);});
         if(button){
             time_buts->addButton(button);
         }}
+
     connect(time_buts,&QButtonGroup::buttonClicked,this,[this]() {
         if(!tbloaded){
             tbloaded=true;
@@ -143,8 +144,16 @@ switchpg(4);});
         }
         switchpg(6);});
 
-
-
+    QButtonGroup *logout_buts= new QButtonGroup(this);
+    for(int i=1;i<6;i++){
+        QString name=QString("logout_but_%1").arg(i);
+        QPushButton *button=this->findChild<QPushButton*>(name);
+        if(button){
+            logout_buts->addButton(button);
+        }}
+    connect(logout_buts,&QButtonGroup::buttonClicked,this,[this]{
+        switchpg(0);
+    });
 
 
 
@@ -155,9 +164,8 @@ switchpg(4);});
             std::tuple<std::string, std::string, std::string, std::string,int,int,int> s=db.login_check(ui->login_email->text().toStdString(), ui->login_passwd->text().toStdString());
             f=s;
             if (get<0>(s)!="false") {
+                ui->user_name_label->setText(QString::fromStdString(std::get<1>(f))+" "+QString::fromStdString(std::get<2>(f)));
                 if(get<0>(s)=="student"){
-
-
                     std::string soi=db.fetch_timetable(std::get<5>(f),std::get<6>(f));
                     QByteArray pfp = QByteArray::fromBase64(QString::fromStdString(soi).toUtf8());
                     QPixmap p;

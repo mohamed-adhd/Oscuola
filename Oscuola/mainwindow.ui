@@ -817,17 +817,17 @@ QPlainTextEdit#request_message:focus {
      <widget class="QLabel" name="user_name_label">
       <property name="geometry">
        <rect>
-        <x>850</x>
+        <x>770</x>
         <y>50</y>
         <width>210</width>
         <height>30</height>
        </rect>
       </property>
       <property name="text">
-       <string>John Doe</string>
+       <string/>
       </property>
       <property name="alignment">
-       <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignVCenter</set>
+       <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
       </property>
      </widget>
      <widget class="QFrame" name="dash_card_score">
@@ -1329,6 +1329,17 @@ QPlainTextEdit#request_message:focus {
         </property>
        </item>
       </widget>
+      <widget class="QWidget" name="horizontalLayoutWidget">
+       <property name="geometry">
+        <rect>
+         <x>390</x>
+         <y>290</y>
+         <width>160</width>
+         <height>80</height>
+        </rect>
+       </property>
+       <layout class="QHBoxLayout" name="horizontalLayout"/>
+      </widget>
      </widget>
     </widget>
     <widget class="QWidget" name="alerts_student">
@@ -1756,6 +1767,32 @@ QPlainTextEdit#request_message:focus {
         <string>Send Request</string>
        </property>
       </widget>
+      <widget class="QLabel" name="label">
+       <property name="geometry">
+        <rect>
+         <x>670</x>
+         <y>370</y>
+         <width>211</width>
+         <height>51</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>TextLabel</string>
+       </property>
+      </widget>
+     </widget>
+     <widget class="QLabel" name="post_res">
+      <property name="geometry">
+       <rect>
+        <x>810</x>
+        <y>480</y>
+        <width>321</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
      </widget>
     </widget>
     <widget class="QWidget" name="timetable_student">
