@@ -6,7 +6,7 @@ sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 from fastapi import FastAPI
 from fastapi import Depends
 from database.fetch import test,check_login,get_grades_1st,get_alerts_1st,timetable
-from database.insert import insert_request
+from database.insert import insert_request,postit
 from pydantic import BaseModel
 class LoginRequest(BaseModel):
     gmail: str
@@ -19,6 +19,16 @@ class tb_Request(BaseModel):
     year: int
 class ids(BaseModel):
     id : int
+
+class post_request(BaseModel):
+    subject: str
+    message: str
+
+
+
+
+
+
 app = FastAPI()
 from fastapi import Header, HTTPException
 def verify_key(authorization: str = Header(None)):
@@ -76,3 +86,7 @@ def sysa(data : ids, authorized: None = Depends(verify_key)):
 @app.post("/timetable")
 def sysb(data : tb_Request, authorized: None = Depends(verify_key)):
     return timetable(data.classs,data.year)
+
+@app.get("/post_request")
+def pst(data : post_request, authorized: None = Depends(verify_key)):
+    return postit(data.subject,data.message)
