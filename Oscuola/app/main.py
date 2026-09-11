@@ -87,6 +87,6 @@ def sysa(data : ids, authorized: None = Depends(verify_key)):
 def sysb(data : tb_Request, authorized: None = Depends(verify_key)):
     return timetable(data.classs,data.year)
 
-@app.get("/post_request")
+@app.post("/post_request")
 def pst(data : post_request, authorized: None = Depends(verify_key)):
     return postit(data.subject,data.message)

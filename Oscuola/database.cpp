@@ -174,7 +174,7 @@ void database::registerr(std::string email, std::string passwd, std::function<vo
 
 bool database::sendpost(QString subject,QString message){
     QNetworkAccessManager *manager = new QNetworkAccessManager(this);
-    QNetworkRequest request(QUrl("https://oscuola-65alqz1pf-midouamdouni4-7219s-projects.vercel.app/post_request"));
+    QNetworkRequest request(QUrl("https://oscuola-aeggv6ler-midouamdouni4-7219s-projects.vercel.app/post_request"));
     request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
 
     QMap<QString, QString> bs = loadEnvResolved();
@@ -197,7 +197,8 @@ bool database::sendpost(QString subject,QString message){
     qDebug().noquote() << responseData;
     QJsonDocument docs = QJsonDocument::fromJson(responseData);
     QJsonObject obj = docs.object();
-    return obj["message"].toBool()
+    qDebug()<<obj["message"].toBool();
+    return obj["message"].toBool();
 
 }
  QMap<QString, double> database::st1_student_grade(int id)
