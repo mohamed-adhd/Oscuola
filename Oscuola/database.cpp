@@ -174,7 +174,7 @@ void database::registerr(std::string email, std::string passwd, std::function<vo
 
 bool database::sendpost(QString subject,QString message){
     QNetworkAccessManager *manager = new QNetworkAccessManager(this);
-    QNetworkRequest request(QUrl("https://oscuola-aeggv6ler-midouamdouni4-7219s-projects.vercel.app/post_request"));
+    QNetworkRequest request(QUrl("https://oscuola-8p12qzwc2-midouamdouni4-7219s-projects.vercel.app/post_request"));
     request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
 
     QMap<QString, QString> bs = loadEnvResolved();
