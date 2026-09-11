@@ -149,6 +149,7 @@ switchpg(4);});
                     std::string soi=db.fetch_timetable(std::get<5>(f),std::get<6>(f));
                     QByteArray pfp = QByteArray::fromBase64(QString::fromStdString(soi).toUtf8());
                     QPixmap p;
+                    p.loadFromData(pfp);
                     QPixmap scaled = p.scaled(
                         ui->timetable_picture_label->size(),
                         Qt::KeepAspectRatio,
