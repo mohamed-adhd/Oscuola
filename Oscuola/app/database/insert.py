@@ -16,3 +16,15 @@ def insert_request(email,password):
     except Exception as e:
         conn.close()
         return (f"Insert failed my friend: {e}")
+def postit(subject,msg):
+    try:
+        conn = psycopg2.connect(os.environ["DATABASE_URL"])
+        cur = conn.cursor()
+        cur.execute("INSERT INTO students_posts (subj, msg) VALUES (%s, %s);", (subject, msg))
+        conn.commit()
+        cur.close()
+        conn.close()
+        return {"message":True}
+    except Exception as e:
+        conn.close()
+        return (f"Insert failed my friend: {e}")
