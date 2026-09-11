@@ -122,11 +122,11 @@ QLabel#sidebar_title, QLabel#sidebar_title_3, QLabel#sidebar_title_4, QLabel#sid
     font-weight: 800;
     font-style: italic;
 }
-QPushButton#pushButton, QPushButton#pushButton_2, QPushButton#pushButton_3, QPushButton#pushButton_4,
-QPushButton#pushButton_9, QPushButton#pushButton_10, QPushButton#pushButton_11, QPushButton#pushButton_12,
-QPushButton#pushButton_13, QPushButton#pushButton_14, QPushButton#pushButton_15, QPushButton#pushButton_16,
-QPushButton#pushButton_17, QPushButton#pushButton_18, QPushButton#pushButton_19, QPushButton#pushButton_20,
-QPushButton#pushButton_21, QPushButton#pushButton_22, QPushButton#pushButton_23, QPushButton#pushButton_24 {
+QPushButton#grades_button_student_1, QPushButton#alerts_student_but_1, QPushButton#post_button_student_1, QPushButton#timetable_but_student_1,
+QPushButton#pushButton_9, QPushButton#alerts_student_but_4, QPushButton#post_button_student_2, QPushButton#timetable_but_student_3,
+QPushButton#grades_button_student_4, QPushButton#pushButton_14, QPushButton#post_button_student_3, QPushButton#timetable_but_student_2,
+QPushButton#grades_button_student_2, QPushButton#alerts_student_but_2, QPushButton#pushButton_19, QPushButton#timetable_but_student_4,
+QPushButton#grades_button_student_3, QPushButton#alerts_student_but_3, QPushButton#post_button_student_4, QPushButton#pushButton_24 {
     background-color: transparent;
     color: #D1D5DB;
     border: none;
@@ -136,13 +136,49 @@ QPushButton#pushButton_21, QPushButton#pushButton_22, QPushButton#pushButton_23,
     font-size: 11pt;
     font-weight: 600;
 }
-QPushButton#pushButton:hover, QPushButton#pushButton_2:hover, QPushButton#pushButton_3:hover, QPushButton#pushButton_4:hover,
-QPushButton#pushButton_9:hover, QPushButton#pushButton_10:hover, QPushButton#pushButton_11:hover, QPushButton#pushButton_12:hover,
-QPushButton#pushButton_13:hover, QPushButton#pushButton_14:hover, QPushButton#pushButton_15:hover, QPushButton#pushButton_16:hover,
-QPushButton#pushButton_17:hover, QPushButton#pushButton_18:hover, QPushButton#pushButton_19:hover, QPushButton#pushButton_20:hover,
-QPushButton#pushButton_21:hover, QPushButton#pushButton_22:hover, QPushButton#pushButton_23:hover, QPushButton#pushButton_24:hover {
+QPushButton#grades_button_student_1:hover, QPushButton#alerts_student_but_1:hover, QPushButton#post_button_student_1:hover, QPushButton#timetable_but_student_1:hover,
+QPushButton#pushButton_9:hover, QPushButton#alerts_student_but_4:hover, QPushButton#post_button_student_2:hover, QPushButton#timetable_but_student_3:hover,
+QPushButton#grades_button_student_4:hover, QPushButton#pushButton_14:hover, QPushButton#post_button_student_3:hover, QPushButton#timetable_but_student_2:hover,
+QPushButton#grades_button_student_2:hover, QPushButton#alerts_student_but_2:hover, QPushButton#pushButton_19:hover, QPushButton#timetable_but_student_4:hover,
+QPushButton#grades_button_student_3:hover, QPushButton#alerts_student_but_3:hover, QPushButton#post_button_student_4:hover, QPushButton#pushButton_24:hover {
     background-color: #1F2937;
     color: #FFFFFF;
+}
+QPushButton#grades_button_student_1:pressed, QPushButton#alerts_student_but_1:pressed, QPushButton#post_button_student_1:pressed, QPushButton#timetable_but_student_1:pressed,
+QPushButton#pushButton_9:pressed, QPushButton#alerts_student_but_4:pressed, QPushButton#post_button_student_2:pressed, QPushButton#timetable_but_student_3:pressed,
+QPushButton#grades_button_student_4:pressed, QPushButton#pushButton_14:pressed, QPushButton#post_button_student_3:pressed, QPushButton#timetable_but_student_2:pressed,
+QPushButton#grades_button_student_2:pressed, QPushButton#alerts_student_but_2:pressed, QPushButton#pushButton_19:pressed, QPushButton#timetable_but_student_4:pressed,
+QPushButton#grades_button_student_3:pressed, QPushButton#alerts_student_but_3:pressed, QPushButton#post_button_student_4:pressed, QPushButton#pushButton_24:pressed {
+    background-color: #111827;
+    color: #FFFFFF;
+}
+
+/* ---------- Logout button (bottom of sidebar) ---------- */
+QPushButton#logout_but_1, QPushButton#logout_but_2, QPushButton#logout_but_3, QPushButton#logout_but_4, QPushButton#logout_but_5 {
+    background-color: transparent;
+    color: #F87171;
+    border: none;
+    border-top: 1px solid #1F2937;
+    border-radius: 0px;
+    text-align: left;
+    padding-left: 18px;
+    font-size: 11pt;
+    font-weight: 600;
+}
+QPushButton#logout_but_1:hover, QPushButton#logout_but_2:hover, QPushButton#logout_but_3:hover, QPushButton#logout_but_4:hover, QPushButton#logout_but_5:hover {
+    background-color: #1F2937;
+    color: #EF4444;
+}
+QPushButton#logout_but_1:pressed, QPushButton#logout_but_2:pressed, QPushButton#logout_but_3:pressed, QPushButton#logout_but_4:pressed, QPushButton#logout_but_5:pressed {
+    background-color: #111827;
+    color: #EF4444;
+}
+
+/* ---------- User name label (top bar, next to profile picture) ---------- */
+QLabel#user_name_label {
+    color: #111827;
+    font-size: 12pt;
+    font-weight: 700;
 }
 
 QLabel#label_5, QLabel#label_13, QLabel#label_15, QLabel#label_17, QLabel#label_19 {
@@ -283,7 +319,7 @@ QPlainTextEdit#request_message:focus {
       <x>0</x>
       <y>0</y>
       <width>1280</width>
-      <height>693</height>
+      <height>698</height>
      </rect>
     </property>
     <widget class="QWidget" name="login">
@@ -636,7 +672,7 @@ QPlainTextEdit#request_message:focus {
         <x>0</x>
         <y>0</y>
         <width>220</width>
-        <height>693</height>
+        <height>698</height>
        </rect>
       </property>
       <widget class="QLabel" name="sidebar_title">
@@ -719,6 +755,22 @@ QPlainTextEdit#request_message:focus {
         <string>🗓️  Timetable</string>
        </property>
       </widget>
+      <widget class="QPushButton" name="logout_but_1">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>636</y>
+         <width>180</width>
+         <height>42</height>
+        </rect>
+       </property>
+       <property name="cursor">
+        <cursorShape>PointingHandCursor</cursorShape>
+       </property>
+       <property name="text">
+        <string>🚪  Logout</string>
+       </property>
+      </widget>
      </widget>
      <widget class="QLabel" name="label_5">
       <property name="geometry">
@@ -760,6 +812,22 @@ QPlainTextEdit#request_message:focus {
       </property>
       <property name="text">
        <string/>
+      </property>
+     </widget>
+     <widget class="QLabel" name="user_name_label">
+      <property name="geometry">
+       <rect>
+        <x>850</x>
+        <y>50</y>
+        <width>210</width>
+        <height>30</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>John Doe</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignVCenter</set>
       </property>
      </widget>
      <widget class="QFrame" name="dash_card_score">
@@ -1024,7 +1092,7 @@ QPlainTextEdit#request_message:focus {
         <x>0</x>
         <y>0</y>
         <width>220</width>
-        <height>693</height>
+        <height>698</height>
        </rect>
       </property>
       <widget class="QLabel" name="sidebar_title_3">
@@ -1105,6 +1173,22 @@ QPlainTextEdit#request_message:focus {
        </property>
        <property name="text">
         <string>🗓️  Timetable</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="logout_but_2">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>636</y>
+         <width>180</width>
+         <height>42</height>
+        </rect>
+       </property>
+       <property name="cursor">
+        <cursorShape>PointingHandCursor</cursorShape>
+       </property>
+       <property name="text">
+        <string>🚪  Logout</string>
        </property>
       </widget>
      </widget>
@@ -1254,7 +1338,7 @@ QPlainTextEdit#request_message:focus {
         <x>0</x>
         <y>0</y>
         <width>220</width>
-        <height>693</height>
+        <height>698</height>
        </rect>
       </property>
       <widget class="QLabel" name="sidebar_title_4">
@@ -1335,6 +1419,22 @@ QPlainTextEdit#request_message:focus {
        </property>
        <property name="text">
         <string>🗓️  Timetable</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="logout_but_3">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>636</y>
+         <width>180</width>
+         <height>42</height>
+        </rect>
+       </property>
+       <property name="cursor">
+        <cursorShape>PointingHandCursor</cursorShape>
+       </property>
+       <property name="text">
+        <string>🚪  Logout</string>
        </property>
       </widget>
      </widget>
@@ -1424,7 +1524,7 @@ QPlainTextEdit#request_message:focus {
         <x>0</x>
         <y>0</y>
         <width>220</width>
-        <height>693</height>
+        <height>698</height>
        </rect>
       </property>
       <widget class="QLabel" name="sidebar_title_5">
@@ -1505,6 +1605,22 @@ QPlainTextEdit#request_message:focus {
        </property>
        <property name="text">
         <string>🗓️  Timetable</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="logout_but_4">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>636</y>
+         <width>180</width>
+         <height>42</height>
+        </rect>
+       </property>
+       <property name="cursor">
+        <cursorShape>PointingHandCursor</cursorShape>
+       </property>
+       <property name="text">
+        <string>🚪  Logout</string>
        </property>
       </widget>
      </widget>
@@ -1641,19 +1757,6 @@ QPlainTextEdit#request_message:focus {
        </property>
       </widget>
      </widget>
-     <widget class="QLabel" name="post_res">
-      <property name="geometry">
-       <rect>
-        <x>870</x>
-        <y>550</y>
-        <width>291</width>
-        <height>41</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-     </widget>
     </widget>
     <widget class="QWidget" name="timetable_student">
      <widget class="QFrame" name="sidebar_5">
@@ -1662,7 +1765,7 @@ QPlainTextEdit#request_message:focus {
         <x>0</x>
         <y>0</y>
         <width>220</width>
-        <height>693</height>
+        <height>698</height>
        </rect>
       </property>
       <widget class="QLabel" name="sidebar_title_6">
@@ -1743,6 +1846,22 @@ QPlainTextEdit#request_message:focus {
        </property>
        <property name="text">
         <string>🗓️  Timetable</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="logout_but_5">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>636</y>
+         <width>180</width>
+         <height>42</height>
+        </rect>
+       </property>
+       <property name="cursor">
+        <cursorShape>PointingHandCursor</cursorShape>
+       </property>
+       <property name="text">
+        <string>🚪  Logout</string>
        </property>
       </widget>
      </widget>
@@ -1847,7 +1966,11 @@ No image set</string>
     </rect>
    </property>
   </widget>
-  <widget class="QStatusBar" name="statusbar"/>
+  <widget class="QStatusBar" name="statusbar">
+   <property name="visible">
+    <bool>false</bool>
+   </property>
+  </widget>
  </widget>
  <resources/>
  <connections/>
