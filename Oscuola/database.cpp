@@ -138,6 +138,77 @@ std::tuple<std::string, std::string, std::string, std::string,int,int,int > data
 
 
 
+QVector<QString> database::get_classes(int id){
+     QVector<QString> classes;
+     QNetworkAccessManager *manager = new QNetworkAccessManager(this);
+     QNetworkRequest request(QUrl("https://oscuola-cnb10ca6y-midouamdouni4-7219s-projects.vercel.app/get_myclasses"));
+     request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
+     QMap<QString, QString> bs = loadEnvResolved();
+     QString dakey = bs.value("API_KEY");
+     qDebug() << dakey;
+     QByteArray auth = "Bearer " + dakey.toUtf8();
+     request.setRawHeader("Authorization", auth);
+     QJsonObject json;
+     json["id"] = QString::fromStdString(std::to_string(id));
+     QJsonDocument doc(json);
+     QByteArray data = doc.toJson();
+     QNetworkReply *res = manager->post(request, data);
+     QEventLoop loop;
+     connect(res,&QNetworkReply::finished,&loop,&QEventLoop::quit);
+     loop.exec();
+     QByteArray responseData = res->readAll();
+     QJsonDocument docs = QJsonDocument::fromJson(responseData);
+     QJsonObject obj = docs.object();
+     QJsonArray arr = obj.value("data").toArray();
+     for (const QJsonValue &val : arr) {
+         classes.append(val.toString());
+     }
+
+     return classes;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 void database::registerr(std::string email, std::string passwd, std::function<void(bool)> callback)
 {
