@@ -111,6 +111,32 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
 
     });
 
+
+
+
+    connect(ui->teacher_timetable_load_btn,&QPushButton::clicked,this,[this]{
+        int yeary=ui->teacher_timetable_class_combo->currentText().at(0).digitValue();
+        int classs=ui->teacher_timetable_class_combo->currentText().at(2).digitValue();
+
+        std::string  soi=db.fetch_timetable(yeary,classs);
+        QByteArray pfp = QByteArray::fromBase64(QString::fromStdString(soi).toUtf8());
+        QPixmap p;
+        p.loadFromData(pfp);
+        QPixmap scaled = p.scaled(
+            ui->timetable_picture_label_teacher->size(),
+            Qt::KeepAspectRatio,
+            Qt::SmoothTransformation
+            );
+        ui->timetable_picture_label_teacher->setPixmap(scaled);
+        ui->timetable_picture_label_teacher->setAlignment(Qt::AlignCenter);
+
+    });
+
+// yea after all , coding is all i have , like fr , nobody is here at 10 pm , just me and the github , man i love this, euphoric ass feeling
+
+
+
+
     connect(time_buts_teach,&QButtonGroup::buttonClicked,this,[this](){
         QVector<QString> classes = db.get_classes(1);
         for (const QString &c : classes)

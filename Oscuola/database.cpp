@@ -16,6 +16,20 @@
 #include <QJsonArray>
 #include <stdlib.h>
 #include<QCoreApplication>
+
+class req{
+public:
+    std::string name;
+    std::string aftername;
+    std::string classs;
+};
+
+
+
+
+
+
+
 using namespace std;
 QMap<QString, QString> loadEnv(const QString &path = ".env")
 {
@@ -135,6 +149,15 @@ std::tuple<std::string, std::string, std::string, std::string,int,int,int > data
 
 
     ;
+
+
+
+
+
+
+
+
+
 
 
 
@@ -395,6 +418,74 @@ std::vector<QString> database::st1_student_alerts(int id)
 
 
 };
+
+
+
+std::vector<req> database::get_requests(int id)
+{
+    QNetworkAccessManager *manager = new QNetworkAccessManager(this);
+    QNetworkRequest request(QUrl("https://oscuola-cnb10ca6y-midouamdouni4-7219s-projects.vercel.app/s1t_year_student"));
+    request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
+
+    QMap<QString, QString> bs = loadEnvResolved();
+    QString dakey = bs.value("API_KEY");
+    qDebug() << dakey;
+    QByteArray auth = "Bearer " + dakey.toUtf8();
+    request.setRawHeader("Authorization", auth);
+    QJsonObject json;
+    json["id"] = QString::fromStdString(std::to_string(id));
+    QJsonDocument doc(json);
+    QByteArray data = doc.toJson();
+    QNetworkReply *res = manager->post(request, data);
+    QEventLoop loop;
+
+    connect(res,&QNetworkReply::finished,&loop,&QEventLoop::quit);
+
+    loop.exec();
+    QByteArray responseData = res->readAll();
+    QJsonDocument docs = QJsonDocument::fromJson(responseData);
+    QJsonObject obj = docs.object();
+    //qDebug() << obj["success"].toString();
+    //qDebug() << obj["math"].toString();
+    //qDebug() << obj["cs"].toString();
+
+    std::vector<req>temp;
+    QJsonArray dataArray = obj["data"].toArray();
+    for (const QJsonValue &rowVal : dataArray) {
+        QJsonArray row = rowVal.toArray();
+        req r;
+        r.name      = row[0].toString().toStdString();
+        r.aftername = row[1].toString().toStdString();
+        r.classs    = row[2].toString().toStdString();
+
+        temp.push_back(r);
+    }
+
+
+    return temp;
+
+
+
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
