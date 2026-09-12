@@ -5,7 +5,7 @@ import os
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 from fastapi import FastAPI
 from fastapi import Depends
-from database.fetch import test,check_login,get_grades_1st,get_alerts_1st,timetable
+from database.fetch import test,check_login,get_grades_1st,get_alerts_1st,timetable,get_classes
 from database.insert import insert_request,postit
 from pydantic import BaseModel
 class LoginRequest(BaseModel):
@@ -86,6 +86,19 @@ def sysa(data : ids, authorized: None = Depends(verify_key)):
 @app.post("/timetable")
 def sysb(data : tb_Request, authorized: None = Depends(verify_key)):
     return timetable(data.classs,data.year)
+
+@app.post("/get_myclasses")
+def gmc(data : ids, authorized: None = Depends(verify_key)):
+    return get_classes(data.id)
+
+
+
+
+
+
+
+
+
 
 @app.post("/post_request")
 def pst(data : post_request, authorized: None = Depends(verify_key)):
