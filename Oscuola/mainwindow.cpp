@@ -6,7 +6,7 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow),db(dbo){
     ui->setupUi(this);
-    switchpg(0);
+    switchpg(7);
     setFixedSize(1280, 720);
 
 
@@ -96,8 +96,41 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
 
 
 
+    QButtonGroup *back_buts_teach= new QButtonGroup(this);
+    for(int i=1;i<5;i++){
+        QString name=QString("back_home_btn_teacher_%1").arg(i);
+        QPushButton *button=this->findChild<QPushButton*>(name);
+        if(button){
+            back_buts_teach->addButton(button);
+        }}
 
 
+    connect(back_buts_teach,&QButtonGroup::buttonClicked,this,[this](){
+        switchpg(7);
+
+
+    });
+
+    connect(time_buts_teach,&QButtonGroup::buttonClicked,this,[this](){
+        switchpg(8);
+
+
+    });
+
+
+
+    connect(grades_buts_teach,&QButtonGroup::buttonClicked,this,[this](){
+
+
+        switchpg(9);
+    });
+
+
+    connect(reqst_buts,&QButtonGroup::buttonClicked,this,[this](){
+
+        switchpg(10);
+
+    });
 
 
 

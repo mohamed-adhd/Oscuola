@@ -494,7 +494,7 @@ QLabel#class_select_label_timetable, QLabel#class_select_label_grades, QLabel#ye
     font-weight: 600;
 }
 
-/* ---------- Teacher "Load" buttons ---------- */
+/* ---------- Teacher &quot;Load&quot; buttons ---------- */
 QPushButton#teacher_timetable_load_btn, QPushButton#teacher_grades_load_btn {
     background-color: #4F46E5;
     color: #FFFFFF;
