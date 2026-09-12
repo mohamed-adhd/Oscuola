@@ -3680,7 +3680,7 @@ Extra credit assignment request — Sep 2</string>
   </widget>
   <widget class="QStatusBar" name="statusbar">
    <property name="visible">
-    <bool>false</bool>
+    <bool>true</bool>
    </property>
   </widget>
  </widget>

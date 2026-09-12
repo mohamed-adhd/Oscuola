@@ -121,11 +121,14 @@ def get_classes(id):
     cur = s.cursor()
     cur.execute("SELECT yeary,classs FROM classes WHERE teacher_id = %s ;", (id,))
     res = cur.fetchall()
+
     cur.close()
     s.close()
+
+    classes = [f"{yeary}A{classs}" for yeary, classs in res]
     ss = {
         "success": True,
-        "data": res
+        "data": classes
     }
     return ss
 
