@@ -70,6 +70,53 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
 
 
 
+    QButtonGroup *time_buts_teach= new QButtonGroup(this);
+    for(int i=1;i<5;i++){
+        QString name=QString("timetable_but_teacher_%1").arg(i);
+        QPushButton *button=this->findChild<QPushButton*>(name);
+        if(button){
+            time_buts_teach->addButton(button);
+        }}
+
+    QButtonGroup *grades_buts_teach= new QButtonGroup(this);
+    for(int i=1;i<5;i++){
+        QString name=QString("grades_button_teacher_%1").arg(i);
+        QPushButton *button=this->findChild<QPushButton*>(name);
+        if(button){
+            grades_buts_teach->addButton(button);
+        }}
+
+    QButtonGroup *reqst_buts= new QButtonGroup(this);
+    for(int i=1;i<5;i++){
+        QString name=QString("requests_button_teacher_%1").arg(i);
+        QPushButton *button=this->findChild<QPushButton*>(name);
+        if(button){
+            reqst_buts->addButton(button);
+        }}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     QButtonGroup *alerts_buts= new QButtonGroup(this);
     for(int i=1;i<5;i++){
         QString name=QString("alerts_student_but_%1").arg(i);
