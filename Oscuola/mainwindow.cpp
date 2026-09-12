@@ -6,7 +6,7 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow),db(dbo){
     ui->setupUi(this);
-    switchpg(0);
+    switchpg(7);
     setFixedSize(1280, 720);
 
 
@@ -66,6 +66,96 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
             back_buts->addButton(button);
         }}
     connect(back_buts,&QButtonGroup::buttonClicked,this,[this]() {switchpg(2);});
+
+
+
+
+    QButtonGroup *time_buts_teach= new QButtonGroup(this);
+    for(int i=1;i<5;i++){
+        QString name=QString("timetable_but_teacher_%1").arg(i);
+        QPushButton *button=this->findChild<QPushButton*>(name);
+        if(button){
+            time_buts_teach->addButton(button);
+        }}
+
+    QButtonGroup *grades_buts_teach= new QButtonGroup(this);
+    for(int i=1;i<5;i++){
+        QString name=QString("grades_button_teacher_%1").arg(i);
+        QPushButton *button=this->findChild<QPushButton*>(name);
+        if(button){
+            grades_buts_teach->addButton(button);
+        }}
+
+    QButtonGroup *reqst_buts= new QButtonGroup(this);
+    for(int i=1;i<5;i++){
+        QString name=QString("requests_button_teacher_%1").arg(i);
+        QPushButton *button=this->findChild<QPushButton*>(name);
+        if(button){
+            reqst_buts->addButton(button);
+        }}
+
+
+
+    QButtonGroup *back_buts_teach= new QButtonGroup(this);
+    for(int i=1;i<5;i++){
+        QString name=QString("back_home_btn_teacher_%1").arg(i);
+        QPushButton *button=this->findChild<QPushButton*>(name);
+        if(button){
+            back_buts_teach->addButton(button);
+        }}
+
+
+    connect(back_buts_teach,&QButtonGroup::buttonClicked,this,[this](){
+        switchpg(7);
+
+
+    });
+
+    connect(time_buts_teach,&QButtonGroup::buttonClicked,this,[this](){
+        QVector<QString> classes = db.get_classes(1);
+        for (const QString &c : classes)
+            ui->teacher_timetable_class_combo->addItem(c);
+
+
+
+
+
+
+
+        switchpg(8);
+
+
+    });
+
+
+
+    connect(grades_buts_teach,&QButtonGroup::buttonClicked,this,[this](){
+
+
+        switchpg(9);
+    });
+
+
+    connect(reqst_buts,&QButtonGroup::buttonClicked,this,[this](){
+
+        switchpg(10);
+
+    });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -166,18 +256,22 @@ switchpg(4);});
             if (get<0>(s)!="false") {
                 ui->user_name_label->setText(QString::fromStdString(std::get<1>(f))+" "+QString::fromStdString(std::get<2>(f)));
                 if(get<0>(s)=="student"){
-                    std::string soi=db.fetch_timetable(std::get<5>(f),std::get<6>(f));
-                    QByteArray pfp = QByteArray::fromBase64(QString::fromStdString(soi).toUtf8());
-                    QPixmap p;
-                    p.loadFromData(pfp);
-                    QPixmap scaled = p.scaled(
-                        ui->timetable_picture_label->size(),
-                        Qt::KeepAspectRatio,
-                        Qt::SmoothTransformation
-                        );
-                    ui->timetable_picture_label->setPixmap(scaled);
-                    ui->timetable_picture_label->setAlignment(Qt::AlignCenter);
 
+                    QByteArray pfp = QByteArray::fromBase64(QString::fromStdString(std::get<3>(s)).toUtf8());
+                    QPixmap p;
+                    if (!p.loadFromData(pfp, "JPEG")) {
+                        qDebug() << "pix map failed ma guy!";
+                    } else {
+                        QPixmap scaled = p.scaled(
+                            ui->pfp->size(),
+                            Qt::KeepAspectRatio,
+                            Qt::SmoothTransformation
+                            );
+
+                        ui->pfp->setPixmap(scaled);
+                        ui->pfp->setAlignment(Qt::AlignCenter);
+
+                    }
 
 
 
@@ -193,21 +287,30 @@ switchpg(4);});
 
                     switchpg(6);
                 }
-                QByteArray pfp = QByteArray::fromBase64(QString::fromStdString(std::get<3>(s)).toUtf8());
-                QPixmap p;
-                if (!p.loadFromData(pfp, "JPEG")) {
-                    qDebug() << "pix map failed ma guy!";
+                else if (get<0>(s)=="teacher"){
+                    QByteArray pfp = QByteArray::fromBase64(QString::fromStdString(std::get<3>(s)).toUtf8());
+                    QPixmap p;
+                    if (!p.loadFromData(pfp, "JPEG")) {
+                        qDebug() << "pix map failed ma guy!";
+                    } else {
+                        QPixmap scaled = p.scaled(
+                            ui->teacher_pfp->size(),
+                            Qt::KeepAspectRatio,
+                            Qt::SmoothTransformation
+                            );
+
+                        ui->teacher_pfp->setPixmap(scaled);
+                        ui->teacher_pfp->setAlignment(Qt::AlignCenter);
+
+                    }
+
+
+
+
+
+                    switchpg(7);
+                }
                 } else {
-                    QPixmap scaled = p.scaled(
-                        ui->pfp->size(),
-                        Qt::KeepAspectRatio,
-                        Qt::SmoothTransformation
-                        );
-
-                    ui->pfp->setPixmap(scaled);
-                    ui->pfp->setAlignment(Qt::AlignCenter);
-
-                }} else {
                 ui->login_alert->setText("user not found");
             }
         }});
