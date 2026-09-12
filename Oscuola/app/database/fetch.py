@@ -135,12 +135,12 @@ def get_classes(id):
 
 
 
-def get_reqs():
+def get_reqs(id):
     load_dotenv()
     cons = os.environ["CON_STRING"]
     s = psycopg2.connect(os.environ["DATABASE_URL"])
     cur = s.cursor()
-    cur.execute("SELECT r.name, r.aftername, r.class FROM requests r JOIN classes c ON r.class = c.class WHERE c.teacher_id = 5;", (id,))
+    cur.execute("SELECT r.name, r.aftername, r.class FROM requests r JOIN classes c ON r.class = c.class WHERE c.teacher_id = %s;", (id,))
     res = cur.fetchall()
     cur.close()
     s.close()

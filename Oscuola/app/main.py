@@ -93,8 +93,8 @@ def gmc(data : ids, authorized: None = Depends(verify_key)):
 
 
 @app.post("/get_requests")
-def grq():
-    return get_reqs()
+def grq(data : ids, authorized: None = Depends(verify_key)):
+    return get_reqs(data.id)
 
 
 
