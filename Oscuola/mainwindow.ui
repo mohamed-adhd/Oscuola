@@ -2798,7 +2798,7 @@ No image set</string>
      <widget class="QComboBox" name="teacher_timetable_class_combo">
       <property name="geometry">
        <rect>
-        <x>310</x>
+        <x>311</x>
         <y>130</y>
         <width>160</width>
         <height>34</height>
@@ -3640,7 +3640,7 @@ Extra credit assignment request — Sep 2</string>
   </widget>
   <widget class="QStatusBar" name="statusbar">
    <property name="visible">
-    <bool>true</bool>
+    <bool>false</bool>
    </property>
   </widget>
  </widget>

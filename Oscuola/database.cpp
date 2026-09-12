@@ -138,6 +138,15 @@ std::tuple<std::string, std::string, std::string, std::string,int,int,int > data
 
 
 
+
+
+
+
+
+
+
+
+
 QVector<QString> database::get_classes(int id){
      QVector<QString> classes;
      QNetworkAccessManager *manager = new QNetworkAccessManager(this);
