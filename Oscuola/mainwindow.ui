@@ -2807,46 +2807,6 @@ No image set</string>
       <property name="cursor">
        <cursorShape>PointingHandCursor</cursorShape>
       </property>
-      <item>
-       <property name="text">
-        <string>9A</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>9B</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>10A</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>10B</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>11A</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>11B</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>12A</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>12B</string>
-       </property>
-      </item>
      </widget>
      <widget class="QPushButton" name="teacher_timetable_load_btn">
       <property name="geometry">

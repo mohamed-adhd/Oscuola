@@ -112,6 +112,16 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
     });
 
     connect(time_buts_teach,&QButtonGroup::buttonClicked,this,[this](){
+        QVector<QString> classes = db.get_classes(1);
+        for (const QString &c : classes)
+            ui->teacher_timetable_class_combo->addItem(c);
+
+
+
+
+
+
+
         switchpg(8);
 
 

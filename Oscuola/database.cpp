@@ -141,7 +141,7 @@ std::tuple<std::string, std::string, std::string, std::string,int,int,int > data
 QVector<QString> database::get_classes(int id){
      QVector<QString> classes;
      QNetworkAccessManager *manager = new QNetworkAccessManager(this);
-     QNetworkRequest request(QUrl("https://oscuola-cnb10ca6y-midouamdouni4-7219s-projects.vercel.app/get_myclasses"));
+     QNetworkRequest request(QUrl("https://oscuola-itq0zm512-midouamdouni4-7219s-projects.vercel.app/get_myclasses"));
      request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
      QMap<QString, QString> bs = loadEnvResolved();
      QString dakey = bs.value("API_KEY");
@@ -157,6 +157,8 @@ QVector<QString> database::get_classes(int id){
      connect(res,&QNetworkReply::finished,&loop,&QEventLoop::quit);
      loop.exec();
      QByteArray responseData = res->readAll();
+     qDebug().noquote() << responseData;
+
      QJsonDocument docs = QJsonDocument::fromJson(responseData);
      QJsonObject obj = docs.object();
      QJsonArray arr = obj.value("data").toArray();
