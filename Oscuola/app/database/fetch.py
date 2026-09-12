@@ -135,6 +135,37 @@ def get_classes(id):
 
 
 
+def get_reqs(id):
+    load_dotenv()
+    cons = os.environ["CON_STRING"]
+    s = psycopg2.connect(os.environ["DATABASE_URL"])
+    cur = s.cursor()
+    cur.execute("SELECT DISTINCT r.name, r.aftername, r.classs FROM requests r JOIN classes c ON LEFT(r.classs, 1) = c.yeary WHERE c.teacher_id = %s;", (id,))
+    res = cur.fetchall()
+    cur.close()
+    s.close()
+    ss = {
+        "success": True,
+        "data": res
+    }
+    return ss
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 def timetable(classs, year):
     load_dotenv()
     cons = os.environ["CON_STRING"]
