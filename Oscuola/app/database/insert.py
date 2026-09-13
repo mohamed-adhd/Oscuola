@@ -28,3 +28,23 @@ def postit(subject,msg):
     except Exception as e:
         conn.close()
         return (f"Insert failed my friend: {e}")
+
+
+
+
+def accept_it(classs,name,aftername):
+    load_dotenv()
+    cons = os.environ["CON_STRING"]
+    s = psycopg2.connect(os.environ["DATABASE_URL"])
+    cur = s.cursor()
+    cur.execute("SELECT email,password FROM requests WHERE name = %s AND aftername=%s AND class=%s ;", (name,aftername,classs))
+    res = cur.fetchone()
+    cur.execute("INSERT INTO users (name,aftername,gmail,role,password,) VALUES (%s,%s,%s,%s,%s);)",(name,aftername,res[0],"student",res[1]))
+    cur.execute("INSERT INTO  (name,aftername,gmail,role,password,) VALUES (%s,%s,%s,%s,%s);)",(name,aftername,res[0],"student",res[1]))
+
+
+
+
+    cur.close()
+    s.close()
+
