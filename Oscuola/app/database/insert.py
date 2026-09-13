@@ -40,7 +40,11 @@ def accept_it(classs,name,aftername):
     cur.execute("SELECT email,password FROM requests WHERE name = %s AND aftername=%s AND class=%s ;", (name,aftername,classs))
     res = cur.fetchone()
     cur.execute("INSERT INTO users (name,aftername,gmail,role,password,) VALUES (%s,%s,%s,%s,%s);)",(name,aftername,res[0],"student",res[1]))
-    cur.execute("INSERT INTO  (name,aftername,gmail,role,password,) VALUES (%s,%s,%s,%s,%s);)",(name,aftername,res[0],"student",res[1]))
+    s.commit()
+    cur.execute("INSERT INTO students (name,aftername,gmail) VALUES (%s,%s,%s);)",(name,aftername,res[0]))
+    s.commit()
+    cur.execute("DELETE * FROM requests WHERE name = %s AND aftername=%s AND class=%s ;", (name,aftername,classs))
+    s.commit()
 
 
 
