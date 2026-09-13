@@ -24,7 +24,10 @@ class post_request(BaseModel):
     subject: str
     message: str
 
-
+class req(BaseModel):
+    name : str
+    aftername : str
+    classs : str
 
 
 
@@ -98,7 +101,9 @@ def grq(data : ids, authorized: None = Depends(verify_key)):
 
 
 
-
+@app.post("/accept_request")
+def acr(data : req, authorized: None = Depends(verify_key)):
+    return accept_it(data.classs,data.name,data.aftername)
 
 
 
