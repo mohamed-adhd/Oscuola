@@ -5,6 +5,12 @@
 #include <json/json.h>
 #include <QJsonObject>
 #include <QObject>
+class req{
+public:
+    std::string name;
+    std::string aftername;
+    std::string classs;
+};
 class database : public QObject{
     Q_OBJECT
 private:
@@ -16,7 +22,7 @@ public :
     std::string fetch_timetable(int year,int classs);
     bool sendpost(QString subject,QString message);
     QVector<QString> get_classes(int id);
-
+    std::vector<req> get_requests(int id);
 
 
 

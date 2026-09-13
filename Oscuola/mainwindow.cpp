@@ -2,6 +2,9 @@
 #include "./ui_mainwindow.h"
 #include "database.h"
 #include <QButtonGroup>
+
+
+
 MainWindow::MainWindow(database& dbo,QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow),db(dbo){
@@ -163,6 +166,51 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
 
 
     connect(reqst_buts,&QButtonGroup::buttonClicked,this,[this](){
+
+        QList<QFrame*> oldRows = ui->panel_requests_teacher->findChildren<QFrame*>(
+            QRegularExpression("^request_row_.*"));
+        for (QFrame *f : oldRows) {
+            f->deleteLater();
+        }
+
+        int y = 50;
+        const int rowh = 64;
+        const int spacing = 8;
+        int index = 1;
+        std::vector<req> temp=db.get_requests(1);
+        for (const req &r : temp) {
+            QFrame *row = new QFrame(ui->panel_requests_teacher);
+            row->setObjectName(QString("request_row_%1").arg(index));
+            row->setGeometry(16, y, 908, rowh);
+
+            QLabel *label = new QLabel(row);
+            label->setGeometry(16, 8, 550, 48);
+            label->setText(QString("%1 %2 (%3)")
+                               .arg(QString::fromStdString(r.name))
+                               .arg(QString::fromStdString(r.aftername))
+                               .arg(QString::fromStdString(r.classs)));
+
+            QPushButton *acceptBtn = new QPushButton("✅  Accept", row);
+            acceptBtn->setGeometry(590, 12, 140, 40);
+            acceptBtn->setCursor(Qt::PointingHandCursor);
+
+            QPushButton *declineBtn = new QPushButton("❌  Decline", row);
+            declineBtn->setGeometry(740, 12, 140, 40);
+            declineBtn->setCursor(Qt::PointingHandCursor);
+            row->show();
+            y += rowh + spacing;
+            index++;
+        }
+
+
+
+
+
+
+
+
+
+
 
         switchpg(10);
 
