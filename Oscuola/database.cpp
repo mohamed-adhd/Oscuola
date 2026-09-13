@@ -17,12 +17,7 @@
 #include <stdlib.h>
 #include<QCoreApplication>
 
-class req{
-public:
-    std::string name;
-    std::string aftername;
-    std::string classs;
-};
+
 
 
 
@@ -424,7 +419,7 @@ std::vector<QString> database::st1_student_alerts(int id)
 std::vector<req> database::get_requests(int id)
 {
     QNetworkAccessManager *manager = new QNetworkAccessManager(this);
-    QNetworkRequest request(QUrl("https://oscuola-cnb10ca6y-midouamdouni4-7219s-projects.vercel.app/s1t_year_student"));
+    QNetworkRequest request(QUrl("https://oscuola-4q18kzzyx-midouamdouni4-7219s-projects.vercel.app/get_requests"));
     request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
 
     QMap<QString, QString> bs = loadEnvResolved();
@@ -443,6 +438,7 @@ std::vector<req> database::get_requests(int id)
 
     loop.exec();
     QByteArray responseData = res->readAll();
+    qDebug().noquote()<<responseData;
     QJsonDocument docs = QJsonDocument::fromJson(responseData);
     QJsonObject obj = docs.object();
     //qDebug() << obj["success"].toString();
