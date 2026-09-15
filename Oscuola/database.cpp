@@ -465,7 +465,7 @@ std::vector<req> database::get_requests(int id)
 };
 bool database::accept(std::string classs, std::string name,std::string aftername){
     QNetworkAccessManager *manager = new QNetworkAccessManager(this);
-    QNetworkRequest request(QUrl("https://oscuola-bkx7avm01-midouamdouni4-7219s-projects.vercel.app/accept_request"));
+    QNetworkRequest request(QUrl("https://oscuola-2qd5rbozf-midouamdouni4-7219s-projects.vercel.app/accept_request"));
     request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
 
     QMap<QString, QString> bs = loadEnvResolved();
@@ -476,19 +476,24 @@ bool database::accept(std::string classs, std::string name,std::string aftername
     QJsonObject json;
     json["name"] = QString::fromStdString(name);
     json["aftername"] = QString::fromStdString(aftername);
-    json["email"] = QString::fromStdString(classs);
+    json["classs"] = QString::fromStdString(classs);
     QJsonDocument doc(json);
     QByteArray data = doc.toJson();
+    qDebug()<<doc["name"];
+        qDebug()<<doc["classs"];
+        qDebug()<<doc["aftername"];
+
     QNetworkReply *res = manager->post(request, data);
     QEventLoop loop;
     connect(res,&QNetworkReply::finished,&loop,&QEventLoop::quit);
 
     loop.exec();
     QByteArray responseData = res->readAll();
+    qDebug().noquote()<<responseData;
     QJsonDocument docs = QJsonDocument::fromJson(responseData);
     QJsonObject obj = docs.object();
 
-    return obj["success"].toBool();
+    return obj["message"].toBool();
 }
 
 
