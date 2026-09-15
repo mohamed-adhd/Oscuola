@@ -463,9 +463,9 @@ std::vector<req> database::get_requests(int id)
 
 
 };
-bool database::accept(std::string classs, std::string name,std::string aftername){
+bool database::accept(std::string name, std::string aftername,std::string classs){
     QNetworkAccessManager *manager = new QNetworkAccessManager(this);
-    QNetworkRequest request(QUrl("https://oscuola-2qd5rbozf-midouamdouni4-7219s-projects.vercel.app/accept_request"));
+    QNetworkRequest request(QUrl("https://oscuola-60j4h50bb-midouamdouni4-7219s-projects.vercel.app/accept_request"));
     request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
 
     QMap<QString, QString> bs = loadEnvResolved();
@@ -479,9 +479,9 @@ bool database::accept(std::string classs, std::string name,std::string aftername
     json["classs"] = QString::fromStdString(classs);
     QJsonDocument doc(json);
     QByteArray data = doc.toJson();
-    qDebug()<<doc["name"];
-        qDebug()<<doc["classs"];
-        qDebug()<<doc["aftername"];
+    qDebug()<<"name   "<<doc["name"];
+        qDebug()<<"class   "<<doc["classs"];
+        qDebug()<<"aftername   "<<doc["aftername"];
 
     QNetworkReply *res = manager->post(request, data);
     QEventLoop loop;
