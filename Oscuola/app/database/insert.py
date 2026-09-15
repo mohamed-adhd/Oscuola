@@ -38,7 +38,7 @@ def accept_it(classs,name,aftername):
         cons = os.environ["CON_STRING"]
         s = psycopg2.connect(os.environ["DATABASE_URL"])
         cur = s.cursor()
-        cur.execute("SELECT email,password FROM requests WHERE name = %s AND aftername=%s AND class=%s ;",
+        cur.execute("SELECT email,password FROM requests WHERE name = %s AND aftername=%s AND classs=%s ;",
                     (name, aftername, classs))
         res = cur.fetchone()
         cur.execute("INSERT INTO users (name,aftername,gmail,role,password,) VALUES (%s,%s,%s,%s,%s);)",
