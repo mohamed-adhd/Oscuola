@@ -209,15 +209,15 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
             std::string reqcs = r.classs;
 
             connect(acceptBtn, &QPushButton::clicked, this, [this, reqn,reqaf,reqcs, row]() {
-                db.accept_request(reqn,reqaf,reqcs);   // your own accept logic
+                db.accept(reqn,reqaf,reqcs);   // your own accept logic
                 row->deleteLater();         // remove the row visually
                 // maybe refresh the list / renumber remaining rows here
             });
 
-            connect(declineBtn, &QPushButton::clicked, this, [this, reqn,reqaf,reqcs, row]() {
-                db.decline_request(reqId);  // your own decline logic
-                row->deleteLater();
-            });
+            //connect(declineBtn, &QPushButton::clicked, this, [this, reqn,reqaf,reqcs, row]() {
+                //db.decline_request(reqId);  // your own decline logic
+                //row->deleteLater();
+            //});
 
             row->show();
             y += rowh + spacing;

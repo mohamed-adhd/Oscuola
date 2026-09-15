@@ -6,7 +6,7 @@ sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 from fastapi import FastAPI
 from fastapi import Depends
 from database.fetch import test,check_login,get_grades_1st,get_alerts_1st,timetable,get_classes,get_reqs
-from database.insert import insert_request,postit
+from database.insert import insert_request,postit,accept_it
 from pydantic import BaseModel
 class LoginRequest(BaseModel):
     gmail: str

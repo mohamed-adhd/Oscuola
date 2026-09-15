@@ -33,22 +33,33 @@ def postit(subject,msg):
 
 
 def accept_it(classs,name,aftername):
-    load_dotenv()
-    cons = os.environ["CON_STRING"]
-    s = psycopg2.connect(os.environ["DATABASE_URL"])
-    cur = s.cursor()
-    cur.execute("SELECT email,password FROM requests WHERE name = %s AND aftername=%s AND class=%s ;", (name,aftername,classs))
-    res = cur.fetchone()
-    cur.execute("INSERT INTO users (name,aftername,gmail,role,password,) VALUES (%s,%s,%s,%s,%s);)",(name,aftername,res[0],"student",res[1]))
-    s.commit()
-    cur.execute("INSERT INTO students (name,aftername,gmail) VALUES (%s,%s,%s);)",(name,aftername,res[0]))
-    s.commit()
-    cur.execute("DELETE * FROM requests WHERE name = %s AND aftername=%s AND class=%s ;", (name,aftername,classs))
-    s.commit()
+    try :
+        load_dotenv()
+        cons = os.environ["CON_STRING"]
+        s = psycopg2.connect(os.environ["DATABASE_URL"])
+        cur = s.cursor()
+        cur.execute("SELECT email,password FROM requests WHERE name = %s AND aftername=%s AND classs=%s ;",
+                    (name, aftername, classs))
+        res = cur.fetchone()
+        if res is None:
+            return {"message": "No matching request found"}
+        cur.execute("INSERT INTO users (name,aftername,gmail,role,password) VALUES (%s,%s,%s,%s,%s);",(name, aftername, res[0], "student", res[1]))
+        s.commit()
+        cur.execute("INSERT INTO students (name,aftername,gmail,syear,classs) VALUES (%s,%s,%s,%s,%s);", (name, aftername, res[0],int(classs[2]),int(classs[0])))
+        s.commit()
+        cur.execute("DELETE FROM requests WHERE name = %s AND aftername=%s AND classs=%s ;", (name, aftername, classs))
+        s.commit()
+        cur.close()
+        s.close()
+        return {"message":True}
+    except Exception as e:
+        cur.close()
+        s.close()
+        return {"message":f"Insert failed my friend: {e}"}
 
 
 
 
-    cur.close()
-    s.close()
+
+
 
