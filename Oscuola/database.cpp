@@ -463,6 +463,33 @@ std::vector<req> database::get_requests(int id)
 
 
 };
+bool database::accept(std::string classs, std::string name,std::string aftername){
+    QNetworkAccessManager *manager = new QNetworkAccessManager(this);
+    QNetworkRequest request(QUrl("https://oscuola-4q18kzzyx-midouamdouni4-7219s-projects.vercel.app/get_requests"));
+    request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
+
+    QMap<QString, QString> bs = loadEnvResolved();
+    QString dakey = bs.value("API_KEY");
+    qDebug() << dakey;
+    QByteArray auth = "Bearer " + dakey.toUtf8();
+    request.setRawHeader("Authorization", auth);
+    QJsonObject json;
+    json["name"] = QString::fromStdString(name);
+    json["aftername"] = QString::fromStdString(aftername);
+    json["email"] = QString::fromStdString(classs);
+    QJsonDocument doc(json);
+    QByteArray data = doc.toJson();
+    QNetworkReply *res = manager->post(request, data);
+    QEventLoop loop;
+    connect(res,&QNetworkReply::finished,&loop,&QEventLoop::quit);
+
+    loop.exec();
+    QByteArray responseData = res->readAll();
+    QJsonDocument docs = QJsonDocument::fromJson(responseData);
+    QJsonObject obj = docs.object();
+
+    return obj["success"].toBool();
+}
 
 
 
