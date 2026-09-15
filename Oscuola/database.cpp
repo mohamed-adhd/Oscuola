@@ -465,7 +465,7 @@ std::vector<req> database::get_requests(int id)
 };
 bool database::accept(std::string classs, std::string name,std::string aftername){
     QNetworkAccessManager *manager = new QNetworkAccessManager(this);
-    QNetworkRequest request(QUrl("https://oscuola-4q18kzzyx-midouamdouni4-7219s-projects.vercel.app/get_requests"));
+    QNetworkRequest request(QUrl("https://oscuola-bkx7avm01-midouamdouni4-7219s-projects.vercel.app/accept_request"));
     request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
 
     QMap<QString, QString> bs = loadEnvResolved();
