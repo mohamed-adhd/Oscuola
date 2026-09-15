@@ -61,6 +61,15 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
 
 
 
+
+
+
+
+
+
+
+
+
     QButtonGroup *back_buts= new QButtonGroup(this);
     for(int i=1;i<5;i++){
         QString name=QString("back_home_btn_%1").arg(i);
@@ -177,7 +186,7 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
         const int rowh = 64;
         const int spacing = 8;
         int index = 1;
-        std::vector<req> temp=db.get_requests(1);
+        std::vector<req> temp = db.get_requests(1);
         for (const req &r : temp) {
             QFrame *row = new QFrame(ui->panel_requests_teacher);
             row->setObjectName(QString("request_row_%1").arg(index));
@@ -185,10 +194,7 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
 
             QLabel *label = new QLabel(row);
             label->setGeometry(16, 8, 550, 48);
-            label->setText(QString("%1 %2 (%3)")
-                               .arg(QString::fromStdString(r.name))
-                               .arg(QString::fromStdString(r.aftername))
-                               .arg(QString::fromStdString(r.classs)));
+            label->setText(QString("%1 %2 (%3)").arg(QString::fromStdString(r.name)).arg(QString::fromStdString(r.aftername)).arg(QString::fromStdString(r.classs)));
 
             QPushButton *acceptBtn = new QPushButton("✅  Accept", row);
             acceptBtn->setGeometry(590, 12, 140, 40);
@@ -197,6 +203,22 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
             QPushButton *declineBtn = new QPushButton("❌  Decline", row);
             declineBtn->setGeometry(740, 12, 140, 40);
             declineBtn->setCursor(Qt::PointingHandCursor);
+
+            std::string reqn = r.name;
+            std::string reqaf = r.aftername;
+            std::string reqcs = r.classs;
+
+            connect(acceptBtn, &QPushButton::clicked, this, [this, reqn,reqaf,reqcs, row]() {
+                db.accept(reqn,reqaf,reqcs);   // your own accept logic
+                row->deleteLater();         // remove the row visually
+                // maybe refresh the list / renumber remaining rows here
+            });
+
+            //connect(declineBtn, &QPushButton::clicked, this, [this, reqn,reqaf,reqcs, row]() {
+                //db.decline_request(reqId);  // your own decline logic
+                //row->deleteLater();
+            //});
+
             row->show();
             y += rowh + spacing;
             index++;

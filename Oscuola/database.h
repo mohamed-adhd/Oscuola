@@ -23,6 +23,7 @@ public :
     bool sendpost(QString subject,QString message);
     QVector<QString> get_classes(int id);
     std::vector<req> get_requests(int id);
+    bool accept(std::string classs, std::string name,std::string aftername);
 
 
 
