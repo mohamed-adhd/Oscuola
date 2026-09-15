@@ -45,7 +45,7 @@ def accept_it(classs,name,aftername):
         s.commit()
         cur.execute("INSERT INTO students (name,aftername,gmail,syear,classs) VALUES (%s,%s,%s,%s,%s);", (name, aftername, res[0],int(classs[2]),int(classs[0])))
         s.commit()
-        cur.execute("DELETE FROM requests WHERE name = %s AND aftername=%s AND class=%s ;", (name, aftername, classs))
+        cur.execute("DELETE FROM requests WHERE name = %s AND aftername=%s AND classs=%s ;", (name, aftername, classs))
         s.commit()
         cur.close()
         s.close()
