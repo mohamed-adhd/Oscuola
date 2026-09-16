@@ -2,7 +2,7 @@ from dotenv import load_dotenv
 import psycopg2
 import os
 import bcrypt
-def insert_request(email,password,classs):
+def insert_request(email,password,classs,name,aftername):
     conn = None
     try:
         conn = psycopg2.connect(os.environ["DATABASE_URL"])

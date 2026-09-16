@@ -233,7 +233,7 @@ QVector<QString> database::get_classes(int id){
 void database::registerr(std::string email, std::string passwd, std::string classy,std::string name,std::string aftername, std::function<void(bool)> callback)
 {
     QNetworkAccessManager *manager = new QNetworkAccessManager(this);
-    QNetworkRequest request(QUrl("https://oscuola-37tivylm9-midouamdouni4-7219s-projects.vercel.app/insert_register"));
+    QNetworkRequest request(QUrl("https://oscuola-341ys1mqu-midouamdouni4-7219s-projects.vercel.app/insert_register"));
     request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
 
     QMap<QString, QString> bs = loadEnvResolved();
