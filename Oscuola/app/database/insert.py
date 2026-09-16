@@ -8,7 +8,7 @@ def insert_request(email,password,classs):
         conn = psycopg2.connect(os.environ["DATABASE_URL"])
         cur = conn.cursor()
         s = bcrypt.hashpw(password.encode(), bcrypt.gensalt())
-        cur.execute("INSERT INTO requests (email, password,classs) VALUES (%s, %s,%s);",(email,s,classs))
+        cur.execute("INSERT INTO requests (email, password,classs,name,aftername) VALUES (%s, %s,%s,%s,%s);",(email,s,classs,name,aftername))
         conn.commit()
         cur.close()
         conn.close()

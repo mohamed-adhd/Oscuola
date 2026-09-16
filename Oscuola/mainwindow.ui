@@ -757,7 +757,7 @@ QPushButton#decline_btn_1:pressed, QPushButton#decline_btn_2:pressed, QPushButto
         <x>470</x>
         <y>120</y>
         <width>340</width>
-        <height>471</height>
+        <height>551</height>
        </rect>
       </property>
       <widget class="QLabel" name="form_title_reg">
@@ -790,7 +790,7 @@ QPushButton#decline_btn_1:pressed, QPushButton#decline_btn_2:pressed, QPushButto
        <property name="geometry">
         <rect>
          <x>30</x>
-         <y>90</y>
+         <y>200</y>
          <width>120</width>
          <height>18</height>
         </rect>
@@ -803,7 +803,7 @@ QPushButton#decline_btn_1:pressed, QPushButton#decline_btn_2:pressed, QPushButto
        <property name="geometry">
         <rect>
          <x>30</x>
-         <y>110</y>
+         <y>220</y>
          <width>280</width>
          <height>34</height>
         </rect>
@@ -816,7 +816,7 @@ QPushButton#decline_btn_1:pressed, QPushButton#decline_btn_2:pressed, QPushButto
        <property name="geometry">
         <rect>
          <x>30</x>
-         <y>220</y>
+         <y>330</y>
          <width>120</width>
          <height>18</height>
         </rect>
@@ -829,7 +829,7 @@ QPushButton#decline_btn_1:pressed, QPushButton#decline_btn_2:pressed, QPushButto
        <property name="geometry">
         <rect>
          <x>30</x>
-         <y>240</y>
+         <y>350</y>
          <width>280</width>
          <height>34</height>
         </rect>
@@ -845,7 +845,7 @@ QPushButton#decline_btn_1:pressed, QPushButton#decline_btn_2:pressed, QPushButto
        <property name="geometry">
         <rect>
          <x>30</x>
-         <y>286</y>
+         <y>396</y>
          <width>160</width>
          <height>18</height>
         </rect>
@@ -858,7 +858,7 @@ QPushButton#decline_btn_1:pressed, QPushButton#decline_btn_2:pressed, QPushButto
        <property name="geometry">
         <rect>
          <x>30</x>
-         <y>306</y>
+         <y>416</y>
          <width>280</width>
          <height>34</height>
         </rect>
@@ -874,7 +874,7 @@ QPushButton#decline_btn_1:pressed, QPushButton#decline_btn_2:pressed, QPushButto
        <property name="geometry">
         <rect>
          <x>30</x>
-         <y>400</y>
+         <y>480</y>
          <width>280</width>
          <height>38</height>
         </rect>
@@ -890,7 +890,7 @@ QPushButton#decline_btn_1:pressed, QPushButton#decline_btn_2:pressed, QPushButto
        <property name="geometry">
         <rect>
          <x>30</x>
-         <y>154</y>
+         <y>264</y>
          <width>120</width>
          <height>18</height>
         </rect>
@@ -903,13 +903,65 @@ QPushButton#decline_btn_1:pressed, QPushButton#decline_btn_2:pressed, QPushButto
        <property name="geometry">
         <rect>
          <x>30</x>
-         <y>174</y>
+         <y>284</y>
          <width>280</width>
          <height>34</height>
         </rect>
        </property>
        <property name="placeholderText">
         <string>example : 7A3</string>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="reg_aftername">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>160</y>
+         <width>280</width>
+         <height>34</height>
+        </rect>
+       </property>
+       <property name="placeholderText">
+        <string>your aftername</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="field_label_reg_email_3">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>140</y>
+         <width>120</width>
+         <height>18</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>aftername</string>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="reg_name">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>100</y>
+         <width>280</width>
+         <height>34</height>
+        </rect>
+       </property>
+       <property name="placeholderText">
+        <string>your name</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="field_label_reg_email_4">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>80</y>
+         <width>120</width>
+         <height>18</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>name</string>
        </property>
       </widget>
      </widget>
@@ -3442,7 +3494,7 @@ Absence excuse request — Sep 8</string>
   </widget>
   <widget class="QStatusBar" name="statusbar">
    <property name="visible">
-    <bool>false</bool>
+    <bool>true</bool>
    </property>
   </widget>
  </widget>

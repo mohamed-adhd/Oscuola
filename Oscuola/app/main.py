@@ -16,6 +16,8 @@ class registerRequest(BaseModel):
     gmail: str
     passwd: str
     classs : str
+    name : str
+    aftername : str
 
 class insert_Request(BaseModel):
     gmail: str
@@ -70,8 +72,8 @@ def check(data: LoginRequest, authorized: None = Depends(verify_key)):
 
 #this shi aint fun no more twin
 @app.post("/insert_register")
-def insert(data: insert_Request, authorized: None = Depends(verify_key)):
-    result = insert_request(data.gmail, data.passwd,data.classs)
+def insert(data: registerRequest, authorized: None = Depends(verify_key)):
+    result = insert_request(data.gmail, data.passwd,data.classs,data.name,data.aftername)
     if result == True:
         return {"message": "inserted"}
     return {"message": result}
