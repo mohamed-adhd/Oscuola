@@ -899,7 +899,7 @@ QPushButton#decline_btn_1:pressed, QPushButton#decline_btn_2:pressed, QPushButto
         <string>class</string>
        </property>
       </widget>
-      <widget class="QLineEdit" name="reg_email_2">
+      <widget class="QLineEdit" name="classy">
        <property name="geometry">
         <rect>
          <x>30</x>
@@ -3442,7 +3442,7 @@ Absence excuse request — Sep 8</string>
   </widget>
   <widget class="QStatusBar" name="statusbar">
    <property name="visible">
-    <bool>true</bool>
+    <bool>false</bool>
    </property>
   </widget>
  </widget>

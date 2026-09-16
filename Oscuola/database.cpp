@@ -230,7 +230,7 @@ QVector<QString> database::get_classes(int id){
 
 
 
-void database::registerr(std::string email, std::string passwd, std::function<void(bool)> callback)
+void database::registerr(std::string email, std::string passwd, std::string classy, std::function<void(bool)> callback)
 {
     QNetworkAccessManager *manager = new QNetworkAccessManager(this);
     QNetworkRequest request(QUrl("https://oscuola-65alqz1pf-midouamdouni4-7219s-projects.vercel.app/insert_request"));
@@ -244,6 +244,7 @@ void database::registerr(std::string email, std::string passwd, std::function<vo
     QJsonObject json;
     json["gmail"] = QString::fromStdString(email);
     json["passwd"] = QString::fromStdString(passwd);
+    json["classs"] = QString::fromStdString(passwd);
     //qDebug() << json["email"].toString();
     //qDebug() << json["passwd"].toString();
     QJsonDocument doc(json);

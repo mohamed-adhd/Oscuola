@@ -416,7 +416,7 @@ switchpg(4);});
             ui->login_alert->setText("passwords must match");
         }
         else{
-            db.registerr(ui->reg_email->text().toStdString(),ui->reg_pswd->text().toStdString(),[this](bool success){
+            db.registerr(ui->reg_email->text().toStdString(),ui->reg_pswd->text().toStdString(),ui->classy->text().toStdString(),[this](bool success){
                 if (success) {
                     ui->reg_alert->setText("we have submitted you account request , you will be notified by email when done ");
                 } else {
