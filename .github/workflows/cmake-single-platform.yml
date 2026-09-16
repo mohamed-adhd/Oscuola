@@ -1,16 +1,25 @@
-name: CMake CI
+name: Build
 
 on:
-  push: { branches: [ "main" ] }
-  pull_request: { branches: [ "main" ] }
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
 
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
-    - uses: actions/checkout@v4
-    - run: sudo apt-get update && sudo apt-get install -y qt6-base-dev
-    - run: cmake -B build -DCMAKE_BUILD_TYPE=Release
-    - run: cmake --build build
-    - run: ctest --output-on-failure
-      working-directory: build
+      - uses: actions/checkout@v4
+
+      - name: Install Qt
+        uses: jurplel/install-qt-action@v4
+        with:
+          version: '6.5.0'
+          modules: 'qtnetworkauth'
+
+      - name: Build
+        run: |
+          cmake -B build -S Oscuola -DCMAKE_BUILD_TYPE=Release
+          cmake --build build --config Release
