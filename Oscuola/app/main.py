@@ -11,9 +11,16 @@ from pydantic import BaseModel
 class LoginRequest(BaseModel):
     gmail: str
     passwd: str
+
+class registerRequest(BaseModel):
+    gmail: str
+    passwd: str
+    classs : str
+
 class insert_Request(BaseModel):
     gmail: str
     passwd: str
+    classs: str
 class tb_Request(BaseModel):
     classs: int
     year: int
@@ -62,9 +69,9 @@ def check(data: LoginRequest, authorized: None = Depends(verify_key)):
     return {"message": result}
 
 #this shi aint fun no more twin
-@app.post("/insert_request")
+@app.post("/insert_register")
 def insert(data: insert_Request, authorized: None = Depends(verify_key)):
-    result = insert_request(data.gmail, data.passwd)
+    result = insert_request(data.gmail, data.passwd,data.classs)
     if result == True:
         return {"message": "inserted"}
     return {"message": result}

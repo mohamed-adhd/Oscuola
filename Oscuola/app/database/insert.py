@@ -2,13 +2,13 @@ from dotenv import load_dotenv
 import psycopg2
 import os
 import bcrypt
-def insert_request(email,password):
+def insert_request(email,password,classs):
     conn = None
     try:
         conn = psycopg2.connect(os.environ["DATABASE_URL"])
         cur = conn.cursor()
         s = bcrypt.hashpw(password.encode(), bcrypt.gensalt())
-        cur.execute("INSERT INTO requests (email, password) VALUES (%s, %s);",(email,s))
+        cur.execute("INSERT INTO requests (email, password,classs) VALUES (%s, %s,%s);",(email,s,classs))
         conn.commit()
         cur.close()
         conn.close()
