@@ -9,7 +9,7 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow),db(dbo){
     ui->setupUi(this);
-    switchpg(7);
+    switchpg(0);
     setFixedSize(1280, 720);
 
 
@@ -209,15 +209,14 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
             std::string reqcs = r.classs;
 
             connect(acceptBtn, &QPushButton::clicked, this, [this, reqn,reqaf,reqcs, row]() {
-                db.accept(reqn,reqaf,reqcs);   // your own accept logic
-                row->deleteLater();         // remove the row visually
-                // maybe refresh the list / renumber remaining rows here
+                db.accept(reqn,reqaf,reqcs);
+                row->deleteLater();
             });
 
-            //connect(declineBtn, &QPushButton::clicked, this, [this, reqn,reqaf,reqcs, row]() {
-                //db.decline_request(reqId);  // your own decline logic
-                //row->deleteLater();
-            //});
+            connect(declineBtn, &QPushButton::clicked, this, [this, reqn,reqaf,reqcs, row]() {
+                db.deleter(reqn,reqaf,reqcs);
+                row->deleteLater();
+            });
 
             row->show();
             y += rowh + spacing;
@@ -410,14 +409,14 @@ switchpg(4);});
                 ui->login_alert->setText("user not found");
             }
         }});
-    connect(ui->reg_but,&QPushButton::clicked,this,[this]() {
-        if(ui->reg_email->text()=="" || ui->reg_pswd->text()=="" || ui->pswd_conf->text()==""){
+    connect(ui->btn_create_account,&QPushButton::clicked,this,[this]() {
+        if(ui->reg_aftername->text()=="" || ui->reg_pswd->text()=="" || ui->pswd_conf->text()==""){
             ui->login_alert->setText("fill all fields please(reg)");
         }else if(ui->reg_pswd->text()!= ui->pswd_conf->text()){
             ui->login_alert->setText("passwords must match");
         }
         else{
-            db.registerr(ui->reg_email->text().toStdString(),ui->reg_pswd->text().toStdString(),[this](bool success){
+            db.registerr(ui->reg_email->text().toStdString(),ui->reg_pswd->text().toStdString(),ui->classy->text().toStdString(),ui->reg_name->text().toStdString(),ui->reg_aftername->text().toStdString(),[this](bool success){
                 if (success) {
                     ui->reg_alert->setText("we have submitted you account request , you will be notified by email when done ");
                 } else {
@@ -427,7 +426,8 @@ switchpg(4);});
 
 
 
-
+    connect(ui->reg_but,&QPushButton::clicked,this,[this]() {
+        switchpg(1);});
 
 
 
