@@ -24,6 +24,7 @@ public :
     QVector<QString> get_classes(int id);
     std::vector<req> get_requests(int id);
     bool accept(std::string classs, std::string name,std::string aftername);
+    bool deleter(std::string classs, std::string name,std::string aftername);
 
 
 
