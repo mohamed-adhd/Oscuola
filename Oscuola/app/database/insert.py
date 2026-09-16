@@ -63,3 +63,20 @@ def accept_it(classs,name,aftername):
 
 
 
+
+
+def delete_it(classs,name,aftername):
+    try :
+        load_dotenv()
+        cons = os.environ["CON_STRING"]
+        s = psycopg2.connect(os.environ["DATABASE_URL"])
+        cur = s.cursor()
+        cur.execute("DELETE FROM requests WHERE name = %s AND aftername=%s AND classs=%s ;", (name, aftername, classs))
+        s.commit()
+        cur.close()
+        s.close()
+        return {"message":True}
+    except Exception as e:
+        cur.close()
+        s.close()
+        return {"message":f"Insert failed my friend: {e}"}
