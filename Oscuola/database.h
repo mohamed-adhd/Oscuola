@@ -17,13 +17,14 @@ private:
 public :
     QMap<QString, double> st1_student_grade(int);
     std::tuple<std::string, std::string, std::string, std::string,int,int,int> login_check(std::string email, std::string passwd);
-    void registerr(std::string email, std::string passwd, std::function<void(bool)> callback);
+    void registerr(std::string email, std::string passwd,std::string classy,std::string name,std::string aftername, std::function<void(bool)> callback);
     std::vector<QString> st1_student_alerts(int id);
     std::string fetch_timetable(int year,int classs);
     bool sendpost(QString subject,QString message);
     QVector<QString> get_classes(int id);
     std::vector<req> get_requests(int id);
     bool accept(std::string classs, std::string name,std::string aftername);
+    bool deleter(std::string classs, std::string name,std::string aftername);
 
 
 

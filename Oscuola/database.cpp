@@ -230,10 +230,10 @@ QVector<QString> database::get_classes(int id){
 
 
 
-void database::registerr(std::string email, std::string passwd, std::function<void(bool)> callback)
+void database::registerr(std::string email, std::string passwd, std::string classy,std::string name,std::string aftername, std::function<void(bool)> callback)
 {
     QNetworkAccessManager *manager = new QNetworkAccessManager(this);
-    QNetworkRequest request(QUrl("https://oscuola-65alqz1pf-midouamdouni4-7219s-projects.vercel.app/insert_request"));
+    QNetworkRequest request(QUrl("https://oscuola-aww9p44o1-midouamdouni4-7219s-projects.vercel.app/insert_register"));
     request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
 
     QMap<QString, QString> bs = loadEnvResolved();
@@ -244,6 +244,9 @@ void database::registerr(std::string email, std::string passwd, std::function<vo
     QJsonObject json;
     json["gmail"] = QString::fromStdString(email);
     json["passwd"] = QString::fromStdString(passwd);
+    json["classs"] = QString::fromStdString(classy);
+    json["name"] = QString::fromStdString(name);
+    json["aftername"] = QString::fromStdString(aftername);
     //qDebug() << json["email"].toString();
     //qDebug() << json["passwd"].toString();
     QJsonDocument doc(json);
@@ -465,7 +468,7 @@ std::vector<req> database::get_requests(int id)
 };
 bool database::accept(std::string name, std::string aftername,std::string classs){
     QNetworkAccessManager *manager = new QNetworkAccessManager(this);
-    QNetworkRequest request(QUrl("https://oscuola-60j4h50bb-midouamdouni4-7219s-projects.vercel.app/accept_request"));
+    QNetworkRequest request(QUrl("https://oscuola-37tivylm9-midouamdouni4-7219s-projects.vercel.app/accept_request"));
     request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
 
     QMap<QString, QString> bs = loadEnvResolved();
@@ -482,6 +485,73 @@ bool database::accept(std::string name, std::string aftername,std::string classs
     qDebug()<<"name   "<<doc["name"];
         qDebug()<<"class   "<<doc["classs"];
         qDebug()<<"aftername   "<<doc["aftername"];
+
+    QNetworkReply *res = manager->post(request, data);
+    QEventLoop loop;
+    connect(res,&QNetworkReply::finished,&loop,&QEventLoop::quit);
+
+    loop.exec();
+    QByteArray responseData = res->readAll();
+    qDebug().noquote()<<responseData;
+    QJsonDocument docs = QJsonDocument::fromJson(responseData);
+    QJsonObject obj = docs.object();
+
+    return obj["message"].toBool();
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+bool database::deleter(std::string name, std::string aftername,std::string classs){
+    QNetworkAccessManager *manager = new QNetworkAccessManager(this);
+    QNetworkRequest request(QUrl("https://oscuola-l6uyz2kih-midouamdouni4-7219s-projects.vercel.app/delete_request"));
+    request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
+
+    QMap<QString, QString> bs = loadEnvResolved();
+    QString dakey = bs.value("API_KEY");
+    qDebug() << dakey;
+    QByteArray auth = "Bearer " + dakey.toUtf8();
+    request.setRawHeader("Authorization", auth);
+    QJsonObject json;
+    json["name"] = QString::fromStdString(name);
+    json["aftername"] = QString::fromStdString(aftername);
+    json["classs"] = QString::fromStdString(classs);
+    QJsonDocument doc(json);
+    QByteArray data = doc.toJson();
+    qDebug()<<"name   "<<doc["name"];
+    qDebug()<<"class   "<<doc["classs"];
+    qDebug()<<"aftername   "<<doc["aftername"];
 
     QNetworkReply *res = manager->post(request, data);
     QEventLoop loop;
