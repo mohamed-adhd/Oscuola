@@ -5,12 +5,18 @@ import os
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 from fastapi import FastAPI
 from fastapi import Depends
-from database.fetch import test,check_login,get_grades_1st,get_alerts_1st,timetable,get_classes,get_reqs
-from database.insert import insert_request,postit,accept_it,delete_it
+from database.fetch import test,check_login,get_grades_1st,get_alerts_1st,timetable,get_classes,get_reqs,getsudents
+from database.insert import insert_request,postit,accept_it,delete_it,modifygrades1st
 from pydantic import BaseModel
 class LoginRequest(BaseModel):
     gmail: str
     passwd: str
+
+
+class classs(BaseModel):
+    classs : int
+    year : int
+
 
 class registerRequest(BaseModel):
     gmail: str
@@ -38,7 +44,14 @@ class req(BaseModel):
     aftername : str
     classs : str
 
-
+class grades1st(BaseModel):
+    id : int
+    mathematics : float
+    french : float
+    english : float
+    cs : float
+    physics : float
+    sc : float
 
 
 app = FastAPI()
@@ -122,3 +135,12 @@ def der(data : req, authorized: None = Depends(verify_key)):
 @app.post("/post_request")
 def pst(data : post_request, authorized: None = Depends(verify_key)):
     return postit(data.subject,data.message)
+
+@app.post("/get_students")
+def gs(data : classs,authorized: None = Depends(verify_key)):
+    return getstudents(data.classs)
+
+
+@app.post("/change_grades_1st")
+def cg1(data : grades1st,authorized: None = Depends(verify_key)):
+    return modifygrades1st(data)

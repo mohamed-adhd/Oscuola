@@ -80,3 +80,18 @@ def delete_it(classs,name,aftername):
         cur.close()
         s.close()
         return {"message":f"Insert failed my friend: {e}"}
+def modifygrades1st(data):
+        try:
+            load_dotenv()
+            cons = os.environ["CON_STRING"]
+            s = psycopg2.connect(os.environ["DATABASE_URL"])
+            cur = s.cursor()
+            cur.execute("UPDATE first_year_grades SET mathematics= %s,french=%s, english=%s,computer_science= %s,physics= %s, life_and_earth_sciences = %s WHERE student_id = %s;",(data.mathematics, data.french, data.english, data.cs, data.physics, data.sc, data.id))
+            s.commit()
+            cur.close()
+            s.close()
+            return {"message": True}
+        except Exception as e:
+            cur.close()
+            s.close()
+            return {"message": f"Insert failed my friend: {e}"}
