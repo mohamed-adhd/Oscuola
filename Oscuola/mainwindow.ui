@@ -3227,7 +3227,7 @@ No image set — select a class and press Load</string>
         <string>Grades — Filtered Results</string>
        </property>
       </widget>
-      <widget class="QListWidget" name="teacher_grades_list">
+      <widget class="QTableWidget" name="teacher_grades_list">
        <property name="geometry">
         <rect>
          <x>16</x>
@@ -3239,31 +3239,6 @@ No image set — select a class and press Load</string>
        <property name="frameShape">
         <enum>QFrame::Shape::NoFrame</enum>
        </property>
-       <item>
-        <property name="text">
-         <string>John Doe — Mathematics — 85%</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Sarah Connor — Mathematics — 91%</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Mike Ross — Mathematics — 68%</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Emma Stone — Mathematics — 77%</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Select a class and year, then press Load to refresh this list</string>
-        </property>
-       </item>
       </widget>
      </widget>
     </widget>

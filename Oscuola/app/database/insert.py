@@ -80,3 +80,4 @@ def delete_it(classs,name,aftername):
         cur.close()
         s.close()
         return {"message":f"Insert failed my friend: {e}"}
+def modifygrades1st(data):
