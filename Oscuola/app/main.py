@@ -38,7 +38,7 @@ class req(BaseModel):
     aftername : str
     classs : str
 
-class grades1st:
+class grades1st(BaseModel):
     id : int
     mathematics : float
     french : float
