@@ -9,7 +9,7 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow),db(dbo){
     ui->setupUi(this);
-    switchpg(0);
+    switchpg(7);
     setFixedSize(1280, 720);
 
 
