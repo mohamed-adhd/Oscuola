@@ -86,7 +86,7 @@ def modifygrades1st(data):
             cons = os.environ["CON_STRING"]
             s = psycopg2.connect(os.environ["DATABASE_URL"])
             cur = s.cursor()
-            cur.execute("UPDATE first_year_grades WHERE student_id=%s SET VALUES (mathematics,french,english,computer_science,physics,life_and_earth_sciences) (%s,%s,%s,%s,%s,%s);",(data.id,data.math,data.french,data.english,data.cs,data.physics,data.sc))
+            cur.execute("UPDATE first_year_grades WHERE student_id=%s SET VALUES (mathematics,french,english,computer_science,physics,life_and_earth_sciences) (%s,%s,%s,%s,%s,%s);",(data.id,data.mathematics,data.french,data.english,data.cs,data.physics,data.sc))
             s.commit()
             cur.close()
             s.close()
