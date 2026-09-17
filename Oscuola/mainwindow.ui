@@ -3107,64 +3107,24 @@ No image set — select a class and press Load</string>
       <property name="cursor">
        <cursorShape>PointingHandCursor</cursorShape>
       </property>
-      <item>
-       <property name="text">
-        <string>9A</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>9B</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>10A</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>10B</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>11A</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>11B</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>12A</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>12B</string>
-       </property>
-      </item>
      </widget>
      <widget class="QLabel" name="year_select_label_grades">
       <property name="geometry">
        <rect>
         <x>490</x>
         <y>136</y>
-        <width>40</width>
+        <width>51</width>
         <height>24</height>
        </rect>
       </property>
       <property name="text">
-       <string>Year</string>
+       <string>Student</string>
       </property>
      </widget>
      <widget class="QComboBox" name="teacher_grades_year_combo">
       <property name="geometry">
        <rect>
-        <x>530</x>
+        <x>550</x>
         <y>130</y>
         <width>160</width>
         <height>34</height>
@@ -3173,26 +3133,11 @@ No image set — select a class and press Load</string>
       <property name="cursor">
        <cursorShape>PointingHandCursor</cursorShape>
       </property>
-      <item>
-       <property name="text">
-        <string>2025-2026</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>2024-2025</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>2023-2024</string>
-       </property>
-      </item>
      </widget>
      <widget class="QPushButton" name="teacher_grades_load_btn">
       <property name="geometry">
        <rect>
-        <x>710</x>
+        <x>730</x>
         <y>130</y>
         <width>100</width>
         <height>34</height>
