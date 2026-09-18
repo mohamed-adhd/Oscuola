@@ -146,4 +146,4 @@ def cg1(data : grades1st,authorized: None = Depends(verify_key)):
     return modifygrades1st(data)
 @app.post("/get_students")
 def gs(data : classs,authorized: None = Depends(verify_key)):
-    return getstudents(data)
+    return getstudents(data.classs,data.year)
