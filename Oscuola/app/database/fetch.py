@@ -119,7 +119,7 @@ def getstudents(data):
     res = cur.fetchone()
     cur.close()
     s.close()
-    return {}
+    return res
 
 
 

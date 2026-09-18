@@ -5,7 +5,7 @@ import os
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 from fastapi import FastAPI
 from fastapi import Depends
-from database.fetch import test,check_login,get_grades_1st,get_alerts_1st,timetable,get_classes,get_reqs,getsudents
+from database.fetch import test,check_login,get_grades_1st,get_alerts_1st,timetable,get_classes,get_reqs,getstudents
 from database.insert import insert_request,postit,accept_it,delete_it,modifygrades1st
 from pydantic import BaseModel
 class LoginRequest(BaseModel):
@@ -144,3 +144,6 @@ def gs(data : classs,authorized: None = Depends(verify_key)):
 @app.post("/change_grades_1st")
 def cg1(data : grades1st,authorized: None = Depends(verify_key)):
     return modifygrades1st(data)
+@app.post("/get_students")
+def gs(data : classs,authorized: None = Depends(verify_key)):
+    return getstudents(data)
