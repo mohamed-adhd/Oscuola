@@ -170,7 +170,7 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
     connect(grades_buts_teach,&QButtonGroup::buttonClicked,this,[this](){
         QVector<QString> classes = db.get_classes(1);
         for (const QString &c : classes)
-            ui->teacher_timetable_class_combo->addItem(c);
+            ui->teacher_grades_class_combo->addItem(c);
 
 
         switchpg(9);
@@ -180,7 +180,7 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
     connect(ui->teacher_grades_load_btn,&QPushButton::clicked,this,[this]{
         QVector<QString> students = db.get_students(ui->teacher_grades_class_combo->currentText().toStdString());
         for (const QString &c : students)
-            ui->teacher_timetable_class_combo->addItem(c);
+            ui->teacher_grades_student_combo->addItem(c);
 
     });
 
