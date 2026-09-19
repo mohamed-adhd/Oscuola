@@ -14,7 +14,8 @@
 #include <QJsonObject>
 #include <QJsonArray>
 #include <stdlib.h>
-
+#include <QVector>
+#include <QString>
 #include<QCoreApplication>
 
 
@@ -217,13 +218,10 @@ QVector<QString> database::get_classes(int id){
 
 
 
-
-
-
     QVector<QString> database::get_students(std::string classs){
         QVector<QString> classes;
         QNetworkAccessManager *manager = new QNetworkAccessManager(this);
-        QNetworkRequest request(QUrl("https://oscuola-3717zg76g-midouamdouni4-7219s-projects.vercel.app/get_students"));
+        QNetworkRequest request(QUrl("https://oscuola-li8pxa79q-midouamdouni4-7219s-projects.vercel.app/get_students"));
         request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
         QMap<QString, QString> bs = loadEnvResolved();
         QString dakey = bs.value("API_KEY");
@@ -236,22 +234,31 @@ QVector<QString> database::get_classes(int id){
 
 
 
-        QJsonDocument doc(json);
-        QByteArray data = doc.toJson();
+        QJsonDocument docs(json);
+        QByteArray data = docs.toJson();
         QNetworkReply *res = manager->post(request, data);
         QEventLoop loop;
         connect(res,&QNetworkReply::finished,&loop,&QEventLoop::quit);
         loop.exec();
         QByteArray responseData = res->readAll();
         qDebug().noquote() << responseData;
-        QJsonDocument docs = QJsonDocument::fromJson(responseData);
-        QJsonObject obj = docs.object();
-        QJsonArray arr = obj.value("data").toArray();
-        for (const QJsonValue &val : arr) {
-            classes.append(val.toString());
-        }
+        QVector<QString> resy;
+        QJsonDocument doc = QJsonDocument::fromJson(responseData);
+        if (!doc.isArray())
+            return resy;
 
-        return classes;
+        const QJsonArray rows = doc.array();
+        resy.reserve(rows.size());
+
+        for (const QJsonValue &rowVal : rows) {
+            const QJsonArray row = rowVal.toArray();
+            if (row.size() < 2)
+                continue;
+
+            QString fn = row.at(0).toString() + " " + row.at(1).toString();
+            resy.append(fn);
+        }
+        return resy;
 
 
 
