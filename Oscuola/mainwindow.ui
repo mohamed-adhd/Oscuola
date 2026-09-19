@@ -3121,7 +3121,7 @@ No image set — select a class and press Load</string>
        <string>Student</string>
       </property>
      </widget>
-     <widget class="QComboBox" name="teacher_grades_year_combo">
+     <widget class="QComboBox" name="teacher_grades_student_combo">
       <property name="geometry">
        <rect>
         <x>550</x>

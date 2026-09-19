@@ -168,10 +168,28 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
 
 
     connect(grades_buts_teach,&QButtonGroup::buttonClicked,this,[this](){
+        QVector<QString> classes = db.get_classes(1);
+        for (const QString &c : classes)
+            ui->teacher_grades_class_combo->addItem(c);
 
 
         switchpg(9);
     });
+
+
+    connect(ui->teacher_grades_load_btn,&QPushButton::clicked,this,[this]{
+        QVector<QString> students = db.get_students(ui->teacher_grades_class_combo->currentText().toStdString());
+        for (const QString &c : students)
+            ui->teacher_grades_student_combo->addItem(c);
+
+    });
+
+
+
+
+
+
+
 
 
     connect(reqst_buts,&QButtonGroup::buttonClicked,this,[this](){
@@ -179,9 +197,7 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
         QList<QFrame*> oldRows = ui->panel_requests_teacher->findChildren<QFrame*>(
             QRegularExpression("^request_row_.*"));
         for (QFrame *f : oldRows) {
-            f->deleteLater();
-        }
-
+            f->deleteLater();}
         int y = 50;
         const int rowh = 64;
         const int spacing = 8;
