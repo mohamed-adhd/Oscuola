@@ -2,7 +2,6 @@
 #define DATABASE_H
 #include <QNetworkAccessManager>
 #include <QNetworkReply>
-#include <json/json.h>
 #include <QJsonObject>
 #include <QObject>
 class req{
@@ -22,6 +21,7 @@ public :
     std::string fetch_timetable(int year,int classs);
     bool sendpost(QString subject,QString message);
     QVector<QString> get_classes(int id);
+    QVector<QString> get_students(std::string classs);
     std::vector<req> get_requests(int id);
     bool accept(std::string classs, std::string name,std::string aftername);
     bool deleter(std::string classs, std::string name,std::string aftername);

@@ -116,7 +116,7 @@ def getstudents(classs,year):
     s = psycopg2.connect(os.environ["DATABASE_URL"])
     cur = s.cursor()
     cur.execute("SELECT name , aftername  FROM students WHERE classs = %s AND syear=%s;", (classs,year))
-    res = cur.fetchone()
+    res = cur.fetchall()
     cur.close()
     s.close()
     return res
