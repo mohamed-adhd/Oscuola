@@ -110,7 +110,7 @@ def get_grades_1st(id):
     s.close()
     return {"success": True, "math": res[2], "french": res[3], "english": res[4],"cs":res[5],"ph": res[6], "scvt": res[7], "overallg": res[8]}
 
-def getstudents(classs,year):
+def getstudents(year,classs):
     load_dotenv()
     cons = os.environ["CON_STRING"]
     s = psycopg2.connect(os.environ["DATABASE_URL"])

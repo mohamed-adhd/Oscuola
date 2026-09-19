@@ -138,12 +138,10 @@ def pst(data : post_request, authorized: None = Depends(verify_key)):
 
 @app.post("/get_students")
 def gs(data : classs,authorized: None = Depends(verify_key)):
-    return getstudents(data.classs)
+    return getstudents(int(data.classs[0]),int(data.year[2]))
 
 
 @app.post("/change_grades_1st")
 def cg1(data : grades1st,authorized: None = Depends(verify_key)):
     return modifygrades1st(data)
-@app.post("/get_students")
-def gs(data : classs,authorized: None = Depends(verify_key)):
-    return getstudents(data.classs,data.year)
+
