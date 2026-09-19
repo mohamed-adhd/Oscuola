@@ -2,7 +2,6 @@
 #include <QNetworkAccessManager>
 #include <QNetworkAccessManager>
 #include <QNetworkReply>
-#include <json/json.h>
 #include <QJsonObject>
 #include <QFile>
 #include <QTextStream>

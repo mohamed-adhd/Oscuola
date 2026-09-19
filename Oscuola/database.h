@@ -2,7 +2,6 @@
 #define DATABASE_H
 #include <QNetworkAccessManager>
 #include <QNetworkReply>
-#include <json/json.h>
 #include <QJsonObject>
 #include <QObject>
 class req{
