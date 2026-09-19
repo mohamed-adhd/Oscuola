@@ -16,6 +16,8 @@ class LoginRequest(BaseModel):
 class classs(BaseModel):
     classs : int
     year : int
+class classsstr(BaseModel):
+    classs : str
 
 
 class registerRequest(BaseModel):
@@ -137,8 +139,8 @@ def pst(data : post_request, authorized: None = Depends(verify_key)):
     return postit(data.subject,data.message)
 
 @app.post("/get_students")
-def gs(data : classs,authorized: None = Depends(verify_key)):
-    return getstudents(int(data.classs[0]),int(data.year[2]))
+def gs(data : classsstr,authorized: None = Depends(verify_key)):
+    return getstudents(int(data.classs[0]),int(data.classs[2]))
 
 
 @app.post("/change_grades_1st")
