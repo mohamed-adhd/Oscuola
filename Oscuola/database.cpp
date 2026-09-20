@@ -254,10 +254,11 @@ QVector<QString> database::get_classes(int id){
             const QJsonArray row = rowVal.toArray();
             if (row.size() < 2)
                 continue;
-            studs temp=new;
-            temp.name=row.at(0).toString();
-            temp.aftername=row.at(1).toString();
-            temp.id=row.at(2).toInt();
+            studs temp;
+            temp.name=row.at(1).toString().toStdString();
+            temp.aftername=row.at(2).toString().toStdString();
+            temp.id=row.at(0).toInt();
+            resy.push_back(temp);
         }
         return resy;
 
