@@ -218,7 +218,7 @@ QVector<QString> database::get_classes(int id){
 
 
 
-    QVector<QString> database::get_students(std::string classs){
+    std::vector<studs> database::get_students(std::string classs){
         QVector<QString> classes;
         QNetworkAccessManager *manager = new QNetworkAccessManager(this);
         QNetworkRequest request(QUrl("https://oscuola-li8pxa79q-midouamdouni4-7219s-projects.vercel.app/get_students"));
@@ -242,7 +242,7 @@ QVector<QString> database::get_classes(int id){
         loop.exec();
         QByteArray responseData = res->readAll();
         qDebug().noquote() << responseData;
-        QVector<QString> resy;
+        std::vector<studs> resy;
         QJsonDocument doc = QJsonDocument::fromJson(responseData);
         if (!doc.isArray())
             return resy;
@@ -254,9 +254,11 @@ QVector<QString> database::get_classes(int id){
             const QJsonArray row = rowVal.toArray();
             if (row.size() < 2)
                 continue;
-
-            QString fn = row.at(0).toString() + " " + row.at(1).toString();
-            resy.append(fn);
+            studs temp;
+            temp.name=row.at(1).toString().toStdString();
+            temp.aftername=row.at(2).toString().toStdString();
+            temp.id=row.at(0).toInt();
+            resy.push_back(temp);
         }
         return resy;
 
@@ -379,6 +381,58 @@ bool database::sendpost(QString subject,QString message){
 
 
 };
+
+
+
+
+
+
+
+
+
+QMap<QString, double> database::get_student_grades(int id)
+{
+    QNetworkAccessManager *manager = new QNetworkAccessManager(this);
+    QNetworkRequest request(QUrl("https://oscuola-cnb10ca6y-midouamdouni4-7219s-projects.vercel.app/s1t_year_student"));
+    request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
+
+    QMap<QString, QString> bs = loadEnvResolved();
+    QString dakey = bs.value("API_KEY");
+    qDebug() << dakey;
+    QByteArray auth = "Bearer " + dakey.toUtf8();
+    request.setRawHeader("Authorization", auth);
+    QJsonObject json;
+    json["id"] = QString::fromStdString(std::to_string(id));
+    QJsonDocument doc(json);
+    QByteArray data = doc.toJson();
+    QNetworkReply *res = manager->post(request, data);
+    QEventLoop loop;
+
+    connect(res,&QNetworkReply::finished,&loop,&QEventLoop::quit);
+
+    loop.exec();
+    QByteArray responseData = res->readAll();
+    QJsonDocument docs = QJsonDocument::fromJson(responseData);
+    QJsonObject obj = docs.object();
+    return temp;
+
+
+
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 std::string database::fetch_timetable(int year,int classs)
 {

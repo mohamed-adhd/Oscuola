@@ -10,6 +10,18 @@ public:
     std::string aftername;
     std::string classs;
 };
+
+
+
+class studs{
+public:
+    std::string name;
+    std::string aftername;
+    int id;
+};
+
+
+
 class database : public QObject{
     Q_OBJECT
 private:
@@ -21,7 +33,7 @@ public :
     std::string fetch_timetable(int year,int classs);
     bool sendpost(QString subject,QString message);
     QVector<QString> get_classes(int id);
-    QVector<QString> get_students(std::string classs);
+    std::vector<studs> get_students(std::string classs);
     std::vector<req> get_requests(int id);
     bool accept(std::string classs, std::string name,std::string aftername);
     bool deleter(std::string classs, std::string name,std::string aftername);
