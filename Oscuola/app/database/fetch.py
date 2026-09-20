@@ -110,12 +110,39 @@ def get_grades_1st(id):
     s.close()
     return {"success": True, "math": res[2], "french": res[3], "english": res[4],"cs":res[5],"ph": res[6], "scvt": res[7], "overallg": res[8]}
 
+
+
+def get_grades_2nd(id):
+    load_dotenv()
+    cons = os.environ["CON_STRING"]
+    s = psycopg2.connect(os.environ["DATABASE_URL"])
+    cur = s.cursor()
+    cur.execute("SELECT * FROM second_year_grades WHERE student_id = %s ;", (id,))
+    res = cur.fetchone()
+    cur.close()
+    s.close()
+    return {"success": True, "math": res[2], "french": res[3], "english": res[4],"cs":res[5],"ph": res[6], "scvt": res[7], "overallg": res[8]}
+
+
+
+
+def get_grades_3rd(id):
+    load_dotenv()
+    cons = os.environ["CON_STRING"]
+    s = psycopg2.connect(os.environ["DATABASE_URL"])
+    cur = s.cursor()
+    cur.execute("SELECT * FROM third_year_grades WHERE student_id = %s ;", (id,))
+    res = cur.fetchone()
+    cur.close()
+    s.close()
+    return {"success": True, "math": res[2], "french": res[3], "english": res[4],"cs":res[5],"ph": res[6], "scvt": res[7], "overallg": res[8]}
+
 def getstudents(classs,year):
     load_dotenv()
     cons = os.environ["CON_STRING"]
     s = psycopg2.connect(os.environ["DATABASE_URL"])
     cur = s.cursor()
-    cur.execute("SELECT name , aftername  FROM students WHERE classs = %s AND syear=%s;", (classs,year))
+    cur.execute("SELECT id,name , aftername  FROM students WHERE classs = %s AND syear=%s;", (classs,year))
     res = cur.fetchall()
     cur.close()
     s.close()
