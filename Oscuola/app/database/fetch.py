@@ -142,7 +142,7 @@ def getstudents(classs,year):
     cons = os.environ["CON_STRING"]
     s = psycopg2.connect(os.environ["DATABASE_URL"])
     cur = s.cursor()
-    cur.execute("SELECT name , aftername  FROM students WHERE classs = %s AND syear=%s;", (classs,year))
+    cur.execute("SELECT id,name , aftername  FROM students WHERE classs = %s AND syear=%s;", (classs,year))
     res = cur.fetchall()
     cur.close()
     s.close()
