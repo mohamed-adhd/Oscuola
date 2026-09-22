@@ -178,9 +178,38 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
 
 
     connect(ui->teacher_grades_load_btn,&QPushButton::clicked,this,[this]{
-        QVector<QString> students = db.get_students(ui->teacher_grades_class_combo->currentText().toStdString());
-        for (const QString &c : students)
-            ui->teacher_grades_student_combo->addItem(c);
+        std::vector<studs> students ;
+        if(ui->teacher_grades_student_combo->count()==0){
+            students = db.get_students(ui->teacher_grades_class_combo->currentText().toStdString());
+            for (const studs &c : students)
+                ui->teacher_grades_student_combo->addItem(QString::fromStdString(c.aftername+" "+c.name+"; id : ")+QString::number(c.id));
+        }else{
+            if (ui->teacher_grades_class_combo->currentData().toString()[0]=="7"){
+                QStringList headers = {
+                    "Mathematics", "French", "English",
+                    "Computer Science", "Physics", "Life & Earth Sciences", "Overall Grade"
+                };
+                ui->teacher_grades_list->setColumnCount(headers.size());
+                ui->teacher_grades_list->setHorizontalHeaderLabels(headers);
+                ui->teacher_grades_list->setRowCount(0);
+            }else if (ui->teacher_grades_class_combo->currentData().toString()[0]=="8"){
+                QStringList headers = {
+                    Mathematics", "French", "English",
+                    "Computer Science", "Physics", "History & Geography", "Overall Grade"
+                };
+                ui->teacher_grades_list->setColumnCount(headers.size());
+                ui->teacher_grades_list->setHorizontalHeaderLabels(headers);
+
+            }
+            QString  temp;
+            temp=ui->teacher_grades_student_combo->currentData().toString();
+            for (const studs &c : students){
+                if(temp.contains(QString::fromStdString(c.name)) && temp.contains(QString::fromStdString(c.aftername)) && temp.contains(QString::number(c.id))){
+                    db.get_student_grades(ui->teacher_grades_class_combo->currentData(),c);
+
+                }
+            }
+        }
 
     });
 
