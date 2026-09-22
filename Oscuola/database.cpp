@@ -390,7 +390,7 @@ bool database::sendpost(QString subject,QString message){
 
 
 
-QMap<QString, double> database::get_student_grades(int id,std::string classs)
+std::vector<double> database::get_student_grades(int id)
 {
     QNetworkAccessManager *manager = new QNetworkAccessManager(this);
     QNetworkRequest request(QUrl("https://oscuola-cnb10ca6y-midouamdouni4-7219s-projects.vercel.app/s1t_year_student"));
@@ -402,8 +402,8 @@ QMap<QString, double> database::get_student_grades(int id,std::string classs)
     QByteArray auth = "Bearer " + dakey.toUtf8();
     request.setRawHeader("Authorization", auth);
     QJsonObject json;
-    json["class"] = QString::fromStdString(classs);
     json["id"] = QString::fromStdString(std::to_string(id));
+
     QJsonDocument doc(json);
     QByteArray data = doc.toJson();
     QNetworkReply *res = manager->post(request, data);

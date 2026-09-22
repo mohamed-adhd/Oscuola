@@ -194,18 +194,25 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
                 ui->teacher_grades_list->setRowCount(0);
             }else if (ui->teacher_grades_class_combo->currentData().toString()[0]=="8"){
                 QStringList headers = {
-                    Mathematics", "French", "English",
+                    "Mathematics", "French", "English",
                     "Computer Science", "Physics", "History & Geography", "Overall Grade"
                 };
                 ui->teacher_grades_list->setColumnCount(headers.size());
                 ui->teacher_grades_list->setHorizontalHeaderLabels(headers);
 
+            }else {
+                QStringList headers = {
+                    "Mathematics", "French", "English",
+                    "Computer Science", "Physics", "Philosophy", "Overall Grade"
+                };
+                ui->teacher_grades_list->setColumnCount(headers.size());
+                ui->teacher_grades_list->setHorizontalHeaderLabels(headers);
             }
             QString  temp;
             temp=ui->teacher_grades_student_combo->currentData().toString();
             for (const studs &c : students){
                 if(temp.contains(QString::fromStdString(c.name)) && temp.contains(QString::fromStdString(c.aftername)) && temp.contains(QString::number(c.id))){
-                    db.get_student_grades(ui->teacher_grades_class_combo->currentData(),c);
+                    std::vector<double> s=db.get_student_grades(c.id);
 
                 }
             }

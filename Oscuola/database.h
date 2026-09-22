@@ -37,7 +37,7 @@ public :
     std::vector<req> get_requests(int id);
     bool accept(std::string classs, std::string name,std::string aftername);
     bool deleter(std::string classs, std::string name,std::string aftername);
-    QMap<QString, double> get_student_grades(int id);
+    std::vector<double> get_student_grades(int id);
 
 
 
