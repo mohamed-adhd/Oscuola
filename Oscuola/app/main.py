@@ -5,7 +5,7 @@ import os
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 from fastapi import FastAPI
 from fastapi import Depends
-from database.fetch import test,check_login,get_grades_1st,get_alerts_1st,timetable,get_classes,get_reqs,getstudents
+from database.fetch import test,check_login,get_grades_1st,get_alerts_1st,timetable,get_classes,get_reqs,getstudents,get_year
 from database.insert import insert_request,postit,accept_it,delete_it,modifygrades1st
 from pydantic import BaseModel
 class LoginRequest(BaseModel):
@@ -94,9 +94,17 @@ def insert(data: registerRequest, authorized: None = Depends(verify_key)):
     return {"message": result}
 
 
-@app.post("/s1t_year_student")
+@app.post("/get_grades")
 def syst(data : ids, authorized: None = Depends(verify_key)):
-    return get_grades_1st(data.id)
+    if get_year(data.id)=="1" :
+        return get_grades_1st(data.id)
+    elif get_get_year(data.id)=="2" :
+        return get_grades_2nd(data.id)
+    elif get_get_year(data.id)=="3" :
+        return get_grades_3rd(data.id)
+
+
+
 #testing 
 @app.get("/pfp")
 def insrtpfp():

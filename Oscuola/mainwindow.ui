@@ -3414,7 +3414,7 @@ Absence excuse request — Sep 8</string>
   </widget>
   <widget class="QStatusBar" name="statusbar">
    <property name="visible">
-    <bool>true</bool>
+    <bool>false</bool>
    </property>
   </widget>
  </widget>

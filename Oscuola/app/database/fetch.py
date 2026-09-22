@@ -108,7 +108,7 @@ def get_grades_1st(id):
     res = cur.fetchone()
     cur.close()
     s.close()
-    return {"success": True, "math": res[2], "french": res[3], "english": res[4],"cs":res[5],"ph": res[6], "scvt": res[7], "overallg": res[8]}
+    return {res[2],res[3],res[4],res[5],res[6],res[7],res[8]}
 
 
 
@@ -123,7 +123,10 @@ def get_grades_2nd(id):
     s.close()
     return {"success": True, "math": res[2], "french": res[3], "english": res[4],"cs":res[5],"ph": res[6], "scvt": res[7], "overallg": res[8]}
 
-
+def get_year(id):
+    cur.execute("SELECT syear FROM students WHERE id = %s ;", (id,))
+    res = cur.fetchone()
+    return res[0]
 
 
 def get_grades_3rd(id):
