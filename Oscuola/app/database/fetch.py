@@ -104,7 +104,7 @@ def get_grades_1st(id):
     cons = os.environ["CON_STRING"]
     s = psycopg2.connect(os.environ["DATABASE_URL"])
     cur = s.cursor()
-    cur.execute("SELECT * FROM first_year_grades WHERE student_id = %s ;", (id,))
+    cur.execute("SELECT mathematics french english computer_science physics life_and_earth_science overall_grad FROM first_year_grades WHERE student_id = %s ;", (id,))
     res = cur.fetchone()
     cur.close()
     s.close()

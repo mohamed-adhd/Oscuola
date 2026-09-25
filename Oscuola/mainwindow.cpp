@@ -211,9 +211,15 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
             QString  temp;
             temp=ui->teacher_grades_student_combo->currentData().toString();
             for (const studs &c : students){
-                if(temp.contains(QString::fromStdString(c.name)) && temp.contains(QString::fromStdString(c.aftername)) && temp.contains(QString::number(c.id))){
+                if(temp.contains(QString::number(c.id))){
                     std::vector<double> s=db.get_student_grades(c.id);
+                    int m=1;
+                    for (double& tempy : s){
+                        QTableWidgetItem *item = new QTableWidgetItem(QString::number(tempy,'f',2));
+                        ui->teacher_grades_list->setItem(m, 1, item);
+                        m++;
 
+                    }
                 }
             }
         }
