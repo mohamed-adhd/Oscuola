@@ -98,9 +98,9 @@ def insert(data: registerRequest, authorized: None = Depends(verify_key)):
 def syst(data : ids, authorized: None = Depends(verify_key)):
     if get_year(data.id)=="1" :
         return get_grades_1st(data.id)
-    elif get_get_year(data.id)=="2" :
+    elif get_year(data.id)=="2" :
         return get_grades_2nd(data.id)
-    elif get_get_year(data.id)=="3" :
+    elif get_year(data.id)=="3" :
         return get_grades_3rd(data.id)
 
 
