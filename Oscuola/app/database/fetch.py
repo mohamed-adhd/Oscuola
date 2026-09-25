@@ -124,6 +124,10 @@ def get_grades_2nd(id):
     return {"success": True, "math": res[2], "french": res[3], "english": res[4],"cs":res[5],"ph": res[6], "scvt": res[7], "overallg": res[8]}
 
 def get_year(id):
+    load_dotenv()
+    cons = os.environ["CON_STRING"]
+    s = psycopg2.connect(os.environ["DATABASE_URL"])
+    cur = s.cursor()
     cur.execute("SELECT syear FROM students WHERE id = %s ;", (id,))
     res = cur.fetchone()
     return res[0]

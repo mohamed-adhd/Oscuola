@@ -415,7 +415,7 @@ std::vector<double> database::get_student_grades(int id)
     QByteArray responseData = res->readAll();
     QJsonDocument docs = QJsonDocument::fromJson(responseData);
     QJsonObject obj = docs.object();
-    return temp;
+    return
 
 
 
