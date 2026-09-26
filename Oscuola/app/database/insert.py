@@ -2,6 +2,7 @@ from dotenv import load_dotenv
 import psycopg2
 import os
 import bcrypt
+from smtplib import SMTP
 def insert_request(email,password,classs,name,aftername):
     conn = None
     try:
@@ -47,6 +48,7 @@ def accept_it(classs,name,aftername):
         s.commit()
         cur.execute("INSERT INTO students (name,aftername,gmail,syear,classs) VALUES (%s,%s,%s,%s,%s);", (name, aftername, res[0],int(classs[2]),int(classs[0])))
         s.commit()
+        sendemail(res[0],name)
         cur.execute("DELETE FROM requests WHERE name = %s AND aftername=%s AND classs=%s ;", (name, aftername, classs))
         s.commit()
         cur.close()
@@ -95,3 +97,27 @@ def modifygrades1st(data):
             cur.close()
             s.close()
             return {"message": f"Insert failed my friend: {e}"}
+
+
+
+import smtplib
+from email.message import EmailMessage
+
+def sendemail(email, name):
+    message = EmailMessage()
+    message["From"] = "oscuolaa@gmail.com"
+    message["To"] = email
+    message["Subject"] = "Your Oscuola Account Has Been Activated"
+
+    body = (
+        f"Dear {name},\n\n"
+        "We're happy to announce that you've been accepted into the Oscuola platform. "
+        "Your account has been activated, and you can now log in using your credentials.\n\n"
+        "Sincerely,\n"
+        "Oscuola Devs (Mohamed-adhd)"
+    )
+    message.set_content(body)
+    with smtplib.SMTP("smtp.gmail.com", 587) as server:
+        server.starttls()
+        server.login("oscuolaa@gmail.com", "vqrowgjpchgasjsr")
+        server.send_message(message)
