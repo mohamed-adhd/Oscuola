@@ -48,6 +48,7 @@ def accept_it(classs,name,aftername):
         s.commit()
         cur.execute("INSERT INTO students (name,aftername,gmail,syear,classs) VALUES (%s,%s,%s,%s,%s);", (name, aftername, res[0],int(classs[2]),int(classs[0])))
         s.commit()
+        sendemail(res[0],name)
         cur.execute("DELETE FROM requests WHERE name = %s AND aftername=%s AND classs=%s ;", (name, aftername, classs))
         s.commit()
         cur.close()
@@ -110,13 +111,12 @@ def sendemail(email, name):
 
     body = (
         f"Dear {name},\n\n"
-        "We're happy to announce that you've been accepted on the Oscuola platform. "
+        "We're happy to announce that you've been accepted into the Oscuola platform. "
         "Your account has been activated, and you can now log in using your credentials.\n\n"
         "Sincerely,\n"
         "Oscuola Devs (Mohamed-adhd)"
     )
     message.set_content(body)
-
     with smtplib.SMTP("smtp.gmail.com", 587) as server:
         server.starttls()
         server.login("oscuolaa@gmail.com", "vqrowgjpchgasjsr")
