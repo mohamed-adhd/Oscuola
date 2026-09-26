@@ -99,8 +99,25 @@ def modifygrades1st(data):
 
 
 
-def sendemail(gmail):
-    with smtplib.SMTP(smtp.gmail.com,587) as server:
+import smtplib
+from email.message import EmailMessage
+
+def sendemail(email, name):
+    message = EmailMessage()
+    message["From"] = "oscuolaa@gmail.com"
+    message["To"] = email
+    message["Subject"] = "Your Oscuola Account Has Been Activated"
+
+    body = (
+        f"Dear {name},\n\n"
+        "We're happy to announce that you've been accepted on the Oscuola platform. "
+        "Your account has been activated, and you can now log in using your credentials.\n\n"
+        "Sincerely,\n"
+        "Oscuola Devs (Mohamed-adhd)"
+    )
+    message.set_content(body)
+
+    with smtplib.SMTP("smtp.gmail.com", 587) as server:
         server.starttls()
-        server.login(USERNAME, PASSWORD)  
-        server.sendmail(sender_email, receiver_email, message.as_string())
+        server.login("oscuolaa@gmail.com", "vqrowgjpchgasjsr")
+        server.send_message(message)
