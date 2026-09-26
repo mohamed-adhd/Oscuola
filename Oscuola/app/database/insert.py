@@ -2,6 +2,7 @@ from dotenv import load_dotenv
 import psycopg2
 import os
 import bcrypt
+from smtplib import SMTP
 def insert_request(email,password,classs,name,aftername):
     conn = None
     try:
@@ -95,3 +96,11 @@ def modifygrades1st(data):
             cur.close()
             s.close()
             return {"message": f"Insert failed my friend: {e}"}
+
+
+
+def sendemail(gmail):
+    with smtplib.SMTP(smtp.gmail.com,587) as server:
+        server.starttls()
+        server.login(USERNAME, PASSWORD)  
+        server.sendmail(sender_email, receiver_email, message.as_string())
