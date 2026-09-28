@@ -5,8 +5,8 @@ import os
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 from fastapi import FastAPI
 from fastapi import Depends
-from database.fetch import test,check_login,get_grades_1st,get_alerts_1st,timetable,get_classes,get_reqs,getstudents,get_year
-from database.insert import insert_request,postit,accept_it,delete_it,modifygrades1st
+from database.fetch import check_login,get_grades,get_class_grades,get_alerts_1st,timetable,get_classes,get_reqs,getstudents
+from database.insert import insert_request,postit,accept_it,delete_it,modifygrades
 from pydantic import BaseModel
 class LoginRequest(BaseModel):
     gmail: str
@@ -96,22 +96,18 @@ def insert(data: registerRequest, authorized: None = Depends(verify_key)):
 
 @app.post("/get_grades")
 def syst(data : ids, authorized: None = Depends(verify_key)):
-    if get_year(data.id)=="1" :
-        return get_grades_1st(data.id)
-    elif get_year(data.id)=="2" :
-        return get_grades_2nd(data.id)
-    elif get_year(data.id)=="3" :
-        return get_grades_3rd(data.id)
+    return get_grades(data.id)
+
+
+@app.post("/get_class_grades")
+def gcg(data : classsstr, authorized: None = Depends(verify_key)):
+    return get_class_grades(data.classs)
 
 
 
-#testing 
-@app.get("/pfp")
-def insrtpfp():
-    return test()
-@app.get("/__routes")
-def list_routes():
-    return [r.path for r in app.routes]
+@app.post("/change_grades")
+def cg1(data : grades1st,authorized: None = Depends(verify_key)):
+    return modifygrades(data)
 
 
 @app.post("/s1t_alerts")
@@ -149,11 +145,6 @@ def pst(data : post_request, authorized: None = Depends(verify_key)):
 @app.post("/get_students")
 def gs(data : classsstr,authorized: None = Depends(verify_key)):
     return getstudents(int(data.classs[0]),int(data.classs[2]))
-
-
-@app.post("/change_grades")
-def cg1(data : grades1st,authorized: None = Depends(verify_key)):
-    return modifygrades1st(data)
 
 
 
