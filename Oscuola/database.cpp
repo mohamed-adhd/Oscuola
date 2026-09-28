@@ -104,7 +104,7 @@ std::tuple<std::string, std::string, std::string, std::string,int,int,int > data
     QJsonObject json;
     json["gmail"] = QString::fromStdString(email);
     json["passwd"] = QString::fromStdString(passwd);
-    qDebug() << json["email"].toString();
+    qDebug() << json["gmail"].toString();
     qDebug() << json["passwd"].toString();
     QJsonDocument doc(json);
     QByteArray data = doc.toJson();
@@ -120,6 +120,7 @@ std::tuple<std::string, std::string, std::string, std::string,int,int,int > data
 
     loop.exec();
         QByteArray responseData = res->readAll();
+    qDebug().noquote()<<responseData;
         QJsonDocument docs = QJsonDocument::fromJson(responseData);
         QJsonObject obj = docs.object();
         //qDebug() << obj["success"].toString();
