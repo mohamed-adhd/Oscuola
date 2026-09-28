@@ -3178,11 +3178,40 @@ No image set — select a class and press Load</string>
          <x>16</x>
          <y>50</y>
          <width>908</width>
-         <height>380</height>
+         <height>336</height>
         </rect>
        </property>
        <property name="frameShape">
         <enum>QFrame::Shape::NoFrame</enum>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="teacher_grades_save_btn">
+       <property name="geometry">
+        <rect>
+         <x>16</x>
+         <y>398</y>
+         <width>130</width>
+         <height>34</height>
+        </rect>
+       </property>
+       <property name="cursor">
+        <cursorShape>PointingHandCursor</cursorShape>
+       </property>
+       <property name="text">
+        <string>Save grades</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="teacher_grades_res">
+       <property name="geometry">
+        <rect>
+         <x>160</x>
+         <y>398</y>
+         <width>600</width>
+         <height>34</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string/>
        </property>
       </widget>
      </widget>

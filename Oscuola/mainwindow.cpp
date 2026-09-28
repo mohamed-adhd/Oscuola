@@ -9,7 +9,7 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow),db(dbo){
     ui->setupUi(this);
-    switchpg(7);
+    switchpg(0);
     setFixedSize(1280, 720);
 
 
@@ -48,7 +48,11 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
             loaded_grades=true;
             QMap<QString, double> ss=db.st1_student_grade(std::get<4>(f));
             for (int row = 0; row < ui->grades_table->rowCount(); ++row) {
-                QString subject = ui->grades_table->item(row, 0)->text();
+                QTableWidgetItem *sub = ui->grades_table->item(row, 0);
+                if (sub == nullptr) {
+                    continue;
+                }
+                QString subject = sub->text();
                 if (ss.contains(subject)) {
                     double value = ss[subject];
                     ui->grades_table->setItem(row, 1, new QTableWidgetItem(QString::number(value)));
@@ -150,7 +154,8 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
 
 
     connect(time_buts_teach,&QButtonGroup::buttonClicked,this,[this](){
-        QVector<QString> classes = db.get_classes(1);
+        ui->teacher_timetable_class_combo->clear();
+        QVector<QString> classes = db.get_classes(std::get<4>(f));
         for (const QString &c : classes)
             ui->teacher_timetable_class_combo->addItem(c);
 
@@ -168,62 +173,28 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
 
 
     connect(grades_buts_teach,&QButtonGroup::buttonClicked,this,[this](){
-        QVector<QString> classes = db.get_classes(1);
-        for (const QString &c : classes)
-            ui->teacher_grades_class_combo->addItem(c);
-
-
+        fillgradeclasses();
         switchpg(9);
     });
 
 
+    connect(ui->teacher_grades_class_combo,&QComboBox::currentIndexChanged,this,[this](int){
+        fillgradestudents();
+    });
+
+
+    connect(ui->teacher_grades_student_combo,&QComboBox::currentIndexChanged,this,[this](int){
+        showgrades(ui->teacher_grades_student_combo->currentData().toInt());
+    });
+
+
     connect(ui->teacher_grades_load_btn,&QPushButton::clicked,this,[this]{
-        std::vector<studs> students ;
-        if(ui->teacher_grades_student_combo->count()==0){
-            students = db.get_students(ui->teacher_grades_class_combo->currentText().toStdString());
-            for (const studs &c : students)
-                ui->teacher_grades_student_combo->addItem(QString::fromStdString(c.aftername+" "+c.name+"; id : ")+QString::number(c.id));
-        }else{
-            if (ui->teacher_grades_class_combo->currentData().toString()[0]=="7"){
-                QStringList headers = {
-                    "Mathematics", "French", "English",
-                    "Computer Science", "Physics", "Life & Earth Sciences", "Overall Grade"
-                };
-                ui->teacher_grades_list->setColumnCount(headers.size());
-                ui->teacher_grades_list->setHorizontalHeaderLabels(headers);
-                ui->teacher_grades_list->setRowCount(0);
-            }else if (ui->teacher_grades_class_combo->currentData().toString()[0]=="8"){
-                QStringList headers = {
-                    "Mathematics", "French", "English",
-                    "Computer Science", "Physics", "History & Geography", "Overall Grade"
-                };
-                ui->teacher_grades_list->setColumnCount(headers.size());
-                ui->teacher_grades_list->setHorizontalHeaderLabels(headers);
+        loadgrades();
+    });
 
-            }else {
-                QStringList headers = {
-                    "Mathematics", "French", "English",
-                    "Computer Science", "Physics", "Philosophy", "Overall Grade"
-                };
-                ui->teacher_grades_list->setColumnCount(headers.size());
-                ui->teacher_grades_list->setHorizontalHeaderLabels(headers);
-            }
-            QString  temp;
-            temp=ui->teacher_grades_student_combo->currentData().toString();
-            for (const studs &c : students){
-                if(temp.contains(QString::number(c.id))){
-                    std::vector<double> s;
-                    int m=1;
-                    for (double& tempy : s){
-                        QTableWidgetItem *item = new QTableWidgetItem(QString::number(tempy,'f',2));
-                        ui->teacher_grades_list->setItem(m, 1, item);
-                        m++;
 
-                    }
-                }
-            }
-        }
-
+    connect(ui->teacher_grades_save_btn,&QPushButton::clicked,this,[this]{
+        savegrades();
     });
 
 
@@ -244,7 +215,7 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
         const int rowh = 64;
         const int spacing = 8;
         int index = 1;
-        std::vector<req> temp = db.get_requests(1);
+        std::vector<req> temp = db.get_requests(std::get<4>(f));
         for (const req &r : temp) {
             QFrame *row = new QFrame(ui->panel_requests_teacher);
             row->setObjectName(QString("request_row_%1").arg(index));
@@ -364,7 +335,7 @@ switchpg(4);});
 
     QButtonGroup *time_buts= new QButtonGroup(this);
     for(int i=1;i<5;i++){
-        QString name=QString("timeint table_but_student_%1").arg(i);
+        QString name=QString("timetable_but_student_%1").arg(i);
         QPushButton *button=this->findChild<QPushButton*>(name);
         if(button){
             time_buts->addButton(button);
@@ -376,6 +347,7 @@ switchpg(4);});
             std::string  soi=db.fetch_timetable(std::get<5>(f),std::get<6>(f));
             QByteArray pfp = QByteArray::fromBase64(QString::fromStdString(soi).toUtf8());
             QPixmap p;
+            p.loadFromData(pfp,"JPEG");
             QPixmap scaled = p.scaled(
                 ui->timetable_picture_label->size(),
                 Qt::KeepAspectRatio,
@@ -438,7 +410,7 @@ switchpg(4);});
 
 
 
-                    switchpg(6);
+                    switchpg(2);
                 }
                 else if (get<0>(s)=="teacher"){
                     QByteArray pfp = QByteArray::fromBase64(QString::fromStdString(std::get<3>(s)).toUtf8());
@@ -507,4 +479,124 @@ MainWindow::~MainWindow()
 }
 void MainWindow::switchpg(int to){
     ui->pages->setCurrentIndex(to);
+}
+void MainWindow::setgradeheaders(int year){
+    QString sixth;
+    if(year==1){
+        sixth = "Life & Earth Sciences";
+    }else if(year==2){
+        sixth = "History & Geography";
+    }else {
+        sixth = "Philosophy";
+    }
+    QStringList headers = {
+        "Student", "Mathematics", "French", "English",
+        "Computer Science", "Physics", sixth, "Overall Grade"
+    };
+    ui->teacher_grades_list->setColumnCount(headers.size());
+    ui->teacher_grades_list->setHorizontalHeaderLabels(headers);
+    ui->teacher_grades_list->setRowCount(0);
+}
+void MainWindow::fillgradeclasses(){
+    ui->teacher_grades_class_combo->blockSignals(true);
+    ui->teacher_grades_class_combo->clear();
+    QVector<QString> classes = db.get_classes(std::get<4>(f));
+    for (const QString &c : classes){
+        ui->teacher_grades_class_combo->addItem(c, c);
+    }
+    ui->teacher_grades_class_combo->blockSignals(false);
+    fillgradestudents();
+}
+void MainWindow::fillgradestudents(){
+    ui->teacher_grades_student_combo->blockSignals(true);
+    ui->teacher_grades_student_combo->clear();
+    roster.clear();
+    if(ui->teacher_grades_class_combo->count()==0){
+        ui->teacher_grades_student_combo->blockSignals(false);
+        ui->teacher_grades_list->setRowCount(0);
+        return;
+    }
+    roster = db.get_class_grades(ui->teacher_grades_class_combo->currentText().toStdString());
+    ui->teacher_grades_student_combo->addItem("whole class", 0);
+    for (const cgr &c : roster){
+        ui->teacher_grades_student_combo->addItem(
+            QString::fromStdString(c.aftername+" "+c.name+"; id : ")+QString::number(c.id), c.id);
+    }
+    ui->teacher_grades_student_combo->blockSignals(false);
+    showgrades(ui->teacher_grades_student_combo->currentData().toInt());
+}
+void MainWindow::showgrades(int sid){
+    int year = 1;
+    for (const cgr &c : roster){
+        if(c.year>0){
+            year = c.year;
+            break;
+        }
+    }
+    setgradeheaders(year);
+    QStringList keys = {"math","french","english","cs","ph","scvt"};
+    int r = 0;
+    for (const cgr &c : roster){
+        if(sid!=0 && c.id!=sid){
+            continue;
+        }
+        ui->teacher_grades_list->insertRow(r);
+        QTableWidgetItem *who = new QTableWidgetItem(
+            QString::fromStdString(c.aftername+" "+c.name));
+        who->setFlags(who->flags() & ~Qt::ItemIsEditable);
+        who->setData(Qt::UserRole, c.id);
+        ui->teacher_grades_list->setItem(r,0,who);
+        for(int k=0;k<keys.size();k++){
+            ui->teacher_grades_list->setItem(r,k+1,
+                new QTableWidgetItem(QString::number(c.grades.value(keys[k]),'f',2)));
+        }
+        QTableWidgetItem *ov = new QTableWidgetItem(QString::number(c.grades.value("overallg"),'f',2));
+        ov->setFlags(ov->flags() & ~Qt::ItemIsEditable);
+        ui->teacher_grades_list->setItem(r,7,ov);
+        r++;
+    }
+    ui->teacher_grades_list->resizeColumnsToContents();
+}
+void MainWindow::loadgrades(){
+    if(ui->teacher_grades_class_combo->count()==0){
+        ui->teacher_grades_res->setText("no class picked");
+        return;
+    }
+    fillgradestudents();
+    ui->teacher_grades_res->setText(roster.size()==0 ? "no students in that class" : "loaded");
+}
+void MainWindow::savegrades(){
+    QTableWidget *tbl = ui->teacher_grades_list;
+    if(tbl->rowCount()==0){
+        ui->teacher_grades_res->setText("nothing to save");
+        return;
+    }
+    QStringList keys = {"math","french","english","cs","ph","scvt"};
+    int done = 0;
+    int year = 0;
+    for(int r=0;r<tbl->rowCount();r++){
+        QTableWidgetItem *who = tbl->item(r,0);
+        if(who==nullptr){
+            continue;
+        }
+        int id = who->data(Qt::UserRole).toInt();
+        QMap<QString,double> g;
+        for(int k=0;k<keys.size();k++){
+            QTableWidgetItem *cell = tbl->item(r,k+1);
+            bool good = false;
+            double v = cell==nullptr ? 0.0 : cell->text().toDouble(&good);
+            if(cell!=nullptr && !good){
+                ui->teacher_grades_res->setText("bad number on row "+QString::number(r+1));
+                return;
+            }
+            g[keys[k]] = v;
+        }
+        if(db.post_grades(id,g,&year)){
+            done++;
+        }
+    }
+    if(done>0){
+        fillgradestudents();
+    }
+    ui->teacher_grades_res->setText("saved "+QString::number(done)+" student(s)");
 }
