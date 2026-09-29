@@ -6,7 +6,7 @@ this repo will have :
 
 - multiple branches for deployement 
 
-- developemnt will be by 3 accounts , this main account and another 2 which are me , to improve my pull and teamwork abilities , and another account that only reviews PR and code
+- developemnt will be by 3 accounts , this main account and another 2 which are me , to improve my pull and teamwork abilities 
 
 - every accoutn will get 2 days of developement
 
@@ -21,5 +21,4 @@ this repo will have :
 -  public website for dahsboard and status
 -  packaging and releases  for windows and linux (adding to yay)
 
--  ETA: 30 days
 
