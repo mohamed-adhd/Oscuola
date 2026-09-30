@@ -22,6 +22,17 @@ public:
 
 
 
+class cgr{
+public:
+    int id;
+    int year;
+    std::string name;
+    std::string aftername;
+    QMap<QString, double> grades;
+};
+
+
+
 class database : public QObject{
     Q_OBJECT
 private:
@@ -37,7 +48,9 @@ public :
     std::vector<req> get_requests(int id);
     bool accept(std::string classs, std::string name,std::string aftername);
     bool deleter(std::string classs, std::string name,std::string aftername);
-    std::vector<double> get_student_grades(int id);
+    QMap<QString, double> get_grades(int id);
+    std::vector<cgr> get_class_grades(std::string classs);
+    int post_grades(int id, QMap<QString, double> g, int *year);
 
 
 

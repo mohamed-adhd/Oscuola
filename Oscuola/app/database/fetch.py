@@ -3,18 +3,30 @@ import psycopg2
 import os
 import bcrypt
 import base64
+
+
+
+GRADE_TABLES = ["first_year_grades", "second_year_grades", "third_year_grades"]
+GRADE_KEYS = ["math", "french", "english", "cs", "ph", "scvt"]
+
+
+
 def test():
     load_dotenv()
     cons = os.environ["CON_STRING"]
     s = psycopg2.connect(os.environ["DATABASE_URL"])
     cur = s.cursor()
-    with open("pg.jpg", "rb") as f:
+    with open("gp.jpg", "rb") as f:
         img_data = f.read()
-    cur.execute("UPDATE timetables SET tb = %s ;",(psycopg2.Binary(img_data),) )
+    cur.execute("UPDATE users SET pfp = %s ;",(psycopg2.Binary(img_data),) )
     s.commit()
     cur.close()
     s.close()
-    return {"success": True}
+
+
+
+
+
 def check_login(gmail, pswd):
     try:
         load_dotenv()
@@ -75,13 +87,16 @@ def check_login(gmail, pswd):
             try:
                 cur.execute("SELECT role,name,aftername,pfp,id FROM users WHERE gmail=%s;", (gmail,))
                 res = cur.fetchone()
-                if isinstance(res[3], memoryview):
-                    ps = res[3].tobytes()
-                p64 = base64.b64encode(ps).decode("ascii")
+                ps = res[3]
+                p64="nopdp"
+                if not ps is None:
+                    if isinstance(ps, memoryview):
+                        ps = ps.tobytes()
+                    p64 = base64.b64encode(ps).decode("ascii")
                 if res[0]=="student":
-                    cur.execute("SELECT syear,classs FROM students WHERE id=%s;", (res[4],))
+                    cur.execute("SELECT id,syear,classs FROM students WHERE gmail=%s;", (gmail,))
                     rs2=cur.fetchone()
-                    return {"success": True, "role": res[0], "name": res[1], "aftername": res[2],"pfp":p64,"ids":res[4],"class":rs2[0],"year":rs2[1]}
+                    return {"success": True, "role": res[0], "name": res[1], "aftername": res[2],"pfp":p64,"ids":rs2[0],"class":rs2[1],"year":rs2[2]}
                 else:
                     return {"success": True, "role": res[0], "name": res[1], "aftername": res[2],"pfp":p64,"ids":res[4]}
 
@@ -99,50 +114,94 @@ def check_login(gmail, pswd):
 
 
 
-def get_grades_1st(id):
+def gtable(id):
     load_dotenv()
     cons = os.environ["CON_STRING"]
     s = psycopg2.connect(os.environ["DATABASE_URL"])
     cur = s.cursor()
-    cur.execute("SELECT mathematics french english computer_science physics life_and_earth_science overall_grad FROM first_year_grades WHERE student_id = %s ;", (id,))
-    res = cur.fetchone()
+    for i in range(len(GRADE_TABLES)):
+        cur.execute(f"SELECT student_id FROM {GRADE_TABLES[i]} WHERE student_id = %s ;", (id,))
+        if cur.fetchone():
+            cur.close()
+            s.close()
+            return GRADE_TABLES[i], i + 1
     cur.close()
     s.close()
-    return {res[2],res[3],res[4],res[5],res[6],res[7],res[8]}
+    return GRADE_TABLES[0], 1
 
 
+def gcols(cur, t):
+    cur.execute("SELECT column_name FROM information_schema.columns WHERE table_name = %s ORDER BY ordinal_position ;", (t,))
+    cols = [r[0] for r in cur.fetchall()]
+    if "student_id" not in cols:
+        return []
+    return cols[cols.index("student_id") + 1:]
 
-def get_grades_2nd(id):
+
+def get_grades(id):
     load_dotenv()
     cons = os.environ["CON_STRING"]
     s = psycopg2.connect(os.environ["DATABASE_URL"])
     cur = s.cursor()
-    cur.execute("SELECT * FROM second_year_grades WHERE student_id = %s ;", (id,))
+    t, year = gtable(id)
+    cur.execute(f"SELECT * FROM {t} WHERE student_id = %s ;", (id,))
     res = cur.fetchone()
+    cols = [d[0] for d in cur.description]
+    sub = gcols(cur, t)
     cur.close()
     s.close()
-    return {"success": True, "math": res[2], "french": res[3], "english": res[4],"cs":res[5],"ph": res[6], "scvt": res[7], "overallg": res[8]}
+    d = dict(zip(cols, res)) if res is not None else {}
+    subs = sub[:-1] if sub else []
+    out = {"success": True, "year": year}
+    for i in range(len(GRADE_KEYS)):
+        out[GRADE_KEYS[i]] = float(d.get(subs[i]) or 0) if i < len(subs) else 0.0
+    out["overallg"] = float(d.get(sub[-1]) or 0) if sub else 0.0
+    return out
 
-def get_year(id):
+
+def get_class_grades(classs):
     load_dotenv()
     cons = os.environ["CON_STRING"]
     s = psycopg2.connect(os.environ["DATABASE_URL"])
     cur = s.cursor()
-    cur.execute("SELECT syear FROM students WHERE id = %s ;", (id,))
-    res = cur.fetchone()
-    return res[0]
-
-
-def get_grades_3rd(id):
-    load_dotenv()
-    cons = os.environ["CON_STRING"]
-    s = psycopg2.connect(os.environ["DATABASE_URL"])
-    cur = s.cursor()
-    cur.execute("SELECT * FROM third_year_grades WHERE student_id = %s ;", (id,))
-    res = cur.fetchone()
+    cur.execute("SELECT id,name , aftername  FROM students WHERE classs = %s AND syear=%s;", (int(classs[0]), int(classs[2])))
+    res = cur.fetchall()
+    ids = [st[0] for st in res]
+    t = GRADE_TABLES[0]
+    year = 1
+    for i in range(len(GRADE_TABLES)):
+        if len(ids) == 0:
+            break
+        cur.execute(f"SELECT student_id FROM {GRADE_TABLES[i]} WHERE student_id = ANY(%s) ;", (ids,))
+        if cur.fetchone():
+            t = GRADE_TABLES[i]
+            year = i + 1
+            break
+    sub = gcols(cur, t)
+    subs = sub[:-1] if sub else []
+    got = {}
+    if len(ids) > 0 and len(sub) > 0:
+        cur.execute(f"SELECT * FROM {t} WHERE student_id = ANY(%s) ;", (ids,))
+        cols = [d[0] for d in cur.description]
+        for r in cur.fetchall():
+            d = dict(zip(cols, r))
+            g = {"success": True, "year": year}
+            for i in range(len(GRADE_KEYS)):
+                g[GRADE_KEYS[i]] = float(d.get(subs[i]) or 0) if i < len(subs) else 0.0
+            g["overallg"] = float(d.get(sub[-1]) or 0)
+            got[d["student_id"]] = g
     cur.close()
     s.close()
-    return {"success": True, "math": res[2], "french": res[3], "english": res[4],"cs":res[5],"ph": res[6], "scvt": res[7], "overallg": res[8]}
+    rows = []
+    for st in res:
+        g = got.get(st[0])
+        if g is None:
+            g = {"success": True, "year": year}
+            for k in GRADE_KEYS:
+                g[k] = 0.0
+            g["overallg"] = 0.0
+        rows.append({"id": st[0], "name": st[1], "aftername": st[2], "grades": g})
+    return {"success": True, "data": rows}
 
 def getstudents(classs,year):
     load_dotenv()
@@ -215,10 +274,16 @@ def timetable(classs, year):
     cons = os.environ["CON_STRING"]
     s = psycopg2.connect(os.environ["DATABASE_URL"])
     cur = s.cursor()
-    cur.execute("SELECT tb FROM timetables WHERE year = %s AND class=%s;", (classs,year))
+    cur.execute("SELECT tb FROM timetables WHERE year = %s AND class=%s;", (year,classs))
     res = cur.fetchone()
+    if res is None:
+        cur.close()
+        s.close()
+        return {"success":False,"tb":""}
     if isinstance(res[0], memoryview):
         ps = res[0].tobytes()
+    else:
+        ps = res[0]
     p64 = base64.b64encode(ps).decode("ascii")
     cur.close()
     s.close()

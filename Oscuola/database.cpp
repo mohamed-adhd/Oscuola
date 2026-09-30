@@ -71,23 +71,40 @@ QMap<QString, QString> loadEnvResolved()
     return {};
 }
 
+QString baseurl()
+{
+    QMap<QString, QString> bs = loadEnvResolved();
+    QString b = bs.value("API_URL");
+    if (b.isEmpty()){
+        return "https://oscuola-git-feature-app-core-midouamdouni4-7219s-projects.vercel.app";
+    }
+    while (b.endsWith("/")){
+        b.chop(1);
+    }
+    return b;
+}
+
+QNetworkRequest mkreq(QString path)
+{
+    QMap<QString, QString> bs = loadEnvResolved();
+    QNetworkRequest request(QUrl(baseurl()+path));
+    request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
+    QByteArray auth = "Bearer " + bs.value("API_KEY").toUtf8();
+    request.setRawHeader("Authorization", auth);
+    return request;
+}
+
 
 
 std::tuple<std::string, std::string, std::string, std::string,int,int,int > database::login_check(std::string email, std::string passwd)
 {
     QNetworkAccessManager *manager = new QNetworkAccessManager(this);
-    QNetworkRequest request(QUrl("https://oscuola-b72k84s73-midouamdouni4-7219s-projects.vercel.app/login_check"));
-    request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
+    QNetworkRequest request = mkreq("/login_check");
 
-    QMap<QString, QString> bs = loadEnvResolved();
-    QString dakey = bs.value("API_KEY");
-    //qDebug() << dakey;
-    QByteArray auth = "Bearer " + dakey.toUtf8();
-    request.setRawHeader("Authorization", auth);
     QJsonObject json;
     json["gmail"] = QString::fromStdString(email);
     json["passwd"] = QString::fromStdString(passwd);
-    qDebug() << json["email"].toString();
+    qDebug() << json["gmail"].toString();
     qDebug() << json["passwd"].toString();
     QJsonDocument doc(json);
     QByteArray data = doc.toJson();
@@ -103,6 +120,7 @@ std::tuple<std::string, std::string, std::string, std::string,int,int,int > data
 
     loop.exec();
         QByteArray responseData = res->readAll();
+    qDebug().noquote()<<responseData;
         QJsonDocument docs = QJsonDocument::fromJson(responseData);
         QJsonObject obj = docs.object();
         //qDebug() << obj["success"].toString();
@@ -160,13 +178,7 @@ std::tuple<std::string, std::string, std::string, std::string,int,int,int > data
 QVector<QString> database::get_classes(int id){
      QVector<QString> classes;
      QNetworkAccessManager *manager = new QNetworkAccessManager(this);
-     QNetworkRequest request(QUrl("https://oscuola-itq0zm512-midouamdouni4-7219s-projects.vercel.app/get_myclasses"));
-     request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
-     QMap<QString, QString> bs = loadEnvResolved();
-     QString dakey = bs.value("API_KEY");
-     qDebug() << dakey;
-     QByteArray auth = "Bearer " + dakey.toUtf8();
-     request.setRawHeader("Authorization", auth);
+     QNetworkRequest request = mkreq("/get_myclasses");
      QJsonObject json;
      json["id"] = QString::fromStdString(std::to_string(id));
      QJsonDocument doc(json);
@@ -221,19 +233,10 @@ QVector<QString> database::get_classes(int id){
     std::vector<studs> database::get_students(std::string classs){
         QVector<QString> classes;
         QNetworkAccessManager *manager = new QNetworkAccessManager(this);
-        QNetworkRequest request(QUrl("https://oscuola-li8pxa79q-midouamdouni4-7219s-projects.vercel.app/get_students"));
-        request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
-        QMap<QString, QString> bs = loadEnvResolved();
-        QString dakey = bs.value("API_KEY");
-        qDebug() << dakey;
-        QByteArray auth = "Bearer " + dakey.toUtf8();
-        request.setRawHeader("Authorization", auth);
+        QNetworkRequest request = mkreq("/get_students");
         QJsonObject json;
         json["classs"] = QString::fromStdString(classs);
         qDebug()<<"we re sending : "<<json["classs"];
-
-
-
         QJsonDocument docs(json);
         QByteArray data = docs.toJson();
         QNetworkReply *res = manager->post(request, data);
@@ -276,14 +279,8 @@ QVector<QString> database::get_classes(int id){
 void database::registerr(std::string email, std::string passwd, std::string classy,std::string name,std::string aftername, std::function<void(bool)> callback)
 {
     QNetworkAccessManager *manager = new QNetworkAccessManager(this);
-    QNetworkRequest request(QUrl("https://oscuola-aww9p44o1-midouamdouni4-7219s-projects.vercel.app/insert_register"));
-    request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
+    QNetworkRequest request = mkreq("/insert_register");
 
-    QMap<QString, QString> bs = loadEnvResolved();
-    QString dakey = bs.value("API_KEY");
-    qDebug() << dakey;
-    QByteArray auth = "Bearer " + dakey.toUtf8();
-    request.setRawHeader("Authorization", auth);
     QJsonObject json;
     json["gmail"] = QString::fromStdString(email);
     json["passwd"] = QString::fromStdString(passwd);
@@ -311,14 +308,8 @@ void database::registerr(std::string email, std::string passwd, std::string clas
 
 bool database::sendpost(QString subject,QString message){
     QNetworkAccessManager *manager = new QNetworkAccessManager(this);
-    QNetworkRequest request(QUrl("https://oscuola-8p12qzwc2-midouamdouni4-7219s-projects.vercel.app/post_request"));
-    request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
+    QNetworkRequest request = mkreq("/post_request");
 
-    QMap<QString, QString> bs = loadEnvResolved();
-    QString dakey = bs.value("API_KEY");
-    qDebug() << dakey;
-    QByteArray auth = "Bearer " + dakey.toUtf8();
-    request.setRawHeader("Authorization", auth);
     QJsonObject json;
     json["subject"] = QString::fromStdString(subject.toStdString());
     json["message"] = QString::fromStdString(message.toStdString());
@@ -339,56 +330,110 @@ bool database::sendpost(QString subject,QString message){
 
 }
  QMap<QString, double> database::st1_student_grade(int id)
+ {
+    return get_grades(id);
+ };
+
+
+QMap<QString, double> database::get_grades(int id)
 {
     QNetworkAccessManager *manager = new QNetworkAccessManager(this);
-    QNetworkRequest request(QUrl("https://oscuola-cnb10ca6y-midouamdouni4-7219s-projects.vercel.app/s1t_year_student"));
-    request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
-
-    QMap<QString, QString> bs = loadEnvResolved();
-    QString dakey = bs.value("API_KEY");
-    qDebug() << dakey;
-    QByteArray auth = "Bearer " + dakey.toUtf8();
-    request.setRawHeader("Authorization", auth);
+    QNetworkRequest request = mkreq("/get_grades");
     QJsonObject json;
     json["id"] = QString::fromStdString(std::to_string(id));
     QJsonDocument doc(json);
-    QByteArray data = doc.toJson();
-    QNetworkReply *res = manager->post(request, data);
+    QNetworkReply *res = manager->post(request, doc.toJson());
     QEventLoop loop;
-
     connect(res,&QNetworkReply::finished,&loop,&QEventLoop::quit);
-
     loop.exec();
     QByteArray responseData = res->readAll();
     QJsonDocument docs = QJsonDocument::fromJson(responseData);
     QJsonObject obj = docs.object();
-    //qDebug() << obj["success"].toString();
-    //qDebug() << obj["math"].toString();
-    //qDebug() << obj["cs"].toString();
-
     QMap<QString, double> temp = {
         {"math", obj["math"].toDouble()},
         {"french", obj["french"].toDouble()},
         {"english", obj["english"].toDouble()},
         {"cs", obj["cs"].toDouble()},
-        {"ph",obj["ph"].toDouble()},
+        {"ph", obj["ph"].toDouble()},
         {"scvt", obj["scvt"].toDouble()},
-        {"overallg",obj["og"].toDouble()}
+        {"overallg", obj["overallg"].toDouble()},
+        {"year", obj["year"].toDouble()}
     };
-
+    res->deleteLater();
+    manager->deleteLater();
     return temp;
+}
 
 
+int database::post_grades(int id, QMap<QString, double> g, int *year)
+{
+    QNetworkAccessManager *manager = new QNetworkAccessManager(this);
+    QNetworkRequest request = mkreq("/change_grades");
+    QJsonObject json;
+    json["id"] = QString::fromStdString(std::to_string(id));
+    json["mathematics"] = g.value("math");
+    json["french"] = g.value("french");
+    json["english"] = g.value("english");
+    json["cs"] = g.value("cs");
+    json["physics"] = g.value("ph");
+    json["sc"] = g.value("scvt");
+    QJsonDocument doc(json);
+    QNetworkReply *res = manager->post(request, doc.toJson());
+    QEventLoop loop;
+    connect(res,&QNetworkReply::finished,&loop,&QEventLoop::quit);
+    loop.exec();
+    QByteArray responseData = res->readAll();
+    QJsonDocument docs = QJsonDocument::fromJson(responseData);
+    QJsonObject obj = docs.object();
+    if (year != nullptr){
+        *year = obj["year"].toInt();
+    }
+    bool ok = obj["message"].toBool();
+    res->deleteLater();
+    manager->deleteLater();
+    return ok ? 1 : 0;
+}
 
-};
 
-
-
-
-
-
-
-
+std::vector<cgr> database::get_class_grades(std::string classs)
+{
+    QNetworkAccessManager *manager = new QNetworkAccessManager(this);
+    QNetworkRequest request = mkreq("/get_class_grades");
+    QJsonObject json;
+    json["classs"] = QString::fromStdString(classs);
+    QJsonDocument doc(json);
+    QNetworkReply *res = manager->post(request, doc.toJson());
+    QEventLoop loop;
+    connect(res,&QNetworkReply::finished,&loop,&QEventLoop::quit);
+    loop.exec();
+    QByteArray responseData = res->readAll();
+    QJsonDocument docs = QJsonDocument::fromJson(responseData);
+    QJsonObject obj = docs.object();
+    std::vector<cgr> resy;
+    QJsonArray arr = obj.value("data").toArray();
+    for (const QJsonValue &rowVal : arr) {
+        QJsonObject row = rowVal.toObject();
+        cgr temp;
+        temp.id = row["id"].toInt();
+        temp.name = row["name"].toString().toStdString();
+        temp.aftername = row["aftername"].toString().toStdString();
+        QJsonObject g = row["grades"].toObject();
+        temp.year = g["year"].toInt();
+        temp.grades = {
+            {"math", g["math"].toDouble()},
+            {"french", g["french"].toDouble()},
+            {"english", g["english"].toDouble()},
+            {"cs", g["cs"].toDouble()},
+            {"ph", g["ph"].toDouble()},
+            {"scvt", g["scvt"].toDouble()},
+            {"overallg", g["overallg"].toDouble()}
+        };
+        resy.push_back(temp);
+    }
+    res->deleteLater();
+    manager->deleteLater();
+    return resy;
+}
 
 
 
@@ -407,14 +452,8 @@ bool database::sendpost(QString subject,QString message){
 std::string database::fetch_timetable(int year,int classs)
 {
     QNetworkAccessManager *manager = new QNetworkAccessManager(this);
-    QNetworkRequest request(QUrl("https://oscuola-b72k84s73-midouamdouni4-7219s-projects.vercel.app/timetable"));
-    request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
+    QNetworkRequest request = mkreq("/timetable");
 
-    QMap<QString, QString> bs = loadEnvResolved();
-    QString dakey = bs.value("API_KEY");
-    //qDebug() << dakey;
-    QByteArray auth = "Bearer " + dakey.toUtf8();
-    request.setRawHeader("Authorization", auth);
     QJsonObject json;
     qDebug()<<year;
     qDebug()<<classs;
@@ -443,14 +482,8 @@ std::string database::fetch_timetable(int year,int classs)
 std::vector<QString> database::st1_student_alerts(int id)
 {
     QNetworkAccessManager *manager = new QNetworkAccessManager(this);
-    QNetworkRequest request(QUrl("https://oscuola-jka2tv75x-midouamdouni4-7219s-projects.vercel.app/s1t_alerts"));
-    request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
+    QNetworkRequest request = mkreq("/s1t_alerts");
 
-    QMap<QString, QString> bs = loadEnvResolved();
-    QString dakey = bs.value("API_KEY");
-    //qDebug() << dakey;
-    QByteArray auth = "Bearer " + dakey.toUtf8();
-    request.setRawHeader("Authorization", auth);
     QJsonObject json;
     json["id"] = QString::fromStdString(std::to_string(id));
     QJsonDocument doc(json);
@@ -487,14 +520,8 @@ std::vector<QString> database::st1_student_alerts(int id)
 std::vector<req> database::get_requests(int id)
 {
     QNetworkAccessManager *manager = new QNetworkAccessManager(this);
-    QNetworkRequest request(QUrl("https://oscuola-4q18kzzyx-midouamdouni4-7219s-projects.vercel.app/get_requests"));
-    request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
+    QNetworkRequest request = mkreq("/get_requests");
 
-    QMap<QString, QString> bs = loadEnvResolved();
-    QString dakey = bs.value("API_KEY");
-    qDebug() << dakey;
-    QByteArray auth = "Bearer " + dakey.toUtf8();
-    request.setRawHeader("Authorization", auth);
     QJsonObject json;
     json["id"] = QString::fromStdString(std::to_string(id));
     QJsonDocument doc(json);
@@ -533,14 +560,8 @@ std::vector<req> database::get_requests(int id)
 };
 bool database::accept(std::string name, std::string aftername,std::string classs){
     QNetworkAccessManager *manager = new QNetworkAccessManager(this);
-    QNetworkRequest request(QUrl("https://oscuola-cf2rn44t4-midouamdouni4-7219s-projects.vercel.app/accept_request"));
-    request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
+    QNetworkRequest request = mkreq("/accept_request");
 
-    QMap<QString, QString> bs = loadEnvResolved();
-    QString dakey = bs.value("API_KEY");
-    qDebug() << dakey;
-    QByteArray auth = "Bearer " + dakey.toUtf8();
-    request.setRawHeader("Authorization", auth);
     QJsonObject json;
     json["name"] = QString::fromStdString(name);
     json["aftername"] = QString::fromStdString(aftername);
@@ -600,14 +621,8 @@ bool database::accept(std::string name, std::string aftername,std::string classs
 
 bool database::deleter(std::string name, std::string aftername,std::string classs){
     QNetworkAccessManager *manager = new QNetworkAccessManager(this);
-    QNetworkRequest request(QUrl("https://oscuola-l6uyz2kih-midouamdouni4-7219s-projects.vercel.app/delete_request"));
-    request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
+    QNetworkRequest request = mkreq("/delete_request");
 
-    QMap<QString, QString> bs = loadEnvResolved();
-    QString dakey = bs.value("API_KEY");
-    qDebug() << dakey;
-    QByteArray auth = "Bearer " + dakey.toUtf8();
-    request.setRawHeader("Authorization", auth);
     QJsonObject json;
     json["name"] = QString::fromStdString(name);
     json["aftername"] = QString::fromStdString(aftername);

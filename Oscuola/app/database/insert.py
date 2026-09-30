@@ -82,17 +82,49 @@ def delete_it(classs,name,aftername):
         cur.close()
         s.close()
         return {"message":f"Insert failed my friend: {e}"}
-def modifygrades1st(data):
+def modifygrades(data):
         try:
             load_dotenv()
             cons = os.environ["CON_STRING"]
             s = psycopg2.connect(os.environ["DATABASE_URL"])
             cur = s.cursor()
-            cur.execute("UPDATE first_year_grades SET mathematics= %s,french=%s, english=%s,computer_science= %s,physics= %s, life_and_earth_sciences = %s WHERE student_id = %s;",(data.mathematics, data.french, data.english, data.cs, data.physics, data.sc, data.id))
+            from database.fetch import gtable, gcols, GRADE_KEYS
+            vals = [data.mathematics, data.french, data.english, data.cs, data.physics, data.sc]
+            for v in vals:
+                if v < 0 or v > 20:
+                    cur.close()
+                    s.close()
+                    return {"message": "grades must stay between 0 and 20"}
+            t, year = gtable(data.id)
+            cur.execute(f"SELECT * FROM {t} WHERE student_id = %s ;", (data.id,))
+            res = cur.fetchone()
+            sub = gcols(cur, t)
+            if not sub:
+                cur.close()
+                s.close()
+                return {"message": f"{t} has no student_id"}
+            names = sub[:-1]
+            sets = []
+            args = []
+            total = 0.0
+            for i in range(len(names)):
+                v = vals[i] if i < len(vals) else 0.0
+                sets.append(names[i] + " = %s")
+                args.append(v)
+                total = total + v
+            ov = round(total / len(names), 2) if names else 0.0
+            sets.append(sub[-1] + " = %s")
+            args.append(ov)
+            if res is None:
+                ph = ", ".join(["%s"] * (len(names) + 2))
+                cols = ", ".join(["student_id"] + names + [sub[-1]])
+                cur.execute(f"INSERT INTO {t} ({cols}) VALUES ({ph}) ;", [data.id] + args)
+            else:
+                cur.execute(f"UPDATE {t} SET {', '.join(sets)} WHERE student_id = %s ;", args + [data.id])
             s.commit()
             cur.close()
             s.close()
-            return {"message": True}
+            return {"message": True, "year": year, "overallg": ov}
         except Exception as e:
             cur.close()
             s.close()

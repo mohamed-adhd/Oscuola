@@ -20,9 +20,16 @@ public:
     explicit MainWindow(database& dbo,QWidget *parent = nullptr);
     ~MainWindow() override;
     void switchpg(int to);
+    void fillgradeclasses();
+    void fillgradestudents();
+    void showgrades(int sid);
+    void loadgrades();
+    void savegrades();
+    void setgradeheaders(int year);
 
 private:
     Ui::MainWindow *ui;
+    std::vector<cgr> roster;
 
 };
 #endif // MAINWINDOW_H
