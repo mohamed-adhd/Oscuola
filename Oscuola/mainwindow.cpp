@@ -502,8 +502,10 @@ void MainWindow::fillgradeclasses(){
     ui->teacher_grades_class_combo->blockSignals(true);
     ui->teacher_grades_class_combo->clear();
     QVector<QString> classes = db.get_classes(std::get<4>(f));
+    qDebug()<<std::get<4>(f);
     for (const QString &c : classes){
         ui->teacher_grades_class_combo->addItem(c, c);
+        qDebug()<<c;
     }
     ui->teacher_grades_class_combo->blockSignals(false);
     fillgradestudents();

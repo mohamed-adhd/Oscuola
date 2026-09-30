@@ -237,9 +237,6 @@ QVector<QString> database::get_classes(int id){
         QJsonObject json;
         json["classs"] = QString::fromStdString(classs);
         qDebug()<<"we re sending : "<<json["classs"];
-
-
-
         QJsonDocument docs(json);
         QByteArray data = docs.toJson();
         QNetworkReply *res = manager->post(request, data);
