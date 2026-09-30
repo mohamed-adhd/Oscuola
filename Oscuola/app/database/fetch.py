@@ -65,8 +65,10 @@ def check_login(gmail, pswd):
             try:
                 cur.execute("SELECT role,name,aftername,pfp,id FROM users WHERE gmail=%s;", (gmail,))
                 res = cur.fetchone()
-                if isinstance(res[3], memoryview):
-                    ps = res[3].tobytes()
+                ps = res[3]
+
+                if isinstance(ps, memoryview):
+                    ps = ps.tobytes()
                 p64 = base64.b64encode(ps).decode("ascii")
                 if res[0]=="student":
                     cur.execute("SELECT id,syear,classs FROM students WHERE gmail=%s;", (gmail,))
