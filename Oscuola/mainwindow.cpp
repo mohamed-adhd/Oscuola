@@ -377,6 +377,7 @@ switchpg(4);});
             ui->login_alert->setText("fill all fields please");
         }else{
             std::tuple<std::string, std::string, std::string, std::string,int,int,int> s=db.login_check(ui->login_email->text().toStdString(), ui->login_passwd->text().toStdString());
+            qDebug()<<"the role recieved is "+get<0>(s);
             f=s;
             if (get<0>(s)!="false") {
                 ui->user_name_label->setText(QString::fromStdString(std::get<1>(f))+" "+QString::fromStdString(std::get<2>(f)));
@@ -410,8 +411,8 @@ switchpg(4);});
 
 
 
-                    switchpg(2);
                 }
+
                 else if (get<0>(s)=="teacher"){
                     QByteArray pfp = QByteArray::fromBase64(QString::fromStdString(std::get<3>(s)).toUtf8());
                     QPixmap p;
@@ -501,8 +502,10 @@ void MainWindow::fillgradeclasses(){
     ui->teacher_grades_class_combo->blockSignals(true);
     ui->teacher_grades_class_combo->clear();
     QVector<QString> classes = db.get_classes(std::get<4>(f));
+    qDebug()<<std::get<4>(f);
     for (const QString &c : classes){
         ui->teacher_grades_class_combo->addItem(c, c);
+        qDebug()<<c;
     }
     ui->teacher_grades_class_combo->blockSignals(false);
     fillgradestudents();

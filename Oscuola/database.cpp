@@ -76,7 +76,7 @@ QString baseurl()
     QMap<QString, QString> bs = loadEnvResolved();
     QString b = bs.value("API_URL");
     if (b.isEmpty()){
-        return "https://oscuola.vercel.app";
+        return "https://oscuola-git-feature-app-core-midouamdouni4-7219s-projects.vercel.app";
     }
     while (b.endsWith("/")){
         b.chop(1);
@@ -237,9 +237,6 @@ QVector<QString> database::get_classes(int id){
         QJsonObject json;
         json["classs"] = QString::fromStdString(classs);
         qDebug()<<"we re sending : "<<json["classs"];
-
-
-
         QJsonDocument docs(json);
         QByteArray data = docs.toJson();
         QNetworkReply *res = manager->post(request, data);
