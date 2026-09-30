@@ -18,7 +18,7 @@ def test():
     cur = s.cursor()
     with open("gp.jpg", "rb") as f:
         img_data = f.read()
-    cur.execute("UPDATE users SET pdp = %s ;",(psycopg2.Binary(img_data),) )
+    cur.execute("UPDATE users SET pfp = %s ;",(psycopg2.Binary(img_data),) )
     s.commit()
     cur.close()
     s.close()
