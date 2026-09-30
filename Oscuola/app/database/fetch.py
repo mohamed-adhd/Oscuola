@@ -3,8 +3,30 @@ import psycopg2
 import os
 import bcrypt
 import base64
+
+
+
 GRADE_TABLES = ["first_year_grades", "second_year_grades", "third_year_grades"]
 GRADE_KEYS = ["math", "french", "english", "cs", "ph", "scvt"]
+
+
+
+def test():
+    load_dotenv()
+    cons = os.environ["CON_STRING"]
+    s = psycopg2.connect(os.environ["DATABASE_URL"])
+    cur = s.cursor()
+    with open("gp.jpg", "rb") as f:
+        img_data = f.read()
+    cur.execute("UPDATE users SET pdp = %s ;",(psycopg2.Binary(img_data),) )
+    s.commit()
+    cur.close()
+    s.close()
+
+
+
+
+
 def check_login(gmail, pswd):
     try:
         load_dotenv()
@@ -66,7 +88,7 @@ def check_login(gmail, pswd):
                 cur.execute("SELECT role,name,aftername,pfp,id FROM users WHERE gmail=%s;", (gmail,))
                 res = cur.fetchone()
                 ps = res[3]
-
+                p64="nopdp"
                 if not ps is None:
                     if isinstance(ps, memoryview):
                         ps = ps.tobytes()
