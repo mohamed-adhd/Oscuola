@@ -263,11 +263,11 @@ def report_ts(x,id):
     tables = [headerss, ress]
     ak = os.environ["GROK_KEY"]
     client = Groq()
-    models = [m.id for m in client.models.list().data]
-    chat_models = [m for m in models if not any(x in m for x in ("whisper", "tts", "guard"))]
-    print(chat_models)
-    model = chat_models[0]
-    response = client.chat.completions.create(model=model,messages=[{"role": "user", "content": "given that these are infos about a student generate a 600 words maximum report abt him , use formal style and professsional tone as your response will be later trnsformed into a pdf . student info :  "+str(tables)+"  . student grades : "+str(table)}],)
+    #models = [m.id for m in client.models.list().data]
+    #chat_models = [m for m in models if not any(x in m for x in ("whisper", "tts", "guard"))]
+    #print(chat_models)
+    #model = chat_models[0]
+    response = client.chat.completions.create(model="openai/gpt-oss-20b",messages=[{"role": "user", "content": "given that these are infos about a student generate a 600 words maximum report abt him , use formal style and professsional tone as your response will be later trnsformed into a pdf . student info :  "+str(tables)+"  . student grades : "+str(table)}],)
     return response.choices[0].message.content
 
 
