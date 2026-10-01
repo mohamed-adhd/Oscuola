@@ -257,7 +257,7 @@ def report_ts(x,id):
     res = cur.fetchone()
     headers = [col[0] for col in cur.description]
     table = [headers, res]
-    cur.execute("SELECT * FROM students WHERE student_id = %s;",(id,))
+    cur.execute("SELECT * FROM students WHERE id = %s;",(id,))
     ress = cur.fetchone()
     headerss = [col[0] for col in cur.description]
     tables = [headerss, ress]
