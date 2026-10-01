@@ -5,13 +5,15 @@ import os
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 from fastapi import FastAPI
 from fastapi import Depends
-from database.fetch import check_login,get_grades,get_class_grades,get_alerts_1st,timetable,get_classes,get_reqs,getstudents,test
+from database.fetch import check_login,get_grades,get_class_grades,get_alerts_1st,timetable,get_classes,get_reqs,getstudents,test,report_ts
 from database.insert import insert_request,postit,accept_it,delete_it,modifygrades
 from pydantic import BaseModel
 class LoginRequest(BaseModel):
     gmail: str
     passwd: str
-
+class reportst(BaseModel):
+    classs: str
+    student: str
 
 class classs(BaseModel):
     classs : int
@@ -68,6 +70,22 @@ def root():
 def tests():
     test()
     return {"message": "done"}
+
+@app.get("/testapi")
+def tap():
+    return report_ts("7A3",1)
+
+
+
+
+
+
+
+
+
+
+
+
 
 @app.get("/debug-key")
 def debug_key(authorization: str = Header(None)):
