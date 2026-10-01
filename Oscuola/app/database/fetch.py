@@ -235,8 +235,30 @@ def get_classes(id):
     }
     return ss
 
-def report_ts(classs,student):
+def report_ts(x,id):
+    syear=int(x[0])
+    classs=int(x[2])
+    if  syear==7 :
+        s="first_year_grades"
+    elif  syear==8 :
+        s="second_year_grades"
+    elif  syear==9 :
+        s="third_year_grades"
+
+
+
+
+    load_dotenv()
+    cons = os.environ["CON_STRING"]
+    s = psycopg2.connect(os.environ["DATABASE_URL"])
+    cur = s.cursor()
+
+    cur.execute("SELECT * FROM %s WHERE student_id = %s ;", (s,id))
+    res = cur.fetchoen()
     
+
+
+
 
 
 
