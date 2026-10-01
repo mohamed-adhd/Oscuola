@@ -71,12 +71,11 @@ def tests():
     test()
     return {"message": "done"}
 
+@app.get("/testapi")
+def tap():
+    return report_ts("7A3",1)
 
 
-
-@app.post("/report")
-def rprt(data : reportst):
-    return
 
 
 

@@ -1,9 +1,10 @@
 from dotenv import load_dotenv
 import psycopg2
+from psycopg2 import sql
 import os
 import bcrypt
 import base64
-
+from groq import Groq
 
 
 GRADE_TABLES = ["first_year_grades", "second_year_grades", "third_year_grades"]
@@ -253,9 +254,20 @@ def report_ts(x,id):
     s = psycopg2.connect(os.environ["DATABASE_URL"])
     cur = s.cursor()
 
-    cur.execute("SELECT * FROM %s WHERE student_id = %s ;", (s,id))
-    res = cur.fetchoen()
-    
+    cur.execute(sql.SQL("SELECT * FROM {} WHERE student_id = %s;").format(sql.Identifier(s)),(id,))
+    res = cur.fetchone()
+    headers = [col[0] for col in cur.description]
+    table = [headers, res]
+    cur.execute("SELECT * FROM students WHERE student_id = %s;",(id,))
+    ress = cur.fetchone()
+    headerss = [col[0] for col in cur.description]
+    tables = [headerss, ress]
+    ak =s = os.environ["GROK_KEY"]
+    client = Groq(ak)
+    response = client.chat.completions.create(model="llama-3.3-70b-versatile",messages=[{"role": "user", "content": "given that these are infos about a student generate a 600 words maximum report abt him , use formal style and professsional tone as your response will be later trnsformed into a pdf . student info :  "+tables+" . student grades : "+table}],)
+    return response
+
+
 
 
 
