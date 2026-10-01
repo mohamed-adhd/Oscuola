@@ -263,7 +263,7 @@ def report_ts(x,id):
     tables = [headerss, ress]
     ak = os.environ["GROK_KEY"]
     client = Groq()
-    response = client.chat.completions.create(model="llama-3.3-70b-versatile",messages=[{"role": "user", "content": "given that these are infos about a student generate a 600 words maximum report abt him , use formal style and professsional tone as your response will be later trnsformed into a pdf . student info :  "+str(tables)+"  . student grades : "+str(table)}],)
+    response = client.chat.completions.create(model="distil-whisper-large-v3-en",messages=[{"role": "user", "content": "given that these are infos about a student generate a 600 words maximum report abt him , use formal style and professsional tone as your response will be later trnsformed into a pdf . student info :  "+str(tables)+"  . student grades : "+str(table)}],)
     return response.choices[0].message.content
 
 
