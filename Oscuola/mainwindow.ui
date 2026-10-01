@@ -314,10 +314,10 @@ QPlainTextEdit#request_message:focus {
 /* ================= Teacher pages ================= */
 
 /* ---------- Teacher sidebar frames / titles ---------- */
-QFrame#sidebar_teacher_1, QFrame#sidebar_teacher_2, QFrame#sidebar_teacher_3, QFrame#sidebar_teacher_4 {
+QFrame#sidebar_teacher_1, QFrame#sidebar_teacher_2, QFrame#sidebar_teacher_3, QFrame#sidebar_teacher_4, QFrame#sidebar_teacher_5 {
     background-color: #111827;
 }
-QLabel#sidebar_title_teacher_1, QLabel#sidebar_title_teacher_2, QLabel#sidebar_title_teacher_3, QLabel#sidebar_title_teacher_4 {
+QLabel#sidebar_title_teacher_1, QLabel#sidebar_title_teacher_2, QLabel#sidebar_title_teacher_3, QLabel#sidebar_title_teacher_4, QLabel#sidebar_title_teacher_5 {
     color: #FFFFFF;
     font-size: 18pt;
     font-weight: 800;
@@ -328,7 +328,9 @@ QLabel#sidebar_title_teacher_1, QLabel#sidebar_title_teacher_2, QLabel#sidebar_t
 QPushButton#timetable_but_teacher_1, QPushButton#grades_button_teacher_1, QPushButton#requests_button_teacher_1,
 QPushButton#timetable_but_teacher_2, QPushButton#grades_button_teacher_2, QPushButton#requests_button_teacher_2,
 QPushButton#timetable_but_teacher_3, QPushButton#grades_button_teacher_3, QPushButton#requests_button_teacher_3,
-QPushButton#timetable_but_teacher_4, QPushButton#grades_button_teacher_4, QPushButton#requests_button_teacher_4 {
+QPushButton#timetable_but_teacher_4, QPushButton#grades_button_teacher_4, QPushButton#requests_button_teacher_4,
+QPushButton#timetable_but_teacher_5, QPushButton#grades_button_teacher_5, QPushButton#requests_button_teacher_5,
+QPushButton#reports_button_teacher_1, QPushButton#reports_button_teacher_2, QPushButton#reports_button_teacher_3, QPushButton#reports_button_teacher_4, QPushButton#reports_button_teacher_5 {
     background-color: transparent;
     color: #D1D5DB;
     border: none;
@@ -341,20 +343,24 @@ QPushButton#timetable_but_teacher_4, QPushButton#grades_button_teacher_4, QPushB
 QPushButton#timetable_but_teacher_1:hover, QPushButton#grades_button_teacher_1:hover, QPushButton#requests_button_teacher_1:hover,
 QPushButton#timetable_but_teacher_2:hover, QPushButton#grades_button_teacher_2:hover, QPushButton#requests_button_teacher_2:hover,
 QPushButton#timetable_but_teacher_3:hover, QPushButton#grades_button_teacher_3:hover, QPushButton#requests_button_teacher_3:hover,
-QPushButton#timetable_but_teacher_4:hover, QPushButton#grades_button_teacher_4:hover, QPushButton#requests_button_teacher_4:hover {
+QPushButton#timetable_but_teacher_4:hover, QPushButton#grades_button_teacher_4:hover, QPushButton#requests_button_teacher_4:hover,
+QPushButton#timetable_but_teacher_5:hover, QPushButton#grades_button_teacher_5:hover, QPushButton#requests_button_teacher_5:hover,
+QPushButton#reports_button_teacher_1:hover, QPushButton#reports_button_teacher_2:hover, QPushButton#reports_button_teacher_3:hover, QPushButton#reports_button_teacher_4:hover, QPushButton#reports_button_teacher_5:hover {
     background-color: #1F2937;
     color: #FFFFFF;
 }
 QPushButton#timetable_but_teacher_1:pressed, QPushButton#grades_button_teacher_1:pressed, QPushButton#requests_button_teacher_1:pressed,
 QPushButton#timetable_but_teacher_2:pressed, QPushButton#grades_button_teacher_2:pressed, QPushButton#requests_button_teacher_2:pressed,
 QPushButton#timetable_but_teacher_3:pressed, QPushButton#grades_button_teacher_3:pressed, QPushButton#requests_button_teacher_3:pressed,
-QPushButton#timetable_but_teacher_4:pressed, QPushButton#grades_button_teacher_4:pressed, QPushButton#requests_button_teacher_4:pressed {
+QPushButton#timetable_but_teacher_4:pressed, QPushButton#grades_button_teacher_4:pressed, QPushButton#requests_button_teacher_4:pressed,
+QPushButton#timetable_but_teacher_5:pressed, QPushButton#grades_button_teacher_5:pressed, QPushButton#requests_button_teacher_5:pressed,
+QPushButton#reports_button_teacher_1:pressed, QPushButton#reports_button_teacher_2:pressed, QPushButton#reports_button_teacher_3:pressed, QPushButton#reports_button_teacher_4:pressed, QPushButton#reports_button_teacher_5:pressed {
     background-color: #111827;
     color: #FFFFFF;
 }
 
 /* ---------- Teacher logout buttons ---------- */
-QPushButton#logout_but_teacher_1, QPushButton#logout_but_teacher_2, QPushButton#logout_but_teacher_3, QPushButton#logout_but_teacher_4 {
+QPushButton#logout_but_teacher_1, QPushButton#logout_but_teacher_2, QPushButton#logout_but_teacher_3, QPushButton#logout_but_teacher_4, QPushButton#logout_but_teacher_5 {
     background-color: transparent;
     color: #F87171;
     border: none;
@@ -365,11 +371,11 @@ QPushButton#logout_but_teacher_1, QPushButton#logout_but_teacher_2, QPushButton#
     font-size: 11pt;
     font-weight: 600;
 }
-QPushButton#logout_but_teacher_1:hover, QPushButton#logout_but_teacher_2:hover, QPushButton#logout_but_teacher_3:hover, QPushButton#logout_but_teacher_4:hover {
+QPushButton#logout_but_teacher_1:hover, QPushButton#logout_but_teacher_2:hover, QPushButton#logout_but_teacher_3:hover, QPushButton#logout_but_teacher_4:hover, QPushButton#logout_but_teacher_5:hover {
     background-color: #1F2937;
     color: #EF4444;
 }
-QPushButton#logout_but_teacher_1:pressed, QPushButton#logout_but_teacher_2:pressed, QPushButton#logout_but_teacher_3:pressed, QPushButton#logout_but_teacher_4:pressed {
+QPushButton#logout_but_teacher_1:pressed, QPushButton#logout_but_teacher_2:pressed, QPushButton#logout_but_teacher_3:pressed, QPushButton#logout_but_teacher_4:pressed, QPushButton#logout_but_teacher_5:pressed {
     background-color: #111827;
     color: #EF4444;
 }
@@ -380,12 +386,12 @@ QLabel#teacher_name_label {
     font-size: 12pt;
     font-weight: 700;
 }
-QLabel#teacher_dash_title, QLabel#teacher_timetable_title, QLabel#teacher_grades_title, QLabel#teacher_requests_title {
+QLabel#teacher_dash_title, QLabel#teacher_timetable_title, QLabel#teacher_grades_title, QLabel#teacher_requests_title, QLabel#teacher_reports_title {
     color: #111827;
     font-size: 22pt;
     font-weight: 800;
 }
-QLabel#teacher_dash_subtitle, QLabel#teacher_timetable_subtitle, QLabel#teacher_grades_subtitle, QLabel#teacher_requests_subtitle {
+QLabel#teacher_dash_subtitle, QLabel#teacher_timetable_subtitle, QLabel#teacher_grades_subtitle, QLabel#teacher_requests_subtitle, QLabel#teacher_reports_subtitle {
     color: #6B7280;
     font-size: 11pt;
 }
@@ -424,13 +430,13 @@ QLabel#dash_sub_success_rate, QLabel#dash_sub_student_absences, QLabel#dash_sub_
 
 /* ---------- Teacher detail panels ---------- */
 QFrame#panel_class_success, QFrame#panel_absence_overview, QFrame#panel_timetable_picture_teacher,
-QFrame#panel_grades_teacher, QFrame#panel_requests_teacher {
+QFrame#panel_grades_teacher, QFrame#panel_requests_teacher, QFrame#panel_reports_teacher {
     background-color: #FFFFFF;
     border-radius: 14px;
     border: 1px solid #E5E9F2;
 }
 QLabel#panel_title_class_success, QLabel#panel_title_absence_overview, QLabel#panel_title_timetable_picture_teacher,
-QLabel#panel_title_grades_teacher, QLabel#panel_title_requests_teacher {
+QLabel#panel_title_grades_teacher, QLabel#panel_title_requests_teacher, QLabel#panel_title_reports_teacher {
     font-size: 13pt;
     font-weight: 700;
     color: #111827;
@@ -456,7 +462,7 @@ QLabel#timetable_picture_label_teacher {
 }
 
 /* ---------- Teacher back-home buttons ---------- */
-QPushButton#back_home_btn_teacher_2, QPushButton#back_home_btn_teacher_3, QPushButton#back_home_btn_teacher_4 {
+QPushButton#back_home_btn_teacher_2, QPushButton#back_home_btn_teacher_3, QPushButton#back_home_btn_teacher_4, QPushButton#back_home_btn_teacher_5 {
     background-color: #FFFFFF;
     color: #4F46E5;
     border: 1px solid #4F46E5;
@@ -465,15 +471,16 @@ QPushButton#back_home_btn_teacher_2, QPushButton#back_home_btn_teacher_3, QPushB
     font-weight: 700;
     padding: 6px 14px;
 }
-QPushButton#back_home_btn_teacher_2:hover, QPushButton#back_home_btn_teacher_3:hover, QPushButton#back_home_btn_teacher_4:hover {
+QPushButton#back_home_btn_teacher_2:hover, QPushButton#back_home_btn_teacher_3:hover, QPushButton#back_home_btn_teacher_4:hover, QPushButton#back_home_btn_teacher_5:hover {
     background-color: #EEF2FF;
 }
-QPushButton#back_home_btn_teacher_2:pressed, QPushButton#back_home_btn_teacher_3:pressed, QPushButton#back_home_btn_teacher_4:pressed {
+QPushButton#back_home_btn_teacher_2:pressed, QPushButton#back_home_btn_teacher_3:pressed, QPushButton#back_home_btn_teacher_4:pressed, QPushButton#back_home_btn_teacher_5:pressed {
     background-color: #E0E7FF;
 }
 
 /* ---------- Teacher class / year selectors ---------- */
-QComboBox#teacher_timetable_class_combo, QComboBox#teacher_grades_class_combo, QComboBox#teacher_grades_year_combo {
+QComboBox#teacher_timetable_class_combo, QComboBox#teacher_grades_class_combo, QComboBox#teacher_grades_year_combo,
+QComboBox#teacher_reports_class_combo, QComboBox#teacher_reports_student_combo {
     background-color: #F9FAFB;
     border: 1px solid #D1D5DB;
     border-radius: 8px;
@@ -481,21 +488,24 @@ QComboBox#teacher_timetable_class_combo, QComboBox#teacher_grades_class_combo, Q
     font-size: 10pt;
     color: #111827;
 }
-QComboBox#teacher_timetable_class_combo:focus, QComboBox#teacher_grades_class_combo:focus, QComboBox#teacher_grades_year_combo:focus {
+QComboBox#teacher_timetable_class_combo:focus, QComboBox#teacher_grades_class_combo:focus, QComboBox#teacher_grades_year_combo:focus,
+QComboBox#teacher_reports_class_combo:focus, QComboBox#teacher_reports_student_combo:focus {
     border: 1px solid #4F46E5;
 }
-QComboBox#teacher_timetable_class_combo::drop-down, QComboBox#teacher_grades_class_combo::drop-down, QComboBox#teacher_grades_year_combo::drop-down {
+QComboBox#teacher_timetable_class_combo::drop-down, QComboBox#teacher_grades_class_combo::drop-down, QComboBox#teacher_grades_year_combo::drop-down,
+QComboBox#teacher_reports_class_combo::drop-down, QComboBox#teacher_reports_student_combo::drop-down {
     border: none;
     width: 24px;
 }
-QLabel#class_select_label_timetable, QLabel#class_select_label_grades, QLabel#year_select_label_grades {
+QLabel#class_select_label_timetable, QLabel#class_select_label_grades, QLabel#year_select_label_grades,
+QLabel#class_select_label_reports, QLabel#student_select_label_reports {
     color: #374151;
     font-size: 10pt;
     font-weight: 600;
 }
 
 /* ---------- Teacher &quot;Load&quot; buttons ---------- */
-QPushButton#teacher_timetable_load_btn, QPushButton#teacher_grades_load_btn {
+QPushButton#teacher_timetable_load_btn, QPushButton#teacher_grades_load_btn, QPushButton#teacher_reports_generate_btn {
     background-color: #4F46E5;
     color: #FFFFFF;
     border: none;
@@ -503,10 +513,10 @@ QPushButton#teacher_timetable_load_btn, QPushButton#teacher_grades_load_btn {
     font-size: 10pt;
     font-weight: 700;
 }
-QPushButton#teacher_timetable_load_btn:hover, QPushButton#teacher_grades_load_btn:hover {
+QPushButton#teacher_timetable_load_btn:hover, QPushButton#teacher_grades_load_btn:hover, QPushButton#teacher_reports_generate_btn:hover {
     background-color: #4338CA;
 }
-QPushButton#teacher_timetable_load_btn:pressed, QPushButton#teacher_grades_load_btn:pressed {
+QPushButton#teacher_timetable_load_btn:pressed, QPushButton#teacher_grades_load_btn:pressed, QPushButton#teacher_reports_generate_btn:pressed {
     background-color: #3730A3;
 }
 
@@ -548,6 +558,40 @@ QPushButton#decline_btn_1:hover, QPushButton#decline_btn_2:hover, QPushButton#de
 }
 QPushButton#decline_btn_1:pressed, QPushButton#decline_btn_2:pressed, QPushButton#decline_btn_3:pressed, QPushButton#decline_btn_4:pressed, QPushButton#decline_btn_5:pressed {
     background-color: #991B1B;
+}
+
+/* ---------- Teacher reports (generated list + download PDF) ---------- */
+QTableWidget#teacher_reports_list {
+    background-color: #FFFFFF;
+    border: none;
+    gridline-color: #F3F4F6;
+    font-size: 10pt;
+    color: #374151;
+    outline: 0;
+}
+QTableWidget#teacher_reports_list::item {
+    padding: 8px;
+    border-bottom: 1px solid #F3F4F6;
+}
+QLabel#teacher_reports_res {
+    color: #16A34A;
+    font-size: 10pt;
+    font-weight: 600;
+}
+QPushButton#report_download_btn {
+    background-color: #4F46E5;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 8px;
+    font-size: 10pt;
+    font-weight: 700;
+    padding: 4px 12px;
+}
+QPushButton#report_download_btn:hover {
+    background-color: #4338CA;
+}
+QPushButton#report_download_btn:pressed {
+    background-color: #3730A3;
 }
 </string>
   </property>
@@ -2382,6 +2426,22 @@ No image set</string>
         <string>📥  Requests</string>
        </property>
       </widget>
+      <widget class="QPushButton" name="reports_button_teacher_1">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>276</y>
+         <width>180</width>
+         <height>42</height>
+        </rect>
+       </property>
+       <property name="cursor">
+        <cursorShape>PointingHandCursor</cursorShape>
+       </property>
+       <property name="text">
+        <string>📄  Reports</string>
+       </property>
+      </widget>
       <widget class="QPushButton" name="logout_but_teacher_1">
        <property name="geometry">
         <rect>
@@ -2801,6 +2861,22 @@ No image set</string>
         <string>📥  Requests</string>
        </property>
       </widget>
+      <widget class="QPushButton" name="reports_button_teacher_2">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>276</y>
+         <width>180</width>
+         <height>42</height>
+        </rect>
+       </property>
+       <property name="cursor">
+        <cursorShape>PointingHandCursor</cursorShape>
+       </property>
+       <property name="text">
+        <string>📄  Reports</string>
+       </property>
+      </widget>
       <widget class="QPushButton" name="logout_but_teacher_2">
        <property name="geometry">
         <rect>
@@ -3021,6 +3097,22 @@ No image set — select a class and press Load</string>
        </property>
        <property name="text">
         <string>📥  Requests</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="reports_button_teacher_3">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>276</y>
+         <width>180</width>
+         <height>42</height>
+        </rect>
+       </property>
+       <property name="cursor">
+        <cursorShape>PointingHandCursor</cursorShape>
+       </property>
+       <property name="text">
+        <string>📄  Reports</string>
        </property>
       </widget>
       <widget class="QPushButton" name="logout_but_teacher_3">
@@ -3290,6 +3382,22 @@ No image set — select a class and press Load</string>
         <string>📥  Requests</string>
        </property>
       </widget>
+      <widget class="QPushButton" name="reports_button_teacher_4">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>276</y>
+         <width>180</width>
+         <height>42</height>
+        </rect>
+       </property>
+       <property name="cursor">
+        <cursorShape>PointingHandCursor</cursorShape>
+       </property>
+       <property name="text">
+        <string>📄  Reports</string>
+       </property>
+      </widget>
       <widget class="QPushButton" name="logout_but_teacher_4">
        <property name="geometry">
         <rect>
@@ -3426,6 +3534,306 @@ Absence excuse request — Sep 8</string>
          <string>❌  Decline</string>
         </property>
        </widget>
+      </widget>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="reports_teacher">
+     <widget class="QFrame" name="sidebar_teacher_5">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>220</width>
+        <height>698</height>
+       </rect>
+      </property>
+      <widget class="QLabel" name="sidebar_title_teacher_5">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>30</y>
+         <width>220</width>
+         <height>40</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Oscuola</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignmentFlag::AlignCenter</set>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="timetable_but_teacher_5">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>120</y>
+         <width>180</width>
+         <height>42</height>
+        </rect>
+       </property>
+       <property name="cursor">
+        <cursorShape>PointingHandCursor</cursorShape>
+       </property>
+       <property name="text">
+        <string>🗓️  Timetables</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="grades_button_teacher_5">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>172</y>
+         <width>180</width>
+         <height>42</height>
+        </rect>
+       </property>
+       <property name="cursor">
+        <cursorShape>PointingHandCursor</cursorShape>
+       </property>
+       <property name="text">
+        <string>📘  Grades</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="requests_button_teacher_5">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>224</y>
+         <width>180</width>
+         <height>42</height>
+        </rect>
+       </property>
+       <property name="cursor">
+        <cursorShape>PointingHandCursor</cursorShape>
+       </property>
+       <property name="text">
+        <string>📥  Requests</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="reports_button_teacher_5">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>276</y>
+         <width>180</width>
+         <height>42</height>
+        </rect>
+       </property>
+       <property name="cursor">
+        <cursorShape>PointingHandCursor</cursorShape>
+       </property>
+       <property name="text">
+        <string>📄  Reports</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="logout_but_teacher_5">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>636</y>
+         <width>180</width>
+         <height>42</height>
+        </rect>
+       </property>
+       <property name="cursor">
+        <cursorShape>PointingHandCursor</cursorShape>
+       </property>
+       <property name="text">
+        <string>🚪  Logout</string>
+       </property>
+      </widget>
+     </widget>
+     <widget class="QLabel" name="teacher_reports_title">
+      <property name="geometry">
+       <rect>
+        <x>260</x>
+        <y>36</y>
+        <width>500</width>
+        <height>50</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Reports</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="teacher_reports_subtitle">
+      <property name="geometry">
+       <rect>
+        <x>260</x>
+        <y>86</y>
+        <width>600</width>
+        <height>24</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Generate and download student reports</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="back_home_btn_teacher_5">
+      <property name="geometry">
+       <rect>
+        <x>1130</x>
+        <y>40</y>
+        <width>130</width>
+        <height>36</height>
+       </rect>
+      </property>
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
+      </property>
+      <property name="text">
+       <string>🏠  Back Home</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="class_select_label_reports">
+      <property name="geometry">
+       <rect>
+        <x>260</x>
+        <y>136</y>
+        <width>50</width>
+        <height>24</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Class</string>
+      </property>
+     </widget>
+     <widget class="QComboBox" name="teacher_reports_class_combo">
+      <property name="geometry">
+       <rect>
+        <x>310</x>
+        <y>130</y>
+        <width>160</width>
+        <height>34</height>
+       </rect>
+      </property>
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
+      </property>
+     </widget>
+     <widget class="QLabel" name="student_select_label_reports">
+      <property name="geometry">
+       <rect>
+        <x>490</x>
+        <y>136</y>
+        <width>51</width>
+        <height>24</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Student</string>
+      </property>
+     </widget>
+     <widget class="QComboBox" name="teacher_reports_student_combo">
+      <property name="geometry">
+       <rect>
+        <x>550</x>
+        <y>130</y>
+        <width>160</width>
+        <height>34</height>
+       </rect>
+      </property>
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="teacher_reports_generate_btn">
+      <property name="geometry">
+       <rect>
+        <x>730</x>
+        <y>130</y>
+        <width>140</width>
+        <height>34</height>
+       </rect>
+      </property>
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
+      </property>
+      <property name="text">
+       <string>Generate report</string>
+      </property>
+     </widget>
+     <widget class="QFrame" name="panel_reports_teacher">
+      <property name="geometry">
+       <rect>
+        <x>260</x>
+        <y>184</y>
+        <width>940</width>
+        <height>446</height>
+       </rect>
+      </property>
+      <widget class="QLabel" name="panel_title_reports_teacher">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>16</y>
+         <width>300</width>
+         <height>26</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Generated Reports</string>
+       </property>
+      </widget>
+      <widget class="QTableWidget" name="teacher_reports_list">
+       <property name="geometry">
+        <rect>
+         <x>16</x>
+         <y>50</y>
+         <width>908</width>
+         <height>336</height>
+        </rect>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::Shape::NoFrame</enum>
+       </property>
+       <property name="editTriggers">
+        <set>QAbstractItemView::EditTrigger::NoEditTriggers</set>
+       </property>
+       <property name="selectionMode">
+        <enum>QAbstractItemView::SelectionMode::NoSelection</enum>
+       </property>
+       <property name="showGrid">
+        <bool>false</bool>
+       </property>
+       <attribute name="horizontalHeaderStretchLastSection">
+        <bool>false</bool>
+       </attribute>
+       <attribute name="verticalHeaderVisible">
+        <bool>false</bool>
+       </attribute>
+       <attribute name="verticalHeaderDefaultSectionSize">
+        <number>48</number>
+       </attribute>
+       <column>
+        <property name="text">
+         <string>Class</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>Student</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>Report</string>
+        </property>
+       </column>
+      </widget>
+      <widget class="QLabel" name="teacher_reports_res">
+       <property name="geometry">
+        <rect>
+         <x>16</x>
+         <y>398</y>
+         <width>700</width>
+         <height>34</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
       </widget>
      </widget>
     </widget>

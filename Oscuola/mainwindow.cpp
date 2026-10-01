@@ -29,9 +29,17 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
 
 
 
+    QButtonGroup *report_buts= new QButtonGroup(this);
+    for(int i=1;i<5;i++){
+        QString name=QString("reports_button_teacher_%1").arg(i);
+        QPushButton *button=this->findChild<QPushButton*>(name);
+        if(button){
+            report_buts->addButton(button);
+        }}
 
-
-
+    connect(report_buts,&QButtonGroup::buttonClicked,this ,[this]{
+        switchpg(11);
+    });
 
 
 
@@ -87,7 +95,7 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
 
 
     QButtonGroup *time_buts_teach= new QButtonGroup(this);
-    for(int i=1;i<5;i++){
+    for(int i=1;i<6;i++){
         QString name=QString("timetable_but_teacher_%1").arg(i);
         QPushButton *button=this->findChild<QPushButton*>(name);
         if(button){
@@ -95,7 +103,7 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
         }}
 
     QButtonGroup *grades_buts_teach= new QButtonGroup(this);
-    for(int i=1;i<5;i++){
+    for(int i=1;i<6;i++){
         QString name=QString("grades_button_teacher_%1").arg(i);
         QPushButton *button=this->findChild<QPushButton*>(name);
         if(button){
@@ -113,7 +121,7 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
 
 
     QButtonGroup *back_buts_teach= new QButtonGroup(this);
-    for(int i=1;i<5;i++){
+    for(int i=1;i<6;i++){
         QString name=QString("back_home_btn_teacher_%1").arg(i);
         QPushButton *button=this->findChild<QPushButton*>(name);
         if(button){
