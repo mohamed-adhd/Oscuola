@@ -238,13 +238,12 @@ def get_classes(id):
 
 def report_ts(x,id):
     syear=int(x[0])
-    classs=int(x[2])
     if  syear==7 :
-        s="first_year_grades"
+        tn="first_year_grades"
     elif  syear==8 :
-        s="second_year_grades"
+        tn="second_year_grades"
     elif  syear==9 :
-        s="third_year_grades"
+        tn="third_year_grades"
 
 
 
@@ -254,7 +253,7 @@ def report_ts(x,id):
     s = psycopg2.connect(os.environ["DATABASE_URL"])
     cur = s.cursor()
 
-    cur.execute(sql.SQL("SELECT * FROM {} WHERE student_id = %s;").format(sql.Identifier(s)),(id,))
+    cur.execute(sql.SQL("SELECT * FROM {} WHERE student_id = %s;").format(sql.Identifier(tn)),(id,))
     res = cur.fetchone()
     headers = [col[0] for col in cur.description]
     table = [headers, res]
@@ -262,10 +261,10 @@ def report_ts(x,id):
     ress = cur.fetchone()
     headerss = [col[0] for col in cur.description]
     tables = [headerss, ress]
-    ak =s = os.environ["GROK_KEY"]
+    ak = os.environ["GROK_KEY"]
     client = Groq(ak)
-    response = client.chat.completions.create(model="llama-3.3-70b-versatile",messages=[{"role": "user", "content": "given that these are infos about a student generate a 600 words maximum report abt him , use formal style and professsional tone as your response will be later trnsformed into a pdf . student info :  "+tables+" . student grades : "+table}],)
-    return response
+    response = client.chat.completions.create(model="llama-3.3-70b-versatile",messages=[{"role": "user", "content": "given that these are infos about a student generate a 600 words maximum report abt him , use formal style and professsional tone as your response will be later trnsformed into a pdf . student info :  "+str(tables)+"  . student grades : "+str(table)}],)
+    return response.choices[0].message.content
 
 
 
