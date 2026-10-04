@@ -51,6 +51,7 @@ public :
     QMap<QString, double> get_grades(int id);
     std::vector<cgr> get_class_grades(std::string classs);
     int post_grades(int id, QMap<QString, double> g, int *year);
+    QString get_rapport(int id);
 
 
 
