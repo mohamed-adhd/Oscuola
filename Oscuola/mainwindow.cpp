@@ -38,7 +38,37 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
         }}
 
     connect(report_buts,&QButtonGroup::buttonClicked,this ,[this]{
+        ui->teacher_reports_class_combo->blockSignals(true);
+        ui->teacher_reports_class_combo->clear();
+        QVector<QString> classes = db.get_classes(std::get<4>(f));
+        qDebug()<<std::get<4>(f);
+        for (const QString &c : classes){
+            ui->teacher_reports_class_combo->addItem(c, c);
+            qDebug()<<c;
+        }
+        ui->teacher_reports_class_combo->blockSignals(false);
         switchpg(11);
+    });
+
+
+    connect(ui->teacher_reports_load_students_but,&QPushButton::clicked,this,[this]{
+        qDebug()<<"button pressed";
+        ui->teacher_reports_student_combo->blockSignals(true);
+        ui->teacher_reports_student_combo->clear();
+        roster.clear();
+        if(ui->teacher_reports_class_combo->count()==0){
+            ui->teacher_reports_student_combo->blockSignals(false);
+            ui->teacher_reports_list->setRowCount(0);
+            return;
+        }
+        qDebug()<<"class is "<<ui->teacher_reports_class_combo->currentText().toStdString();
+        std::vector<studs> momo = db.get_students(ui->teacher_reports_class_combo->currentText().toStdString());
+        for (studs &c : momo){
+            qDebug()<<c.name;
+            ui->teacher_reports_student_combo->addItem(
+                QString::fromStdString(c.aftername+" "+c.name+"; id : ")+QString::number(c.id), c.id);
+        }
+        ui->teacher_reports_student_combo->blockSignals(false);
     });
 
 
