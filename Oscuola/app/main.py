@@ -83,6 +83,22 @@ def tests():
     test()
     return {"message": "done"}
 
+@app.get("/testapi")
+def tap():
+    return report_ts("7A3",1)
+
+
+
+
+
+
+
+
+
+
+
+
+
 @app.get("/debug-key")
 def debug_key(authorization: str = Header(None)):
     expected = f"Bearer {os.environ['API_KEY']}"
