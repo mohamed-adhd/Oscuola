@@ -25,6 +25,42 @@ def test():
 
 
 
+def report_ts(x,id):
+    syear=int(x[0])
+    if  syear==7 :
+        tn="first_year_grades"
+    elif  syear==8 :
+        tn="second_year_grades"
+    elif  syear==9 :
+        tn="third_year_grades"
+
+
+
+
+    load_dotenv()
+    cons = os.environ["CON_STRING"]
+    s = psycopg2.connect(os.environ["DATABASE_URL"])
+    cur = s.cursor()
+
+    cur.execute(sql.SQL("SELECT * FROM {} WHERE student_id = %s;").format(sql.Identifier(tn)),(id,))
+    res = cur.fetchone()
+    headers = [col[0] for col in cur.description]
+    table = [headers, res]
+    cur.execute("SELECT * FROM students WHERE id = %s;",(id,))
+    ress = cur.fetchone()
+    headerss = [col[0] for col in cur.description]
+    tables = [headerss, ress]
+    ak = os.environ["GROK_KEY"]
+    client = Groq()
+    #models = [m.id for m in client.models.list().data]
+    #chat_models = [m for m in models if not any(x in m for x in ("whisper", "tts", "guard"))]
+    #print(chat_models)
+    #model = chat_models[0]
+    response = client.chat.completions.create(model="openai/gpt-oss-20b",messages=[{"role": "user", "content": "given that these are infos about a student generate a 600 words maximum report abt him , use formal style and professsional tone as your response will be later trnsformed into a pdf . student info :  "+str(tables)+"  . student grades : "+str(table)}],)
+    return response.choices[0].message.content
+
+
+
 
 
 def check_login(gmail, pswd):

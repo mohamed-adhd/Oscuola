@@ -5,13 +5,15 @@ import os
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 from fastapi import FastAPI
 from fastapi import Depends
-from database.fetch import check_login,get_grades,get_class_grades,get_alerts_1st,timetable,get_classes,get_reqs,getstudents,test
+from database.fetch import check_login,get_grades,get_class_grades,get_alerts_1st,timetable,get_classes,get_reqs,getstudents,test,report_ts
 from database.insert import insert_request,postit,accept_it,delete_it,modifygrades
 from pydantic import BaseModel
 class LoginRequest(BaseModel):
     gmail: str
     passwd: str
-
+class reportsss(BaseModel):
+    classs : str
+    id : int
 
 class classs(BaseModel):
     classs : int
@@ -64,6 +66,18 @@ def verify_key(authorization: str = Header(None)):
 @app.get("/")
 def root():
     return {"message": "online"}
+
+
+@app.post("/getreport")
+def tap(data : reportsss, authorized: None = Depends(verify_key)):
+    s=report_ts(data.classs,data.id)
+    return {"message":s}
+
+
+
+
+
+
 @app.get("/test")
 def tests():
     test()
