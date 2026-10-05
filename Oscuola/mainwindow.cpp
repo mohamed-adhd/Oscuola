@@ -38,7 +38,37 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
         }}
 
     connect(report_buts,&QButtonGroup::buttonClicked,this ,[this]{
+        ui->teacher_reports_class_combo->blockSignals(true);
+        ui->teacher_reports_class_combo->clear();
+        QVector<QString> classes = db.get_classes(std::get<4>(f));
+        qDebug()<<std::get<4>(f);
+        for (const QString &c : classes){
+            ui->teacher_reports_class_combo->addItem(c, c);
+            qDebug()<<c;
+        }
+        ui->teacher_reports_class_combo->blockSignals(false);
         switchpg(11);
+    });
+
+
+    connect(ui->teacher_reports_load_students_but,&QPushButton::clicked,this,[this]{
+        ui->teacher_reports_student_combo->blockSignals(true);
+        ui->teacher_reports_student_combo->clear();
+        roster.clear();
+        if(ui->teacher_grades_class_combo->count()==0){
+            ui->teacher_reports_student_combo->blockSignals(false);
+            ui->teacher_grades_list->setRowCount(0);
+            return;
+        }
+        roster = db.get_class_grades(ui->teacher_grades_class_combo->currentText().toStdString());
+        ui->teacher_reports_student_combo->addItem("whole class", 0);
+        for (const cgr &c : roster){
+            ui->teacher_reports_student_combo->addItem(
+                QString::fromStdString(c.aftername+" "+c.name+"; id : ")+QString::number(c.id), c.id);
+        }
+        ui->teacher_reports_student_combo->blockSignals(false);
+        showgrades(ui->teacher_reports_student_combo->currentData().toInt());
+
     });
 
 
