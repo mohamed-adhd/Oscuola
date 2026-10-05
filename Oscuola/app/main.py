@@ -11,9 +11,9 @@ from pydantic import BaseModel
 class LoginRequest(BaseModel):
     gmail: str
     passwd: str
-class reportst(BaseModel):
-    classs: str
-    student: str
+class reportsss(BaseModel):
+    classs : str
+    id : int
 
 class classs(BaseModel):
     classs : int
@@ -66,6 +66,18 @@ def verify_key(authorization: str = Header(None)):
 @app.get("/")
 def root():
     return {"message": "online"}
+
+
+@app.post("/getreport")
+def tap(data : reportsss, authorized: None = Depends(verify_key)):
+    s=report_ts(data.classs,data.id)
+    return {"message":s}
+
+
+
+
+
+
 @app.get("/test")
 def tests():
     test()
