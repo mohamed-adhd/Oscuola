@@ -64,8 +64,8 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
             QTableWidget *table = ui->teacher_reports_list;
             int row = table->rowCount();
             table->insertRow(row);
-            table->setItem(row, 0, new QTableWidgetItem(QString::fromStdString(mlml.name)));
-            table->setItem(row, 1, new QTableWidgetItem(QString::fromStdString(mlml.classs)));
+            table->setItem(row, 0, new QTableWidgetItem(QString::fromStdString(mlml.classs)));
+            table->setItem(row, 1, new QTableWidgetItem(QString::fromStdString(mlml.name)));
 
             QPushButton *btn = new QPushButton("Download PDF", table);
             btn->setObjectName("report_download_btn");
@@ -148,7 +148,9 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
 
 
     connect(ui->teacher_reports_generate_btn,&QPushButton::clicked,this,[this]{
-        QString m=db.generate_rapport(ui->teacher_reports_class_combo->currentText(),ui->teacher_reports_student_combo->currentText().toInt());
+        QString text = ui->teacher_reports_student_combo->currentText();
+        int x = text.section(':', -1).trimmed().toInt();
+        db.generate_rapport(ui->teacher_reports_class_combo->currentText(),x,std::get<4>(f));
 
     });
 

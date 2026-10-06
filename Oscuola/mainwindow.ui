@@ -3781,8 +3781,11 @@ Absence excuse request — Sep 8</string>
        <property name="showGrid">
         <bool>false</bool>
        </property>
+       <attribute name="horizontalHeaderDefaultSectionSize">
+        <number>220</number>
+       </attribute>
        <attribute name="horizontalHeaderStretchLastSection">
-        <bool>false</bool>
+        <bool>true</bool>
        </attribute>
        <attribute name="verticalHeaderVisible">
         <bool>false</bool>

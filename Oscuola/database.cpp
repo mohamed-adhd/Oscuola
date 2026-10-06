@@ -560,12 +560,14 @@ std::vector<req> database::get_requests(int id)
 
 
 
-bool database::generate_rapport(QString classs,int id){
+bool database::generate_rapport(QString classs,int id,int teid){
+    qDebug()<<"RAPPORT CLASSS : "<<classs<<"//// REPORT ID : "<<id<<" // TEACHERID"<<teid;
     QNetworkAccessManager *manager = new QNetworkAccessManager(this);
     QNetworkRequest request = mkreq("/generate_rep");
     QJsonObject json;
     json["id"] = QString::fromStdString(std::to_string(id));
     json["classs"] = classs;
+    json["teach_id"]=teid;
     QJsonDocument doc(json);
     QByteArray data = doc.toJson();
     QNetworkReply *res = manager->post(request, data);

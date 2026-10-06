@@ -50,7 +50,7 @@ def report_ts(x,id,tid):
 
     cur.execute("SELECT name,aftername FROM students WHERE id = %s;",(id,))
     res=cur.fetchone()
-    tempnm = res[0] + res[1]
+    tempnm = res[0] +" "+ res[1]
 
 
 
