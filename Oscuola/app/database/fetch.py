@@ -50,7 +50,7 @@ def report_ts(x,id,tid):
 
     cur.execute("SELECT name,aftername FROM students WHERE id = %s;",(id,))
     res=cur.fetchone()
-    tempnm = res[0] + res[1]
+    tempnm = res[0] +" "+ res[1]
 
 
 
@@ -221,6 +221,26 @@ def get_grades(id):
         out[GRADE_KEYS[i]] = float(d.get(subs[i]) or 0) if i < len(subs) else 0.0
     out["overallg"] = float(d.get(sub[-1]) or 0) if sub else 0.0
     return out
+
+
+
+def get_repcontent(name,classs):
+    load_dotenv()
+    cons = os.environ["CON_STRING"]
+    s = psycopg2.connect(os.environ["DATABASE_URL"])
+    cur = s.cursor()
+    cur.execute("SELECT content FROM reports WHERE student = %s AND classs= %s ;", (name,classs))
+    res=cur.fetchone()
+    return {"content":res[0]}
+
+
+
+
+
+
+
+
+
 
 
 def get_class_grades(classs):

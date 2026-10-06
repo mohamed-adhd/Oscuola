@@ -4,9 +4,36 @@
 #include <QButtonGroup>
 #include <QFileDialog>
 
+#include <QTextDocument>
+#include <QPdfWriter>
+#include <QPageSize>
+#include <QPageLayout>
+#include <QMarginsF>
+#include <QTextFrame>
+#include <QTextTable>
+#include <QTextTableFormat>
 
+bool MainWindow::downloadreport(QString dir,QString content){
+    QTextDocument doc;
+    doc.setDefaultFont(QFont("Arial", 11));
+    doc.setMarkdown(content, QTextDocument::MarkdownDialectGitHub);
+    for (auto it = doc.rootFrame()->begin(); !it.atEnd(); ++it) {
+        if (auto *table = qobject_cast<QTextTable *>(it.currentFrame())) {
+            QTextTableFormat fmt = table->format();
+            fmt.setBorder(1);
+            fmt.setBorderStyle(QTextFrameFormat::BorderStyle_Solid);
+            fmt.setCellPadding(5);
+            fmt.setCellSpacing(0);
+            fmt.setWidth(QTextLength(QTextLength::PercentageLength, 100));
+            table->setFormat(fmt);
+        }
+    }
 
-bool MainWindow::downloadreport(QString){
+    QPdfWriter writer(dir);
+    writer.setPageSize(QPageSize(QPageSize::A4));
+    writer.setPageMargins(QMarginsF(20, 20, 20, 20), QPageLayout::Millimeter);
+
+    doc.print(&writer);
     return true;
 }
 
@@ -64,17 +91,18 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
             QTableWidget *table = ui->teacher_reports_list;
             int row = table->rowCount();
             table->insertRow(row);
-            table->setItem(row, 0, new QTableWidgetItem(QString::fromStdString(mlml.name)));
-            table->setItem(row, 1, new QTableWidgetItem(QString::fromStdString(mlml.classs)));
+            table->setItem(row, 0, new QTableWidgetItem(QString::fromStdString(mlml.classs)));
+            table->setItem(row, 1, new QTableWidgetItem(QString::fromStdString(mlml.name)));
 
             QPushButton *btn = new QPushButton("Download PDF", table);
             btn->setObjectName("report_download_btn");
             btn->setMinimumHeight(30);
             btn->setCursor(Qt::PointingHandCursor);
 
-            connect(btn, &QPushButton::clicked, this, [this]() {
-                QString ssss=QFileDialog::getExistingDirectory();
-                downloadreport(ssss);
+            connect(btn, &QPushButton::clicked, this, [this,mlml]() {
+                QString ssss=QFileDialog::getExistingDirectory()+"/"+QString::fromStdString(mlml.name)+"_report.pdf";
+                QString content=db.rep_content(QString::fromStdString(mlml.name),QString::fromStdString(mlml.classs));
+                downloadreport(ssss,content);
             });
 
             table->setCellWidget(row, 2, btn);
@@ -148,7 +176,9 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
 
 
     connect(ui->teacher_reports_generate_btn,&QPushButton::clicked,this,[this]{
-        QString m=db.generate_rapport(ui->teacher_reports_class_combo->currentText(),ui->teacher_reports_student_combo->currentText().toInt());
+        QString text = ui->teacher_reports_student_combo->currentText();
+        int x = text.section(':', -1).trimmed().toInt();
+        db.generate_rapport(ui->teacher_reports_class_combo->currentText(),x,std::get<4>(f));
 
     });
 
