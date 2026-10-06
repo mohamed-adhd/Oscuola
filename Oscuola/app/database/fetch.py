@@ -45,11 +45,12 @@ def report_ts(x,id,tid):
 
     cur.execute(sql.SQL("SELECT * FROM {} WHERE student_id = %s;").format(sql.Identifier(tn)),(id,))
     res = cur.fetchone()
+    tempnm = res[1] + res[2]
     headers = [col[0] for col in cur.description]
     table = [headers, res]
     cur.execute("SELECT * FROM students WHERE id = %s;",(id,))
     ress = cur.fetchone()
-    tempnm=res[1]+res[2]
+
     headerss = [col[0] for col in cur.description]
     tables = [headerss, ress]
     ak = os.environ["GROK_KEY"]
