@@ -60,7 +60,10 @@ def report_ts(x,id,tid):
     #model = chat_models[0]
     response = client.chat.completions.create(model="openai/gpt-oss-20b",messages=[{"role": "user", "content": "given that these are infos about a student generate a 600 words maximum report abt him , use formal style and professsional tone as your response will be later trnsformed into a pdf . student info :  "+str(tables)+"  . student grades : "+str(table)}],)
     cur.execute("INSERT INTO reports (teacher_id,student,classs,content) VALUES (%s,%s,%s,%s);",(tid,tempnm,x,response.choices[0].message.content))
+    s.commit()
     print("api returned "+response.choices[0].message.content)
+    cur.close()
+    s.close()
 
 
 
