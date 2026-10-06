@@ -27,6 +27,7 @@ public:
     void loadgrades();
     void savegrades();
     void setgradeheaders(int year);
+    bool downloadreport(QString);
 
 private:
     Ui::MainWindow *ui;

@@ -32,8 +32,9 @@ public:
 };
 
 class reports{
-    QString name;
-    QString classs;
+public:
+    std::string name;
+    std::string classs;
 };
 
 class database : public QObject{

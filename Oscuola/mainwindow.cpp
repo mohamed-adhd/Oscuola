@@ -2,6 +2,17 @@
 #include "./ui_mainwindow.h"
 #include "database.h"
 #include <QButtonGroup>
+#include <QFileDialog>
+
+
+
+bool MainWindow::downloadreport(QString){
+    return true;
+}
+
+
+
+
 
 
 
@@ -54,16 +65,20 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
             int row = table->rowCount();
             table->insertRow(row);
 
-            table->setItem(row, 0, new QTableWidgetItem(mlml));
-            table->setItem(row, 1, new QTableWidgetItem(studentName));
+            table->setItem(row, 0, new QTableWidgetItem(QString::fromStdString(mlml.name)));
+            table->setItem(row, 1, new QTableWidgetItem(QString::fromStdString(mlml.classs)));
 
             QPushButton *btn = new QPushButton("Download PDF", table);
             btn->setObjectName("report_download_btn");   // picks up your stylesheet
             btn->setMinimumHeight(30);
             btn->setCursor(Qt::PointingHandCursor);
 
-            connect(btn, &QPushButton::clicked, this, [this, reportPath]() {
-                downloadReport(reportPath);
+            connect(btn, &QPushButton::clicked, this, [this]() {
+                QString ssss=QFileDialog::getExistingDirectory();
+
+
+
+                downloadreport(ssss);
             });
 
             table->setCellWidget(row, 2, btn);

@@ -591,14 +591,13 @@ std::vector<reports> database::loadreports(int id)
     //qDebug() << obj["math"].toString();
     //qDebug() << obj["cs"].toString();
 
-    std::vector<req>temp;
-    QJsonArray dataArray = obj["data"].toArray();
+    std::vector<reports>temp;
+    QJsonArray dataArray = obj["message"].toArray();
     for (const QJsonValue &rowVal : dataArray) {
         QJsonArray row = rowVal.toArray();
-        req r;
-        r.name      = row[0].toString().toStdString();
-        r.aftername = row[1].toString().toStdString();
-        r.classs    = row[2].toString().toStdString();
+        reports r;
+        r.classs= row[0].toString().toStdString();
+        r.name = row[1].toString().toStdString();
         temp.push_back(r);
     }
 
