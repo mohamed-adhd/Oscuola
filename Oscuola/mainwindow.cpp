@@ -47,6 +47,19 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
             qDebug()<<c;
         }
         ui->teacher_reports_class_combo->blockSignals(false);
+        std::vector<reports> reports_load=db.loadreports(,ui->teacher_reports_class_combo->currentText().toStdString());
+
+
+
+
+
+
+
+
+
+
+
+
         switchpg(11);
     });
 
@@ -170,7 +183,7 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
 
 
 
-    connect(ui->teacher_timetable_load_btn,&QPushButton::clicked,this,[this]{
+    connect(ui->teacher_timetable_load_btn,&QPushButton::clickeui->teacher_reports_student_combo->currentText()d,this,[this]{
         int yeary=ui->teacher_timetable_class_combo->currentText().at(0).digitValue();
         int classs=ui->teacher_timetable_class_combo->currentText().at(2).digitValue();
 
@@ -345,7 +358,7 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
 
 
 
-
+ui->teacher_reports_student_combo->currentText()
 
 
 

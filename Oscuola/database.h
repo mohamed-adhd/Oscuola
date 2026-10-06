@@ -31,7 +31,10 @@ public:
     QMap<QString, double> grades;
 };
 
-
+class reports{
+    QString name;
+    QString classs;
+};
 
 class database : public QObject{
     Q_OBJECT
@@ -52,6 +55,7 @@ public :
     std::vector<cgr> get_class_grades(std::string classs);
     int post_grades(int id, QMap<QString, double> g, int *year);
     QString get_rapport(int id,QString classs);
+
 
 
 
