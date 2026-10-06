@@ -85,9 +85,9 @@ def tests():
     test()
     return {"message": "done"}
 
-@app.get("/testapi")
-def tap():
-    return report_ts("7A3",1)
+@app.post("/generate_rep")
+def tap(data : reportsss,authorized: None = Depends(verify_key)):
+    return report_ts(data.classs,data.id)
 
 
 

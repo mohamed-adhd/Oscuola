@@ -64,20 +64,16 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
             QTableWidget *table = ui->teacher_reports_list;
             int row = table->rowCount();
             table->insertRow(row);
-
             table->setItem(row, 0, new QTableWidgetItem(QString::fromStdString(mlml.name)));
             table->setItem(row, 1, new QTableWidgetItem(QString::fromStdString(mlml.classs)));
 
             QPushButton *btn = new QPushButton("Download PDF", table);
-            btn->setObjectName("report_download_btn");   // picks up your stylesheet
+            btn->setObjectName("report_download_btn");
             btn->setMinimumHeight(30);
             btn->setCursor(Qt::PointingHandCursor);
 
             connect(btn, &QPushButton::clicked, this, [this]() {
                 QString ssss=QFileDialog::getExistingDirectory();
-
-
-
                 downloadreport(ssss);
             });
 
@@ -152,7 +148,7 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
 
 
     connect(ui->teacher_reports_generate_btn,&QPushButton::clicked,this,[this]{
-        QString m=db.get_rapport(ui->teacher_reports_student_combo->currentText().toInt(),ui->teacher_reports_class_combo->currentText());
+        QString m=db.generate_rapport(ui->teacher_reports_class_combo->currentText(),ui->teacher_reports_student_combo->currentText().toInt());
 
     });
 
@@ -389,12 +385,6 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
 
 
         }
-
-
-
-
-ui->teacher_reports_student_combo->currentText()
-
 
 
 switchpg(4);});
