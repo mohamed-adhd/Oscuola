@@ -68,9 +68,9 @@ def load_reps(id):
 
     cur = s.cursor()
     cur.execute("SELECT * FROM reports WHERE teacher_id = %s;",(id,) )
-    res=cur.fetchall
-    cur.close
-    s.close
+    res=cur.fetchall()
+    cur.close()
+    s.close()
     return {"message":res}
 
 
