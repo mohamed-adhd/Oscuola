@@ -219,7 +219,25 @@ QVector<QString> database::get_classes(int id){
 
 
     }
+QString database::get_rapport(int id,QString classs){
+    QNetworkAccessManager *manager = new QNetworkAccessManager(this);
+    QNetworkRequest request = mkreq("/get_myclasses");
+    QJsonObject json;
+    json["id"] = QString::fromStdString(std::to_string(id));
+    json["classs"] = classs;
+    QJsonDocument doc(json);
+    QByteArray data = doc.toJson();
+    QNetworkReply *res = manager->post(request, data);
+    QEventLoop loop;
+    connect(res,&QNetworkReply::finished,&loop,&QEventLoop::quit);
+    loop.exec();
+    QByteArray responseData = res->readAll();
+    qDebug().noquote() << responseData;
 
+    QJsonDocument docs = QJsonDocument::fromJson(responseData);
+    QJsonObject obj = docs.object();
+    return obj["message"].toString();
+}
 
 
 

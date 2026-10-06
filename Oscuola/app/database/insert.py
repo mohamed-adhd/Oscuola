@@ -151,5 +151,7 @@ def sendemail(email, name):
     message.set_content(body)
     with smtplib.SMTP("smtp.gmail.com", 587) as server:
         server.starttls()
-        server.login("oscuolaa@gmail.com", "vqrowgjpchgasjsr")
+        load_dotenv()
+        cons = os.environ["GMAIL_KEY"]
+        server.login("oscuolaa@gmail.com", appmail)
         server.send_message(message)

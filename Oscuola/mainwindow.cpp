@@ -104,7 +104,9 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
 
 
 
-
+    connect(ui->teacher_reports_generate_btn,&QPushButton::clicked,this,[this]{
+        QString m=db.get_rapport(ui->teacher_reports_student_combo->currentText().toInt(),ui->teacher_reports_class_combo->currentText());
+    });
 
 
 
