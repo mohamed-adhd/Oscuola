@@ -61,7 +61,17 @@ def report_ts(x,id):
     return response.choices[0].message.content
 
 
+def load_reps(id):
+    load_dotenv()
+    cons = os.environ["CON_STRING"]
+    s = psycopg2.connect(os.environ["DATABASE_URL"])
 
+    cur = s.cursor()
+    cur.execute("SELECT * FROM reports WHERE teacher_id = %s;",(id,) )
+    res=cur.fetchall
+    cur.close
+    s.close
+    return res
 
 
 def check_login(gmail, pswd):
