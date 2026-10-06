@@ -47,8 +47,27 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
             qDebug()<<c;
         }
         ui->teacher_reports_class_combo->blockSignals(false);
-        std::vector<reports> reports_load=db.loadreports(,ui->teacher_reports_class_combo->currentText().toStdString());
 
+        std::vector<reports> reports_load=db.loadreports(std::get<4>(f));
+        for(reports &mlml : reports_load){
+            QTableWidget *table = ui->teacher_reports_list;
+            int row = table->rowCount();
+            table->insertRow(row);
+
+            table->setItem(row, 0, new QTableWidgetItem(mlml));
+            table->setItem(row, 1, new QTableWidgetItem(studentName));
+
+            QPushButton *btn = new QPushButton("Download PDF", table);
+            btn->setObjectName("report_download_btn");   // picks up your stylesheet
+            btn->setMinimumHeight(30);
+            btn->setCursor(Qt::PointingHandCursor);
+
+            connect(btn, &QPushButton::clicked, this, [this, reportPath]() {
+                downloadReport(reportPath);
+            });
+
+            table->setCellWidget(row, 2, btn);
+        }
 
 
 
@@ -75,7 +94,7 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
             return;
         }
         qDebug()<<"class is "<<ui->teacher_reports_class_combo->currentText().toStdString();
-        std::vector<studs> momo = db.get_students(ui->teacher_reports_class_combo->currentText().toStdString());
+        momo = db.get_students(ui->teacher_reports_class_combo->currentText().toStdString());
         for (studs &c : momo){
             qDebug()<<c.name;
             ui->teacher_reports_student_combo->addItem(
@@ -119,6 +138,7 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
 
     connect(ui->teacher_reports_generate_btn,&QPushButton::clicked,this,[this]{
         QString m=db.get_rapport(ui->teacher_reports_student_combo->currentText().toInt(),ui->teacher_reports_class_combo->currentText());
+
     });
 
 
@@ -183,7 +203,7 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
 
 
 
-    connect(ui->teacher_timetable_load_btn,&QPushButton::clickeui->teacher_reports_student_combo->currentText()d,this,[this]{
+    connect(ui->teacher_timetable_load_btn,&QPushButton::clicked,this,[this]{
         int yeary=ui->teacher_timetable_class_combo->currentText().at(0).digitValue();
         int classs=ui->teacher_timetable_class_combo->currentText().at(2).digitValue();
 

@@ -67,7 +67,7 @@ def load_reps(id):
     s = psycopg2.connect(os.environ["DATABASE_URL"])
 
     cur = s.cursor()
-    cur.execute("SELECT * FROM reports WHERE teacher_id = %s;",(id,) )
+    cur.execute("SELECT classs,student,content FROM reports WHERE teacher_id = %s;",(id,) )
     res=cur.fetchall()
     cur.close()
     s.close()
