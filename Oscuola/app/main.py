@@ -78,10 +78,6 @@ def root():
     return {"message": "online"}
 
 
-@app.post("/getreport")
-def tap(data : reportsss, authorized: None = Depends(verify_key)):
-    s=report_ts(data.classs,data.id)
-    return {"message":s}
 
 
 @app.post("/load_reports")
