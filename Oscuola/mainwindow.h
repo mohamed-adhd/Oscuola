@@ -17,6 +17,7 @@ public:
     std::tuple<std::string, std::string, std::string, std::string,int,int,int> f;
     bool loaded_grades=false,alertsloaded=false,tbloaded=false;
     database& db;
+    std::vector<studs> momo;
     explicit MainWindow(database& dbo,QWidget *parent = nullptr);
     ~MainWindow() override;
     void switchpg(int to);
@@ -26,6 +27,7 @@ public:
     void loadgrades();
     void savegrades();
     void setgradeheaders(int year);
+    bool downloadreport(QString);
 
 private:
     Ui::MainWindow *ui;

@@ -5,7 +5,7 @@ import os
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 from fastapi import FastAPI
 from fastapi import Depends
-from database.fetch import check_login,get_grades,get_class_grades,get_alerts_1st,timetable,get_classes,get_reqs,getstudents,test,report_ts
+from database.fetch import check_login,get_grades,get_class_grades,get_alerts_1st,timetable,get_classes,get_reqs,getstudents,test,report_ts,load_reps
 from database.insert import insert_request,postit,accept_it,delete_it,modifygrades
 from pydantic import BaseModel
 class LoginRequest(BaseModel):
@@ -14,6 +14,16 @@ class LoginRequest(BaseModel):
 class reportsss(BaseModel):
     classs : str
     id : int
+
+class reportsssteach(BaseModel):
+    classs : str
+    id : int
+    teach_id: int
+
+
+
+
+
 
 class classs(BaseModel):
     classs : int
@@ -68,13 +78,11 @@ def root():
     return {"message": "online"}
 
 
-@app.post("/getreport")
-def tap(data : reportsss, authorized: None = Depends(verify_key)):
-    s=report_ts(data.classs,data.id)
-    return {"message":s}
 
 
-
+@app.post("/load_reports")
+def lorep(data : ids, authorized: None = Depends(verify_key)):
+    return load_reps(data.id)
 
 
 
@@ -83,9 +91,9 @@ def tests():
     test()
     return {"message": "done"}
 
-@app.get("/testapi")
-def tap():
-    return report_ts("7A3",1)
+@app.post("/generate_rep")
+def tap(data : reportsssteach,authorized: None = Depends(verify_key)):
+    return report_ts(data.classs,data.id,data.teach_id)
 
 
 

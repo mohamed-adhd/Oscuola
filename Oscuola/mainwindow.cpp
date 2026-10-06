@@ -2,6 +2,17 @@
 #include "./ui_mainwindow.h"
 #include "database.h"
 #include <QButtonGroup>
+#include <QFileDialog>
+
+
+
+bool MainWindow::downloadreport(QString){
+    return true;
+}
+
+
+
+
 
 
 
@@ -47,6 +58,38 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
             qDebug()<<c;
         }
         ui->teacher_reports_class_combo->blockSignals(false);
+
+        std::vector<reports> reports_load=db.loadreports(std::get<4>(f));
+        for(reports &mlml : reports_load){
+            QTableWidget *table = ui->teacher_reports_list;
+            int row = table->rowCount();
+            table->insertRow(row);
+            table->setItem(row, 0, new QTableWidgetItem(QString::fromStdString(mlml.name)));
+            table->setItem(row, 1, new QTableWidgetItem(QString::fromStdString(mlml.classs)));
+
+            QPushButton *btn = new QPushButton("Download PDF", table);
+            btn->setObjectName("report_download_btn");
+            btn->setMinimumHeight(30);
+            btn->setCursor(Qt::PointingHandCursor);
+
+            connect(btn, &QPushButton::clicked, this, [this]() {
+                QString ssss=QFileDialog::getExistingDirectory();
+                downloadreport(ssss);
+            });
+
+            table->setCellWidget(row, 2, btn);
+        }
+
+
+
+
+
+
+
+
+
+
+
         switchpg(11);
     });
 
@@ -62,7 +105,7 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
             return;
         }
         qDebug()<<"class is "<<ui->teacher_reports_class_combo->currentText().toStdString();
-        std::vector<studs> momo = db.get_students(ui->teacher_reports_class_combo->currentText().toStdString());
+        momo = db.get_students(ui->teacher_reports_class_combo->currentText().toStdString());
         for (studs &c : momo){
             qDebug()<<c.name;
             ui->teacher_reports_student_combo->addItem(
@@ -104,7 +147,10 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
 
 
 
+    connect(ui->teacher_reports_generate_btn,&QPushButton::clicked,this,[this]{
+        QString m=db.generate_rapport(ui->teacher_reports_class_combo->currentText(),ui->teacher_reports_student_combo->currentText().toInt());
 
+    });
 
 
 
@@ -339,12 +385,6 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
 
 
         }
-
-
-
-
-
-
 
 
 switchpg(4);});
