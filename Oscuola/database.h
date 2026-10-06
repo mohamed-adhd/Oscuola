@@ -57,6 +57,7 @@ public :
     int post_grades(int id, QMap<QString, double> g, int *year);
     bool generate_rapport(QString classs,int id,int teid);
     std::vector<reports> loadreports(int id);
+    QString rep_content(QString name,QString classs);
 
 
 

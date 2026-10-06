@@ -4,9 +4,36 @@
 #include <QButtonGroup>
 #include <QFileDialog>
 
+#include <QTextDocument>
+#include <QPdfWriter>
+#include <QPageSize>
+#include <QPageLayout>
+#include <QMarginsF>
+#include <QTextFrame>
+#include <QTextTable>
+#include <QTextTableFormat>
 
+bool MainWindow::downloadreport(QString dir,QString content){
+    QTextDocument doc;
+    doc.setDefaultFont(QFont("Arial", 11));
+    doc.setMarkdown(content, QTextDocument::MarkdownDialectGitHub);
+    for (auto it = doc.rootFrame()->begin(); !it.atEnd(); ++it) {
+        if (auto *table = qobject_cast<QTextTable *>(it.currentFrame())) {
+            QTextTableFormat fmt = table->format();
+            fmt.setBorder(1);
+            fmt.setBorderStyle(QTextFrameFormat::BorderStyle_Solid);
+            fmt.setCellPadding(5);
+            fmt.setCellSpacing(0);
+            fmt.setWidth(QTextLength(QTextLength::PercentageLength, 100));
+            table->setFormat(fmt);
+        }
+    }
 
-bool MainWindow::downloadreport(QString){
+    QPdfWriter writer(dir);
+    writer.setPageSize(QPageSize(QPageSize::A4));
+    writer.setPageMargins(QMarginsF(20, 20, 20, 20), QPageLayout::Millimeter);
+
+    doc.print(&writer);
     return true;
 }
 
@@ -72,9 +99,10 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
             btn->setMinimumHeight(30);
             btn->setCursor(Qt::PointingHandCursor);
 
-            connect(btn, &QPushButton::clicked, this, [this]() {
-                QString ssss=QFileDialog::getExistingDirectory();
-                downloadreport(ssss);
+            connect(btn, &QPushButton::clicked, this, [this,mlml]() {
+                QString ssss=QFileDialog::getExistingDirectory()+"/"+QString::fromStdString(mlml.name)+"_report.pdf";
+                QString content=db.rep_content(QString::fromStdString(mlml.name),QString::fromStdString(mlml.classs));
+                downloadreport(ssss,content);
             });
 
             table->setCellWidget(row, 2, btn);
