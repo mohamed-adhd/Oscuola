@@ -15,6 +15,16 @@ class reportsss(BaseModel):
     classs : str
     id : int
 
+class reportsssteach(BaseModel):
+    classs : str
+    id : int
+    teach_id: int
+
+
+
+
+
+
 class classs(BaseModel):
     classs : int
     year : int
@@ -86,8 +96,8 @@ def tests():
     return {"message": "done"}
 
 @app.post("/generate_rep")
-def tap(data : reportsss,authorized: None = Depends(verify_key)):
-    return report_ts(data.classs,data.id)
+def tap(data : reportsssteach,authorized: None = Depends(verify_key)):
+    return report_ts(data.classs,data.id,data.teach_id)
 
 
 
