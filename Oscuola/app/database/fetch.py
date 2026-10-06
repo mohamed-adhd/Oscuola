@@ -71,7 +71,7 @@ def load_reps(id):
     res=cur.fetchall
     cur.close
     s.close
-    return res
+    return {"message":res}
 
 
 def check_login(gmail, pswd):
