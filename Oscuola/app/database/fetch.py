@@ -229,7 +229,7 @@ def get_repcontent(name,classs):
     cons = os.environ["CON_STRING"]
     s = psycopg2.connect(os.environ["DATABASE_URL"])
     cur = s.cursor()
-    cur.execute("SELECT content FROM reports WHERE name = %s AND classs= %s ;", (name,classs))
+    cur.execute("SELECT content FROM reports WHERE student = %s AND classs= %s ;", (name,classs))
     cur.fetchone()
     return {"content":res[0]}
 
