@@ -225,27 +225,6 @@ QVector<QString> database::get_classes(int id){
 
 
 
-    QString database::get_rapport(int id){
-        QVector<QString> classes;
-        QNetworkAccessManager *manager = new QNetworkAccessManager(this);
-        QNetworkRequest request = mkreq("/get_myclasses");
-        QJsonObject json;
-        json["id"] = QString::fromStdString(std::to_string(id));
-        QJsonDocument doc(json);
-        QByteArray data = doc.toJson();
-        QNetworkReply *res = manager->post(request, data);
-        QEventLoop loop;
-        connect(res,&QNetworkReply::finished,&loop,&QEventLoop::quit);
-        loop.exec();
-        QByteArray responseData = res->readAll();
-        qDebug().noquote() << responseData;
-
-        QJsonDocument docs = QJsonDocument::fromJson(responseData);
-        QJsonObject obj = docs.object();
-        QJsonArray arr = obj.value("data").toArray();
-        return obj["message"].toString();
-    }
-
 
 
     std::vector<studs> database::get_students(std::string classs){
@@ -576,6 +555,98 @@ std::vector<req> database::get_requests(int id)
 
 
 };
+
+
+
+
+
+bool database::generate_rapport(QString classs,int id){
+    QNetworkAccessManager *manager = new QNetworkAccessManager(this);
+    QNetworkRequest request = mkreq("/generate_rep");
+    QJsonObject json;
+    json["id"] = QString::fromStdString(std::to_string(id));
+    json["classs"] = classs;
+    QJsonDocument doc(json);
+    QByteArray data = doc.toJson();
+    QNetworkReply *res = manager->post(request, data);
+    QEventLoop loop;
+
+    connect(res,&QNetworkReply::finished,&loop,&QEventLoop::quit);
+
+    loop.exec();
+    QByteArray responseData = res->readAll();
+    qDebug().noquote()<<responseData;
+    QJsonDocument docs = QJsonDocument::fromJson(responseData);
+    QJsonObject obj = docs.object();
+    return obj["status"].toBool();
+
+
+
+}
+
+
+
+
+
+
+
+std::vector<reports> database::loadreports(int id)
+{
+    QNetworkAccessManager *manager = new QNetworkAccessManager(this);
+    QNetworkRequest request = mkreq("/load_reports");
+
+    QJsonObject json;
+    json["id"] = QString::fromStdString(std::to_string(id));
+    QJsonDocument doc(json);
+    QByteArray data = doc.toJson();
+    QNetworkReply *res = manager->post(request, data);
+    QEventLoop loop;
+
+    connect(res,&QNetworkReply::finished,&loop,&QEventLoop::quit);
+
+    loop.exec();
+    QByteArray responseData = res->readAll();
+    qDebug().noquote()<<responseData;
+    QJsonDocument docs = QJsonDocument::fromJson(responseData);
+    QJsonObject obj = docs.object();
+    //qDebug() << obj["success"].toString();
+    //qDebug() << obj["math"].toString();
+    //qDebug() << obj["cs"].toString();
+
+    std::vector<reports>temp;
+    QJsonArray dataArray = obj["message"].toArray();
+    for (const QJsonValue &rowVal : dataArray) {
+        QJsonArray row = rowVal.toArray();
+        reports r;
+        r.classs= row[0].toString().toStdString();
+        r.name = row[1].toString().toStdString();
+        temp.push_back(r);
+    }
+
+
+    return temp;
+
+
+
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 bool database::accept(std::string name, std::string aftername,std::string classs){
     QNetworkAccessManager *manager = new QNetworkAccessManager(this);
     QNetworkRequest request = mkreq("/accept_request");
