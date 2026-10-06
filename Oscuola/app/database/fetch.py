@@ -45,9 +45,15 @@ def report_ts(x,id,tid):
 
     cur.execute(sql.SQL("SELECT * FROM {} WHERE student_id = %s;").format(sql.Identifier(tn)),(id,))
     res = cur.fetchone()
-    tempnm = res[1] + res[2]
     headers = [col[0] for col in cur.description]
     table = [headers, res]
+
+    cur.execute("SELECT name,aftername FROM students WHERE id = %s;",(id,))
+    res=cur.fetchone()
+    tempnm = res[1] + res[2]
+
+
+
     cur.execute("SELECT * FROM students WHERE id = %s;",(id,))
     ress = cur.fetchone()
 
