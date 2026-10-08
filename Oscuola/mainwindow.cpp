@@ -13,6 +13,24 @@
 #include <QTextTable>
 #include <QTextTableFormat>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 bool MainWindow::downloadreport(QString dir,QString content){
     QTextDocument doc;
     doc.setDefaultFont(QFont("Arial", 11));
@@ -62,6 +80,41 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
 
 
 
+
+
+
+
+    QButtonGroup *users_buts= new QButtonGroup(this);
+
+    users_buts->addButton(ui->users_button_admin_1);
+    users_buts->addButton(ui->users_button_admin_3);
+
+
+    QButtonGroup *tb_admin_buts= new QButtonGroup(this);
+
+    tb_admin_buts->addButton(ui->timetable_but_admin_1);
+    tb_admin_buts->addButton(ui->timetable_but_admin_2);
+
+    QButtonGroup *backhomeadmin= new QButtonGroup(this);
+
+    backhomeadmin->addButton(ui->back_home_btn_admin_2);
+    backhomeadmin->addButton(ui->back_home_btn_admin_3);
+
+
+
+    connect(backhomeadmin,&QButtonGroup::buttonClicked,this,[this]{
+        switchpg(12);
+    });
+
+
+    connect(users_buts,&QButtonGroup::buttonClicked,this,[this]{
+        switchpg(13);
+    });
+
+
+    connect(tb_admin_buts,&QButtonGroup::buttonClicked,this,[this]{
+        switchpg(14);
+    });
 
 
 
