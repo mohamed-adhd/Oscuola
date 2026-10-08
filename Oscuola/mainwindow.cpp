@@ -13,6 +13,24 @@
 #include <QTextTable>
 #include <QTextTableFormat>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 bool MainWindow::downloadreport(QString dir,QString content){
     QTextDocument doc;
     doc.setDefaultFont(QFont("Arial", 11));
@@ -62,6 +80,41 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
 
 
 
+
+
+
+
+    QButtonGroup *users_buts= new QButtonGroup(this);
+
+    users_buts->addButton(ui->users_button_admin_1);
+    users_buts->addButton(ui->users_button_admin_3);
+
+
+    QButtonGroup *tb_admin_buts= new QButtonGroup(this);
+
+    tb_admin_buts->addButton(ui->timetable_but_admin_1);
+    tb_admin_buts->addButton(ui->timetable_but_admin_2);
+
+    QButtonGroup *backhomeadmin= new QButtonGroup(this);
+
+    backhomeadmin->addButton(ui->back_home_btn_admin_2);
+    backhomeadmin->addButton(ui->back_home_btn_admin_3);
+
+
+
+    connect(backhomeadmin,&QButtonGroup::buttonClicked,this,[this]{
+        switchpg(12);
+    });
+
+
+    connect(users_buts,&QButtonGroup::buttonClicked,this,[this]{
+        switchpg(13);
+    });
+
+
+    connect(tb_admin_buts,&QButtonGroup::buttonClicked,this,[this]{
+        switchpg(14);
+    });
 
 
 
@@ -487,6 +540,7 @@ switchpg(4);});
             std::tuple<std::string, std::string, std::string, std::string,int,int,int> s=db.login_check(ui->login_email->text().toStdString(), ui->login_passwd->text().toStdString());
             qDebug()<<"the role recieved is "+get<0>(s);
             f=s;
+            qDebug()<<"aaaaaaaaaaaaa"<<get<0>(s);
             if (get<0>(s)!="false") {
                 ui->user_name_label->setText(QString::fromStdString(std::get<1>(f))+" "+QString::fromStdString(std::get<2>(f)));
                 if(get<0>(s)=="student"){
@@ -544,9 +598,14 @@ switchpg(4);});
 
                     switchpg(7);
                 }
-                } else {
+            else if (get<0>(s)=="admin"){
+                qDebug()<<"INTIATED";
+                switchpg(12);
+
+
+            }else {
                 ui->login_alert->setText("user not found");
-            }
+            }}
         }});
     connect(ui->btn_create_account,&QPushButton::clicked,this,[this]() {
         if(ui->reg_aftername->text()=="" || ui->reg_pswd->text()=="" || ui->pswd_conf->text()==""){
