@@ -487,6 +487,7 @@ switchpg(4);});
             std::tuple<std::string, std::string, std::string, std::string,int,int,int> s=db.login_check(ui->login_email->text().toStdString(), ui->login_passwd->text().toStdString());
             qDebug()<<"the role recieved is "+get<0>(s);
             f=s;
+            qDebug()<<"aaaaaaaaaaaaa"<<get<0>(s);
             if (get<0>(s)!="false") {
                 ui->user_name_label->setText(QString::fromStdString(std::get<1>(f))+" "+QString::fromStdString(std::get<2>(f)));
                 if(get<0>(s)=="student"){
@@ -544,9 +545,14 @@ switchpg(4);});
 
                     switchpg(7);
                 }
-                } else {
+            else if (get<0>(s)=="admin"){
+                qDebug()<<"INTIATED";
+                switchpg(12);
+
+
+            }else {
                 ui->login_alert->setText("user not found");
-            }
+            }}
         }});
     connect(ui->btn_create_account,&QPushButton::clicked,this,[this]() {
         if(ui->reg_aftername->text()=="" || ui->reg_pswd->text()=="" || ui->pswd_conf->text()==""){
