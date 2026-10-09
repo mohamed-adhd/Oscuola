@@ -1,8 +1,43 @@
+import base64
 from dotenv import load_dotenv
 import psycopg2
 import os
 import bcrypt
 from smtplib import SMTP
+
+
+
+
+
+def update_tb(content,classs,yeary):
+    load_dotenv()
+    cons = os.environ["CON_STRING"]
+    s = psycopg2.connect(os.environ["DATABASE_URL"])
+    cur = s.cursor()
+    res=base64.decode(content)
+
+    cur.execute("UPDATE timetables WHERE class = %s AND year = %s SET tb = %s ;", (classs,yeary,psycopg2.Binary(res),))
+    s.commit()
+    cur.close()
+    s.close()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 def insert_request(email,password,classs,name,aftername):
     conn = None
     try:

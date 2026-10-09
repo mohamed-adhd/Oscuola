@@ -118,6 +118,82 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
 
 
 
+    connect(tb_admin_buts,&QButtonGroup::buttonClicked,this,[this]{
+        ui->admin_timetable_class_combo->blockSignals(true);
+        ui->admin_timetable_class_combo->clear();
+        QVector<QString> classes = db.list_classes();
+        qDebug()<<std::get<4>(f);
+        for (const QString &c : classes){
+            ui->admin_timetable_class_combo->addItem(c, c);
+            qDebug()<<c;
+        }
+        ui->admin_timetable_class_combo->blockSignals(false);
+    });
+
+
+    connect(ui->admin_timetable_showcurrent_btn,&QPushButton::clicked,this,[this]{
+        int yeary=ui->admin_timetable_class_combo->currentText().at(0).digitValue();
+        int classs=ui->admin_timetable_class_combo->currentText().at(2).digitValue();
+        std::string  soi=db.fetch_timetable(yeary,classs);
+        QByteArray pfp = QByteArray::fromBase64(QString::fromStdString(soi).toUtf8());
+        QPixmap p;
+        p.loadFromData(pfp);
+        QPixmap scaled = p.scaled(
+            ui->timetable_picture_label_teacher->size(),
+            Qt::KeepAspectRatio,
+            Qt::SmoothTransformation
+            );
+        ui->timetable_picture_label_admin->setPixmap(scaled);
+        ui->timetable_picture_label_admin->setAlignment(Qt::AlignCenter);
+    });
+
+    connect(ui->admin_timetable_upload_btn,&QPushButton::clicked,this,[this]{
+        soiy=QFileDialog::getOpenFileName(this,tr("Open File"),"/home",tr("Images (*.jpg)"));
+        QPixmap p;
+        p.load(soiy);
+        QPixmap scaled = p.scaled(
+            ui->timetable_picture_label_teacher->size(),
+            Qt::KeepAspectRatio,
+            Qt::SmoothTransformation
+            );
+        ui->timetable_picture_label_admin->setPixmap(scaled);
+        ui->timetable_picture_label_admin->setAlignment(Qt::AlignCenter);
+        hestuffedjellybeansuphisass=true;
+    });
+
+
+    connect(ui->admin_timetable_update,&QPushButton::clicked,this,[this]{
+        int yeary=ui->admin_timetable_class_combo->currentText().at(0).digitValue();
+        int classs=ui->admin_timetable_class_combo->currentText().at(2).digitValue();
+        QFile file(soiy);
+        QByteArray data=file.readAll();
+        data=data.toBase64();
+        QString ready = QString::fromLatin1(data);
+        if (hestuffedjellybeansuphisass){
+            db.update_timetable(ready,yeary,classs);
+        }
+
+    });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     QButtonGroup *report_buts= new QButtonGroup(this);

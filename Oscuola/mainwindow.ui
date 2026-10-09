@@ -4863,7 +4863,7 @@ Absence excuse request — Sep 8</string>
        <cursorShape>PointingHandCursor</cursorShape>
       </property>
      </widget>
-     <widget class="QPushButton" name="admin_timetable_update_btn">
+     <widget class="QPushButton" name="admin_timetable_showcurrent_btn">
       <property name="geometry">
        <rect>
         <x>490</x>
@@ -4876,7 +4876,7 @@ Absence excuse request — Sep 8</string>
        <cursorShape>PointingHandCursor</cursorShape>
       </property>
       <property name="text">
-       <string>Update</string>
+       <string>show current</string>
       </property>
      </widget>
      <widget class="QLabel" name="admin_timetable_res">
@@ -4934,6 +4934,38 @@ No image set — select a class to see its schedule</string>
         <bool>true</bool>
        </property>
       </widget>
+     </widget>
+     <widget class="QPushButton" name="admin_timetable_upload_btn">
+      <property name="geometry">
+       <rect>
+        <x>620</x>
+        <y>130</y>
+        <width>100</width>
+        <height>34</height>
+       </rect>
+      </property>
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
+      </property>
+      <property name="text">
+       <string>upload</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="admin_timetable_update">
+      <property name="geometry">
+       <rect>
+        <x>750</x>
+        <y>130</y>
+        <width>100</width>
+        <height>34</height>
+       </rect>
+      </property>
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
+      </property>
+      <property name="text">
+       <string>Update</string>
+      </property>
      </widget>
     </widget>
    </widget>
