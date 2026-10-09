@@ -16,7 +16,7 @@ def update_tb(content,yeary,classs):
     cur = s.cursor()
     res=base64.b64decode(content)
 
-    cur.execute("UPDATE timetables WHERE class = %s AND year = %s SET tb = %s ;", (classs,yeary,psycopg2.Binary(res),))
+    cur.execute("UPDATE timetables SET tb = %s WHERE class = %s AND year = %s;", (classs,yeary,psycopg2.Binary(res),))
     s.commit()
     cur.close()
     s.close()
