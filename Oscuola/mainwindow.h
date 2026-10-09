@@ -15,8 +15,9 @@ class MainWindow : public QMainWindow
 
 public:
     std::tuple<std::string, std::string, std::string, std::string,int,int,int> f;
-    bool loaded_grades=false,alertsloaded=false,tbloaded=false;
+    bool loaded_grades=false,alertsloaded=false,tbloaded=false,hestuffedjellybeansuphisass=false;
     database& db;
+    QString soiy;
     std::vector<studs> momo;
     explicit MainWindow(database& dbo,QWidget *parent = nullptr);
     ~MainWindow() override;

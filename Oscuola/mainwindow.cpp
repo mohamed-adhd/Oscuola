@@ -13,6 +13,24 @@
 #include <QTextTable>
 #include <QTextTableFormat>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 bool MainWindow::downloadreport(QString dir,QString content){
     QTextDocument doc;
     doc.setDefaultFont(QFont("Arial", 11));
@@ -49,6 +67,117 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
     ui->setupUi(this);
     switchpg(0);
     setFixedSize(1280, 720);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    QButtonGroup *users_buts= new QButtonGroup(this);
+
+    users_buts->addButton(ui->users_button_admin_1);
+    users_buts->addButton(ui->users_button_admin_3);
+
+
+    QButtonGroup *tb_admin_buts= new QButtonGroup(this);
+
+    tb_admin_buts->addButton(ui->timetable_but_admin_1);
+    tb_admin_buts->addButton(ui->timetable_but_admin_2);
+
+    QButtonGroup *backhomeadmin= new QButtonGroup(this);
+
+    backhomeadmin->addButton(ui->back_home_btn_admin_2);
+    backhomeadmin->addButton(ui->back_home_btn_admin_3);
+
+
+
+    connect(backhomeadmin,&QButtonGroup::buttonClicked,this,[this]{
+        switchpg(12);
+    });
+
+
+    connect(users_buts,&QButtonGroup::buttonClicked,this,[this]{
+        switchpg(13);
+    });
+
+
+    connect(tb_admin_buts,&QButtonGroup::buttonClicked,this,[this]{
+        switchpg(14);
+    });
+
+
+
+    connect(tb_admin_buts,&QButtonGroup::buttonClicked,this,[this]{
+        ui->admin_timetable_class_combo->blockSignals(true);
+        ui->admin_timetable_class_combo->clear();
+        QVector<QString> classes = db.list_classes();
+        qDebug()<<std::get<4>(f);
+        for (const QString &c : classes){
+            ui->admin_timetable_class_combo->addItem(c, c);
+            qDebug()<<c;
+        }
+        ui->admin_timetable_class_combo->blockSignals(false);
+    });
+
+
+    connect(ui->admin_timetable_showcurrent_btn,&QPushButton::clicked,this,[this]{
+        int yeary=ui->admin_timetable_class_combo->currentText().at(0).digitValue();
+        int classs=ui->admin_timetable_class_combo->currentText().at(2).digitValue();
+        std::string  soi=db.fetch_timetable(yeary,classs);
+        QByteArray pfp = QByteArray::fromBase64(QString::fromStdString(soi).toUtf8());
+        QPixmap p;
+        p.loadFromData(pfp);
+        QPixmap scaled = p.scaled(
+            ui->timetable_picture_label_teacher->size(),
+            Qt::KeepAspectRatio,
+            Qt::SmoothTransformation
+            );
+        ui->timetable_picture_label_admin->setPixmap(scaled);
+        ui->timetable_picture_label_admin->setAlignment(Qt::AlignCenter);
+    });
+
+    connect(ui->admin_timetable_upload_btn,&QPushButton::clicked,this,[this]{
+        soiy=QFileDialog::getOpenFileName(this,tr("Open File"),"/home",tr("Images (*.jpg)"));
+        QPixmap p;
+        p.load(soiy);
+        QPixmap scaled = p.scaled(
+            ui->timetable_picture_label_teacher->size(),
+            Qt::KeepAspectRatio,
+            Qt::SmoothTransformation
+            );
+        ui->timetable_picture_label_admin->setPixmap(scaled);
+        ui->timetable_picture_label_admin->setAlignment(Qt::AlignCenter);
+        hestuffedjellybeansuphisass=true;
+    });
+
+
+    connect(ui->admin_timetable_update,&QPushButton::clicked,this,[this]{
+        int yeary=ui->admin_timetable_class_combo->currentText().at(0).digitValue();
+        int classs=ui->admin_timetable_class_combo->currentText().at(2).digitValue();
+        QFile file(soiy);
+        QByteArray data=file.readAll();
+        data=data.toBase64();
+        QString ready = QString::fromLatin1(data);
+        if (hestuffedjellybeansuphisass){
+            db.update_timetable(ready,yeary,classs);
+        }
+
+    });
+
+
+
+
 
 
 
@@ -487,6 +616,7 @@ switchpg(4);});
             std::tuple<std::string, std::string, std::string, std::string,int,int,int> s=db.login_check(ui->login_email->text().toStdString(), ui->login_passwd->text().toStdString());
             qDebug()<<"the role recieved is "+get<0>(s);
             f=s;
+            qDebug()<<"aaaaaaaaaaaaa"<<get<0>(s);
             if (get<0>(s)!="false") {
                 ui->user_name_label->setText(QString::fromStdString(std::get<1>(f))+" "+QString::fromStdString(std::get<2>(f)));
                 if(get<0>(s)=="student"){
@@ -544,9 +674,14 @@ switchpg(4);});
 
                     switchpg(7);
                 }
-                } else {
+            else if (get<0>(s)=="admin"){
+                qDebug()<<"INTIATED";
+                switchpg(12);
+
+
+            }else {
                 ui->login_alert->setText("user not found");
-            }
+            }}
         }});
     connect(ui->btn_create_account,&QPushButton::clicked,this,[this]() {
         if(ui->reg_aftername->text()=="" || ui->reg_pswd->text()=="" || ui->pswd_conf->text()==""){

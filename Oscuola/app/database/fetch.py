@@ -19,7 +19,7 @@ def test():
     cur = s.cursor()
     with open("gp.jpg", "rb") as f:
         img_data = f.read()
-    cur.execute("UPDATE users SET pfp = %s ;",(psycopg2.Binary(img_data),) )
+    cur.execute("UPDATE timetables SET tb = %s ;",(psycopg2.Binary(img_data),) )
     s.commit()
     cur.close()
     s.close()
@@ -232,6 +232,22 @@ def get_repcontent(name,classs):
     cur.execute("SELECT content FROM reports WHERE student = %s AND classs= %s ;", (name,classs))
     res=cur.fetchone()
     return {"content":res[0]}
+
+def lspci():
+    load_dotenv()
+    cons = os.environ["CON_STRING"]
+    s = psycopg2.connect(os.environ["DATABASE_URL"])
+    cur = s.cursor()
+    cur.execute("SELECT year,class FROM timetables ;")
+    res=cur.fetchall()
+
+
+    lt=[]
+    for row in res:
+        lt.append(str(row[0])+"A"+str(row[1]))
+
+    cur.close()
+    return {"content":lt}
 
 
 

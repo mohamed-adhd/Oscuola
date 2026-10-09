@@ -48,6 +48,7 @@ public :
     std::string fetch_timetable(int year,int classs);
     bool sendpost(QString subject,QString message);
     QVector<QString> get_classes(int id);
+    QVector<QString> list_classes();
     std::vector<studs> get_students(std::string classs);
     std::vector<req> get_requests(int id);
     bool accept(std::string classs, std::string name,std::string aftername);
@@ -58,6 +59,7 @@ public :
     bool generate_rapport(QString classs,int id,int teid);
     std::vector<reports> loadreports(int id);
     QString rep_content(QString name,QString classs);
+    bool update_timetable(QString content,int year,int classs);
 
 
 
