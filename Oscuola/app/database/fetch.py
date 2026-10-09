@@ -242,7 +242,11 @@ def lspci():
     res=cur.fetchall()
 
     cur.close()
-    return {"content":res}
+    dict(fl)
+
+    for row in res:
+        fl.append(row[0]+row[1])
+    return {fl}
 
 
 
