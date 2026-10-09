@@ -23,6 +23,8 @@ class reportsssteach(BaseModel):
 
 class tb(BaseModel):
     ctb : str
+    classs : int
+    year : int
 
 
 
@@ -123,7 +125,7 @@ def sss():
 
 @app.post("/update_tb")
 def utb(data : tb, authorized: None = Depends(verify_key)):
-    return update_tb(data.ctb)
+    return update_tb(data.ctb,data.year,data.classs)
 
 
 

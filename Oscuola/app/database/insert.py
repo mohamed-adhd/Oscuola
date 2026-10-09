@@ -9,7 +9,7 @@ from smtplib import SMTP
 
 
 
-def update_tb(content,classs,yeary):
+def update_tb(content,yeary,classs):
     load_dotenv()
     cons = os.environ["CON_STRING"]
     s = psycopg2.connect(os.environ["DATABASE_URL"])
