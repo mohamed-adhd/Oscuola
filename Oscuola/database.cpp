@@ -394,7 +394,7 @@ bool database::update_timetable(QString content,int year,int classs)
     QNetworkAccessManager *manager = new QNetworkAccessManager(this);
     QNetworkRequest request = mkreq("/update_tb");
     QJsonObject json;
-    json["content"] = content;
+    json["ctb"] = content;
     json["year"] = year;
     json["classs"] = classs;
     QJsonDocument doc(json);

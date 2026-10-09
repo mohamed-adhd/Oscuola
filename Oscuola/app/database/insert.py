@@ -14,7 +14,7 @@ def update_tb(content,yeary,classs):
     cons = os.environ["CON_STRING"]
     s = psycopg2.connect(os.environ["DATABASE_URL"])
     cur = s.cursor()
-    res=base64.decode(content)
+    res=base64.b64decode(content)
 
     cur.execute("UPDATE timetables WHERE class = %s AND year = %s SET tb = %s ;", (classs,yeary,psycopg2.Binary(res),))
     s.commit()
