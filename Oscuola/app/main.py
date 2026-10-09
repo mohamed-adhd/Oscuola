@@ -5,7 +5,7 @@ import os
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 from fastapi import FastAPI
 from fastapi import Depends
-from database.fetch import check_login,get_grades,get_class_grades,get_alerts_1st,timetable,get_classes,get_reqs,getstudents,test,report_ts,load_reps,get_repcontent
+from database.fetch import check_login,get_grades,get_class_grades,get_alerts_1st,timetable,get_classes,get_reqs,getstudents,test,report_ts,load_reps,get_repcontent,lspci
 from database.insert import insert_request,postit,accept_it,delete_it,modifygrades
 from pydantic import BaseModel
 class LoginRequest(BaseModel):
@@ -111,6 +111,18 @@ def tap(data : repinfo,authorized: None = Depends(verify_key)):
 
 
 
+
+
+
+
+
+
+
+
+
+@app.get("/list_classes")
+def lc(authorized: None = Depends(verify_key)):
+    return lspci()
 
 
 

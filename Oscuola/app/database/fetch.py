@@ -233,6 +233,17 @@ def get_repcontent(name,classs):
     res=cur.fetchone()
     return {"content":res[0]}
 
+def lspci(name,classs):
+    load_dotenv()
+    cons = os.environ["CON_STRING"]
+    s = psycopg2.connect(os.environ["DATABASE_URL"])
+    cur = s.cursor()
+    cur.execute("SELECT year,class FROM timetables ;")
+    res=cur.fetchall()
+
+    cur.close()
+    return {"content":res}
+
 
 
 
