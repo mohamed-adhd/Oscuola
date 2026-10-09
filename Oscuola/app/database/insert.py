@@ -20,7 +20,7 @@ def update_tb(content,classs,yeary):
     s.commit()
     cur.close()
     s.close()
-
+    return {"status":True}
 
 
 
