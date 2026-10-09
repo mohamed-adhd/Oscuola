@@ -19,7 +19,7 @@ def test():
     cur = s.cursor()
     with open("gp.jpg", "rb") as f:
         img_data = f.read()
-    cur.execute("UPDATE users SET pfp = %s ;",(psycopg2.Binary(img_data),) )
+    cur.execute("UPDATE timetables SET tb = %s ;",(psycopg2.Binary(img_data),) )
     s.commit()
     cur.close()
     s.close()
@@ -244,7 +244,7 @@ def lspci():
 
     lt=[]
     for row in res:
-        lt.append(str(row[0])+str(row[1]))
+        lt.append(str(row[0])+"A"+str(row[1]))
 
     cur.close()
     return {"content":lt}

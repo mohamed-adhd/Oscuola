@@ -111,7 +111,9 @@ def tap(data : repinfo,authorized: None = Depends(verify_key)):
 
 
 
-
+@app.get("/test")
+def sss():
+    return test()
 
 
 
