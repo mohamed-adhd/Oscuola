@@ -241,11 +241,12 @@ def lspci():
     cur.execute("SELECT year,class FROM timetables ;")
     res=cur.fetchall()
 
-    cur.close()
-    lt=[]
 
+    lt=[]
     for row in res:
         lt.append(str(row[0])+str(row[1]))
+
+    cur.close()
     return {"content":lt}
 
 
