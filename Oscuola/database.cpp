@@ -224,6 +224,28 @@ QVector<QString> database::get_classes(int id){
 
 
 
+    QVector<QString> database::list_classes(){
+        QVector<QString> classes;
+        QNetworkAccessManager *manager = new QNetworkAccessManager(this);
+        QNetworkRequest request = mkreq("/list_classes");
+        QNetworkReply *res = manager->get(request);
+        QEventLoop loop;
+        connect(res,&QNetworkReply::finished,&loop,&QEventLoop::quit);
+        loop.exec();
+        QByteArray responseData = res->readAll();
+        qDebug().noquote() << responseData;
+
+        QJsonDocument docs = QJsonDocument::fromJson(responseData);
+        QJsonObject obj = docs.object();
+        QJsonArray arr = obj.value("content").toArray();
+        for (const QJsonValue &val : arr) {
+            classes.append(val.toString());
+        }
+
+        return classes;
+
+    }
+
 
 
 
@@ -360,6 +382,44 @@ QMap<QString, double> database::get_grades(int id)
     manager->deleteLater();
     return temp;
 }
+
+
+
+
+
+
+bool database::update_timetable(QString content,int year,int classs)
+
+{
+    QNetworkAccessManager *manager = new QNetworkAccessManager(this);
+    QNetworkRequest request = mkreq("/update_tb");
+    QJsonObject json;
+    json["ctb"] = content;
+    json["year"] = year;
+    json["classs"] = classs;
+    QJsonDocument doc(json);
+    QNetworkReply *res = manager->post(request, doc.toJson());
+    QEventLoop loop;
+    connect(res,&QNetworkReply::finished,&loop,&QEventLoop::quit);
+    loop.exec();
+    QByteArray responseData = res->readAll();
+    QJsonDocument docs = QJsonDocument::fromJson(responseData);
+    QJsonObject obj = docs.object();
+    res->deleteLater();
+    manager->deleteLater();
+    return obj["state"].toBool();
+}
+
+
+
+
+
+
+
+
+
+
+
 
 
 int database::post_grades(int id, QMap<QString, double> g, int *year)
