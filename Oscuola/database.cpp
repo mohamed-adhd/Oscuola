@@ -843,6 +843,28 @@ bool database::deleter(std::string name, std::string aftername,std::string class
 
 
 
+bool database::delete_user(QString gmail ,QString role){
+    QNetworkAccessManager *manager = new QNetworkAccessManager(this);
+    QNetworkRequest request = mkreq("/delete_user");
+
+    QJsonObject json;
+    json["gmail"] = gmail;
+    json["role"] = role;
+    QJsonDocument doc(json);
+    QByteArray data = doc.toJson();
+
+    QNetworkReply *res = manager->post(request, data);
+    QEventLoop loop;
+    connect(res,&QNetworkReply::finished,&loop,&QEventLoop::quit);
+
+    loop.exec();
+    QByteArray responseData = res->readAll();
+    qDebug().noquote()<<responseData;
+    QJsonDocument docs = QJsonDocument::fromJson(responseData);
+    QJsonObject obj = docs.object();
+
+    return obj["message"].toBool();
+}
 
 
 
