@@ -115,6 +115,9 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
             int row = t->rowCount();
             t->insertRow(row);
 
+            QString daname=QString::fromStdString(c.gmail);
+            QString darole=QString::fromStdString(c.role);
+
             t->setItem(row, 0, new QTableWidgetItem(QString::fromStdString(c.name)));
             t->setItem(row, 1, new QTableWidgetItem(QString::fromStdString(c.gmail)));
             t->setItem(row, 2, new QTableWidgetItem(QString::fromStdString(c.role)));
@@ -129,7 +132,27 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
             }
             auto *delbtn  = new QPushButton("Delete");
             t->setCellWidget(row, 4, delbtn);
+
+            connect(delbtn, &QPushButton::clicked, this, [this,daname,darole, row]() {
+                db.delete_user(daname,darole);
+            });
+
+
+
+
+
+
+
         }
+
+
+
+
+
+
+
+
+
 
         ui->admin_users_res->setText(QString("%1 users loaded").arg(i_forgot_to_take_my_meds.size()));
 
