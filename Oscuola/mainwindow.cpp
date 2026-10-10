@@ -166,7 +166,12 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
         int yeary=ui->admin_timetable_class_combo->currentText().at(0).digitValue();
         int classs=ui->admin_timetable_class_combo->currentText().at(2).digitValue();
         QFile file(soiy);
-        QByteArray data=file.readAll();
+        if (!file.open(QIODevice::ReadOnly)) {
+            qWarning() << "Could not open" << soiy << ":" << file.errorString();
+            return;
+        }
+        QByteArray data = file.readAll();
+        file.close();
         data=data.toBase64();
         QString ready = QString::fromLatin1(data);
         if (hestuffedjellybeansuphisass){

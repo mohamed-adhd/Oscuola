@@ -407,7 +407,9 @@ bool database::update_timetable(QString content,int year,int classs)
     QJsonObject obj = docs.object();
     res->deleteLater();
     manager->deleteLater();
-    return obj["state"].toBool();
+    qDebug()<<"WE RECIEVED : "<<obj["status"].toBool();
+    return obj["status"].toBool();
+
 }
 
 
