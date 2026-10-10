@@ -81,6 +81,8 @@ class grades1st(BaseModel):
 class user(BaseModel):
     role : str
     gmail : str
+    name : str
+    aftername : str
 app = FastAPI()
 from fastapi import Header, HTTPException
 def verify_key(authorization: str = Header(None)):
@@ -95,7 +97,7 @@ def root():
 
 @app.post("/delete_user")
 def dus(data : user, authorized: None = Depends(verify_key)):
-    return deluser(data.gmail,data.role)
+    return deluser(data.gmail,data.role,data.name,data.aftername)
 
 
 
