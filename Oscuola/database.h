@@ -37,6 +37,25 @@ public:
     std::string classs;
 };
 
+
+
+
+class users{
+public :
+    std::string name;
+    std::string gmail;
+    std::string role;
+};
+
+
+
+
+
+
+
+
+
+
 class database : public QObject{
     Q_OBJECT
 private:
@@ -60,6 +79,8 @@ public :
     std::vector<reports> loadreports(int id);
     QString rep_content(QString name,QString classs);
     bool update_timetable(QString content,int year,int classs);
+    std::vector<users> list_users();
+    bool delete_user(QString gmail ,QString role);
 
 
 

@@ -168,7 +168,30 @@ std::tuple<std::string, std::string, std::string, std::string,int,int,int > data
 
 
 
+std::vector<users> database::list_users(){
+    std::vector<users> usas;
+    QNetworkAccessManager *manager = new QNetworkAccessManager(this);
+    QNetworkRequest request = mkreq("/list_users");
+    QNetworkReply *res = manager->get(request);
+    QEventLoop loop;
+    connect(res,&QNetworkReply::finished,&loop,&QEventLoop::quit);
+    loop.exec();
+    QByteArray responseData = res->readAll();
+    qDebug().noquote() << responseData;
 
+    QJsonDocument docs = QJsonDocument::fromJson(responseData);
+    QJsonObject obj = docs.object();
+    QJsonArray arr = obj.value("data").toArray();
+    for (const QJsonValue &rowVal : arr) {
+        QJsonArray row = rowVal.toArray();
+        users r;
+        r.name      = row[0].toString().toStdString()+row[1].toString().toStdString();
+        r.gmail = row[2].toString().toStdString();
+        r.role    = row[3].toString().toStdString();
+        usas.push_back(r);
+    }
+    return usas;
+}
 
 
 
@@ -407,7 +430,9 @@ bool database::update_timetable(QString content,int year,int classs)
     QJsonObject obj = docs.object();
     res->deleteLater();
     manager->deleteLater();
-    return obj["state"].toBool();
+    qDebug()<<"WE RECIEVED : "<<obj["status"].toBool();
+    return obj["status"].toBool();
+
 }
 
 
@@ -818,6 +843,28 @@ bool database::deleter(std::string name, std::string aftername,std::string class
 
 
 
+bool database::delete_user(QString gmail ,QString role){
+    QNetworkAccessManager *manager = new QNetworkAccessManager(this);
+    QNetworkRequest request = mkreq("/delete_user");
+
+    QJsonObject json;
+    json["gmail"] = gmail;
+    json["role"] = role;
+    QJsonDocument doc(json);
+    QByteArray data = doc.toJson();
+
+    QNetworkReply *res = manager->post(request, data);
+    QEventLoop loop;
+    connect(res,&QNetworkReply::finished,&loop,&QEventLoop::quit);
+
+    loop.exec();
+    QByteArray responseData = res->readAll();
+    qDebug().noquote()<<responseData;
+    QJsonDocument docs = QJsonDocument::fromJson(responseData);
+    QJsonObject obj = docs.object();
+
+    return obj["message"].toBool();
+}
 
 
 

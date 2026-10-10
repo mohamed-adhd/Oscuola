@@ -252,7 +252,15 @@ def lspci():
 
 
 
-
+def lsusr():
+    load_dotenv()
+    cons = os.environ["CON_STRING"]
+    s = psycopg2.connect(os.environ["DATABASE_URL"])
+    cur = s.cursor()
+    cur.execute("SELECT name,aftername,gmail,role FROM users ;")
+    res=cur.fetchall()
+    cur.close()
+    return {"data":res}
 
 
 
