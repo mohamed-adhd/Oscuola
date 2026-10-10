@@ -106,8 +106,39 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
         switchpg(12);
     });
 
-
+//so oscuola is approaching the end , i d like a moment of silenece for whatver the fuck i just built , nvmd who tf am i even talking to, its 2 pm on weekedn , ppl are enjoying their lifes nad i m modifyign a Qlist for users display , peak cinema
     connect(users_buts,&QButtonGroup::buttonClicked,this,[this]{
+        std::vector<users> i_forgot_to_take_my_meds=db.list_users();
+        auto *t = ui->admin_users_table;
+        t->setRowCount(0);
+        for (const users &c : i_forgot_to_take_my_meds) {
+            int row = t->rowCount();
+            t->insertRow(row);
+
+            t->setItem(row, 0, new QTableWidgetItem(QString::fromStdString(c.name)));
+            t->setItem(row, 1, new QTableWidgetItem(QString::fromStdString(c.gmail)));
+            t->setItem(row, 2, new QTableWidgetItem(QString::fromStdString(c.role)));
+            if(c.role=="student"){
+                auto *editbtn = new QPushButton("promote to teacher");
+                t->setCellWidget(row, 3, editbtn);
+
+
+            }else if (c.role=="teacher"){
+                auto *editbtn = new QPushButton("demote to student");
+                t->setCellWidget(row, 3, editbtn);
+            }
+            auto *delbtn  = new QPushButton("Delete");
+            t->setCellWidget(row, 4, delbtn);
+        }
+
+        ui->admin_users_res->setText(QString("%1 users loaded").arg(i_forgot_to_take_my_meds.size()));
+
+
+
+
+
+
+
         switchpg(13);
     });
 

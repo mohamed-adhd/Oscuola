@@ -4670,11 +4670,6 @@ Absence excuse request — Sep 8</string>
        </column>
        <column>
         <property name="text">
-         <string>Class</string>
-        </property>
-       </column>
-       <column>
-        <property name="text">
          <string>Role</string>
         </property>
        </column>
@@ -4982,7 +4977,7 @@ No image set — select a class to see its schedule</string>
   </widget>
   <widget class="QStatusBar" name="statusbar">
    <property name="visible">
-    <bool>false</bool>
+    <bool>true</bool>
    </property>
   </widget>
  </widget>
