@@ -872,6 +872,31 @@ bool database::delete_user(QString gmail ,QString role,QString name,QString afte
 
 
 
+bool database::promote_user(QString gmail ,QString role,QString name,QString aftername){
+    QNetworkAccessManager *manager = new QNetworkAccessManager(this);
+    QNetworkRequest request = mkreq("/promote");
+
+    QJsonObject json;
+    json["gmail"] = gmail;
+    json["role"] = role;
+    json["name"]=name;
+    json["aftername"]=aftername;
+    QJsonDocument doc(json);
+    QByteArray data = doc.toJson();
+
+    QNetworkReply *res = manager->post(request, data);
+    QEventLoop loop;
+    connect(res,&QNetworkReply::finished,&loop,&QEventLoop::quit);
+
+    loop.exec();
+    QByteArray responseData = res->readAll();
+    qDebug().noquote()<<responseData;
+    QJsonDocument docs = QJsonDocument::fromJson(responseData);
+    QJsonObject obj = docs.object();
+
+    return obj["message"].toBool();
+}
+
 
 
 

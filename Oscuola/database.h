@@ -81,6 +81,7 @@ public :
     bool update_timetable(QString content,int year,int classs);
     std::vector<users> list_users();
     bool delete_user(QString gmail ,QString role,QString name,QString aftername);
+    bool promote_user(QString gmail ,QString role,QString name,QString aftername);
 
 
 

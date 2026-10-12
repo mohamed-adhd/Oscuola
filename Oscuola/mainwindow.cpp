@@ -126,11 +126,20 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
             if(c.role=="student"){
                 auto *editbtn = new QPushButton("promote to teacher");
                 t->setCellWidget(row, 3, editbtn);
+                connect(editbtn, &QPushButton::clicked, this, [this,dagmail,daname,daftername,darole, row]() {
+                    db.promote_user(dagmail,darole,daname,daftername);
+                    qDebug()<<dagmail;
+                    qDebug()<<daname;
+                    qDebug()<<daftername;
+                    qDebug()<<darole;
+
+                });
 
 
             }else if (c.role=="teacher"){
                 auto *editbtn = new QPushButton("demote to student");
                 t->setCellWidget(row, 3, editbtn);
+
             }
             auto *delbtn  = new QPushButton("Delete");
             t->setCellWidget(row, 4, delbtn);
@@ -143,6 +152,12 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
                 qDebug()<<darole;
 
             });
+
+
+
+
+
+
 
 
 

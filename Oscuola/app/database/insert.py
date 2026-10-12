@@ -199,7 +199,7 @@ GRADE_TABLES = ("first_year_grades", "second_year_grades", "third_year_grades")
 ALERT_TABLES = ("alerts_1st", "alerts_2nd", "alerts_3rd")
 
 
-def promote_that_bih():
+def promote_that_bih(gmail, role, name, aftername):
     load_dotenv()
     conn = None
     try:
@@ -254,7 +254,7 @@ def promote_that_bih():
                 conn.commit()
                 cur.execute("INSERT INTO teachers(name,aftername,gmail) VALUES(%s,%s,%s);",(name,aftername,gmail))
                 conn.commit()
-                
+
 
 
 
