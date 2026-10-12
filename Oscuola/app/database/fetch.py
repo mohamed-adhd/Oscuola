@@ -252,6 +252,32 @@ def lspci():
 
 
 
+
+
+def lstuds():
+    load_dotenv()
+    cons = os.environ["CON_STRING"]
+    s = psycopg2.connect(os.environ["DATABASE_URL"])
+    cur = s.cursor()
+    cur.execute("SELECT name,aftername FROM students ;")
+    res=cur.fetchall()
+
+
+    lt=[]
+    for row in res:
+        lt.append(str(row[0])+" "+str(row[1]))
+    cur.close()
+    return {"content":lt}
+
+
+
+
+
+
+
+
+
+
 def lsusr():
     load_dotenv()
     cons = os.environ["CON_STRING"]
