@@ -265,3 +265,21 @@ def promote_that_bih(gmail, role, name, aftername):
     finally:
         if conn:
             conn.close()
+
+
+def demote_that_bih(gmail, role, name, aftername):
+    load_dotenv()
+    cons = os.environ["CON_STRING"]
+    s = psycopg2.connect(os.environ["DATABASE_URL"])
+    cur = s.cursor()
+    res = base64.b64decode(content)
+
+    cur.execute("DELETE FROM teachers WHERE name=% AND aftername=% AND gmail=%s", (name,aftername,gmail))
+    s.commit()
+    cur.execute("INSERT INTO students (name,aftername,gmail) VALUES(%s,%s,%s);",(name,aftername,gmail))
+    s.commit()
+    cur.execute("UPDATE users SET role=%s WHERE gmail = %s AND role = %s ;",("student", gmail, role),)
+    s.commit()
+    cur.close()
+    s.close()
+    return {"status": True}
