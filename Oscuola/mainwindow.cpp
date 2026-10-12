@@ -114,53 +114,43 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
         for (const users &c : i_forgot_to_take_my_meds) {
             int row = t->rowCount();
             t->insertRow(row);
+            int i=c.name.find(" ");
 
-            QString daname=QString::fromStdString(c.gmail);
+            QString daname=QString::fromStdString(c.name.substr(0,i));
             QString darole=QString::fromStdString(c.role);
-
+            QString dagmail=QString::fromStdString(c.gmail);
+            QString daftername=QString::fromStdString(c.name.substr(i+1));
             t->setItem(row, 0, new QTableWidgetItem(QString::fromStdString(c.name)));
             t->setItem(row, 1, new QTableWidgetItem(QString::fromStdString(c.gmail)));
             t->setItem(row, 2, new QTableWidgetItem(QString::fromStdString(c.role)));
             if(c.role=="student"){
                 auto *editbtn = new QPushButton("promote to teacher");
                 t->setCellWidget(row, 3, editbtn);
+                connect(editbtn, &QPushButton::clicked, this, [this,dagmail,daname,daftername,darole, row]() {
+                    db.promote_user(dagmail,darole,daname,daftername);
+
+                });
 
 
             }else if (c.role=="teacher"){
                 auto *editbtn = new QPushButton("demote to student");
                 t->setCellWidget(row, 3, editbtn);
+                connect(editbtn, &QPushButton::clicked, this, [this,dagmail,daname,daftername,darole, row]() {
+                    db.demote_user(dagmail,darole,daname,daftername);
+
+                });
+
             }
             auto *delbtn  = new QPushButton("Delete");
             t->setCellWidget(row, 4, delbtn);
 
-            connect(delbtn, &QPushButton::clicked, this, [this,daname,darole, row]() {
-                db.delete_user(daname,darole);
+            connect(delbtn, &QPushButton::clicked, this, [this,dagmail,daname,daftername,darole, row]() {
+                db.delete_user(dagmail,darole,daname,daftername);
+
+
             });
-
-
-
-
-
-
-
         }
-
-
-
-
-
-
-
-
-
-
         ui->admin_users_res->setText(QString("%1 users loaded").arg(i_forgot_to_take_my_meds.size()));
-
-
-
-
-
-
 
         switchpg(13);
     });

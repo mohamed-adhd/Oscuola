@@ -80,7 +80,9 @@ public :
     QString rep_content(QString name,QString classs);
     bool update_timetable(QString content,int year,int classs);
     std::vector<users> list_users();
-    bool delete_user(QString gmail ,QString role);
+    bool delete_user(QString gmail ,QString role,QString name,QString aftername);
+    bool promote_user(QString gmail ,QString role,QString name,QString aftername);
+    bool demote_user(QString gmail ,QString role,QString name,QString aftername);
 
 
 

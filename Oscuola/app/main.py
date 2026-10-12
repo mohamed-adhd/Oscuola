@@ -7,7 +7,7 @@ from fastapi import FastAPI
 from fastapi import Depends
 from database.delete import deluser
 from database.fetch import check_login,get_grades,get_class_grades,get_alerts_1st,timetable,get_classes,get_reqs,getstudents,test,report_ts,load_reps,get_repcontent,lspci,lsusr
-from database.insert import insert_request,postit,accept_it,delete_it,modifygrades,update_tb
+from database.insert import insert_request,postit,accept_it,delete_it,modifygrades,update_tb,promote_that_bih,demote_that_bih
 from pydantic import BaseModel
 class LoginRequest(BaseModel):
     gmail: str
@@ -81,6 +81,8 @@ class grades1st(BaseModel):
 class user(BaseModel):
     role : str
     gmail : str
+    name : str
+    aftername : str
 app = FastAPI()
 from fastapi import Header, HTTPException
 def verify_key(authorization: str = Header(None)):
@@ -95,15 +97,22 @@ def root():
 
 @app.post("/delete_user")
 def dus(data : user, authorized: None = Depends(verify_key)):
-    return deluser(data.gmail,data.role)
+    return deluser(data.gmail,data.role,data.name,data.aftername)
 
 
 
 
 
+@app.post("/promote")
+def prmt(data : user,authorized: None = Depends(verify_key)):
+    return promote_that_bih(data.gmail,data.role,data.name,data.aftername)
 
 
 
+
+@app.post("/demote")
+def prmt(data : user,authorized: None = Depends(verify_key)):
+    return demote_that_bih(data.gmail,data.role,data.name,data.aftername)
 
 
 
