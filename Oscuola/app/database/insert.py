@@ -248,8 +248,8 @@ def promote_that_bih(gmail, role, name, aftername):
                 else:
                     raise ValueError(f"Unknown role: {role}")
                 cur.execute(
-                    "UPDATE users WHERE gmail = %s AND role = %s SET role=%s;",
-                    (gmail, role,"teacher"),
+                    "UPDATE users SET role=%s WHERE gmail = %s AND role = %s ;",
+                    ("teacher",gmail, role),
                 )
                 conn.commit()
                 cur.execute("INSERT INTO teachers(name,aftername,gmail) VALUES(%s,%s,%s);",(name,aftername,gmail))
