@@ -128,10 +128,6 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
                 t->setCellWidget(row, 3, editbtn);
                 connect(editbtn, &QPushButton::clicked, this, [this,dagmail,daname,daftername,darole, row]() {
                     db.promote_user(dagmail,darole,daname,daftername);
-                    qDebug()<<dagmail;
-                    qDebug()<<daname;
-                    qDebug()<<daftername;
-                    qDebug()<<darole;
 
                 });
 
@@ -146,10 +142,7 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
 
             connect(delbtn, &QPushButton::clicked, this, [this,dagmail,daname,daftername,darole, row]() {
                 db.delete_user(dagmail,darole,daname,daftername);
-                qDebug()<<dagmail;
-                qDebug()<<daname;
-                qDebug()<<daftername;
-                qDebug()<<darole;
+
 
             });
 
