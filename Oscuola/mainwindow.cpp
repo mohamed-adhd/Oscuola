@@ -149,37 +149,8 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
 
 
             });
-
-
-
-
-
-
-
-
-
-
-
-
-
         }
-
-
-
-
-
-
-
-
-
-
         ui->admin_users_res->setText(QString("%1 users loaded").arg(i_forgot_to_take_my_meds.size()));
-
-
-
-
-
-
 
         switchpg(13);
     });
