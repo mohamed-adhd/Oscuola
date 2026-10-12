@@ -135,6 +135,10 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
             }else if (c.role=="teacher"){
                 auto *editbtn = new QPushButton("demote to student");
                 t->setCellWidget(row, 3, editbtn);
+                connect(editbtn, &QPushButton::clicked, this, [this,dagmail,daname,daftername,darole, row]() {
+                    db.demote_user(dagmail,darole,daname,daftername);
+
+                });
 
             }
             auto *delbtn  = new QPushButton("Delete");
