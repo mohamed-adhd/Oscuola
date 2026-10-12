@@ -114,10 +114,12 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
         for (const users &c : i_forgot_to_take_my_meds) {
             int row = t->rowCount();
             t->insertRow(row);
+            int i=c.name.find(" ");
 
-            QString daname=QString::fromStdString(c.gmail);
+            QString daname=QString::fromStdString(c.name.substr(0,i-1));
             QString darole=QString::fromStdString(c.role);
-
+            QString dagmail=QString::fromStdString(c.gmail);
+            QString daftername=QString::fromStdString(c.name.substr(i+1));
             t->setItem(row, 0, new QTableWidgetItem(QString::fromStdString(c.name)));
             t->setItem(row, 1, new QTableWidgetItem(QString::fromStdString(c.gmail)));
             t->setItem(row, 2, new QTableWidgetItem(QString::fromStdString(c.role)));
@@ -133,8 +135,13 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
             auto *delbtn  = new QPushButton("Delete");
             t->setCellWidget(row, 4, delbtn);
 
-            connect(delbtn, &QPushButton::clicked, this, [this,daname,darole, row]() {
-                db.delete_user(daname,darole);
+            connect(delbtn, &QPushButton::clicked, this, [this,dagmail,daname,daftername,darole, row]() {
+                db.delete_user(dagmail,darole,daname,daftername);
+                qDebug()<<dagmail;
+                qDebug()<<daname;
+                qDebug()<<daftername;
+                qDebug()<<darole;
+
             });
 
 
