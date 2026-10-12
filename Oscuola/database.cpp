@@ -185,7 +185,7 @@ std::vector<users> database::list_users(){
     for (const QJsonValue &rowVal : arr) {
         QJsonArray row = rowVal.toArray();
         users r;
-        r.name      = row[0].toString().toStdString()+row[1].toString().toStdString();
+        r.name      = row[0].toString().toStdString()+" "+row[1].toString().toStdString();
         r.gmail = row[2].toString().toStdString();
         r.role    = row[3].toString().toStdString();
         usas.push_back(r);
@@ -843,13 +843,15 @@ bool database::deleter(std::string name, std::string aftername,std::string class
 
 
 
-bool database::delete_user(QString gmail ,QString role){
+bool database::delete_user(QString gmail ,QString role,QString name,QString aftername){
     QNetworkAccessManager *manager = new QNetworkAccessManager(this);
     QNetworkRequest request = mkreq("/delete_user");
 
     QJsonObject json;
     json["gmail"] = gmail;
     json["role"] = role;
+    json["name"]=name;
+    json["aftername"]=aftername;
     QJsonDocument doc(json);
     QByteArray data = doc.toJson();
 

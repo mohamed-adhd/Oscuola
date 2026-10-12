@@ -116,7 +116,7 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
             t->insertRow(row);
             int i=c.name.find(" ");
 
-            QString daname=QString::fromStdString(c.name.substr(0,i-1));
+            QString daname=QString::fromStdString(c.name.substr(0,i));
             QString darole=QString::fromStdString(c.role);
             QString dagmail=QString::fromStdString(c.gmail);
             QString daftername=QString::fromStdString(c.name.substr(i+1));
