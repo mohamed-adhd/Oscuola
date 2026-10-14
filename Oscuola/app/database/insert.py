@@ -181,7 +181,7 @@ def sendemail(email, name):
         "We're happy to announce that you've been accepted into the Oscuola platform. "
         "Your account has been activated, and you can now log in using your credentials.\n\n"
         "Sincerely,\n"
-        "Oscuola Devs (Mohamed-adhd)"
+        "Oscuola Devs (mohamed-adhd)"
     )
     message.set_content(body)
     with smtplib.SMTP("smtp.gmail.com", 587) as server:
@@ -281,3 +281,6 @@ def demote_that_bih(gmail, role, name, aftername):
     cur.close()
     s.close()
     return {"status": True}
+
+
+
