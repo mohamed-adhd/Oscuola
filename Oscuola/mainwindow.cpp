@@ -252,6 +252,39 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
         if(button){
             report_buts->addButton(button);
         }}
+    QButtonGroup *createcls_buts= new QButtonGroup(this);
+    for(int i=1;i<6;i++){
+        QString name=QString("create_class_but_admin_%1").arg(i);
+        QPushButton *button=this->findChild<QPushButton*>(name);
+        if(button){
+            createcls_buts->addButton(button);
+        }}
+
+    QButtonGroup *ass_tea_buts= new QButtonGroup(this);//same comment as in the endpoint..
+    for(int i=1;i<6;i++){
+        QString name=QString("assign_teacher_but_admin_%1").arg(i);
+        QPushButton *button=this->findChild<QPushButton*>(name);
+        if(button){
+            ass_tea_buts->addButton(button);
+        }}
+
+
+    connect(createcls_buts,&QButtonGroup::buttonClicked,this,[this](){
+
+        switchpg(16);
+
+
+    });
+
+
+    connect(ass_tea_buts,&QButtonGroup::buttonClicked,this,[this](){
+        switchpg(17);
+
+
+    });
+
+
+
 
 
 
