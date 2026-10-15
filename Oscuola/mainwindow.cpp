@@ -270,14 +270,27 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
         QVector<QString> classes = db.get_classes(std::get<4>(f));
         for (const QString &c : classes){
             ui->admin_classes_src_class_combo->addItem(c, c);
-            qDebug()<<c;
-        }
-        for (const QString &c : classes){
             ui->admin_classes_dst_class_combo->addItem(c, c);
             qDebug()<<c;
         }
         ui->admin_classes_src_class_combo->blockSignals(false);
         ui->admin_classes_dst_class_combo->blockSignals(false);
+
+        std::vector<studs> tempo = db.get_students(ui->admin_classes_src_class_combo->currentText().toStdString());
+        for (studs &c : tempo){
+            qDebug()<<c.name;
+            ui->admin_classes_src_student_combo->addItem(QString::fromStdString(c.aftername+" "+c.name+"; id : ")+QString::number(c.id), c.id);
+            ui->admin_classes_dst_student_combo->addItem(QString::fromStdString(c.aftername+" "+c.name+"; id : ")+QString::number(c.id), c.id);
+        }
+        ui->admin_classes_src_student_combo->blockSignals(false);
+        ui->admin_classes_dst_student_combo->blockSignals(false);
+
+
+
+
+
+
+
         switchpg(15);
     });
 
