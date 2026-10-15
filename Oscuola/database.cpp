@@ -421,7 +421,7 @@ bool database::change_student(int id,QString classs){
     QNetworkRequest request = mkreq("/changecls");
     QJsonObject json;
     json["id"] = id;
-    json["classs"] = classs;
+    json["dest"] = classs;
     QJsonDocument doc(json);
     QNetworkReply *res = manager->post(request, doc.toJson());
     QEventLoop loop;

@@ -288,7 +288,7 @@ def swap(id,dst):
     cons = os.environ["CON_STRING"]
     s = psycopg2.connect(os.environ["DATABASE_URL"])
     cur = s.cursor()
-    cur.execute("UPDATE students SET yeary =%s, classs=%s WHERE id = %s ", (int(dst[0]),int(dst[2]),id))
+    cur.execute("UPDATE students SET syear =%s, classs=%s WHERE id = %s ", (int(dst[0]),int(dst[2]),id))
     s.commit()
     cur.close()
     s.close()
