@@ -298,7 +298,7 @@ def swap(id,dst):
 
 
 
-def create_class(year,num,tid):
+def new_class(year,num,tid):
     load_dotenv()
     cons = os.environ["CON_STRING"]
     s = psycopg2.connect(os.environ["DATABASE_URL"])
@@ -309,7 +309,7 @@ def create_class(year,num,tid):
     s.close()
     return {"status": True}
 
-def ass_tea(year,num,tid):#if anyone reading this , the function name means assign_teacher , not ass tea...
+def assign(year,num,tid):#if anyone reading this , the function name means assign_teacher , not ass tea...
     load_dotenv()
     cons = os.environ["CON_STRING"]
     s = psycopg2.connect(os.environ["DATABASE_URL"])

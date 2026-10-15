@@ -59,6 +59,16 @@ class tb_Request(BaseModel):
 class ids(BaseModel):
     id : int
 
+class assign(BaseModel):
+    id : int
+    classs : str
+
+
+
+
+
+
+
 class post_request(BaseModel):
     subject: str
     message: str
@@ -73,7 +83,9 @@ class repinfo(BaseModel):
     name : str
     classs : str
 
-
+class cls(BaseModel):
+    classs : int
+    year : int
 
 class grades1st(BaseModel):
     id : int
@@ -169,10 +181,14 @@ def utb(data : tb, authorized: None = Depends(verify_key)):
 
 
 
+@app.post("/new_cls")
+def ncls(data : cls, authorized: None = Depends(verify_key)):
+    return new_class(data.year,data.classs)
 
 
-
-
+@app.post("/assign")
+def ass(data : assign, authorized: None = Depends(verify_key)):
+    return assign(str(data.classs[0]),str(data.classs[2]),data.id)
 
 
 @app.get("/list_classes")

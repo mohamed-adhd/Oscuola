@@ -274,8 +274,11 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
         switchpg(16);
 
 
-    });
 
+    });
+    connect(ui->admin_create_class_btn,&QPushButton::clicked,this,[this]{
+        db.add_class(ui->lineEdit->text().toInt(),ui->lineEdit_2->text().toInt());
+    });
 
     connect(ass_tea_buts,&QButtonGroup::buttonClicked,this,[this](){
         switchpg(17);

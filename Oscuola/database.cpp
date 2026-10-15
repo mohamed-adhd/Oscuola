@@ -248,7 +248,7 @@ QVector<QString> database::get_classes(int id){
 
 bool database::add_class(int year,int sec){
     QNetworkAccessManager *manager = new QNetworkAccessManager(this);
-    QNetworkRequest request = mkreq("/get_myclasses");
+    QNetworkRequest request = mkreq("/new_cls");
     QJsonObject json;
     json["year"] = year;
     json["classs"] = sec;
