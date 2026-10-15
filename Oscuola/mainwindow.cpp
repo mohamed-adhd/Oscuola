@@ -285,15 +285,28 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
         ui->admin_classes_src_student_combo->blockSignals(false);
         ui->admin_classes_dst_student_combo->blockSignals(false);
 
-
-
-
-
-
-
         switchpg(15);
     });
 
+
+    connect(ui->admin_classes_src_class_combo,&QComboBox::currentTextChanged,this,[this]{
+        ui->admin_classes_src_student_combo->clear();
+        std::vector<studs> tempo = db.get_students(ui->admin_classes_src_class_combo->currentText().toStdString());
+        for (studs &c : tempo){
+            qDebug()<<c.name;
+            ui->admin_classes_src_student_combo->addItem(QString::fromStdString(c.aftername+" "+c.name+"; id : ")+QString::number(c.id), c.id);
+        }
+    });
+
+    connect(ui->admin_classes_dst_class_combo,&QComboBox::currentTextChanged,this,[this]{
+        ui->admin_classes_dst_student_combo->clear();
+
+        std::vector<studs> tempo = db.get_students(ui->admin_classes_dst_class_combo->currentText().toStdString());
+        for (studs &c : tempo){
+            qDebug()<<c.name;
+            ui->admin_classes_dst_student_combo->addItem(QString::fromStdString(c.aftername+" "+c.name+"; id : ")+QString::number(c.id), c.id);
+        }
+    });
     connect(report_buts,&QButtonGroup::buttonClicked,this ,[this]{
         ui->teacher_reports_class_combo->blockSignals(true);
         ui->teacher_reports_class_combo->clear();

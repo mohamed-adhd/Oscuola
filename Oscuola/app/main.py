@@ -7,7 +7,7 @@ from fastapi import FastAPI
 from fastapi import Depends
 from database.delete import deluser
 from database.fetch import check_login,get_grades,get_class_grades,get_alerts_1st,timetable,get_classes,get_reqs,getstudents,test,report_ts,load_reps,get_repcontent,lspci,lsusr,lstuds
-from database.insert import insert_request,postit,accept_it,delete_it,modifygrades,update_tb,promote_that_bih,demote_that_bih
+from database.insert import insert_request,postit,accept_it,delete_it,modifygrades,update_tb,promote_that_bih,demote_that_bih,swap
 from pydantic import BaseModel
 class LoginRequest(BaseModel):
     gmail: str
