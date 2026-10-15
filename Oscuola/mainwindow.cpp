@@ -267,7 +267,7 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
 
 
     connect(classes_admin,&QButtonGroup::buttonClicked,this,[this]{
-        QVector<QString> classes = db.get_classes(std::get<4>(f));
+        QVector<QString> classes = db.list_classes();
         for (const QString &c : classes){
             ui->admin_classes_src_class_combo->addItem(c, c);
             ui->admin_classes_dst_class_combo->addItem(c, c);
@@ -278,7 +278,7 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
 
         std::vector<studs> tempo = db.get_students(ui->admin_classes_src_class_combo->currentText().toStdString());
         for (studs &c : tempo){
-            qDebug()<<c.name;
+            qDebug()<<"WE GITTTTTTTTTTTTT"<<c.name;
             ui->admin_classes_src_student_combo->addItem(QString::fromStdString(c.aftername+" "+c.name+"; id : ")+QString::number(c.id), c.id);
         }
         ui->admin_classes_src_student_combo->blockSignals(false);
@@ -349,6 +349,7 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
     connect(ui->admin_classes_switch_btn,&QPushButton::clicked,this,[this]{
         int x = ui->admin_classes_src_student_combo->currentText().section(':', 1).trimmed().toInt();
         db.change_student(x,ui->admin_classes_dst_class_combo->currentText());
+        qDebug()<<"that shi flew";
 
     });
 

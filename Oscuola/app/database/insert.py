@@ -283,7 +283,7 @@ def demote_that_bih(gmail, role, name, aftername):
     return {"status": True}
 
 
-def swap(dst,id):
+def swap(id,dst):
     load_dotenv()
     cons = os.environ["CON_STRING"]
     s = psycopg2.connect(os.environ["DATABASE_URL"])
