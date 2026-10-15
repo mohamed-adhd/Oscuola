@@ -86,6 +86,7 @@ class repinfo(BaseModel):
 class cls(BaseModel):
     classs : int
     year : int
+    id : int
 
 class grades1st(BaseModel):
     id : int
@@ -183,7 +184,7 @@ def utb(data : tb, authorized: None = Depends(verify_key)):
 
 @app.post("/new_cls")
 def ncls(data : cls, authorized: None = Depends(verify_key)):
-    return new_class(data.year,data.classs)
+    return new_class(data.year,data.classs,data.id)
 
 
 @app.post("/assign")
