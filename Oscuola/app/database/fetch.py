@@ -238,7 +238,7 @@ def lspci():
     cons = os.environ["CON_STRING"]
     s = psycopg2.connect(os.environ["DATABASE_URL"])
     cur = s.cursor()
-    cur.execute("SELECT year,class FROM timetables ;")
+    cur.execute("SELECT yeary,classs FROM classes ;")
     res=cur.fetchall()
 
 
@@ -248,6 +248,32 @@ def lspci():
 
     cur.close()
     return {"content":lt}
+
+
+
+
+
+
+def lstuds():
+    load_dotenv()
+    cons = os.environ["CON_STRING"]
+    s = psycopg2.connect(os.environ["DATABASE_URL"])
+    cur = s.cursor()
+    cur.execute("SELECT name,aftername FROM students ;")
+    res=cur.fetchall()
+
+
+    lt=[]
+    for row in res:
+        lt.append(str(row[0])+" "+str(row[1]))
+    cur.close()
+    return {"content":lt}
+
+
+
+
+
+
 
 
 
@@ -311,7 +337,7 @@ def get_class_grades(classs):
         rows.append({"id": st[0], "name": st[1], "aftername": st[2], "grades": g})
     return {"success": True, "data": rows}
 
-def getstudents(classs,year):
+def getstudents(year,classs):
     load_dotenv()
     cons = os.environ["CON_STRING"]
     s = psycopg2.connect(os.environ["DATABASE_URL"])

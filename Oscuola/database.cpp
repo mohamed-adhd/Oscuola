@@ -411,6 +411,37 @@ QMap<QString, double> database::get_grades(int id)
 
 
 
+
+
+
+
+
+bool database::change_student(int id,QString classs){
+    QNetworkAccessManager *manager = new QNetworkAccessManager(this);
+    QNetworkRequest request = mkreq("/changecls");
+    QJsonObject json;
+    json["id"] = id;
+    json["dest"] = classs;
+    QJsonDocument doc(json);
+    QNetworkReply *res = manager->post(request, doc.toJson());
+    QEventLoop loop;
+    connect(res,&QNetworkReply::finished,&loop,&QEventLoop::quit);
+    loop.exec();
+    QByteArray responseData = res->readAll();
+    QJsonDocument docs = QJsonDocument::fromJson(responseData);
+    QJsonObject obj = docs.object();
+    return obj["status"].toBool();
+}
+
+
+
+
+
+
+
+
+
+
 bool database::update_timetable(QString content,int year,int classs)
 
 {

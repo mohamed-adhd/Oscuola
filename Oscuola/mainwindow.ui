@@ -596,10 +596,10 @@ QPushButton#report_download_btn:pressed {
 
 /* ================= Admin pages ================= */
 
-QFrame#sidebar_admin_1, QFrame#sidebar_admin_2, QFrame#sidebar_admin_3 {
+QFrame#sidebar_admin_1, QFrame#sidebar_admin_2, QFrame#sidebar_admin_3, QFrame#sidebar_admin_4 {
     background-color: #111827;
 }
-QLabel#sidebar_title_admin_1, QLabel#sidebar_title_admin_2, QLabel#sidebar_title_admin_3 {
+QLabel#sidebar_title_admin_1, QLabel#sidebar_title_admin_2, QLabel#sidebar_title_admin_3, QLabel#sidebar_title_admin_4 {
     color: #FFFFFF;
     font-size: 18pt;
     font-weight: 800;
@@ -609,13 +609,16 @@ QLabel#sidebar_title_admin_1, QLabel#sidebar_title_admin_2, QLabel#sidebar_title
 /* ---------- Admin sidebar nav buttons ---------- */
 QPushButton#dashboard_but_admin_1,
 QPushButton#dashboard_but_admin_2,
-QPushButton#dashboard_but_admin_3,
+QPushButton#dashboard_but_admin_3, QPushButton#dashboard_but_admin_4,
 QPushButton#users_button_admin_1,
 QPushButton#users_button_admin_2,
-QPushButton#users_button_admin_3,
+QPushButton#users_button_admin_3, QPushButton#users_button_admin_4,
 QPushButton#timetable_but_admin_1,
+QPushButton#classes_but_admin_1,
 QPushButton#timetable_but_admin_2,
-QPushButton#timetable_but_admin_3 {
+QPushButton#classes_but_admin_2,
+QPushButton#timetable_but_admin_3, QPushButton#timetable_but_admin_4,
+QPushButton#classes_but_admin_3, QPushButton#classes_but_admin_4 {
     background-color: transparent;
     color: #D1D5DB;
     border: none;
@@ -627,31 +630,37 @@ QPushButton#timetable_but_admin_3 {
 }
 QPushButton#dashboard_but_admin_1:hover,
 QPushButton#dashboard_but_admin_2:hover,
-QPushButton#dashboard_but_admin_3:hover,
+QPushButton#dashboard_but_admin_3:hover, QPushButton#dashboard_but_admin_4:hover,
 QPushButton#users_button_admin_1:hover,
 QPushButton#users_button_admin_2:hover,
-QPushButton#users_button_admin_3:hover,
+QPushButton#users_button_admin_3:hover, QPushButton#users_button_admin_4:hover,
 QPushButton#timetable_but_admin_1:hover,
+QPushButton#classes_but_admin_1:hover,
 QPushButton#timetable_but_admin_2:hover,
-QPushButton#timetable_but_admin_3:hover {
+QPushButton#classes_but_admin_2:hover,
+QPushButton#timetable_but_admin_3:hover, QPushButton#timetable_but_admin_4:hover,
+QPushButton#classes_but_admin_3:hover, QPushButton#classes_but_admin_4:hover {
     background-color: #1F2937;
     color: #FFFFFF;
 }
 QPushButton#dashboard_but_admin_1:pressed,
 QPushButton#dashboard_but_admin_2:pressed,
-QPushButton#dashboard_but_admin_3:pressed,
+QPushButton#dashboard_but_admin_3:pressed, QPushButton#dashboard_but_admin_4:pressed,
 QPushButton#users_button_admin_1:pressed,
 QPushButton#users_button_admin_2:pressed,
-QPushButton#users_button_admin_3:pressed,
+QPushButton#users_button_admin_3:pressed, QPushButton#users_button_admin_4:pressed,
 QPushButton#timetable_but_admin_1:pressed,
+QPushButton#classes_but_admin_1:pressed,
 QPushButton#timetable_but_admin_2:pressed,
-QPushButton#timetable_but_admin_3:pressed {
+QPushButton#classes_but_admin_2:pressed,
+QPushButton#timetable_but_admin_3:pressed, QPushButton#timetable_but_admin_4:pressed,
+QPushButton#classes_but_admin_3:pressed, QPushButton#classes_but_admin_4:pressed {
     background-color: #111827;
     color: #FFFFFF;
 }
 
 /* ---------- Admin logout buttons ---------- */
-QPushButton#logout_but_admin_1, QPushButton#logout_but_admin_2, QPushButton#logout_but_admin_3 {
+QPushButton#logout_but_admin_1, QPushButton#logout_but_admin_2, QPushButton#logout_but_admin_3, QPushButton#logout_but_admin_4 {
     background-color: transparent;
     color: #F87171;
     border: none;
@@ -662,11 +671,11 @@ QPushButton#logout_but_admin_1, QPushButton#logout_but_admin_2, QPushButton#logo
     font-size: 11pt;
     font-weight: 600;
 }
-QPushButton#logout_but_admin_1:hover, QPushButton#logout_but_admin_2:hover, QPushButton#logout_but_admin_3:hover {
+QPushButton#logout_but_admin_1:hover, QPushButton#logout_but_admin_2:hover, QPushButton#logout_but_admin_3:hover, QPushButton#logout_but_admin_4:hover {
     background-color: #1F2937;
     color: #EF4444;
 }
-QPushButton#logout_but_admin_1:pressed, QPushButton#logout_but_admin_2:pressed, QPushButton#logout_but_admin_3:pressed {
+QPushButton#logout_but_admin_1:pressed, QPushButton#logout_but_admin_2:pressed, QPushButton#logout_but_admin_3:pressed, QPushButton#logout_but_admin_4:pressed {
     background-color: #111827;
     color: #EF4444;
 }
@@ -677,12 +686,12 @@ QLabel#admin_name_label {
     font-size: 12pt;
     font-weight: 700;
 }
-QLabel#admin_dash_title, QLabel#admin_users_title, QLabel#admin_timetable_title {
+QLabel#admin_dash_title, QLabel#admin_users_title, QLabel#admin_timetable_title, QLabel#admin_classes_title {
     color: #111827;
     font-size: 22pt;
     font-weight: 800;
 }
-QLabel#admin_dash_subtitle, QLabel#admin_users_subtitle, QLabel#admin_timetable_subtitle {
+QLabel#admin_dash_subtitle, QLabel#admin_users_subtitle, QLabel#admin_timetable_subtitle, QLabel#admin_classes_subtitle {
     color: #6B7280;
     font-size: 11pt;
 }
@@ -720,12 +729,12 @@ QLabel#dash_sub_total_users, QLabel#dash_sub_students, QLabel#dash_sub_teachers 
 }
 
 /* ---------- Admin panels ---------- */
-QFrame#panel_users_per_class, QFrame#panel_recent_users, QFrame#panel_users_admin, QFrame#panel_timetable_picture_admin {
+QFrame#panel_users_per_class, QFrame#panel_recent_users, QFrame#panel_users_admin, QFrame#panel_timetable_picture_admin, QFrame#panel_classes_source, QFrame#panel_classes_dest {
     background-color: #FFFFFF;
     border-radius: 14px;
     border: 1px solid #E5E9F2;
 }
-QLabel#panel_title_users_per_class, QLabel#panel_title_recent_users, QLabel#panel_title_users_admin, QLabel#panel_title_timetable_picture_admin {
+QLabel#panel_title_users_per_class, QLabel#panel_title_recent_users, QLabel#panel_title_users_admin, QLabel#panel_title_timetable_picture_admin, QLabel#panel_title_classes_source, QLabel#panel_title_classes_dest {
     font-size: 13pt;
     font-weight: 700;
     color: #111827;
@@ -743,7 +752,7 @@ QListWidget#admin_users_per_class_list::item, QListWidget#admin_recent_users_lis
 }
 
 /* ---------- Admin back-home buttons ---------- */
-QPushButton#back_home_btn_admin_2, QPushButton#back_home_btn_admin_3 {
+QPushButton#back_home_btn_admin_2, QPushButton#back_home_btn_admin_3, QPushButton#back_home_btn_admin_4 {
     background-color: #FFFFFF;
     color: #4F46E5;
     border: 1px solid #4F46E5;
@@ -752,10 +761,10 @@ QPushButton#back_home_btn_admin_2, QPushButton#back_home_btn_admin_3 {
     font-weight: 700;
     padding: 6px 14px;
 }
-QPushButton#back_home_btn_admin_2:hover, QPushButton#back_home_btn_admin_3:hover {
+QPushButton#back_home_btn_admin_2:hover, QPushButton#back_home_btn_admin_3:hover, QPushButton#back_home_btn_admin_4:hover {
     background-color: #EEF2FF;
 }
-QPushButton#back_home_btn_admin_2:pressed, QPushButton#back_home_btn_admin_3:pressed {
+QPushButton#back_home_btn_admin_2:pressed, QPushButton#back_home_btn_admin_3:pressed, QPushButton#back_home_btn_admin_4:pressed {
     background-color: #E0E7FF;
 }
 
@@ -772,7 +781,7 @@ QTableWidget#admin_users_table::item {
     padding: 8px;
     border-bottom: 1px solid #F3F4F6;
 }
-QLabel#admin_users_res, QLabel#admin_timetable_res {
+QLabel#admin_users_res, QLabel#admin_timetable_res, QLabel#admin_classes_res {
     color: #16A34A;
     font-size: 10pt;
     font-weight: 600;
@@ -841,6 +850,42 @@ QLabel#timetable_picture_label_admin {
     font-size: 10pt;
     font-weight: 600;
 }
+
+/* ---------- Admin classes (switch student class) ---------- */
+QComboBox#admin_classes_src_class_combo, QComboBox#admin_classes_src_student_combo,
+QComboBox#admin_classes_dst_class_combo, QComboBox#admin_classes_dst_student_combo {
+    background-color: #F9FAFB;
+    border: 1px solid #D1D5DB;
+    border-radius: 8px;
+    padding: 4px 10px;
+    font-size: 10pt;
+    color: #111827;
+}
+QComboBox#admin_classes_src_class_combo:focus, QComboBox#admin_classes_src_student_combo:focus,
+QComboBox#admin_classes_dst_class_combo:focus, QComboBox#admin_classes_dst_student_combo:focus {
+    border: 1px solid #4F46E5;
+}
+QComboBox#admin_classes_src_class_combo::drop-down, QComboBox#admin_classes_src_student_combo::drop-down,
+QComboBox#admin_classes_dst_class_combo::drop-down, QComboBox#admin_classes_dst_student_combo::drop-down {
+    border: none;
+    width: 24px;
+}
+QLabel#classes_src_class_label, QLabel#classes_src_student_label,
+QLabel#classes_dst_class_label, QLabel#classes_dst_student_label {
+    color: #374151;
+    font-size: 10pt;
+    font-weight: 600;
+}
+QPushButton#admin_classes_switch_btn {
+    background-color: #4F46E5;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 8px;
+    font-size: 10pt;
+    font-weight: 700;
+}
+QPushButton#admin_classes_switch_btn:hover { background-color: #4338CA; }
+QPushButton#admin_classes_switch_btn:pressed { background-color: #3730A3; }
 </string>
   </property>
   <widget class="QWidget" name="centralwidget">
@@ -876,7 +921,7 @@ QLabel#timetable_picture_label_admin {
         <x>480</x>
         <y>170</y>
         <width>320</width>
-        <height>340</height>
+        <height>371</height>
        </rect>
       </property>
       <widget class="QLabel" name="form_title">
@@ -1006,6 +1051,38 @@ QLabel#timetable_picture_label_admin {
        </property>
        <property name="text">
         <string>Sign up</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_6">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>310</y>
+         <width>150</width>
+         <height>24</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">font-size: 9pt; color: #6B7280; font-weight: 400;</string>
+       </property>
+       <property name="text">
+        <string>Forgot your password?</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="reg_but_2">
+       <property name="geometry">
+        <rect>
+         <x>180</x>
+         <y>310</y>
+         <width>110</width>
+         <height>24</height>
+        </rect>
+       </property>
+       <property name="cursor">
+        <cursorShape>PointingHandCursor</cursorShape>
+       </property>
+       <property name="text">
+        <string>recover</string>
        </property>
       </widget>
      </widget>
@@ -4178,6 +4255,22 @@ Absence excuse request — Sep 8</string>
         <string>🗓️  Timetable</string>
        </property>
       </widget>
+      <widget class="QPushButton" name="classes_but_admin_1">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>276</y>
+         <width>180</width>
+         <height>42</height>
+        </rect>
+       </property>
+       <property name="cursor">
+        <cursorShape>PointingHandCursor</cursorShape>
+       </property>
+       <property name="text">
+        <string>🎓  Classes</string>
+       </property>
+      </widget>
       <widget class="QPushButton" name="logout_but_admin_1">
        <property name="geometry">
         <rect>
@@ -4544,6 +4637,22 @@ Absence excuse request — Sep 8</string>
         <string>🗓️  Timetable</string>
        </property>
       </widget>
+      <widget class="QPushButton" name="classes_but_admin_2">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>276</y>
+         <width>180</width>
+         <height>42</height>
+        </rect>
+       </property>
+       <property name="cursor">
+        <cursorShape>PointingHandCursor</cursorShape>
+       </property>
+       <property name="text">
+        <string>🎓  Classes</string>
+       </property>
+      </widget>
       <widget class="QPushButton" name="logout_but_admin_2">
        <property name="geometry">
         <rect>
@@ -4773,6 +4882,22 @@ Absence excuse request — Sep 8</string>
         <string>🗓️  Timetable</string>
        </property>
       </widget>
+      <widget class="QPushButton" name="classes_but_admin_3">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>276</y>
+         <width>180</width>
+         <height>42</height>
+        </rect>
+       </property>
+       <property name="cursor">
+        <cursorShape>PointingHandCursor</cursorShape>
+       </property>
+       <property name="text">
+        <string>🎓  Classes</string>
+       </property>
+      </widget>
       <widget class="QPushButton" name="logout_but_admin_3">
        <property name="geometry">
         <rect>
@@ -4960,6 +5085,309 @@ No image set — select a class to see its schedule</string>
       </property>
       <property name="text">
        <string>Update</string>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="classes_admin">
+     <widget class="QFrame" name="sidebar_admin_4">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>220</width>
+        <height>698</height>
+       </rect>
+      </property>
+      <widget class="QLabel" name="sidebar_title_admin_4">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>30</y>
+         <width>220</width>
+         <height>40</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Oscuola</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignmentFlag::AlignCenter</set>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="dashboard_but_admin_4">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>120</y>
+         <width>180</width>
+         <height>42</height>
+        </rect>
+       </property>
+       <property name="cursor">
+        <cursorShape>PointingHandCursor</cursorShape>
+       </property>
+       <property name="text">
+        <string>🏠  Dashboard</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="users_button_admin_4">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>172</y>
+         <width>180</width>
+         <height>42</height>
+        </rect>
+       </property>
+       <property name="cursor">
+        <cursorShape>PointingHandCursor</cursorShape>
+       </property>
+       <property name="text">
+        <string>👥  Users</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="timetable_but_admin_4">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>224</y>
+         <width>180</width>
+         <height>42</height>
+        </rect>
+       </property>
+       <property name="cursor">
+        <cursorShape>PointingHandCursor</cursorShape>
+       </property>
+       <property name="text">
+        <string>🗓️  Timetable</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="classes_but_admin_4">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>276</y>
+         <width>180</width>
+         <height>42</height>
+        </rect>
+       </property>
+       <property name="cursor">
+        <cursorShape>PointingHandCursor</cursorShape>
+       </property>
+       <property name="text">
+        <string>      transfer</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="logout_but_admin_4">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>636</y>
+         <width>180</width>
+         <height>42</height>
+        </rect>
+       </property>
+       <property name="cursor">
+        <cursorShape>PointingHandCursor</cursorShape>
+       </property>
+       <property name="text">
+        <string>🚪  Logout</string>
+       </property>
+      </widget>
+     </widget>
+     <widget class="QLabel" name="admin_classes_title">
+      <property name="geometry">
+       <rect>
+        <x>260</x>
+        <y>36</y>
+        <width>500</width>
+        <height>50</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Change Classes</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="admin_classes_subtitle">
+      <property name="geometry">
+       <rect>
+        <x>260</x>
+        <y>86</y>
+        <width>700</width>
+        <height>24</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Pick a student and a destination, then switch their classes</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="back_home_btn_admin_4">
+      <property name="geometry">
+       <rect>
+        <x>1130</x>
+        <y>40</y>
+        <width>130</width>
+        <height>36</height>
+       </rect>
+      </property>
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
+      </property>
+      <property name="text">
+       <string>🏠  Back Home</string>
+      </property>
+     </widget>
+     <widget class="QFrame" name="panel_classes_source">
+      <property name="geometry">
+       <rect>
+        <x>260</x>
+        <y>140</y>
+        <width>440</width>
+        <height>230</height>
+       </rect>
+      </property>
+      <widget class="QLabel" name="panel_title_classes_source">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>16</y>
+         <width>300</width>
+         <height>26</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>From (Source)</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="classes_src_class_label">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>75</y>
+         <width>80</width>
+         <height>24</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Class</string>
+       </property>
+      </widget>
+      <widget class="QComboBox" name="admin_classes_src_class_combo">
+       <property name="geometry">
+        <rect>
+         <x>110</x>
+         <y>70</y>
+         <width>300</width>
+         <height>34</height>
+        </rect>
+       </property>
+       <property name="cursor">
+        <cursorShape>PointingHandCursor</cursorShape>
+       </property>
+      </widget>
+      <widget class="QLabel" name="classes_src_student_label">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>140</y>
+         <width>80</width>
+         <height>24</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Student</string>
+       </property>
+      </widget>
+      <widget class="QComboBox" name="admin_classes_src_student_combo">
+       <property name="geometry">
+        <rect>
+         <x>110</x>
+         <y>135</y>
+         <width>300</width>
+         <height>34</height>
+        </rect>
+       </property>
+       <property name="cursor">
+        <cursorShape>PointingHandCursor</cursorShape>
+       </property>
+      </widget>
+     </widget>
+     <widget class="QFrame" name="panel_classes_dest">
+      <property name="geometry">
+       <rect>
+        <x>760</x>
+        <y>140</y>
+        <width>440</width>
+        <height>230</height>
+       </rect>
+      </property>
+      <widget class="QLabel" name="panel_title_classes_dest">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>16</y>
+         <width>300</width>
+         <height>26</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>To (Destination)</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="classes_dst_class_label">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>105</y>
+         <width>80</width>
+         <height>24</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Class</string>
+       </property>
+      </widget>
+      <widget class="QComboBox" name="admin_classes_dst_class_combo">
+       <property name="geometry">
+        <rect>
+         <x>110</x>
+         <y>100</y>
+         <width>300</width>
+         <height>34</height>
+        </rect>
+       </property>
+       <property name="cursor">
+        <cursorShape>PointingHandCursor</cursorShape>
+       </property>
+      </widget>
+     </widget>
+     <widget class="QPushButton" name="admin_classes_switch_btn">
+      <property name="geometry">
+       <rect>
+        <x>640</x>
+        <y>400</y>
+        <width>180</width>
+        <height>42</height>
+       </rect>
+      </property>
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
+      </property>
+      <property name="text">
+       <string>transfer</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="admin_classes_res">
+      <property name="geometry">
+       <rect>
+        <x>260</x>
+        <y>460</y>
+        <width>940</width>
+        <height>34</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
       </property>
      </widget>
     </widget>

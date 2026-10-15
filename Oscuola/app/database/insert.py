@@ -181,7 +181,7 @@ def sendemail(email, name):
         "We're happy to announce that you've been accepted into the Oscuola platform. "
         "Your account has been activated, and you can now log in using your credentials.\n\n"
         "Sincerely,\n"
-        "Oscuola Devs (Mohamed-adhd)"
+        "Oscuola Devs (mohamed-adhd)"
     )
     message.set_content(body)
     with smtplib.SMTP("smtp.gmail.com", 587) as server:
@@ -277,6 +277,44 @@ def demote_that_bih(gmail, role, name, aftername):
     cur.execute("INSERT INTO students (name,aftername,gmail) VALUES(%s,%s,%s);",(name,aftername,gmail))
     s.commit()
     cur.execute("UPDATE users SET role=%s WHERE gmail = %s AND role = %s ;",("student", gmail, role),)
+    s.commit()
+    cur.close()
+    s.close()
+    return {"status": True}
+
+
+def swap(id,dst):
+    load_dotenv()
+    cons = os.environ["CON_STRING"]
+    s = psycopg2.connect(os.environ["DATABASE_URL"])
+    cur = s.cursor()
+    cur.execute("UPDATE students SET syear =%s, classs=%s WHERE id = %s ", (int(dst[0]),int(dst[2]),id))
+    s.commit()
+    cur.close()
+    s.close()
+    return {"status": True}
+
+
+
+
+
+def create_class(year,num,tid):
+    load_dotenv()
+    cons = os.environ["CON_STRING"]
+    s = psycopg2.connect(os.environ["DATABASE_URL"])
+    cur = s.cursor()
+    cur.execute("INSERT INTO classes (classs,yeary,teacher_id) ", (year,num,tid))
+    s.commit()
+    cur.close()
+    s.close()
+    return {"status": True}
+
+def ass_tea(year,num,tid):#if anyone reading this , the function name means assign_teacher , not ass tea...
+    load_dotenv()
+    cons = os.environ["CON_STRING"]
+    s = psycopg2.connect(os.environ["DATABASE_URL"])
+    cur = s.cursor()
+    cur.execute("UPDATE classes SET teacher_id=%s  WHERE yeary = %s AND classs=%s", (tid,year,num))
     s.commit()
     cur.close()
     s.close()

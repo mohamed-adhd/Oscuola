@@ -253,6 +253,50 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
             report_buts->addButton(button);
         }}
 
+
+
+
+    QButtonGroup *classes_admin= new QButtonGroup(this);
+    for(int i=1;i<4;i++){
+        QString name=QString("classes_but_admin_%1").arg(i);
+        QPushButton *button=this->findChild<QPushButton*>(name);
+        if(button){
+            classes_admin->addButton(button);
+        }}
+
+
+
+    connect(classes_admin,&QButtonGroup::buttonClicked,this,[this]{
+        QVector<QString> classes = db.list_classes();
+        for (const QString &c : classes){
+            ui->admin_classes_src_class_combo->addItem(c, c);
+            ui->admin_classes_dst_class_combo->addItem(c, c);
+            qDebug()<<c;
+        }
+        ui->admin_classes_src_class_combo->blockSignals(false);
+        ui->admin_classes_dst_class_combo->blockSignals(false);
+
+        std::vector<studs> tempo = db.get_students(ui->admin_classes_src_class_combo->currentText().toStdString());
+        for (studs &c : tempo){
+            qDebug()<<"WE GITTTTTTTTTTTTT"<<c.name;
+            ui->admin_classes_src_student_combo->addItem(QString::fromStdString(c.aftername+" "+c.name+"; id : ")+QString::number(c.id), c.id);
+        }
+        ui->admin_classes_src_student_combo->blockSignals(false);
+
+        switchpg(15);
+    });
+
+
+    connect(ui->admin_classes_src_class_combo,&QComboBox::currentTextChanged,this,[this]{
+        ui->admin_classes_src_student_combo->clear();
+        std::vector<studs> tempo = db.get_students(ui->admin_classes_src_class_combo->currentText().toStdString());
+        for (studs &c : tempo){
+            qDebug()<<c.name;
+            ui->admin_classes_src_student_combo->addItem(QString::fromStdString(c.aftername+" "+c.name+"; id : ")+QString::number(c.id), c.id);
+        }
+    });
+
+
     connect(report_buts,&QButtonGroup::buttonClicked,this ,[this]{
         ui->teacher_reports_class_combo->blockSignals(true);
         ui->teacher_reports_class_combo->clear();
@@ -298,6 +342,24 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
 
         switchpg(11);
     });
+
+
+
+
+    connect(ui->admin_classes_switch_btn,&QPushButton::clicked,this,[this]{
+        int x = ui->admin_classes_src_student_combo->currentText().section(':', 1).trimmed().toInt();
+        db.change_student(x,ui->admin_classes_dst_class_combo->currentText());
+        qDebug()<<"that shi flew";
+
+    });
+
+
+
+
+
+
+
+
 
 
     connect(ui->teacher_reports_load_students_but,&QPushButton::clicked,this,[this]{
