@@ -337,7 +337,7 @@ def get_class_grades(classs):
         rows.append({"id": st[0], "name": st[1], "aftername": st[2], "grades": g})
     return {"success": True, "data": rows}
 
-def getstudents(classs,year):
+def getstudents(year,classs):
     load_dotenv()
     cons = os.environ["CON_STRING"]
     s = psycopg2.connect(os.environ["DATABASE_URL"])

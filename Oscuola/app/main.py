@@ -17,7 +17,7 @@ class reportsss(BaseModel):
     id : int
 
 class change(BaseModel):
-    source : str
+    id : int
     dest : str
 
 
@@ -124,7 +124,7 @@ def prmt(data : user,authorized: None = Depends(verify_key)):
 
 @app.post("/changecls")
 def ccl (data : change,authorized: None = Depends(verify_key)):
-    return swap(data.source,data.dest)
+    return swap(data.id,data.dest)
 
 
 
