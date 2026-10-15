@@ -238,7 +238,7 @@ def lspci():
     cons = os.environ["CON_STRING"]
     s = psycopg2.connect(os.environ["DATABASE_URL"])
     cur = s.cursor()
-    cur.execute("SELECT year,class FROM timetables ;")
+    cur.execute("SELECT yeary,classs FROM classes ;")
     res=cur.fetchall()
 
 
