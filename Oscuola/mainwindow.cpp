@@ -253,6 +253,34 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
             report_buts->addButton(button);
         }}
 
+
+
+
+    QButtonGroup *classes_admin= new QButtonGroup(this);
+    for(int i=1;i<4;i++){
+        QString name=QString("classes_but_admin_%1").arg(i);
+        QPushButton *button=this->findChild<QPushButton*>(name);
+        if(button){
+            classes_admin->addButton(button);
+        }}
+
+
+
+    connect(classes_admin,&QButtonGroup::buttonClicked,this,[this]{
+        QVector<QString> classes = db.get_classes(std::get<4>(f));
+        for (const QString &c : classes){
+            ui->admin_classes_src_class_combo->addItem(c, c);
+            qDebug()<<c;
+        }
+        for (const QString &c : classes){
+            ui->admin_classes_dst_class_combo->addItem(c, c);
+            qDebug()<<c;
+        }
+        ui->admin_classes_src_class_combo->blockSignals(false);
+        ui->admin_classes_dst_class_combo->blockSignals(false);
+        switchpg(15);
+    });
+
     connect(report_buts,&QButtonGroup::buttonClicked,this ,[this]{
         ui->teacher_reports_class_combo->blockSignals(true);
         ui->teacher_reports_class_combo->clear();

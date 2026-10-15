@@ -5431,7 +5431,7 @@ No image set — select a class to see its schedule</string>
   </widget>
   <widget class="QStatusBar" name="statusbar">
    <property name="visible">
-    <bool>true</bool>
+    <bool>false</bool>
    </property>
   </widget>
  </widget>
