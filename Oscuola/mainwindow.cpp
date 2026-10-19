@@ -275,18 +275,37 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
             qDebug()<<"WE GITTTTTTTTTTTTT"<<c.name;
             ui->teach_wsap->addItem(QString::fromStdString(c.aftername+" "+c.name+"; id : ")+QString::number(c.id), c.id);
         }
-
-
         switchpg(16);
+    });
+    connect(ui->admin_create_class_btn,&QPushButton::clicked,this,[this]{
+        int x = ui->teach_wsap->currentText().section(':', 1).trimmed().toInt();
+        db.add_class(ui->lineEdit->text().toInt(),ui->lineEdit_2->text().toInt(), x);
+    });
+    connect(ass_tea_buts,&QButtonGroup::buttonClicked,this,[this](){
+        QVector<QString> classes = db.list_classes();
+        std::vector<studs> timpy=db.list_teach();
+        for (studs &c : timpy){
+            qDebug()<<"WE GITTTTTTTTTTTTT"<<c.name;
+            ui->admin_assign_teacher_teacher_combo->addItem(QString::fromStdString(c.aftername+" "+c.name+"; id : ")+QString::number(c.id), c.id);
+        }
+        for (const QString &c : classes){
+            ui->admin_assign_teacher_class_combo->addItem(c, c);
+            qDebug()<<c;
+        }
+        switchpg(17);
 
-        connect(ui->admin_create_class_btn,&QPushButton::clicked,this,[this]{
-            int x = ui->admin_classes_src_student_combo->currentText().section(':', 1).trimmed().toInt();
-            db.add_class(ui->create_class_grade_label->text().toInt(),ui->create_class_section_label->text().toInt(), x);
-        });
+
     });
 
-    connect(ass_tea_buts,&QButtonGroup::buttonClicked,this,[this](){
-        switchpg(17);
+    connect(ui->admin_assign_teacher_btn,&QPushButton::clicked,this,[this]{
+        int x = ui->admin_assign_teacher_teacher_combo->currentText().section(':', 1).trimmed().toInt();
+        db.ass_tea(ui->admin_assign_teacher_class_combo->currentText(),x);
+
+        qDebug()<<"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"<<ui->admin_assign_teacher_teacher_combo->currentText();
+
+
+
+
 
 
     });
