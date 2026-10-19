@@ -252,6 +252,47 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
         if(button){
             report_buts->addButton(button);
         }}
+    QButtonGroup *createcls_buts= new QButtonGroup(this);
+    for(int i=1;i<6;i++){
+        QString name=QString("create_class_but_admin_%1").arg(i);
+        QPushButton *button=this->findChild<QPushButton*>(name);
+        if(button){
+            createcls_buts->addButton(button);
+        }}
+
+    QButtonGroup *ass_tea_buts= new QButtonGroup(this);//same comment as in the endpoint..
+    for(int i=1;i<6;i++){
+        QString name=QString("assign_teacher_but_admin_%1").arg(i);
+        QPushButton *button=this->findChild<QPushButton*>(name);
+        if(button){
+            ass_tea_buts->addButton(button);
+        }}
+
+
+    connect(createcls_buts,&QButtonGroup::buttonClicked,this,[this](){
+        std::vector<studs> timpy=db.list_teach();
+        for (studs &c : timpy){
+            qDebug()<<"WE GITTTTTTTTTTTTT"<<c.name;
+            ui->teach_wsap->addItem(QString::fromStdString(c.aftername+" "+c.name+"; id : ")+QString::number(c.id), c.id);
+        }
+
+
+        switchpg(16);
+
+        connect(ui->admin_create_class_btn,&QPushButton::clicked,this,[this]{
+            int x = ui->admin_classes_src_student_combo->currentText().section(':', 1).trimmed().toInt();
+            db.add_class(ui->create_class_grade_label->text().toInt(),ui->create_class_section_label->text().toInt(), x);
+        });
+    });
+
+    connect(ass_tea_buts,&QButtonGroup::buttonClicked,this,[this](){
+        switchpg(17);
+
+
+    });
+
+
+
 
 
 
@@ -419,7 +460,6 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
         QString text = ui->teacher_reports_student_combo->currentText();
         int x = text.section(':', -1).trimmed().toInt();
         db.generate_rapport(ui->teacher_reports_class_combo->currentText(),x,std::get<4>(f));
-
     });
 
 
@@ -679,7 +719,6 @@ switchpg(4);});
 
         ;
     });
-
 
     QButtonGroup *time_buts= new QButtonGroup(this);
     for(int i=1;i<5;i++){
