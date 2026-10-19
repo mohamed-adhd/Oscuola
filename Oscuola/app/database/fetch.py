@@ -289,9 +289,9 @@ def lstch():
     cons = os.environ["CON_STRING"]
     s = psycopg2.connect(os.environ["DATABASE_URL"])
     cur = s.cursor()
-    cur.execute("SELECT id,name,aftername  FROM teachers ;")
+    cur.execute("SELECT name,aftername,id  FROM teachers ;")
     res=cur.fetchall()
-    return {"content":res}
+    return {"data":res}
 
 
 

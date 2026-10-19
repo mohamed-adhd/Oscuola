@@ -96,6 +96,46 @@ QNetworkRequest mkreq(QString path)
 
 
 
+
+
+
+
+
+std::vector<studs> database::list_teach(){
+    std::vector<studs> usas;
+    QNetworkAccessManager *manager = new QNetworkAccessManager(this);
+    QNetworkRequest request = mkreq("/list_teach");
+    QNetworkReply *res = manager->get(request);
+    QEventLoop loop;
+    connect(res,&QNetworkReply::finished,&loop,&QEventLoop::quit);
+    loop.exec();
+    QByteArray responseData = res->readAll();
+    qDebug().noquote() << responseData;
+
+    QJsonDocument docs = QJsonDocument::fromJson(responseData);
+    QJsonObject obj = docs.object();
+    QJsonArray arr = obj.value("data").toArray();
+    for (const QJsonValue &rowVal : arr) {
+        QJsonArray row = rowVal.toArray();
+        studs r;
+        r.name      = row[0].toString().toStdString()+" "+row[1].toString().toStdString();
+        r.id   = row[2].toString().toInt();
+    usas.push_back(r);
+    }
+    return usas;
+}
+
+
+
+
+
+
+
+
+
+
+
+
 std::tuple<std::string, std::string, std::string, std::string,int,int,int > database::login_check(std::string email, std::string passwd)
 {
     QNetworkAccessManager *manager = new QNetworkAccessManager(this);

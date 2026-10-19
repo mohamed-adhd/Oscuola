@@ -86,7 +86,7 @@ public :
     bool change_student(int id,QString classs);
     bool add_class(int year,int sec);
     bool ass_tea(QString classs,int id);
-
+    std::vector<studs> list_teach();
 
 
 

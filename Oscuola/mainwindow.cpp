@@ -270,6 +270,12 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
 
 
     connect(createcls_buts,&QButtonGroup::buttonClicked,this,[this](){
+        std::vector<studs> timpy=db.list_teach();
+        for (studs &c : timpy){
+            qDebug()<<"WE GITTTTTTTTTTTTT"<<c.name;
+            ui->teach_wsap->addItem(QString::fromStdString(c.aftername+" "+c.name+"; id : ")+QString::number(c.id), c.id);
+        }
+
 
         switchpg(16);
 
@@ -455,7 +461,6 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
         QString text = ui->teacher_reports_student_combo->currentText();
         int x = text.section(':', -1).trimmed().toInt();
         db.generate_rapport(ui->teacher_reports_class_combo->currentText(),x,std::get<4>(f));
-
     });
 
 
@@ -715,7 +720,6 @@ switchpg(4);});
 
         ;
     });
-
 
     QButtonGroup *time_buts= new QButtonGroup(this);
     for(int i=1;i<5;i++){
