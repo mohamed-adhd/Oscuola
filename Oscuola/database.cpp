@@ -119,12 +119,12 @@ std::vector<studs> database::list_teach(){
         QJsonArray row = rowVal.toArray();
         studs r;
         r.name      = row[0].toString().toStdString()+" "+row[1].toString().toStdString();
-        r.id   = row[2].toString().toInt();
+        r.id   = row[2].toDouble();
+        qDebug()<<" to all of u  niggs , we got the collective iq of : "<<row[2];
     usas.push_back(r);
     }
     return usas;
 }
-
 
 
 
@@ -286,12 +286,13 @@ QVector<QString> database::get_classes(int id){
 
 
 
-bool database::add_class(int year,int sec){
+bool database::add_class(int year,int sec,int id){
     QNetworkAccessManager *manager = new QNetworkAccessManager(this);
     QNetworkRequest request = mkreq("/new_cls");
     QJsonObject json;
     json["year"] = year;
     json["classs"] = sec;
+    json["id"]=id;
     QJsonDocument doc(json);
     QByteArray data = doc.toJson();
     QNetworkReply *res = manager->post(request, data);
