@@ -289,6 +289,14 @@ QVector<QString> database::get_classes(int id){
 bool database::add_class(int year,int sec,int id){
     QNetworkAccessManager *manager = new QNetworkAccessManager(this);
     QNetworkRequest request = mkreq("/new_cls");
+
+
+
+
+    qDebug()<<"WE ARE SENDING , year: "<<year<<" ; sec : "<<sec<<" ; id : "<<id;
+
+
+
     QJsonObject json;
     json["year"] = year;
     json["classs"] = sec;
@@ -309,7 +317,7 @@ bool database::add_class(int year,int sec,int id){
     }
 bool database::ass_tea(QString classs,int id){
     QNetworkAccessManager *manager = new QNetworkAccessManager(this);
-    QNetworkRequest request = mkreq("/get_myclasses");
+    QNetworkRequest request = mkreq("/assign");
     QJsonObject json;
     json["id"] = id;
     json["classs"] = classs;

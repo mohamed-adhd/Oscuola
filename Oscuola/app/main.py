@@ -7,7 +7,7 @@ from fastapi import FastAPI
 from fastapi import Depends
 from database.delete import deluser
 from database.fetch import check_login,get_grades,get_class_grades,get_alerts_1st,timetable,get_classes,get_reqs,getstudents,test,report_ts,load_reps,get_repcontent,lspci,lsusr,lstuds,lstch
-from database.insert import insert_request,postit,accept_it,delete_it,modifygrades,update_tb,promote_that_bih,demote_that_bih,swap,assign,new_class
+from database.insert import insert_request,postit,accept_it,delete_it,modifygrades,update_tb,promote_that_bih,demote_that_bih,swap,ass_tea,new_class
 from pydantic import BaseModel
 class LoginRequest(BaseModel):
     gmail: str
@@ -189,7 +189,7 @@ def ncls(data : cls, authorized: None = Depends(verify_key)):
 
 @app.post("/assign")
 def ass(data : assign, authorized: None = Depends(verify_key)):
-    return assign(str(data.classs[0]),str(data.classs[2]),data.id)
+    return ass_tea(str(data.classs[0]),str(data.classs[2]),data.id)
 
 
 
