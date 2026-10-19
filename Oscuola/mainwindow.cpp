@@ -279,11 +279,10 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
 
         switchpg(16);
 
-
-
-    });
-    connect(ui->admin_create_class_btn,&QPushButton::clicked,this,[this]{
-        db.add_class(ui->lineEdit->text().toInt(),ui->lineEdit_2->text().toInt());
+        connect(ui->admin_create_class_btn,&QPushButton::clicked,this,[this]{
+            int x = ui->admin_classes_src_student_combo->currentText().section(':', 1).trimmed().toInt();
+            db.add_class(ui->create_class_grade_label->text().toInt(),ui->create_class_section_label->text().toInt(), x);
+        });
     });
 
     connect(ass_tea_buts,&QButtonGroup::buttonClicked,this,[this](){

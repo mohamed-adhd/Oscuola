@@ -303,7 +303,7 @@ def new_class(year,num,tid):
     cons = os.environ["CON_STRING"]
     s = psycopg2.connect(os.environ["DATABASE_URL"])
     cur = s.cursor()
-    cur.execute("INSERT INTO classes (classs,yeary,teacher_id) ", (year,num,tid))
+    cur.execute("INSERT INTO classes (classs,yeary,teacher_id); ", (year,num,tid))
     s.commit()
     cur.close()
     s.close()
@@ -314,7 +314,7 @@ def assign(year,num,tid):#if anyone reading this , the function name means assig
     cons = os.environ["CON_STRING"]
     s = psycopg2.connect(os.environ["DATABASE_URL"])
     cur = s.cursor()
-    cur.execute("UPDATE classes SET teacher_id=%s  WHERE yeary = %s AND classs=%s", (tid,year,num))
+    cur.execute("UPDATE classes SET teacher_id=%s  WHERE yeary = %s AND classs=%s;", (tid,year,num))
     s.commit()
     cur.close()
     s.close()
