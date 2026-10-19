@@ -303,7 +303,7 @@ def new_class(year,num,tid):
     cons = os.environ["CON_STRING"]
     s = psycopg2.connect(os.environ["DATABASE_URL"])
     cur = s.cursor()
-    cur.execute("INSERT INTO classes (classs,yeary,teacher_id); ", (year,num,tid))
+    cur.execute("INSERT INTO classes (yeary,classs,teacher_id); ", (year,num,tid))
     s.commit()
     cur.close()
     s.close()
