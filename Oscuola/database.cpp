@@ -321,6 +321,9 @@ bool database::ass_tea(QString classs,int id){
     QJsonObject json;
     json["id"] = id;
     json["classs"] = classs;
+
+
+    qDebug()<<" we gggggggggggggot : "<<id<<" +  "<<classs;
     QJsonDocument doc(json);
     QByteArray data = doc.toJson();
     QNetworkReply *res = manager->post(request, data);

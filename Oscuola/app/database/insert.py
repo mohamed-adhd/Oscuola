@@ -272,17 +272,17 @@ def demote_that_bih(gmail, role, name, aftername):
     cons = os.environ["CON_STRING"]
     s = psycopg2.connect(os.environ["DATABASE_URL"])
     cur = s.cursor()
+    cur.execute("SELECT syear,classs FROM classes;")
+    res=cur.fetchone()
     cur.execute("DELETE FROM teachers WHERE name = %s AND aftername = %s AND gmail = %s", (name,aftername,gmail))
     s.commit()
-    cur.execute("INSERT INTO students (name,aftername,gmail) VALUES(%s,%s,%s);",(name,aftername,gmail))
+    cur.execute("INSERT INTO students (name,aftername,gmail,syear,classs) VALUES(%s,%s,%s,%s,%s);",(name,aftername,gmail,res[0],res[1]))
     s.commit()
     cur.execute("UPDATE users SET role=%s WHERE gmail = %s AND role = %s ;",("student", gmail, role),)
     s.commit()
     cur.close()
     s.close()
     return {"status": True}
-
-
 def swap(id,dst):
     load_dotenv()
     cons = os.environ["CON_STRING"]

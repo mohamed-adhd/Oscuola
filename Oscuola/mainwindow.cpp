@@ -298,8 +298,10 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
     });
 
     connect(ui->admin_assign_teacher_btn,&QPushButton::clicked,this,[this]{
-        int x = ui->admin_assign_teacher_class_combo->currentText().section(':', 1).trimmed().toInt();
-        db.ass_tea(ui->admin_assign_teacher_teacher_combo->currentText(),x);
+        int x = ui->admin_assign_teacher_teacher_combo->currentText().section(':', 1).trimmed().toInt();
+        db.ass_tea(ui->admin_assign_teacher_class_combo->currentText(),x);
+
+        qDebug()<<"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"<<ui->admin_assign_teacher_teacher_combo->currentText();
 
 
 
