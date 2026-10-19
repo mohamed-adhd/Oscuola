@@ -189,7 +189,7 @@ def ncls(data : cls, authorized: None = Depends(verify_key)):
 
 @app.post("/assign")
 def ass(data : assign, authorized: None = Depends(verify_key)):
-    return ass_tea(str(data.classs[0]),str(data.classs[2]),data.id)
+    return ass_tea(int(data.classs[0]),int(data.classs[2]),data.id)
 
 
 
