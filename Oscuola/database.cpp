@@ -96,6 +96,46 @@ QNetworkRequest mkreq(QString path)
 
 
 
+
+
+
+
+
+std::vector<studs> database::list_teach(){
+    std::vector<studs> usas;
+    QNetworkAccessManager *manager = new QNetworkAccessManager(this);
+    QNetworkRequest request = mkreq("/list_teach");
+    QNetworkReply *res = manager->get(request);
+    QEventLoop loop;
+    connect(res,&QNetworkReply::finished,&loop,&QEventLoop::quit);
+    loop.exec();
+    QByteArray responseData = res->readAll();
+    qDebug().noquote() << responseData;
+
+    QJsonDocument docs = QJsonDocument::fromJson(responseData);
+    QJsonObject obj = docs.object();
+    QJsonArray arr = obj.value("data").toArray();
+    for (const QJsonValue &rowVal : arr) {
+        QJsonArray row = rowVal.toArray();
+        studs r;
+        r.name      = row[0].toString().toStdString()+" "+row[1].toString().toStdString();
+        r.id   = row[2].toDouble();
+        qDebug()<<" to all of u  niggs , we got the collective iq of : "<<row[2];
+    usas.push_back(r);
+    }
+    return usas;
+}
+
+
+
+
+
+
+
+
+
+
+
 std::tuple<std::string, std::string, std::string, std::string,int,int,int > database::login_check(std::string email, std::string passwd)
 {
     QNetworkAccessManager *manager = new QNetworkAccessManager(this);
@@ -242,6 +282,75 @@ QVector<QString> database::get_classes(int id){
 
 
     }
+
+
+
+
+bool database::add_class(int year,int sec,int id){
+    QNetworkAccessManager *manager = new QNetworkAccessManager(this);
+    QNetworkRequest request = mkreq("/new_cls");
+
+
+
+
+    qDebug()<<"WE ARE SENDING , year: "<<year<<" ; sec : "<<sec<<" ; id : "<<id;
+
+
+
+    QJsonObject json;
+    json["year"] = year;
+    json["classs"] = sec;
+    json["id"]=id;
+    QJsonDocument doc(json);
+    QByteArray data = doc.toJson();
+    QNetworkReply *res = manager->post(request, data);
+    QEventLoop loop;
+    connect(res,&QNetworkReply::finished,&loop,&QEventLoop::quit);
+    loop.exec();
+    QByteArray responseData = res->readAll();
+    qDebug().noquote() << responseData;
+
+    QJsonDocument docs = QJsonDocument::fromJson(responseData);
+    QJsonObject obj = docs.object();
+
+    return obj["state"].toBool();
+    }
+bool database::ass_tea(QString classs,int id){
+    QNetworkAccessManager *manager = new QNetworkAccessManager(this);
+    QNetworkRequest request = mkreq("/assign");
+    QJsonObject json;
+    json["id"] = id;
+    json["classs"] = classs;
+
+
+    qDebug()<<" we gggggggggggggot : "<<id<<" +  "<<classs;
+    QJsonDocument doc(json);
+    QByteArray data = doc.toJson();
+    QNetworkReply *res = manager->post(request, data);
+    QEventLoop loop;
+    connect(res,&QNetworkReply::finished,&loop,&QEventLoop::quit);
+    loop.exec();
+    QByteArray responseData = res->readAll();
+    qDebug().noquote() << responseData;
+
+    QJsonDocument docs = QJsonDocument::fromJson(responseData);
+    QJsonObject obj = docs.object();
+
+    return obj["state"].toBool();
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

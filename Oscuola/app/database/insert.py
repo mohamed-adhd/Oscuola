@@ -272,17 +272,17 @@ def demote_that_bih(gmail, role, name, aftername):
     cons = os.environ["CON_STRING"]
     s = psycopg2.connect(os.environ["DATABASE_URL"])
     cur = s.cursor()
+    cur.execute("SELECT syear,classs FROM classes;")
+    res=cur.fetchone()
     cur.execute("DELETE FROM teachers WHERE name = %s AND aftername = %s AND gmail = %s", (name,aftername,gmail))
     s.commit()
-    cur.execute("INSERT INTO students (name,aftername,gmail) VALUES(%s,%s,%s);",(name,aftername,gmail))
+    cur.execute("INSERT INTO students (name,aftername,gmail,syear,classs) VALUES(%s,%s,%s,%s,%s);",(name,aftername,gmail,res[0],res[1]))
     s.commit()
     cur.execute("UPDATE users SET role=%s WHERE gmail = %s AND role = %s ;",("student", gmail, role),)
     s.commit()
     cur.close()
     s.close()
     return {"status": True}
-
-
 def swap(id,dst):
     load_dotenv()
     cons = os.environ["CON_STRING"]
@@ -298,12 +298,12 @@ def swap(id,dst):
 
 
 
-def create_class(year,num,tid):
+def new_class(year,num,tid):
     load_dotenv()
     cons = os.environ["CON_STRING"]
     s = psycopg2.connect(os.environ["DATABASE_URL"])
     cur = s.cursor()
-    cur.execute("INSERT INTO classes (classs,yeary,teacher_id) ", (year,num,tid))
+    cur.execute("INSERT INTO classes (yeary,classs,teacher_id) VALUES (%s,%s,%s); ", (year,num,tid))
     s.commit()
     cur.close()
     s.close()
@@ -314,7 +314,7 @@ def ass_tea(year,num,tid):#if anyone reading this , the function name means assi
     cons = os.environ["CON_STRING"]
     s = psycopg2.connect(os.environ["DATABASE_URL"])
     cur = s.cursor()
-    cur.execute("UPDATE classes SET teacher_id=%s  WHERE yeary = %s AND classs=%s", (tid,year,num))
+    cur.execute("UPDATE classes SET teacher_id=%s  WHERE yeary = %s AND classs=%s;", (tid,year,num))
     s.commit()
     cur.close()
     s.close()
