@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include "database.h"
+#include <QSystemTrayIcon>
 QT_BEGIN_NAMESPACE
 namespace Ui {
 class MainWindow;
@@ -29,6 +30,8 @@ public:
     void savegrades();
     void setgradeheaders(int year);
     bool downloadreport(QString content,QString dir);
+    QSystemTrayIcon *trayIcon;
+    void notificate(QString message,QIcon ss) ;
 
 private:
     Ui::MainWindow *ui;

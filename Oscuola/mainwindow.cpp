@@ -19,8 +19,9 @@
 
 
 
-void notificate(QString message){
-
+void MainWindow::notificate(QString message,QIcon ss){
+    trayIcon->show();
+    trayIcon->showMessage("Oscuola",message,ss,3000);
 }
 
 
@@ -71,8 +72,14 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
     switchpg(0);
     setFixedSize(1280, 720);
     trayIcon = new QSystemTrayIcon();
-    trayIcon->setIcon(QIcon("icon.png"));
-    trayIcon->setToolTip("Oscuola");
+    QPixmap pm(":/Oscuola.png");
+    if (pm.isNull())
+        qWarning() << "Icon failed to load";
+    QIcon icon(pm.scaled(128, 128, Qt::KeepAspectRatio, Qt::SmoothTransformation));
+    trayIcon->setIcon(icon);
+    trayIcon->show();
+    notificate("we re online ",icon);
+    qDebug() << QFile::exists(":/Oscuola.png");
 
 
 
@@ -86,6 +93,8 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
 
 
 
+
+//its like this damn repo is refusing to end
 
 
 
