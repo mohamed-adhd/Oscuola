@@ -12,13 +12,16 @@
 #include <QTextFrame>
 #include <QTextTable>
 #include <QTextTableFormat>
+#include <QSystemTrayIcon>
 
 
 
 
 
 
+void notificate(QString message){
 
+}
 
 
 
@@ -67,6 +70,10 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
     ui->setupUi(this);
     switchpg(0);
     setFixedSize(1280, 720);
+    trayIcon = new QSystemTrayIcon();
+    trayIcon->setIcon(QIcon("icon.png"));
+    trayIcon->setToolTip("Oscuola");
+
 
 
 
