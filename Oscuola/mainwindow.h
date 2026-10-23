@@ -31,7 +31,7 @@ public:
     void setgradeheaders(int year);
     bool downloadreport(QString content,QString dir);
     QSystemTrayIcon *trayIcon;
-    void notificate(QString message,QIcon ss) ;
+    void notificate(QString message) ;
 
 private:
     Ui::MainWindow *ui;

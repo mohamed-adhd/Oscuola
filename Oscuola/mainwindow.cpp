@@ -13,15 +13,26 @@
 #include <QTextTable>
 #include <QTextTableFormat>
 #include <QSystemTrayIcon>
+#include <QtDBus/QDBusInterface>
+#include <QtDBus/QDBusReply>
+#include <QStandardPaths>
+#include <QFile>
 
 
 
 
 
-
-void MainWindow::notificate(QString message,QIcon ss){
-    trayIcon->show();
-    trayIcon->showMessage("Oscuola",message,ss,3000);
+void MainWindow::notificate(QString message){
+#if defined(Q_OS_LINUX)
+    static QString iconPath;
+    if (iconPath.isEmpty()) {
+        iconPath = QStandardPaths::writableLocation(QStandardPaths::TempLocation) + "/Oscuola.png";
+        QFile::remove(iconPath);
+        QFile::copy(":/Oscuola.png", iconPath);
+    }
+    QDBusInterface notifier("org.freedesktop.Notifications","/org/freedesktop/Notifications","org.freedesktop.Notifications");
+    notifier.call("Notify","Oscuola",(uint)0,iconPath,"Oscuola",message,QStringList(),QVariantMap(),3000);                 // timeout in ms
+#endif
 }
 
 
@@ -71,14 +82,7 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
     ui->setupUi(this);
     switchpg(0);
     setFixedSize(1280, 720);
-    trayIcon = new QSystemTrayIcon();
-    QPixmap pm(":/Oscuola.png");
-    if (pm.isNull())
-        qWarning() << "Icon failed to load";
-    QIcon icon(pm.scaled(128, 128, Qt::KeepAspectRatio, Qt::SmoothTransformation));
-    trayIcon->setIcon(icon);
-    trayIcon->show();
-    notificate("we re online ",icon);
+    notificate("we re online ");
     qDebug() << QFile::exists(":/Oscuola.png");
 
 
