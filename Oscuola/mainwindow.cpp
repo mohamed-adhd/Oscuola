@@ -799,7 +799,7 @@ switchpg(4);});
 
 
     connect(ui->login_but,&QPushButton::clicked,this,[this]() {
-        if(ui->login_email->text()==""){
+        if(ui->login_email->text()=="" || ui->login_passwd->text()==""){
             ui->login_alert->setText("fill all fields please");
         }else{
             std::tuple<std::string, std::string, std::string, std::string,int,int,int> s=db.login_check(ui->login_email->text().toStdString(), ui->login_passwd->text().toStdString());
@@ -873,10 +873,10 @@ switchpg(4);});
             }}
         }});
     connect(ui->btn_create_account,&QPushButton::clicked,this,[this]() {
-        if(ui->reg_aftername->text()=="" || ui->reg_pswd->text()=="" || ui->pswd_conf->text()==""){
-            ui->login_alert->setText("fill all fields please(reg)");
+        if(ui->reg_aftername->text()=="" || ui->reg_pswd->text()=="" || ui->pswd_conf->text()=="" || ui->reg_email->text()=="" || ui->classy->text()==""){
+            ui->label_2->setText("fill all fields please");
         }else if(ui->reg_pswd->text()!= ui->pswd_conf->text()){
-            ui->login_alert->setText("passwords must match");
+            ui->label_2->setText("passwords must match");
         }
         else{
             db.registerr(ui->reg_email->text().toStdString(),ui->reg_pswd->text().toStdString(),ui->classy->text().toStdString(),ui->reg_name->text().toStdString(),ui->reg_aftername->text().toStdString(),[this](bool success){
