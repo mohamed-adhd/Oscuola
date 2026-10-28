@@ -6407,6 +6407,19 @@ No image set — select a class to see its schedule</string>
        </property>
       </widget>
      </widget>
+     <widget class="QLabel" name="alert_rec">
+      <property name="geometry">
+       <rect>
+        <x>790</x>
+        <y>490</y>
+        <width>421</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
     </widget>
    </widget>
   </widget>
@@ -6422,7 +6435,7 @@ No image set — select a class to see its schedule</string>
   </widget>
   <widget class="QStatusBar" name="statusbar">
    <property name="visible">
-    <bool>false</bool>
+    <bool>true</bool>
    </property>
   </widget>
  </widget>

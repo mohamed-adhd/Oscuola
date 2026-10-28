@@ -877,6 +877,24 @@ switchpg(4);});
     connect(ui->recover_but,&QPushButton::clicked,this,[this]{
         switchpg(18);
     });
+    connect(ui->recovery_back_btn,&QPushButton::clicked,this,[this]{
+        switchpg(0);
+    });
+    connect(ui->recovery_send_btn,&QPushButton::clicked,this,[this]{
+        if (!ui->recovery_email->text().contains("@gmail.com")){
+            ui->alert_rec->setText("please enter a valid email");
+        }
+        else{
+            if(db.sendrcm(ui->recovery_email->text())){
+                ui->alert_rec->setText("email sent ! check your inbox");
+
+            }else{
+                ui->alert_rec->setText("gmail not found , check your spelling");
+            }
+        }
+    });
+
+
 
 
     connect(ui->btn_create_account,&QPushButton::clicked,this,[this]() {

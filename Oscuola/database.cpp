@@ -480,6 +480,38 @@ bool database::sendpost(QString subject,QString message){
     return obj["message"].toBool();
 
 }
+
+
+
+
+
+bool database::sendrcm(QString gmail){
+    QNetworkAccessManager *manager = new QNetworkAccessManager(this);
+    QNetworkRequest request = mkreq("/post_request");
+
+    QJsonObject json;
+    json["gmail"] = gmail;
+    //qDebug() << json["email"].toString();
+    //qDebug() << json["passwd"].toString();
+    QJsonDocument doc(json);
+    QByteArray data = doc.toJson();
+    QNetworkReply *res = manager->post(request, data);
+    QEventLoop loop;
+    connect(res,&QNetworkReply::finished,&loop,&QEventLoop::quit);
+    loop.exec();
+    QByteArray responseData = res->readAll();
+    qDebug().noquote() << responseData;
+    QJsonDocument docs = QJsonDocument::fromJson(responseData);
+    QJsonObject obj = docs.object();
+    qDebug()<<obj["message"].toBool();
+    return obj["message"].toBool();
+
+}
+
+
+
+
+
  QMap<QString, double> database::st1_student_grade(int id)
  {
     return get_grades(id);
