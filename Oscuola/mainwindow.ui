@@ -1528,10 +1528,10 @@ QLabel#admin_create_class_res, QLabel#admin_assign_teacher_res {
      <widget class="QLabel" name="reg_alert">
       <property name="geometry">
        <rect>
-        <x>470</x>
-        <y>540</y>
-        <width>340</width>
-        <height>30</height>
+        <x>829</x>
+        <y>549</y>
+        <width>441</width>
+        <height>51</height>
        </rect>
       </property>
       <property name="text">
@@ -1544,9 +1544,9 @@ QLabel#admin_create_class_res, QLabel#admin_assign_teacher_res {
      <widget class="QLabel" name="label_2">
       <property name="geometry">
        <rect>
-        <x>990</x>
+        <x>830</x>
         <y>510</y>
-        <width>271</width>
+        <width>431</width>
         <height>51</height>
        </rect>
       </property>

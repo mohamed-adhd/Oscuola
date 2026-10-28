@@ -878,6 +878,12 @@ switchpg(4);});
         }else if(ui->reg_pswd->text()!= ui->pswd_conf->text()){
             ui->label_2->setText("passwords must match");
         }
+        else if(ui->classy->text()[0]!="7" ||ui->classy->text()[0]!="8" ||ui->classy->text()[0]!="9" ){
+            ui->label_2->setText("available classes are 7Ax , 8Ax and 9Ax");
+        }
+        else if(!ui->reg_email->text().contains("@gmail.com") ){
+            ui->label_2->setText("please enter a valid gmail");
+        }
         else{
             db.registerr(ui->reg_email->text().toStdString(),ui->reg_pswd->text().toStdString(),ui->classy->text().toStdString(),ui->reg_name->text().toStdString(),ui->reg_aftername->text().toStdString(),[this](bool success){
                 if (success) {
