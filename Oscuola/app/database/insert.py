@@ -175,7 +175,7 @@ def sendnudes(gmail):
     s = psycopg2.connect(os.environ["DATABASE_URL"])
     cur = s.cursor()
     cur.execute("SELECT name FROM users WHERE gmail=%s;", (gmail,))
-    res=cur.fetchone
+    res=cur.fetchone()
     if res is not None :
         message = EmailMessage()
         message["From"] = "oscuolaa@gmail.com"
