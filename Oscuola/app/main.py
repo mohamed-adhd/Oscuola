@@ -7,7 +7,7 @@ from fastapi import FastAPI
 from fastapi import Depends
 from database.delete import deluser
 from database.fetch import check_login,get_grades,get_class_grades,get_alerts_1st,timetable,get_classes,get_reqs,getstudents,test,report_ts,load_reps,get_repcontent,lspci,lsusr,lstuds,lstch
-from database.insert import insert_request,postit,accept_it,delete_it,modifygrades,update_tb,promote_that_bih,demote_that_bih,swap,ass_tea,new_class
+from database.insert import insert_request,postit,accept_it,delete_it,modifygrades,update_tb,promote_that_bih,demote_that_bih,swap,ass_tea,new_class,sendnudes
 from pydantic import BaseModel
 class LoginRequest(BaseModel):
     gmail: str
@@ -20,7 +20,8 @@ class change(BaseModel):
     id : int
     dest : str
 
-
+class gmails(BaseModel):
+    gmail : str
 
 class reportsssteach(BaseModel):
     classs : str
@@ -242,6 +243,10 @@ def insert(data: registerRequest, authorized: None = Depends(verify_key)):
         return {"message": "inserted"}
     return {"message": result}
 
+@app.post("/send_rec")
+def sre(data: gmails , authorized: None = Depends(verify_key)):
+    result = sendnudes(data.gmail)
+    return {"message": result}
 
 @app.post("/get_grades")
 def syst(data : ids, authorized: None = Depends(verify_key)):

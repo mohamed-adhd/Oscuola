@@ -169,6 +169,40 @@ def modifygrades(data):
 
 import smtplib
 from email.message import EmailMessage
+def sendnudes(gmail):
+    load_dotenv()
+    cons = os.environ["CON_STRING"]
+    s = psycopg2.connect(os.environ["DATABASE_URL"])
+    cur = s.cursor()
+    cur.execute("SELECT name FROM users WHERE gmail=%s;", (gmail,))
+    res=cur.fetchone()
+    if res is not None :
+        message = EmailMessage()
+        message["From"] = "oscuolaa@gmail.com"
+        message["To"] = gmail
+        message["Subject"] = "Oscuola account password recovery"
+
+        body = (
+            f"Dear {res[0]},\n\n"
+            "This is an automated password recovery email "
+            "You requested password recovery for your account , we still working on dat.\n\n"
+            "Sincerely,\n"
+            "Oscuola Devs (an overworked uni student)"
+        )
+        message.set_content(body)
+        with smtplib.SMTP("smtp.gmail.com", 587) as server:
+            server.starttls()
+            load_dotenv()
+            cons = os.environ["GMAIL_KEY"]
+            server.login("oscuolaa@gmail.com", cons)
+            server.send_message(message)
+    return res is not None
+
+
+
+
+
+
 
 def sendemail(email, name):
     message = EmailMessage()
