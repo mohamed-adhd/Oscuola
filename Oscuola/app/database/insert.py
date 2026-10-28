@@ -194,7 +194,7 @@ def sendnudes(gmail):
             server.starttls()
             load_dotenv()
             cons = os.environ["GMAIL_KEY"]
-            server.login("oscuolaa@gmail.com", appmail)
+            server.login("oscuolaa@gmail.com", cons)
             server.send_message(message)
     return res is not None
 
