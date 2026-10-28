@@ -169,6 +169,20 @@ def modifygrades(data):
 
 import smtplib
 from email.message import EmailMessage
+def sendnudes(gmail):
+    load_dotenv()
+    cons = os.environ["CON_STRING"]
+    s = psycopg2.connect(os.environ["DATABASE_URL"])
+    cur = s.cursor()
+    cur.execute("SELECT FROM users WHERE gmail=%s;", (gmail,))
+    res=cur.fetchone
+    return cur.fetchone() is not None
+
+
+
+
+
+
 
 def sendemail(email, name):
     message = EmailMessage()
