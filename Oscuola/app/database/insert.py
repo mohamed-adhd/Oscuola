@@ -176,7 +176,7 @@ def sendnudes(gmail):
     cur = s.cursor()
     cur.execute("SELECT name FROM users WHERE gmail=%s;", (gmail,))
     res=cur.fetchone
-    if cur.fetchone() is not None :
+    if res is not None :
         message = EmailMessage()
         message["From"] = "oscuolaa@gmail.com"
         message["To"] = gmail
@@ -196,6 +196,7 @@ def sendnudes(gmail):
             cons = os.environ["GMAIL_KEY"]
             server.login("oscuolaa@gmail.com", appmail)
             server.send_message(message)
+    return res is not None
 
 
 
