@@ -20,7 +20,7 @@ class change(BaseModel):
     id : int
     dest : str
 
-class gmail(BaseModel):
+class gmails(BaseModel):
     gmail : str
 
 class reportsssteach(BaseModel):
@@ -244,7 +244,7 @@ def insert(data: registerRequest, authorized: None = Depends(verify_key)):
     return {"message": result}
 
 @app.post("/send_rec")
-def sre(data: gmail , authorized: None = Depends(verify_key)):
+def sre(data: gmails , authorized: None = Depends(verify_key)):
     result = sendnudes(data.gmail)
     return {"message": result}
 
