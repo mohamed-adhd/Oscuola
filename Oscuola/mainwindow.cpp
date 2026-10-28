@@ -12,13 +12,28 @@
 #include <QTextFrame>
 #include <QTextTable>
 #include <QTextTableFormat>
+#include <QSystemTrayIcon>
+#include <QtDBus/QDBusInterface>
+#include <QtDBus/QDBusReply>
+#include <QStandardPaths>
+#include <QFile>
 
 
 
 
 
-
-
+void MainWindow::notificate(QString message){
+#if defined(Q_OS_LINUX)
+    static QString iconPath;
+    if (iconPath.isEmpty()) {
+        iconPath = QStandardPaths::writableLocation(QStandardPaths::TempLocation) + "/Oscuola.png";
+        QFile::remove(iconPath);
+        QFile::copy(":/Oscuola.png", iconPath);
+    }
+    QDBusInterface notifier("org.freedesktop.Notifications","/org/freedesktop/Notifications","org.freedesktop.Notifications");
+    notifier.call("Notify","Oscuola",(uint)0,iconPath,"Oscuola",message,QStringList(),QVariantMap(),3000);                 // timeout in ms
+#endif
+}
 
 
 
@@ -67,6 +82,8 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
     ui->setupUi(this);
     switchpg(0);
     setFixedSize(1280, 720);
+    notificate("we re online ");
+    qDebug() << QFile::exists(":/Oscuola.png");
 
 
 
@@ -79,6 +96,9 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
 
 
 
+
+
+//its like this damn repo is refusing to end
 
 
 
@@ -779,7 +799,7 @@ switchpg(4);});
 
 
     connect(ui->login_but,&QPushButton::clicked,this,[this]() {
-        if(ui->login_email->text()==""){
+        if(ui->login_email->text()=="" || ui->login_passwd->text()==""){
             ui->login_alert->setText("fill all fields please");
         }else{
             std::tuple<std::string, std::string, std::string, std::string,int,int,int> s=db.login_check(ui->login_email->text().toStdString(), ui->login_passwd->text().toStdString());
@@ -852,11 +872,42 @@ switchpg(4);});
                 ui->login_alert->setText("user not found");
             }}
         }});
+
+
+    connect(ui->recover_but,&QPushButton::clicked,this,[this]{
+        switchpg(18);
+    });
+    connect(ui->recovery_back_btn,&QPushButton::clicked,this,[this]{
+        switchpg(0);
+    });
+    connect(ui->recovery_send_btn,&QPushButton::clicked,this,[this]{
+        if (!ui->recovery_email->text().contains("@gmail.com")){
+            ui->alert_rec->setText("please enter a valid email");
+        }
+        else{
+            if(db.sendrcm(ui->recovery_email->text())){
+                ui->alert_rec->setText("email sent ! check your inbox");
+
+            }else{
+                ui->alert_rec->setText("gmail not found , check your spelling");
+            }
+        }
+    });
+
+
+
+
     connect(ui->btn_create_account,&QPushButton::clicked,this,[this]() {
-        if(ui->reg_aftername->text()=="" || ui->reg_pswd->text()=="" || ui->pswd_conf->text()==""){
-            ui->login_alert->setText("fill all fields please(reg)");
+        if(ui->reg_aftername->text()=="" || ui->reg_pswd->text()=="" || ui->pswd_conf->text()=="" || ui->reg_email->text()=="" || ui->classy->text()==""){
+            ui->label_2->setText("fill all fields please");
         }else if(ui->reg_pswd->text()!= ui->pswd_conf->text()){
-            ui->login_alert->setText("passwords must match");
+            ui->label_2->setText("passwords must match");
+        }
+        else if(ui->classy->text().at(0)!="7" && ui->classy->text().at(0)!="8" && ui->classy->text().at(0)!="9" ){
+            ui->label_2->setText("available classes are 7Ax , 8Ax and 9Ax");
+        }
+        else if(!ui->reg_email->text().contains("@gmail.com") ){
+            ui->label_2->setText("please enter a valid gmail (xxxxxxx@gmail.com");
         }
         else{
             db.registerr(ui->reg_email->text().toStdString(),ui->reg_pswd->text().toStdString(),ui->classy->text().toStdString(),ui->reg_name->text().toStdString(),ui->reg_aftername->text().toStdString(),[this](bool success){

@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=Oscuola
+Comment=A unified platform to manage high school students
+Exec=Oscuola
+Icon=Oscuola
+Categories=Education;
+Terminal=false
