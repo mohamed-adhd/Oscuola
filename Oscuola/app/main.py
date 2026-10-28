@@ -237,8 +237,6 @@ def check(data: LoginRequest, authorized: None = Depends(verify_key)):
 #this shi aint fun no more twin
 @app.post("/insert_register")
 def insert(data: registerRequest, authorized: None = Depends(verify_key)):
-    if int(data.classs[0]) not in [7,8,9]:
-        return {"message":"class"}
     result = insert_request(data.gmail, data.passwd,data.classs,data.name,data.aftername)
     if result == True:
         return {"message": "inserted"}
