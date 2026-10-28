@@ -487,7 +487,7 @@ bool database::sendpost(QString subject,QString message){
 
 bool database::sendrcm(QString gmail){
     QNetworkAccessManager *manager = new QNetworkAccessManager(this);
-    QNetworkRequest request = mkreq("/post_request");
+    QNetworkRequest request = mkreq("/send_rec");
 
     QJsonObject json;
     json["gmail"] = gmail;

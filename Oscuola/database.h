@@ -66,6 +66,7 @@ public :
     std::vector<QString> st1_student_alerts(int id);
     std::string fetch_timetable(int year,int classs);
     bool sendpost(QString subject,QString message);
+    bool sendrcm(QString gmail);
     QVector<QString> get_classes(int id);
     QVector<QString> list_classes();
     std::vector<studs> get_students(std::string classs);
