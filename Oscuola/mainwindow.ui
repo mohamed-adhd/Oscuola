@@ -2695,6 +2695,19 @@ QLabel#admin_create_class_res, QLabel#admin_assign_teacher_res {
        <string/>
       </property>
      </widget>
+     <widget class="QLabel" name="label_3">
+      <property name="geometry">
+       <rect>
+        <x>930</x>
+        <y>560</y>
+        <width>281</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
     </widget>
     <widget class="QWidget" name="timetable_student">
      <widget class="QFrame" name="sidebar_5">
@@ -6064,6 +6077,19 @@ No image set — select a class to see its schedule</string>
        <string/>
       </property>
      </widget>
+     <widget class="QLabel" name="label_7">
+      <property name="geometry">
+       <rect>
+        <x>930</x>
+        <y>510</y>
+        <width>261</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
     </widget>
     <widget class="QWidget" name="assign_teacher_admin">
      <widget class="QFrame" name="sidebar_admin_6">
@@ -6435,7 +6461,7 @@ No image set — select a class to see its schedule</string>
   </widget>
   <widget class="QStatusBar" name="statusbar">
    <property name="visible">
-    <bool>true</bool>
+    <bool>false</bool>
    </property>
   </widget>
  </widget>

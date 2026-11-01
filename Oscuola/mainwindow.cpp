@@ -80,7 +80,7 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow),db(dbo){
     ui->setupUi(this);
-    switchpg(0);
+    switchpg(3);
     setFixedSize(1280, 720);
     notificate("we re online ");
     qDebug() << QFile::exists(":/Oscuola.png");
@@ -298,8 +298,13 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
         switchpg(16);
     });
     connect(ui->admin_create_class_btn,&QPushButton::clicked,this,[this]{
-        int x = ui->teach_wsap->currentText().section(':', 1).trimmed().toInt();
-        db.add_class(ui->lineEdit->text().toInt(),ui->lineEdit_2->text().toInt(), x);
+        if (ui->lineEdit->text().trimmed()=="" || ui->lineEdit_2->text().trimmed()==""){
+            ui->label_7->setText("please fill all required fields");
+        }
+        else{
+            int x = ui->teach_wsap->currentText().section(':', 1).trimmed().toInt();
+            db.add_class(ui->lineEdit->text().toInt(),ui->lineEdit_2->text().toInt(), x);
+        }
     });
     connect(ass_tea_buts,&QButtonGroup::buttonClicked,this,[this](){
         QVector<QString> classes = db.list_classes();
@@ -322,12 +327,6 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
         db.ass_tea(ui->admin_assign_teacher_class_combo->currentText(),x);
 
         qDebug()<<"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"<<ui->admin_assign_teacher_teacher_combo->currentText();
-
-
-
-
-
-
     });
 
 
@@ -749,7 +748,10 @@ switchpg(4);});
         }}
     connect(post_buts,&QButtonGroup::buttonClicked,this,[this]() {switchpg(5);});
     connect(ui->btn_send_request,&QPushButton::clicked,this,[this](){
-        if(db.sendpost(ui->request_subject->text(),ui->request_message->toPlainText())){
+        if (ui->request_message->toPlainText().trimmed()=="" || ui->request_subject->text().trimmed()==""){
+            ui->label_3->setText("please fill all required fields before submitting");
+        }
+        else if(db.sendpost(ui->request_subject->text(),ui->request_message->toPlainText())){
             ui->post_res->setText("request submitted");
         }else{
             ui->post_res->setText("something went wrong");
