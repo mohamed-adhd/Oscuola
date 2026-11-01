@@ -490,7 +490,8 @@ def resetpass(passwd,token):
         cur.close()
         s.close()
         return {"message":"used key"}
-    cur.execute("UPDATE users SET password = %s WHERE gmail= %s;", (passwd,res[0]))
+    hashed = bcrypt.hashpw(passwd.encode(), bcrypt.gensalt(rounds=12)).decode()
+    cur.execute("UPDATE users SET password = %s WHERE gmail= %s;", (hashed,res[0]))
     s.commit()
     cur.execute("UPDATE tokens SET used = TRUE WHERE hash = %s ;", (nnn,))
     s.commit()

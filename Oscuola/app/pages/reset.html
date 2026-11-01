@@ -82,7 +82,6 @@
 <div id="res"></div>
 
 <!-- JavaScript for password confirmation -->
-<script src="https://cdn.jsdelivr.net/npm/bcryptjs@2.4.3/dist/bcrypt.min.js"></script>
 <script>
     const resetForm = document.getElementById('passwordResetForm');
 const resy = document.getElementById('res');
@@ -99,8 +98,6 @@ resetForm.addEventListener('submit', async function (e) {
     } else {
         const params = new URLSearchParams(window.location.search);
         const token = params.get("token");
-        const salt = bcrypt.genSaltSync(10);
-        const hash = bcrypt.hashSync(confirmNewPassword.value, salt);
         console.log("Submitting reset request");
         console.log("Token:", token);
         console.log("Hash:", hash);
@@ -109,7 +106,7 @@ resetForm.addEventListener('submit', async function (e) {
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({token: token, passwd : hash}),
+            body: JSON.stringify({token: token, passwd : newPassword.value}),
         });
         console.log("Response status:", response.status);
         console.log("Response URL:", response.url);
