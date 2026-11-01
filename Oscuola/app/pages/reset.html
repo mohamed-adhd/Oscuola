@@ -100,7 +100,6 @@ resetForm.addEventListener('submit', async function (e) {
         const token = params.get("token");
         console.log("Submitting reset request");
         console.log("Token:", token);
-        console.log("Hash:", hash);
         const response = await fetch("https://oscuola-git-feature-app-core-midouamdouni4-7219s-projects.vercel.app/reset_passwd", {
             method: "POST",
             headers: {
