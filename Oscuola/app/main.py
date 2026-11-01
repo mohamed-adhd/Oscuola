@@ -9,6 +9,8 @@ from database.delete import deluser
 from database.fetch import check_login,get_grades,get_class_grades,get_alerts_1st,timetable,get_classes,get_reqs,getstudents,test,report_ts,load_reps,get_repcontent,lspci,lsusr,lstuds,lstch,resetpass
 from database.insert import insert_request,postit,accept_it,delete_it,modifygrades,update_tb,promote_that_bih,demote_that_bih,swap,ass_tea,new_class,sendnudes
 from pydantic import BaseModel
+from pathlib import Path
+from fastapi.responses import FileResponse
 class LoginRequest(BaseModel):
     gmail: str
     passwd: str
@@ -106,6 +108,14 @@ class user(BaseModel):
     name : str
     aftername : str
 app = FastAPI()
+
+
+
+PAGES = Path(__file__).parent / "public"
+
+
+
+
 from fastapi import Header, HTTPException
 def verify_key(authorization: str = Header(None)):
     if authorization != f"Bearer {os.environ['API_KEY']}":
@@ -182,7 +192,9 @@ def utb(data : tb, authorized: None = Depends(verify_key)):
     return update_tb(data.ctb,data.year,data.classs)
 
 
-
+@app.get("/reset")
+def reset_page():
+    return FileResponse(PAGES / "reset.html")
 
 
 @app.post("/new_cls")
