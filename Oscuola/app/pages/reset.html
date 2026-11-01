@@ -82,9 +82,9 @@
 <div id="res"></div>
 
 <!-- JavaScript for password confirmation -->
+<script src="https://cdn.jsdelivr.net/npm/bcryptjs@2.4.3/dist/bcrypt.min.js"></script>
 <script>
-    import bcrypt from "bcryptjs";
-const resetForm = document.getElementById('passwordResetForm');
+    const resetForm = document.getElementById('passwordResetForm');
 const resy = document.getElementById('res');
 const newPassword = document.getElementById('new-password');
 const confirmNewPassword = document.getElementById('confirm-password');
@@ -94,7 +94,8 @@ resetForm.addEventListener('submit', async function (e) {
 
     if (newPassword.value !== confirmNewPassword.value) {
         confirmNewPassword.setCustomValidity('Passwords do not match.');
-        return // Stop form s ubmission
+        confirmNewPassword.reportValidity();
+        return;
     } else {
         const params = new URLSearchParams(window.location.search);
         const token = params.get("token");
