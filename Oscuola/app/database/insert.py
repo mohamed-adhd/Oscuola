@@ -184,6 +184,12 @@ def sendnudes(gmail):
     cur.execute("SELECT name FROM users WHERE gmail=%s;", (gmail,))
     res=cur.fetchone()
     token = secrets.token_urlsafe(32)
+    nnn=hashlib.sha256(token.encode()).hexdigest()
+
+    cur.execute("INSERT INTO tokens (gmail,hash,used) VALUES (%s,%s,%s);", (gmail,nnn,false))
+    s.commit()
+    cur.close()
+    s.close()
     if res is not None :
         message = EmailMessage()
         message["From"] = "oscuolaa@gmail.com"
