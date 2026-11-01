@@ -315,7 +315,7 @@ def gs(data : classsstr,authorized: None = Depends(verify_key)):
     return getstudents(int(data.classs[0]),int(data.classs[2]))
 
 @app.post("/reset_passwd")
-def rp(data : respas, authorized: None = Depends(verify_key)):
+def rp(data : respas):
     return resetpass(data.passwd,data.token)
 
 

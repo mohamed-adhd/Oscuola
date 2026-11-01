@@ -101,8 +101,7 @@ resetForm.addEventListener('submit', async function (e) {
         const response = await fetch("https://oscuola-git-feature-app-core-midouamdouni4-7219s-projects.vercel.app/reset_passwd", {
             method: "POST",
             headers: {
-                "X-API-Key": "istuffedahandfullofjellbeansupmyass",
-                "Content-Type": "application/json",
+                "Content-Type": "application/json"
             },
             body: JSON.stringify({token: token, passwd : hash}),
         });
