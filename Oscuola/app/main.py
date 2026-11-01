@@ -111,7 +111,7 @@ app = FastAPI()
 
 
 
-PAGES = Path(__file__).parent / "public"
+PAGES = Path(__file__).parent / "pages"
 
 
 
