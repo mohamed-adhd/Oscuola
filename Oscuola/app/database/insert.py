@@ -169,6 +169,13 @@ def modifygrades(data):
 
 import smtplib
 from email.message import EmailMessage
+
+
+import secrets
+
+
+
+
 def sendnudes(gmail):
     load_dotenv()
     cons = os.environ["CON_STRING"]
@@ -176,6 +183,7 @@ def sendnudes(gmail):
     cur = s.cursor()
     cur.execute("SELECT name FROM users WHERE gmail=%s;", (gmail,))
     res=cur.fetchone()
+    token = secrets.token_urlsafe(32)
     if res is not None :
         message = EmailMessage()
         message["From"] = "oscuolaa@gmail.com"
@@ -185,7 +193,7 @@ def sendnudes(gmail):
         body = (
             f"Dear {res[0]},\n\n"
             "This is an automated password recovery email "
-            "You requested password recovery for your account , we still working on dat.\n\n"
+            f"You requested password recovery for your account , here is the link : https://oscuola-git-feature-app-core-midouamdouni4-7219s-projects.vercel.app/reset?token={token}.\n\n"
             "Sincerely,\n"
             "Oscuola Devs (an overworked uni student)"
         )

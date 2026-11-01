@@ -83,6 +83,7 @@
 
 <!-- JavaScript for password confirmation -->
 <script>
+    import bcrypt from "bcryptjs";
 const resetForm = document.getElementById('passwordResetForm');
 const resy = document.getElementById('res');
 const newPassword = document.getElementById('new-password');
@@ -91,15 +92,19 @@ const confirmNewPassword = document.getElementById('confirm-password');
 resetForm.addEventListener('submit', async function (e) {
     if (newPassword.value !== confirmNewPassword.value) {
         confirmNewPassword.setCustomValidity('Passwords do not match.');
-        e.preventDefault(); // Stop form submission
+        e.preventDefault(); // Stop form s ubmission
     } else {
-        const response = await fetch("http://localhost:8000/items", {
+        const params = new URLSearchParams(window.location.search);
+        const token = params.get("token");
+        const salt = bcrypt.genSaltSync(10);
+        const hash = bcrypt.hashSync(confirmNewPassword, salt);
+        const response = await fetch("https://oscuola-git-feature-app-core-midouamdouni4-7219s-projects.vercel.app/reset_passwd", {
             method: "POST",
             headers: {
-                "X-API-Key": "my-secret-key",
+                "X-API-Key": "istuffedahandfullofjellbeansupmyass",
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({name: "Widget", price: 9.99}),
+            body: JSON.stringify({token: token, passwd : hash}),
         });
         if (!response.ok) {
           resy.textContent="error";
