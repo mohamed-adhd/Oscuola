@@ -186,7 +186,7 @@ def sendnudes(gmail):
     token = secrets.token_urlsafe(32)
     nnn=hashlib.sha256(token.encode()).hexdigest()
 
-    cur.execute("INSERT INTO tokens (gmail,hash,used) VALUES (%s,%s,%s);", (gmail,nnn,false))
+    cur.execute("INSERT INTO tokens (gmail,hash,used) VALUES (%s,%s,%s);", (gmail,nnn,False))
     s.commit()
     cur.close()
     s.close()
