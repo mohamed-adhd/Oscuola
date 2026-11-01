@@ -4,5 +4,4 @@ dotenv
 bcrypt
 pydantic
 groq
-hashlib
 
