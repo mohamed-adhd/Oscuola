@@ -5,6 +5,7 @@ import os
 import bcrypt
 import base64
 from groq import Groq
+import hashlib
 
 
 GRADE_TABLES = ["first_year_grades", "second_year_grades", "third_year_grades"]
@@ -473,4 +474,28 @@ def get_alerts_1st(id):
 
 
 
+def resetpass(passwd,token):
+    load_dotenv()
+    cons = os.environ["CON_STRING"]
+    s = psycopg2.connect(os.environ["DATABASE_URL"])
+    cur = s.cursor()
+    nnn=hashlib.sha256(token.encode()).hexdigest()
+    cur.execute("SELECT gmail,used FROM tokens WHERE hash = %s ;", (nnn,))
+    res = cur.fetchone()
+    if res is None :
+        cur.close()
+        s.close()
+        return {"message": "invalid key"}
+    if res[1] == True :
+        cur.close()
+        s.close()
+        return {"message":"used key"}
+    hashed = bcrypt.hashpw(passwd.encode(), bcrypt.gensalt(rounds=12)).decode()
+    cur.execute("UPDATE users SET password = %s WHERE gmail= %s;", (hashed,res[0]))
+    s.commit()
+    cur.execute("UPDATE tokens SET used = TRUE WHERE hash = %s ;", (nnn,))
+    s.commit()
 
+    cur.close()
+    s.close()
+    return {"message":"password updated"}
