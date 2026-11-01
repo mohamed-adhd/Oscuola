@@ -492,7 +492,7 @@ def resetpass(passwd,token):
         return {"message":"used key"}
     cur.execute("UPDATE users SET password = %s WHERE gmail= %s;", (passwd,res[0]))
     s.commit()
-    cur.execute("UPDATE tokens SET used = TRUE WHERE hash = %s ;", (token,))
+    cur.execute("UPDATE tokens SET used = TRUE WHERE hash = %s ;", (nnn,))
     s.commit()
 
     cur.close()
