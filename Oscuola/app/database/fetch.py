@@ -221,6 +221,26 @@ def lstuds():
     cur.close()
     return {"content":lt}
 
+def fetchadmn():
+    load_dotenv()
+    cons = os.environ["CON_STRING"]
+    s = psycopg2.connect(os.environ["DATABASE_URL"])
+    cur = s.cursor()
+    cur.execute("SELECT COUNT(*) FROM users WHERE role='student';")
+    res=cur.fetchone()
+    ts=res[0]
+    cur.execute("SELECT COUNT(*) FROM users WHERE role='teacher';")
+    res = cur.fetchone()
+    tt = res[0]
+    cur.execute("SELECT COUNT(*) FROM users ;")
+    res=cur.fetchone()
+    ta=res[0]
+    cur.close()
+    s.close()
+    return {"s":ts,"t":tt,"tot":ta}
+
+
+
 
 def lstuds():
     load_dotenv()

@@ -239,6 +239,26 @@ std::vector<users> database::list_users(){
 
 
 
+std::vector<int> database::fetchadmn(){
+
+    std::vector<int> usas;
+    QNetworkAccessManager *manager = new QNetworkAccessManager(this);
+    QNetworkRequest request = mkreq("/fatchadmn");
+    QNetworkReply *res = manager->get(request);
+    QEventLoop loop;
+    connect(res,&QNetworkReply::finished,&loop,&QEventLoop::quit);
+    loop.exec();
+    QByteArray responseData = res->readAll();
+    qDebug().noquote() << responseData;
+
+    QJsonDocument docs = QJsonDocument::fromJson(responseData);
+    QJsonObject obj = docs.object();
+    usas.push_back(obj["tot"].toInt());
+    usas.push_back(obj["t"].toInt());
+    usas.push_back(obj["s"].toInt());
+    return usas;
+}
+
 
 
 

@@ -871,12 +871,15 @@ switchpg(4);});
                     switchpg(7);
                 }
             else if (get<0>(s)=="admin"){
-                qDebug()<<"INTIATED";
+                    std::vector<int> tempoo=db.fetchadmn();
+                    ui->dash_value_total_users->setText(QString::number(tempoo[0]));
+                    ui->dash_value_total_teachers->setText(QString::number(tempoo[1]));
+                    ui->dash_value_total_students->setText(QString::number(tempoo[2]));
+
+                    qDebug()<<"INTIATED";
                 switchpg(12);
 
 
-            }else {
-                ui->login_alert->setText("user not found");
             }}
         }});
 
