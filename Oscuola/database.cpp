@@ -138,6 +138,8 @@ std::vector<studs> database::list_teach(){
 
 std::tuple<std::string, std::string, std::string, std::string,int,int,int > database::login_check(std::string email, std::string passwd)
 {
+    std::tuple<std::string, std::string, std::string, std::string,int,int,int> temp;
+
     QNetworkAccessManager *manager = new QNetworkAccessManager(this);
     QNetworkRequest request = mkreq("/login_check");
 
@@ -175,8 +177,16 @@ std::tuple<std::string, std::string, std::string, std::string,int,int,int > data
         //qDebug() << "the name   : " +obj["name"].toString();
         //qDebug() << "the aftername   : " +obj["aftername"].toString();
         //qDebug() << obj["pfp"].toString();qDebug() << obj["ids"].toString();
-        if(obj["success"].toBool()==true){
-            std::tuple<std::string, std::string, std::string, std::string,int,int,int> temp;
+        if (obj["success"].toBool()==false){
+            if (obj["detail"].toString()=="gmail"){
+                std::get<0>(temp) ="gmail";
+            }else {
+                std::get<0>(temp) ="pass";
+
+            }
+            return temp;
+        }
+        else {
             std::get<0>(temp) =obj["role"].toString().toStdString();
             std::get<1>(temp) =obj["name"].toString().toStdString();
             std::get<2>(temp) =obj["aftername"].toString().toStdString();
@@ -184,12 +194,6 @@ std::tuple<std::string, std::string, std::string, std::string,int,int,int > data
             std::get<4>(temp) = obj["ids"].toInt();
             std::get<5>(temp) = obj["year"].toInt();
             std::get<6>(temp) = obj["class"].toInt();
-            res->deleteLater();
-            manager->deleteLater();
-            return temp;
-        }else{
-            std::tuple<std::string, std::string, std::string, std::string,int,int,int> temp;
-            std::get<0>(temp) ="false";
             res->deleteLater();
             manager->deleteLater();
             return temp;
@@ -235,6 +239,72 @@ std::vector<users> database::list_users(){
 
 
 
+std::vector<int> database::fetchadmn(){
+
+    std::vector<int> usas;
+    QNetworkAccessManager *manager = new QNetworkAccessManager(this);
+    QNetworkRequest request = mkreq("/fetchadmn");
+    QNetworkReply *res = manager->get(request);
+    QEventLoop loop;
+    connect(res,&QNetworkReply::finished,&loop,&QEventLoop::quit);
+    loop.exec();
+    QByteArray responseData = res->readAll();
+    qDebug().noquote() << responseData;
+
+    QJsonDocument docs = QJsonDocument::fromJson(responseData);
+    QJsonObject obj = docs.object();
+    usas.push_back(obj["tot"].toInt());
+    usas.push_back(obj["t"].toInt());
+    usas.push_back(obj["s"].toInt());
+    return usas;
+}
+
+
+std::vector<int> database::fetchstoclass(){
+
+    std::vector<int> usas;
+    QNetworkAccessManager *manager = new QNetworkAccessManager(this);
+    QNetworkRequest request = mkreq("/fetchstoclass");
+    QNetworkReply *res = manager->get(request);
+    QEventLoop loop;
+    connect(res,&QNetworkReply::finished,&loop,&QEventLoop::quit);
+    loop.exec();
+    QByteArray responseData = res->readAll();
+    qDebug().noquote() << responseData;
+
+    QJsonDocument docs = QJsonDocument::fromJson(responseData);
+    QJsonObject obj = docs.object();
+    usas.push_back(obj["7"].toInt());
+    usas.push_back(obj["8"].toInt());
+    usas.push_back(obj["9"].toInt());
+    return usas;
+}
+
+
+
+std::vector<QString> database::recreg(){
+
+    std::vector<QString> usas;
+    QNetworkAccessManager *manager = new QNetworkAccessManager(this);
+    QNetworkRequest request = mkreq("/recreg");
+    QNetworkReply *res = manager->get(request);
+    QEventLoop loop;
+    connect(res,&QNetworkReply::finished,&loop,&QEventLoop::quit);
+    loop.exec();
+    QByteArray responseData = res->readAll();
+    qDebug().noquote() << responseData;
+
+    QJsonDocument docs = QJsonDocument::fromJson(responseData);
+    QJsonObject obj = docs.object();
+    QJsonArray arr = obj.value("data").toArray();
+    for (const QJsonValue &rowVal : arr) {
+        QJsonArray row = rowVal.toArray();
+        QString r;
+        r= row[0].toString()+" "+row[1].toString();
+        usas.push_back(r);
+    }
+    return usas;
+}
 
 
 

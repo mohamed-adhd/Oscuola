@@ -80,7 +80,7 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow),db(dbo){
     ui->setupUi(this);
-    switchpg(3);
+    switchpg(0);
     setFixedSize(1280, 720);
     notificate("we re online ");
     qDebug() << QFile::exists(":/Oscuola.png");
@@ -808,6 +808,11 @@ switchpg(4);});
             qDebug()<<"the role recieved is "+get<0>(s);
             f=s;
             qDebug()<<"aaaaaaaaaaaaa"<<get<0>(s);
+            if (get<0>(s)=="gmail"){
+                ui->login_alert->setText("gmail not found");
+            }else if (get<0>(s)=="pass"){
+                ui->login_alert->setText("wrong password");
+            }
             if (get<0>(s)!="false") {
                 ui->user_name_label->setText(QString::fromStdString(std::get<1>(f))+" "+QString::fromStdString(std::get<2>(f)));
                 if(get<0>(s)=="student"){
@@ -866,12 +871,25 @@ switchpg(4);});
                     switchpg(7);
                 }
             else if (get<0>(s)=="admin"){
-                qDebug()<<"INTIATED";
+                    std::vector<int> tempoo=db.fetchadmn();
+                    ui->dash_value_total_users->setText(QString::number(tempoo[0]));
+                    ui->dash_value_teachers->setText(QString::number(tempoo[1]));
+                    ui->dash_value_students->setText(QString::number(tempoo[2]));
+
+                    tempoo=db.fetchstoclass();
+                    ui->admin_users_per_class_list->addItem("7th year : "+QString::number(tempoo[0]));
+                    ui->admin_users_per_class_list->addItem("8th year : "+QString::number(tempoo[1]));
+                    ui->admin_users_per_class_list->addItem("9th year : "+QString::number(tempoo[2]));
+                    std::vector<QString> tempos=db.recreg();
+                    for(QString &mmh : tempos){
+                        ui->admin_recent_users_list->addItem(mmh);
+                    }
+
+
+                    qDebug()<<"INTIATED";
                 switchpg(12);
 
 
-            }else {
-                ui->login_alert->setText("user not found");
             }}
         }});
 
