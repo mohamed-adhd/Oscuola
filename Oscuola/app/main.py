@@ -323,6 +323,11 @@ def rp(data : respas):
 def fa(authorized: None = Depends(verify_key)):
     return fetchadmn()
 
+@app.get("/fetchstoclass")
+def fstc(authorized: None = Depends(verify_key)):
+    return fetchstoclass()
+
+
 
 
 

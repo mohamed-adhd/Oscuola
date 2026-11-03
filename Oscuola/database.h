@@ -89,6 +89,7 @@ public :
     bool ass_tea(QString classs,int id);
     std::vector<studs> list_teach();
     std::vector<int> fetchadmn();
+    std::vector<int> fetchstoclass();
 
 
 

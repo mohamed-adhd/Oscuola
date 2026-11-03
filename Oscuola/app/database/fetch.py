@@ -241,6 +241,26 @@ def fetchadmn():
 
 
 
+def fetchstoclass():
+    load_dotenv()
+    cons = os.environ["CON_STRING"]
+    s = psycopg2.connect(os.environ["DATABASE_URL"])
+    cur = s.cursor()
+    cur.execute("SELECT COUNT(*) FROM students WHERE syear=7;")
+    res=cur.fetchone()
+    ts=res[0]
+    cur.execute("SELECT COUNT(*) FROM students WHERE syear=8;")
+    res = cur.fetchone()
+    tt = res[0]
+    cur.execute("SELECT COUNT(*) FROM students WHERE syear=9;")
+    res=cur.fetchone()
+    ta=res[0]
+    cur.close()
+    s.close()
+    return {"7":ts,"8":tt,"9":ta}
+
+
+
 
 def lstuds():
     load_dotenv()

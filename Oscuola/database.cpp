@@ -243,7 +243,7 @@ std::vector<int> database::fetchadmn(){
 
     std::vector<int> usas;
     QNetworkAccessManager *manager = new QNetworkAccessManager(this);
-    QNetworkRequest request = mkreq("/fatchadmn");
+    QNetworkRequest request = mkreq("/fetchadmn");
     QNetworkReply *res = manager->get(request);
     QEventLoop loop;
     connect(res,&QNetworkReply::finished,&loop,&QEventLoop::quit);

@@ -873,8 +873,13 @@ switchpg(4);});
             else if (get<0>(s)=="admin"){
                     std::vector<int> tempoo=db.fetchadmn();
                     ui->dash_value_total_users->setText(QString::number(tempoo[0]));
-                    ui->dash_value_total_teachers->setText(QString::number(tempoo[1]));
-                    ui->dash_value_total_students->setText(QString::number(tempoo[2]));
+                    ui->dash_value_teachers->setText(QString::number(tempoo[1]));
+                    ui->dash_value_students->setText(QString::number(tempoo[2]));
+
+                    tempoo=db.fetchstoclass();
+                    ui->admin_users_per_class_list->addItem("7th year : "+QString::number(tempoo[0]));
+                    ui->admin_users_per_class_list->addItem("8th year : "+QString::number(tempoo[1]));
+                    ui->admin_users_per_class_list->addItem("9th year : "+QString::number(tempoo[2]));
 
                     qDebug()<<"INTIATED";
                 switchpg(12);
