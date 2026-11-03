@@ -282,6 +282,32 @@ std::vector<int> database::fetchstoclass(){
 
 
 
+std::vector<QString> database::recreg(){
+
+    std::vector<QString> usas;
+    QNetworkAccessManager *manager = new QNetworkAccessManager(this);
+    QNetworkRequest request = mkreq("/recreg");
+    QNetworkReply *res = manager->get(request);
+    QEventLoop loop;
+    connect(res,&QNetworkReply::finished,&loop,&QEventLoop::quit);
+    loop.exec();
+    QByteArray responseData = res->readAll();
+    qDebug().noquote() << responseData;
+
+    QJsonDocument docs = QJsonDocument::fromJson(responseData);
+    QJsonObject obj = docs.object();
+    QJsonArray arr = obj.value("data").toArray();
+    for (const QJsonValue &rowVal : arr) {
+        QJsonArray row = rowVal.toArray();
+        QString r;
+        r= row[0].toString()+" "+row[1].toString();
+        usas.push_back(r);
+    }
+    return usas;
+}
+
+
+
 QVector<QString> database::get_classes(int id){
      QVector<QString> classes;
      QNetworkAccessManager *manager = new QNetworkAccessManager(this);

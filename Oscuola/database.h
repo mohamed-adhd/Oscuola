@@ -90,6 +90,7 @@ public :
     std::vector<studs> list_teach();
     std::vector<int> fetchadmn();
     std::vector<int> fetchstoclass();
+    std::vector<QString>recreg();
 
 
 

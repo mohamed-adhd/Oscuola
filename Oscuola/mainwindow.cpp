@@ -880,6 +880,11 @@ switchpg(4);});
                     ui->admin_users_per_class_list->addItem("7th year : "+QString::number(tempoo[0]));
                     ui->admin_users_per_class_list->addItem("8th year : "+QString::number(tempoo[1]));
                     ui->admin_users_per_class_list->addItem("9th year : "+QString::number(tempoo[2]));
+                    std::vector<QString> tempos=db.recreg();
+                    for(QString &mmh : tempos){
+                        ui->admin_recent_users_list->addItem(mmh);
+                    }
+
 
                     qDebug()<<"INTIATED";
                 switchpg(12);
