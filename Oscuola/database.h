@@ -88,6 +88,9 @@ public :
     bool add_class(int year,int sec,int id);
     bool ass_tea(QString classs,int id);
     std::vector<studs> list_teach();
+    std::vector<int> fetchadmn();
+    std::vector<int> fetchstoclass();
+    std::vector<QString>recreg();
 
 
 

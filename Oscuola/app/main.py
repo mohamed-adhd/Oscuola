@@ -6,7 +6,7 @@ sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 from fastapi import FastAPI
 from fastapi import Depends
 from database.delete import deluser
-from database.fetch import check_login,get_grades,get_class_grades,get_alerts_1st,timetable,get_classes,get_reqs,getstudents,test,report_ts,load_reps,get_repcontent,lspci,lsusr,lstuds,lstch,resetpass
+from database.fetch import check_login,get_grades,get_class_grades,get_alerts_1st,timetable,get_classes,get_reqs,getstudents,test,report_ts,load_reps,get_repcontent,lspci,lsusr,lstuds,lstch,resetpass,fetchadmn,fetchstoclass,recreg
 from database.insert import insert_request,postit,accept_it,delete_it,modifygrades,update_tb,promote_that_bih,demote_that_bih,swap,ass_tea,new_class,sendnudes
 from pydantic import BaseModel
 from pathlib import Path
@@ -318,6 +318,17 @@ def gs(data : classsstr,authorized: None = Depends(verify_key)):
 def rp(data : respas):
     return resetpass(data.passwd,data.token)
 
+
+@app.get("/fetchadmn")
+def fa(authorized: None = Depends(verify_key)):
+    return fetchadmn()
+
+@app.get("/fetchstoclass")
+def fstc(authorized: None = Depends(verify_key)):
+    return fetchstoclass()
+@app.get("/recreg")
+def fstc(authorized: None = Depends(verify_key)):
+    return recreg()
 
 
 
