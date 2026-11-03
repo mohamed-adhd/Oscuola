@@ -95,7 +95,6 @@ public :
 
 
 
-
     database(QObject *parent = nullptr) : QObject(parent)
     {
     }

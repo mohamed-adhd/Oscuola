@@ -260,6 +260,26 @@ std::vector<int> database::fetchadmn(){
 }
 
 
+std::vector<int> database::fetchstoclass(){
+
+    std::vector<int> usas;
+    QNetworkAccessManager *manager = new QNetworkAccessManager(this);
+    QNetworkRequest request = mkreq("/fetchstoclass");
+    QNetworkReply *res = manager->get(request);
+    QEventLoop loop;
+    connect(res,&QNetworkReply::finished,&loop,&QEventLoop::quit);
+    loop.exec();
+    QByteArray responseData = res->readAll();
+    qDebug().noquote() << responseData;
+
+    QJsonDocument docs = QJsonDocument::fromJson(responseData);
+    QJsonObject obj = docs.object();
+    usas.push_back(obj["7"].toInt());
+    usas.push_back(obj["8"].toInt());
+    usas.push_back(obj["9"].toInt());
+    return usas;
+}
+
 
 
 QVector<QString> database::get_classes(int id){
