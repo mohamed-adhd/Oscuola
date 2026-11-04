@@ -265,9 +265,9 @@ def recreg():
     s = psycopg2.connect(os.environ["DATABASE_URL"])
     cur = s.cursor()
     cur.execute("SELECT name,aftername FROM users ORDER BY created LIMIT 5;")
-    res=cur.fetchone()
+    res=cur.fetchall()
     s.close()
-    return {res}
+    return res
 
 
 

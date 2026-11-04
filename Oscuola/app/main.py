@@ -327,7 +327,7 @@ def fa(authorized: None = Depends(verify_key)):
 def fstc(authorized: None = Depends(verify_key)):
     return fetchstoclass()
 @app.get("/recreg")
-def fstc(authorized: None = Depends(verify_key)):
+def fstsc(authorized: None = Depends(verify_key)):
     return recreg()
 
 
