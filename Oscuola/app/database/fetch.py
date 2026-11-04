@@ -264,7 +264,7 @@ def recreg():
     cons = os.environ["CON_STRING"]
     s = psycopg2.connect(os.environ["DATABASE_URL"])
     cur = s.cursor()
-    cur.execute("SELECT name,aftername, ROW_NUMBER() OVER (ORDER BY ctid DESC) as rank FROM users LIMIT 5;")
+    cur.execute("SELECT name,aftername FROM users ORDER BY created LIMIT 5;")
     res=cur.fetchone()
     s.close()
     return {res}
