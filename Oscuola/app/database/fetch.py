@@ -267,7 +267,7 @@ def recreg():
     cur.execute("SELECT name,aftername FROM users ORDER BY created DESC LIMIT 5;")
     res=cur.fetchall()
     s.close()
-    return res
+    return {"data":res}
 
 
 
