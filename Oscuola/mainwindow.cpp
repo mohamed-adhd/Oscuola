@@ -339,7 +339,7 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
 
 
     QButtonGroup *report_buts= new QButtonGroup(this);
-    for(int i=1;i<6;i++){
+    for(int i=1;i<7;i++){
         QString name=QString("reports_button_teacher_%1").arg(i);
         QPushButton *button=this->findChild<QPushButton*>(name);
         if(button){
@@ -607,7 +607,7 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
 
 
     QButtonGroup *time_buts_teach= new QButtonGroup(this);
-    for(int i=1;i<6;i++){
+    for(int i=1;i<7;i++){
         QString name=QString("timetable_but_teacher_%1").arg(i);
         QPushButton *button=this->findChild<QPushButton*>(name);
         if(button){
@@ -615,7 +615,7 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
         }}
 
     QButtonGroup *grades_buts_teach= new QButtonGroup(this);
-    for(int i=1;i<6;i++){
+    for(int i=1;i<7;i++){
         QString name=QString("grades_button_teacher_%1").arg(i);
         QPushButton *button=this->findChild<QPushButton*>(name);
         if(button){
@@ -623,7 +623,7 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
         }}
 
     QButtonGroup *reqst_buts= new QButtonGroup(this);
-    for(int i=1;i<6;i++){
+    for(int i=1;i<7;i++){
         QString name=QString("requests_button_teacher_%1").arg(i);
         QPushButton *button=this->findChild<QPushButton*>(name);
         if(button){
@@ -631,6 +631,40 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
         }}
 
 
+
+    QButtonGroup *absences_buts_teach= new QButtonGroup(this);
+    for(int i=1;i<7;i++){
+        QPushButton *button=this->findChild<QPushButton*>(QString("absences_button_teacher_%1").arg(i));
+        if(button){
+            absences_buts_teach->addButton(button);
+        }}
+
+    auto fillabsencestudents=[this]{
+        ui->teacher_absences_student_combo->clear();
+        if(ui->teacher_absences_class_combo->count()==0){
+            return;
+        }
+        std::vector<studs> tempo = db.get_students(ui->teacher_absences_class_combo->currentText().toStdString());
+        for (studs &c : tempo){
+            ui->teacher_absences_student_combo->addItem(QString::fromStdString(c.aftername+" "+c.name+"; id : ")+QString::number(c.id), c.id);
+        }
+    };
+
+    connect(absences_buts_teach,&QButtonGroup::buttonClicked,this,[this,fillabsencestudents](){
+        ui->teacher_absences_class_combo->blockSignals(true);
+        ui->teacher_absences_class_combo->clear();
+        QVector<QString> classes = db.get_classes(std::get<4>(f));
+        for (const QString &c : classes){
+            ui->teacher_absences_class_combo->addItem(c, c);
+        }
+        ui->teacher_absences_class_combo->blockSignals(false);
+        fillabsencestudents();
+        switchpg(19);
+    });
+
+    connect(ui->teacher_absences_class_combo,&QComboBox::currentTextChanged,this,[fillabsencestudents]{
+        fillabsencestudents();
+    });
 
     QButtonGroup *back_buts_teach= new QButtonGroup(this);
     for(int i=1;i<6;i++){
