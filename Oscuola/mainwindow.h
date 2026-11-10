@@ -32,6 +32,7 @@ public:
     bool downloadreport(QString content,QString dir);
     QSystemTrayIcon *trayIcon;
     void notificate(QString message) ;
+    void refreshusers();
 
 private:
     Ui::MainWindow *ui;

@@ -264,10 +264,10 @@ def recreg():
     cons = os.environ["CON_STRING"]
     s = psycopg2.connect(os.environ["DATABASE_URL"])
     cur = s.cursor()
-    cur.execute("SELECT name,aftername, ROW_NUMBER() OVER (ORDER BY ctid DESC) as rank FROM users LIMIT 5;")
-    res=cur.fetchone()
+    cur.execute("SELECT name,aftername FROM users ORDER BY created DESC LIMIT 5;")
+    res=cur.fetchall()
     s.close()
-    return {res}
+    return {"data":res}
 
 
 
@@ -500,3 +500,60 @@ def resetpass(passwd,token):
     cur.close()
     s.close()
     return {"message":"password updated"}
+
+
+MAX_GRADE = 20.0
+
+
+def teacher_dash(tid):
+    load_dotenv()
+    conn = psycopg2.connect(os.environ["DATABASE_URL"])
+    cur = conn.cursor()
+    cur.execute("""
+        SELECT c.yeary, c.classs, COUNT(st.id), COALESCE(SUM(COALESCE(g.overall_grade, 0)), 0)
+        FROM classes c
+        LEFT JOIN students st ON st.syear = c.yeary AND st.classs = c.classs
+        LEFT JOIN (
+            SELECT student_id, overall_grade FROM first_year_grades
+            UNION ALL
+            SELECT student_id, overall_grade FROM second_year_grades
+            UNION ALL
+            SELECT student_id, overall_grade FROM third_year_grades
+        ) g ON g.student_id = st.id
+        WHERE c.teacher_id = %s
+        GROUP BY c.yeary, c.classs
+        ORDER BY c.yeary, c.classs;
+    """, (tid,))
+    grade_rows = cur.fetchall()
+    cur.execute("""
+        SELECT st.syear, st.classs, COUNT(*)
+        FROM absence a
+        JOIN students st ON st.id = a.id
+        JOIN classes c ON c.yeary = st.syear AND c.classs = st.classs
+        WHERE c.teacher_id = %s
+        GROUP BY st.syear, st.classs;
+    """, (tid,))
+    absent = {(r[0], r[1]): r[2] for r in cur.fetchall()}
+    cur.execute("""
+        SELECT COUNT(*)
+        FROM requests r
+        JOIN classes c ON r.classs = c.yeary::text || 'A' || c.classs::text
+        WHERE c.teacher_id = %s;
+    """, (tid,))
+    pending = cur.fetchone()[0]
+    cur.close()
+    conn.close()
+    classes = []
+    total_sum = 0.0
+    total_count = 0
+    total_abs = 0
+    for yeary, classs, count, gsum in grade_rows:
+        gsum = float(gsum)
+        rate = (gsum / count / MAX_GRADE * 100) if count else 0.0
+        ab = absent.get((yeary, classs), 0)
+        total_sum += gsum
+        total_count += count
+        total_abs += ab
+        classes.append({"name": f"{yeary}A{classs}", "rate": round(rate, 1), "absences": ab})
+    overall = (total_sum / total_count / MAX_GRADE * 100) if total_count else 0.0
+    return {"success": True, "rate": round(overall, 1), "absences": total_abs, "requests": pending, "classes": classes}
