@@ -91,6 +91,7 @@ public :
     std::vector<int> fetchadmn();
     std::vector<int> fetchstoclass();
     std::vector<QString>recreg();
+    void mark(int id);
 
 
 

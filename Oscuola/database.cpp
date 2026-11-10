@@ -215,6 +215,7 @@ std::tuple<std::string, std::string, std::string, std::string,int,int,int > data
 std::vector<users> database::list_users(){
     std::vector<users> usas;
     QNetworkAccessManager *manager = new QNetworkAccessManager(this);
+    std::vector<QString>recreg();
     QNetworkRequest request = mkreq("/list_users");
     QNetworkReply *res = manager->get(request);
     QEventLoop loop;
@@ -236,6 +237,38 @@ std::vector<users> database::list_users(){
     }
     return usas;
 }
+
+
+
+
+
+
+
+
+
+void database::mark(int id){
+    QNetworkAccessManager *manager = new QNetworkAccessManager(this);
+    QNetworkRequest request = mkreq("/mark");
+    QJsonObject json;
+    json["id"]=id;
+    QJsonDocument doc(json);
+    QByteArray data = doc.toJson();
+    QNetworkReply *res = manager->post(request, data);
+    QEventLoop loop;
+    connect(res,&QNetworkReply::finished,&loop,&QEventLoop::quit);
+    loop.exec();
+
+
+}
+
+
+
+
+
+
+
+
+
 
 
 

@@ -255,6 +255,10 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
 
 
 
+
+
+
+
     connect(tb_admin_buts,&QButtonGroup::buttonClicked,this,[this]{
         ui->admin_timetable_class_combo->blockSignals(true);
         ui->admin_timetable_class_combo->clear();
@@ -283,6 +287,21 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
         ui->timetable_picture_label_admin->setPixmap(scaled);
         ui->timetable_picture_label_admin->setAlignment(Qt::AlignCenter);
     });
+
+
+    connect(ui->teacher_absences_mark_btn,&QPushButton::clicked,this,[this]{
+        int x = ui->teacher_absences_student_combo->currentText().section(':', 1).trimmed().toInt();
+        db.mark(x);
+         notificate("absence marked");
+    });
+
+
+
+
+
+
+
+
 
     connect(ui->admin_timetable_upload_btn,&QPushButton::clicked,this,[this]{
         soiy=QFileDialog::getOpenFileName(this,tr("Open File"),"/home",tr("Images (*.jpg)"));
