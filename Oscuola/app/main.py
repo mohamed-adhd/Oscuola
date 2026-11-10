@@ -6,8 +6,8 @@ sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 from fastapi import FastAPI
 from fastapi import Depends
 from database.delete import deluser
-from database.fetch import check_login,get_grades,get_class_grades,get_alerts_1st,timetable,get_classes,get_reqs,getstudents,test,report_ts,load_reps,get_repcontent,lspci,lsusr,lstuds,lstch,resetpass,fetchadmn,fetchstoclass,recreg
-from database.insert import insert_request,postit,accept_it,delete_it,modifygrades,update_tb,promote_that_bih,demote_that_bih,swap,ass_tea,new_class,sendnudes
+from database.fetch import check_login,get_grades,get_class_grades,get_alerts_1st,timetable,get_classes,get_reqs,getstudents,test,report_ts,load_reps,get_repcontent,lspci,lsusr,lstuds,lstch,resetpass,fetchadmn,fetchstoclass,recreg,teacher_dash
+from database.insert import insert_request,postit,accept_it,delete_it,modifygrades,update_tb,promote_that_bih,demote_that_bih,swap,ass_tea,new_class,sendnudes,mark
 from pydantic import BaseModel
 from pathlib import Path
 from fastapi.responses import FileResponse
@@ -332,5 +332,11 @@ def fstsc(authorized: None = Depends(verify_key)):
 
 
 
+@app.post("/mark")
+def mrk(data : ids, authorized: None = Depends(verify_key)):
+    return mark(data.id)
 
 
+@app.post("/teacher_dash")
+def tdash(data : ids, authorized: None = Depends(verify_key)):
+    return teacher_dash(data.id)
