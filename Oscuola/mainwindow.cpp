@@ -17,6 +17,9 @@
 #include <QtDBus/QDBusReply>
 #include <QStandardPaths>
 #include <QFile>
+#include <QJsonObject>
+#include <QJsonArray>
+#include <QJsonValue>
 
 
 
@@ -685,6 +688,21 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
         fillabsencestudents();
     });
 
+    auto loadteacherdash=[this]{
+        QJsonObject d=db.teacher_dash(std::get<4>(f));
+        ui->dash_value_success_rate->setText(QString::number(qRound(d["rate"].toDouble()))+"%");
+        ui->dash_value_student_absences->setText(QString::number(d["absences"].toInt()));
+        ui->dash_value_requests_pending->setText(QString::number(d["requests"].toInt()));
+        ui->teacher_class_success_list->clear();
+        ui->teacher_absence_overview_list->clear();
+        const QJsonArray arr=d["classes"].toArray();
+        for(const QJsonValue &v : arr){
+            QJsonObject o=v.toObject();
+            ui->teacher_class_success_list->addItem(o["name"].toString()+" — "+QString::number(qRound(o["rate"].toDouble()))+"% success rate");
+            ui->teacher_absence_overview_list->addItem(o["name"].toString()+" — "+QString::number(o["absences"].toInt())+" absences this session");
+        }
+    };
+
     QButtonGroup *back_buts_teach= new QButtonGroup(this);
     for(int i=1;i<6;i++){
         QString name=QString("back_home_btn_teacher_%1").arg(i);
@@ -694,7 +712,8 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
         }}
 
 
-    connect(back_buts_teach,&QButtonGroup::buttonClicked,this,[this](){
+    connect(back_buts_teach,&QButtonGroup::buttonClicked,this,[this,loadteacherdash](){
+        loadteacherdash();
         switchpg(7);
 
 
@@ -952,7 +971,7 @@ switchpg(4);});
 
 
 
-    connect(ui->login_but,&QPushButton::clicked,this,[this]() {
+    connect(ui->login_but,&QPushButton::clicked,this,[this,loadteacherdash]() {
         if(ui->login_email->text()=="" || ui->login_passwd->text()==""){
             ui->login_alert->setText("fill all fields please");
         }else{
@@ -1020,6 +1039,7 @@ switchpg(4);});
 
 
 
+                    loadteacherdash();
                     switchpg(7);
                 }
             else if (get<0>(s)=="admin"){
