@@ -315,6 +315,20 @@ def promote_that_bih(gmail, role, name, aftername):
             conn.close()
 
 
+def mark(id):
+    load_dotenv()
+    cons = os.environ["CON_STRING"]
+    s = psycopg2.connect(os.environ["DATABASE_URL"])
+    cur = s.cursor()
+    cur.execute("INSERT INTO absence (id) VALUES(%s);",(id,))
+    s.commit()
+    s.close()
+    cur.close()
+
+
+
+
+
 def demote_that_bih(gmail, role, name, aftername):
     load_dotenv()
     cons = os.environ["CON_STRING"]
