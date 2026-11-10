@@ -20,7 +20,52 @@
 
 
 
+void MainWindow::refreshusers(){
+    std::vector<users> i_forgot_to_take_my_meds=db.list_users();
+    auto *t = ui->admin_users_table;
+    t->setRowCount(0);
+    for (const users &c : i_forgot_to_take_my_meds) {
+        int row = t->rowCount();
+        t->insertRow(row);
+        int i=c.name.find(" ");
 
+        QString daname=QString::fromStdString(c.name.substr(0,i));
+        QString darole=QString::fromStdString(c.role);
+        QString dagmail=QString::fromStdString(c.gmail);
+        QString daftername=QString::fromStdString(c.name.substr(i+1));
+        t->setItem(row, 0, new QTableWidgetItem(QString::fromStdString(c.name)));
+        t->setItem(row, 1, new QTableWidgetItem(QString::fromStdString(c.gmail)));
+        t->setItem(row, 2, new QTableWidgetItem(QString::fromStdString(c.role)));
+        if(c.role=="student"){
+            auto *editbtn = new QPushButton("promote to teacher");
+            t->setCellWidget(row, 3, editbtn);
+            connect(editbtn, &QPushButton::clicked, this, [this,dagmail,daname,daftername,darole, row]() {
+                db.promote_user(dagmail,darole,daname,daftername);
+
+            });
+
+
+        }else if (c.role=="teacher"){
+            auto *editbtn = new QPushButton("demote to student");
+            t->setCellWidget(row, 3, editbtn);
+            connect(editbtn, &QPushButton::clicked, this, [this,dagmail,daname,daftername,darole, row]() {
+                db.demote_user(dagmail,darole,daname,daftername);
+
+            });
+
+        }
+        auto *delbtn  = new QPushButton("Delete");
+        t->setCellWidget(row, 4, delbtn);
+
+        connect(delbtn, &QPushButton::clicked, this, [this,dagmail,daname,daftername,darole, row]() {
+            db.delete_user(dagmail,darole,daname,daftername);
+
+
+        });
+    }
+    ui->admin_users_res->setText(QString("%1 users loaded").arg(i_forgot_to_take_my_meds.size()));
+
+}
 
 void MainWindow::notificate(QString message){
 #if defined(Q_OS_LINUX)
@@ -146,6 +191,11 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
     });
 
 //so oscuola is approaching the end , i d like a moment of silenece for whatver the fuck i just built , nvmd who tf am i even talking to, its 2 pm on weekedn , ppl are enjoying their lifes nad i m modifyign a Qlist for users display , peak cinema
+    connect(ui->admin_users_refresh_btn,&QPushButton::clicked,this, [this]{
+        refreshusers();
+    });
+
+
     connect(users_buts,&QButtonGroup::buttonClicked,this,[this]{
         std::vector<users> i_forgot_to_take_my_meds=db.list_users();
         auto *t = ui->admin_users_table;
@@ -167,6 +217,7 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
                 t->setCellWidget(row, 3, editbtn);
                 connect(editbtn, &QPushButton::clicked, this, [this,dagmail,daname,daftername,darole, row]() {
                     db.promote_user(dagmail,darole,daname,daftername);
+                    notificate("user promoted");
 
                 });
 
@@ -176,6 +227,8 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
                 t->setCellWidget(row, 3, editbtn);
                 connect(editbtn, &QPushButton::clicked, this, [this,dagmail,daname,daftername,darole, row]() {
                     db.demote_user(dagmail,darole,daname,daftername);
+                    notificate("user demoted");
+
 
                 });
 
@@ -185,6 +238,7 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
 
             connect(delbtn, &QPushButton::clicked, this, [this,dagmail,daname,daftername,darole, row]() {
                 db.delete_user(dagmail,darole,daname,daftername);
+                notificate("user deleted");
 
 
             });
@@ -324,6 +378,7 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
         else{
             int x = ui->teach_wsap->currentText().section(':', 1).trimmed().toInt();
             db.add_class(ui->lineEdit->text().toInt(),ui->lineEdit_2->text().toInt(), x);
+            notificate("class created");
         }
     });
     connect(ass_tea_buts,&QButtonGroup::buttonClicked,this,[this](){
@@ -347,7 +402,7 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
     connect(ui->admin_assign_teacher_btn,&QPushButton::clicked,this,[this]{
         int x = ui->admin_assign_teacher_teacher_combo->currentText().section(':', 1).trimmed().toInt();
         db.ass_tea(ui->admin_assign_teacher_class_combo->currentText(),x);
-
+        notificate("teacher assigned");
         qDebug()<<"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"<<ui->admin_assign_teacher_teacher_combo->currentText();
     });
 
@@ -457,6 +512,7 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
     connect(ui->admin_classes_switch_btn,&QPushButton::clicked,this,[this]{
         int x = ui->admin_classes_src_student_combo->currentText().section(':', 1).trimmed().toInt();
         db.change_student(x,ui->admin_classes_dst_class_combo->currentText());
+        notificate("student transfered");
         qDebug()<<"that shi flew";
 
     });
