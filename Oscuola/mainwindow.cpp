@@ -106,19 +106,38 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
 
     QButtonGroup *users_buts= new QButtonGroup(this);
 
-    users_buts->addButton(ui->users_button_admin_1);
-    users_buts->addButton(ui->users_button_admin_3);
+    for(int i=1;i<7;i++){
+        QPushButton *button=this->findChild<QPushButton*>(QString("users_button_admin_%1").arg(i));
+        if(button){
+            users_buts->addButton(button);
+        }}
 
 
     QButtonGroup *tb_admin_buts= new QButtonGroup(this);
 
-    tb_admin_buts->addButton(ui->timetable_but_admin_1);
-    tb_admin_buts->addButton(ui->timetable_but_admin_2);
+    for(int i=1;i<7;i++){
+        QPushButton *button=this->findChild<QPushButton*>(QString("timetable_but_admin_%1").arg(i));
+        if(button){
+            tb_admin_buts->addButton(button);
+        }}
 
     QButtonGroup *backhomeadmin= new QButtonGroup(this);
 
-    backhomeadmin->addButton(ui->back_home_btn_admin_2);
-    backhomeadmin->addButton(ui->back_home_btn_admin_3);
+    for(int i=1;i<7;i++){
+        QPushButton *button=this->findChild<QPushButton*>(QString("back_home_btn_admin_%1").arg(i));
+        if(button){
+            backhomeadmin->addButton(button);
+        }}
+
+    QButtonGroup *dashboard_admin= new QButtonGroup(this);
+    for(int i=1;i<7;i++){
+        QPushButton *button=this->findChild<QPushButton*>(QString("dashboard_but_admin_%1").arg(i));
+        if(button){
+            dashboard_admin->addButton(button);
+        }}
+    connect(dashboard_admin,&QButtonGroup::buttonClicked,this,[this]{
+        switchpg(12);
+    });
 
 
 
@@ -266,14 +285,14 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
 
 
     QButtonGroup *report_buts= new QButtonGroup(this);
-    for(int i=1;i<5;i++){
+    for(int i=1;i<6;i++){
         QString name=QString("reports_button_teacher_%1").arg(i);
         QPushButton *button=this->findChild<QPushButton*>(name);
         if(button){
             report_buts->addButton(button);
         }}
     QButtonGroup *createcls_buts= new QButtonGroup(this);
-    for(int i=1;i<6;i++){
+    for(int i=1;i<7;i++){
         QString name=QString("create_class_but_admin_%1").arg(i);
         QPushButton *button=this->findChild<QPushButton*>(name);
         if(button){
@@ -281,7 +300,7 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
         }}
 
     QButtonGroup *ass_tea_buts= new QButtonGroup(this);//same comment as in the endpoint..
-    for(int i=1;i<6;i++){
+    for(int i=1;i<7;i++){
         QString name=QString("assign_teacher_but_admin_%1").arg(i);
         QPushButton *button=this->findChild<QPushButton*>(name);
         if(button){
@@ -290,6 +309,7 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
 
 
     connect(createcls_buts,&QButtonGroup::buttonClicked,this,[this](){
+        ui->teach_wsap->clear();
         std::vector<studs> timpy=db.list_teach();
         for (studs &c : timpy){
             qDebug()<<"WE GITTTTTTTTTTTTT"<<c.name;
@@ -307,6 +327,8 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
         }
     });
     connect(ass_tea_buts,&QButtonGroup::buttonClicked,this,[this](){
+        ui->admin_assign_teacher_teacher_combo->clear();
+        ui->admin_assign_teacher_class_combo->clear();
         QVector<QString> classes = db.list_classes();
         std::vector<studs> timpy=db.list_teach();
         for (studs &c : timpy){
@@ -336,7 +358,7 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
 
 
     QButtonGroup *classes_admin= new QButtonGroup(this);
-    for(int i=1;i<4;i++){
+    for(int i=1;i<7;i++){
         QString name=QString("classes_but_admin_%1").arg(i);
         QPushButton *button=this->findChild<QPushButton*>(name);
         if(button){
@@ -346,6 +368,12 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
 
 
     connect(classes_admin,&QButtonGroup::buttonClicked,this,[this]{
+        ui->admin_classes_src_class_combo->blockSignals(true);
+        ui->admin_classes_dst_class_combo->blockSignals(true);
+        ui->admin_classes_src_student_combo->blockSignals(true);
+        ui->admin_classes_src_class_combo->clear();
+        ui->admin_classes_dst_class_combo->clear();
+        ui->admin_classes_src_student_combo->clear();
         QVector<QString> classes = db.list_classes();
         for (const QString &c : classes){
             ui->admin_classes_src_class_combo->addItem(c, c);
@@ -387,6 +415,7 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
         }
         ui->teacher_reports_class_combo->blockSignals(false);
 
+        ui->teacher_reports_list->setRowCount(0);
         std::vector<reports> reports_load=db.loadreports(std::get<4>(f));
         for(reports &mlml : reports_load){
             QTableWidget *table = ui->teacher_reports_list;
@@ -471,6 +500,9 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
         if(button){
             grades_buts->addButton(button);
         }}
+    if(ui->pushButton_9){
+        grades_buts->addButton(ui->pushButton_9);
+    }
     connect(grades_buts,&QButtonGroup::buttonClicked,this,[this](QAbstractButton*) {
         if (!loaded_grades){
             loaded_grades=true;
@@ -535,7 +567,7 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
         }}
 
     QButtonGroup *reqst_buts= new QButtonGroup(this);
-    for(int i=1;i<5;i++){
+    for(int i=1;i<6;i++){
         QString name=QString("requests_button_teacher_%1").arg(i);
         QPushButton *button=this->findChild<QPushButton*>(name);
         if(button){
@@ -723,6 +755,9 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
         if(button){
             alerts_buts->addButton(button);
         }}
+    if(ui->pushButton_14){
+        alerts_buts->addButton(ui->pushButton_14);
+    }
     connect(alerts_buts,&QButtonGroup::buttonClicked,this,[this]() {
         if(!alertsloaded){
             alertsloaded=true;
@@ -746,6 +781,9 @@ switchpg(4);});
         if(button){
             post_buts->addButton(button);
         }}
+    if(ui->pushButton_19){
+        post_buts->addButton(ui->pushButton_19);
+    }
     connect(post_buts,&QButtonGroup::buttonClicked,this,[this]() {switchpg(5);});
     connect(ui->btn_send_request,&QPushButton::clicked,this,[this](){
         if (ui->request_message->toPlainText().trimmed()=="" || ui->request_subject->text().trimmed()==""){
@@ -768,6 +806,9 @@ switchpg(4);});
         if(button){
             time_buts->addButton(button);
         }}
+    if(ui->pushButton_24){
+        time_buts->addButton(ui->pushButton_24);
+    }
 
     connect(time_buts,&QButtonGroup::buttonClicked,this,[this]() {
         if(!tbloaded){
@@ -788,11 +829,13 @@ switchpg(4);});
         switchpg(6);});
 
     QButtonGroup *logout_buts= new QButtonGroup(this);
-    for(int i=1;i<6;i++){
-        QString name=QString("logout_but_%1").arg(i);
-        QPushButton *button=this->findChild<QPushButton*>(name);
-        if(button){
-            logout_buts->addButton(button);
+    for(int i=1;i<7;i++){
+        const QStringList names={QString("logout_but_%1").arg(i),QString("logout_but_teacher_%1").arg(i),QString("logout_but_admin_%1").arg(i)};
+        for(const QString &name : names){
+            QPushButton *button=this->findChild<QPushButton*>(name);
+            if(button){
+                logout_buts->addButton(button);
+            }
         }}
     connect(logout_buts,&QButtonGroup::buttonClicked,this,[this]{
         switchpg(0);
