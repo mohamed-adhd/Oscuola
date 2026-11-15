@@ -557,3 +557,39 @@ def teacher_dash(tid):
         classes.append({"name": f"{yeary}A{classs}", "rate": round(rate, 1), "absences": ab})
     overall = (total_sum / total_count / MAX_GRADE * 100) if total_count else 0.0
     return {"success": True, "rate": round(overall, 1), "absences": total_abs, "requests": pending, "classes": classes}
+
+
+def stud_dash(id):
+    load_dotenv()
+    s = psycopg2.connect(os.environ["DATABASE_URL"])
+    cur = s.cursor()
+    cur.execute("SELECT syear FROM students WHERE id = %s;", (id,))
+    student_data = cur.fetchone()
+    if not student_data: return {"msg": "not found"}
+    year = student_data[0]
+    al, og = 0, 0
+    if year == 7:
+        cur.execute("SELECT overall_grade FROM first_year_grades WHERE student_id = %s;", (id,))
+        grade_res = cur.fetchone()
+        og = grade_res[0] if grade_res else 0
+        cur.execute("SELECT COUNT(*) FROM alerts_1st WHERE student_id = %s;", (id,))
+        al = cur.fetchone()[0]
+    elif year == 8:
+        cur.execute("SELECT overall_grade FROM second_year_grades WHERE student_id = %s;", (id,))
+        grade_res = cur.fetchone()
+        og = grade_res[0] if grade_res else 0
+        cur.execute("SELECT COUNT(*) FROM alerts_2nd WHERE student_id = %s;", (id,))
+        al = cur.fetchone()[0]
+
+    elif year == 9:
+        cur.execute("SELECT overall_grade FROM third_year_grades WHERE student_id = %s;", (id,))
+        grade_res = cur.fetchone()
+        og = grade_res[0] if grade_res else 0
+        cur.execute("SELECT COUNT(*) FROM alerts_3rd WHERE student_id = %s;", (id,))
+        al = cur.fetchone()[0]
+    cur.execute("SELECT COUNT(*) FROM absence WHERE id = %s;", (id,))
+    ab = cur.fetchone()[0]
+
+    cur.close()
+    s.close()
+    return {"abs": ab, "al": al, "og": og}
