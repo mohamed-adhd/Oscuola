@@ -560,7 +560,6 @@ def teacher_dash(tid):
 
 
 def stud_dash(id):
-    def getstudents(year, classs):
         load_dotenv()
         cons = os.environ["CON_STRING"]
         s = psycopg2.connect(os.environ["DATABASE_URL"])
