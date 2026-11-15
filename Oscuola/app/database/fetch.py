@@ -576,6 +576,14 @@ def stud_dash(id):
         if res[0]==9:
             cur.execute("SELECT overall_grade FROM third_year_grades WHERE student_id = %S;", (id,))
             res = cur.fetchone()
+        og=res[0]
+        cur.execute("SELECT COUNT(*) FROM absence WHERE id = %S;", (id,))
+        res = cur.fetchone()
+        ab=res[0]
+
+        cur.execute("SELECT COUNT(*) FROM alerts WHERE id = %S;", (id,))
+        res = cur.fetchone()
+        ab = res[0]
         cur.close()
         s.close()
         return res
