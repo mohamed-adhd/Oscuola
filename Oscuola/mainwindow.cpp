@@ -1015,7 +1015,7 @@ switchpg(4);});
 
 
 
-
+                    switchpg(2);
                 }
 
                 else if (get<0>(s)=="teacher"){

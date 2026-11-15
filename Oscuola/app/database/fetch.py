@@ -557,3 +557,31 @@ def teacher_dash(tid):
         classes.append({"name": f"{yeary}A{classs}", "rate": round(rate, 1), "absences": ab})
     overall = (total_sum / total_count / MAX_GRADE * 100) if total_count else 0.0
     return {"success": True, "rate": round(overall, 1), "absences": total_abs, "requests": pending, "classes": classes}
+
+
+def stud_dash(id):
+    def getstudents(year, classs):
+        load_dotenv()
+        cons = os.environ["CON_STRING"]
+        s = psycopg2.connect(os.environ["DATABASE_URL"])
+        cur = s.cursor()
+        cur.execute("SELECT syear FROM students WHERE id = %S;", (id,))
+        res = cur.fetchone()
+        if res[0] == 7:
+            cur.execute("SELECT overall_grade FROM first_year_grades WHERE student_id = %S;", (id,))
+            res = cur.fetchone()
+        if res[0]==8:
+            cur.execute("SELECT overall_grade FROM second_year_grades WHERE student_id = %S;", (id,))
+            res = cur.fetchone()
+        if res[0]==9:
+            cur.execute("SELECT overall_grade FROM third_year_grades WHERE student_id = %S;", (id,))
+            res = cur.fetchone()
+        cur.close()
+        s.close()
+        return res
+
+
+
+
+
+

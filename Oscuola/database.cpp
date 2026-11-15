@@ -947,6 +947,47 @@ bool database::generate_rapport(QString classs,int id,int teid){
 }
 
 
+
+
+
+
+
+
+QJsonObject database::teacher_dash(int id){
+    //qDebug()<<"RAPPORT CLASSS : "<<classs<<"//// REPORT ID : "<<id<<" // TEACHERID"<<teid;
+    QNetworkAccessManager *manager = new QNetworkAccessManager(this);
+    QNetworkRequest request = mkreq("/teacher_dash");
+    QJsonObject json;
+    json["id"] = QString::fromStdString(std::to_string(id));
+
+    QJsonDocument doc(json);
+    QByteArray data = doc.toJson();
+    QNetworkReply *res = manager->post(request, data);
+    QEventLoop loop;
+
+    connect(res,&QNetworkReply::finished,&loop,&QEventLoop::quit);
+
+    loop.exec();
+    QByteArray responseData = res->readAll();
+    qDebug().noquote()<<responseData;
+    QJsonDocument docs = QJsonDocument::fromJson(responseData);
+    QJsonObject obj = docs.object();
+    return obj;
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
 QString database::rep_content(QString name,QString classs){
     QNetworkAccessManager *manager = new QNetworkAccessManager(this);
     QNetworkRequest request = mkreq("/rap_content");
