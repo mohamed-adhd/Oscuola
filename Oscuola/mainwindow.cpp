@@ -1003,6 +1003,11 @@ switchpg(4);});
                         ui->pfp->setAlignment(Qt::AlignCenter);
 
                     }
+                    std::vector<int> std=db.student_dash(get<4>(s));
+                    int m =(std[2]/20)*100;
+                    ui->dash_value_score->setText(QString::number(m));
+                    ui->dash_value_alerts->setText(QString::number(std[1]));
+                    ui->dash_value_absences->setText(QString::number(std[0]));
 
 
 
