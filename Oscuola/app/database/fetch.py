@@ -564,29 +564,29 @@ def stud_dash(id):
         cons = os.environ["CON_STRING"]
         s = psycopg2.connect(os.environ["DATABASE_URL"])
         cur = s.cursor()
-        cur.execute("SELECT syear FROM students WHERE id = %S;", (id,))
+        cur.execute("SELECT syear FROM students WHERE id = %s;", (id,))
         res = cur.fetchone()
         if res[0] == 7:
-            cur.execute("SELECT overall_grade FROM first_year_grades WHERE student_id = %S;", (id,))
+            cur.execute("SELECT overall_grade FROM first_year_grades WHERE student_id = %s;", (id,))
             res = cur.fetchone()
-            cur.execute("SELECT COUNT(*) FROM alerts_1st WHERE student_id = %S;", (id,))
+            cur.execute("SELECT COUNT(*) FROM alerts_1st WHERE student_id = %s;", (id,))
             ms = cur.fetchone()
             al = ms[0]
 
         if res[0]==8:
-            cur.execute("SELECT overall_grade FROM second_year_grades WHERE student_id = %S;", (id,))
+            cur.execute("SELECT overall_grade FROM second_year_grades WHERE student_id = %s;", (id,))
             res = cur.fetchone()
-            cur.execute("SELECT COUNT(*) FROM alerts_1st WHERE student_id = %S;", (id,))
+            cur.execute("SELECT COUNT(*) FROM alerts_1st WHERE student_id = %s;", (id,))
             ms = cur.fetchone()
             al = ms[0]
         if res[0]==9:
-            cur.execute("SELECT overall_grade FROM third_year_grades WHERE student_id = %S;", (id,))
+            cur.execute("SELECT overall_grade FROM third_year_grades WHERE student_id = %s;", (id,))
             res = cur.fetchone()
-            cur.execute("SELECT COUNT(*) FROM alerts_1st WHERE student_id = %S;", (id,))
+            cur.execute("SELECT COUNT(*) FROM alerts_1st WHERE student_id = %s;", (id,))
             ms = cur.fetchone()
             al = ms[0]
         og=res[0]
-        cur.execute("SELECT COUNT(*) FROM absence WHERE id = %S;", (id,))
+        cur.execute("SELECT COUNT(*) FROM absence WHERE id = %s;", (id,))
         res = cur.fetchone()
         ab=res[0]
 
