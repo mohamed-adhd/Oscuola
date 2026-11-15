@@ -560,37 +560,36 @@ def teacher_dash(tid):
 
 
 def stud_dash(id):
-        load_dotenv()
-        cons = os.environ["CON_STRING"]
-        s = psycopg2.connect(os.environ["DATABASE_URL"])
-        cur = s.cursor()
-        cur.execute("SELECT syear FROM students WHERE id = %s;", (id,))
-        res = cur.fetchone()
-        if res[0] == 7:
-            cur.execute("SELECT overall_grade FROM first_year_grades WHERE student_id = %s;", (id,))
-            res = cur.fetchone()
-            cur.execute("SELECT COUNT(*) FROM alerts_1st WHERE student_id = %s;", (id,))
-            ms = cur.fetchone()
-            al = ms[0]
+    load_dotenv()
+    s = psycopg2.connect(os.environ["DATABASE_URL"])
+    cur = s.cursor()
+    cur.execute("SELECT syear FROM students WHERE id = %s;", (id,))
+    student_data = cur.fetchone()
+    if not student_data: return {"msg": "not found"}
+    year = student_data[0]
+    al, og = 0, 0  
+    if year == 7:
+        cur.execute("SELECT overall_grade FROM first_year_grades WHERE student_id = %s;", (id,))
+        grade_res = cur.fetchone()
+        og = grade_res[0] if grade_res else 0
+        cur.execute("SELECT COUNT(*) FROM alerts_1st WHERE student_id = %s;", (id,))
+        al = cur.fetchone()[0]
+    elif year == 8:
+        cur.execute("SELECT overall_grade FROM second_year_grades WHERE student_id = %s;", (id,))
+        grade_res = cur.fetchone()
+        og = grade_res[0] if grade_res else 0
+        cur.execute("SELECT COUNT(*) FROM alerts_1st WHERE student_id = %s;", (id,))
+        al = cur.fetchone()[0]
 
-        if res[0]==8:
-            cur.execute("SELECT overall_grade FROM second_year_grades WHERE student_id = %s;", (id,))
-            res = cur.fetchone()
-            cur.execute("SELECT COUNT(*) FROM alerts_1st WHERE student_id = %s;", (id,))
-            ms = cur.fetchone()
-            al = ms[0]
-        if res[0]==9:
-            cur.execute("SELECT overall_grade FROM third_year_grades WHERE student_id = %s;", (id,))
-            res = cur.fetchone()
-            cur.execute("SELECT COUNT(*) FROM alerts_1st WHERE student_id = %s;", (id,))
-            ms = cur.fetchone()
-            al = ms[0]
-        og=res[0]
-        cur.execute("SELECT COUNT(*) FROM absence WHERE id = %s;", (id,))
-        res = cur.fetchone()
-        ab=res[0]
+    elif year == 9:
+        cur.execute("SELECT overall_grade FROM third_year_grades WHERE student_id = %s;", (id,))
+        grade_res = cur.fetchone()
+        og = grade_res[0] if grade_res else 0
+        cur.execute("SELECT COUNT(*) FROM alerts_1st WHERE student_id = %s;", (id,))
+        al = cur.fetchone()[0]
+    cur.execute("SELECT COUNT(*) FROM absence WHERE id = %s;", (id,))
+    ab = cur.fetchone()[0]
 
-
-        cur.close()
-        s.close()
-        return {"abs":ab,"al":al,"og":og}
+    cur.close()
+    s.close()
+    return {"abs": ab, "al": al, "og": og}
