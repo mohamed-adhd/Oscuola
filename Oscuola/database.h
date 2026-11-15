@@ -92,6 +92,9 @@ public :
     std::vector<int> fetchstoclass();
     std::vector<QString>recreg();
     void mark(int id);
+    QJsonObject teacher_dash(int id);
+    std::vector<int> student_dash(int id);
+
 
 
 
