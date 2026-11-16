@@ -1013,6 +1013,8 @@ switchpg(4);});
                     ui->dash_value_alerts->setText(QString::number(std::get<1>(stdd)));
                     ui->dash_value_absences->setText(QString::number(std::get<2>(stdd)));
                     for(absis &si : std::get<3>(stdd)){
+                        ui->absence_list->addItems(si.time+" : "+si.description);
+
 
 
                     }

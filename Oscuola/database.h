@@ -12,6 +12,7 @@ public:
 };
 
 class absis{
+public:
     QString time;
     QString description;
 };
