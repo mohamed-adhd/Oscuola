@@ -593,6 +593,22 @@ def stud_dash(id):
     cur.execute("SELECT desc,date FROM absnece WHERE id =%s;", (id,))
     ta=cur.fetchall()
 
+    cur.execute("SELECT syear FROM users WHERE id = %s;", (id,))
+    sy=cur.fetchone()
+    if sy[0]==7:
+        cur.execute("SELECT message FROM alerts_1st WHERE student_id = %s;", (id,))
+        sy = cur.fetchall()
+    if sy[0]==8:
+        cur.execute("SELECT message FROM alerts_2nd WHERE student_id = %s;", (id,))
+        sy = cur.fetchall()
+    if sy[0]==9:
+        cur.execute("SELECT message FROM alerts_3rd WHERE student_id = %s;", (id,))
+        sy = cur.fetchall()
+
+
+
+
+
 
 
 
@@ -601,4 +617,4 @@ def stud_dash(id):
 
     cur.close()
     s.close()
-    return {"abs": ab, "al": al, "og": og,"ta":ta}
+    return {"abs": ab, "al": al, "og": og,"ta":ta,"alm":sy}
