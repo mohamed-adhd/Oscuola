@@ -315,12 +315,12 @@ def promote_that_bih(gmail, role, name, aftername):
             conn.close()
 
 
-def mark(id):
+def mark(id,desc):
     load_dotenv()
     cons = os.environ["CON_STRING"]
     s = psycopg2.connect(os.environ["DATABASE_URL"])
     cur = s.cursor()
-    cur.execute("INSERT INTO absence (id) VALUES(%s);",(id,))
+    cur.execute("INSERT INTO absence (id,date,desc) VALUES(%s,CURRENT_DATE,%s);",(id,desc))
     s.commit()
     s.close()
     cur.close()
