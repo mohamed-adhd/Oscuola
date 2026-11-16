@@ -295,7 +295,7 @@ std::vector<int> database::fetchadmn(){
 
 
 
-std::vector<int> database::student_dash(int id){
+std::tuple<int , int, int, std::vector<absis> > database::student_dash(int id){
     std::vector<int> usas;
     QNetworkAccessManager *manager = new QNetworkAccessManager(this);
     QNetworkRequest request = mkreq("/student_dash");
@@ -317,6 +317,9 @@ std::vector<int> database::student_dash(int id){
     usas.push_back(obj["abs"].toInt());
     usas.push_back(obj["al"].toInt());
     usas.push_back(obj["og"].toInt());
+
+
+
     return usas;
 }
 

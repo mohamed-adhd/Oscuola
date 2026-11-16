@@ -11,7 +11,10 @@ public:
     std::string classs;
 };
 
-
+class absis{
+    QString time;
+    QString description;
+};
 
 class studs{
 public:
@@ -93,7 +96,7 @@ public :
     std::vector<QString>recreg();
     void mark(int id,QString desc);
     QJsonObject teacher_dash(int id);
-    std::vector<int> student_dash(int id);
+    std::tuple<int , int, int, std::vector<absis> >  student_dash(int id);
 
 
 
