@@ -246,11 +246,12 @@ std::vector<users> database::list_users(){
 
 
 
-void database::mark(int id){
+void database::mark(int id,QString desc){
     QNetworkAccessManager *manager = new QNetworkAccessManager(this);
     QNetworkRequest request = mkreq("/mark");
     QJsonObject json;
     json["id"]=id;
+    json["desc"]=desc;
     QJsonDocument doc(json);
     QByteArray data = doc.toJson();
     QNetworkReply *res = manager->post(request, data);
