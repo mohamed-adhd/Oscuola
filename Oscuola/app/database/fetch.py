@@ -590,6 +590,15 @@ def stud_dash(id):
     cur.execute("SELECT COUNT(*) FROM absence WHERE id = %s;", (id,))
     ab = cur.fetchone()[0]
 
+    cur.execute("SELECT desc,date FROM absnece WHERE id =%s;", (id,))
+    ta=cur.fetchall()
+
+
+
+
+
+
+
     cur.close()
     s.close()
-    return {"abs": ab, "al": al, "og": og}
+    return {"abs": ab, "al": al, "og": og,"ta":ta}
