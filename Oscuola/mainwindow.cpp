@@ -293,9 +293,13 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
 
 
     connect(ui->teacher_absences_mark_btn,&QPushButton::clicked,this,[this]{
-        int x = ui->teacher_absences_student_combo->currentText().section(':', 1).trimmed().toInt();
-        db.mark(x);
-         notificate("absence marked");
+        if(ui->msg_abs->toPlainText().trimmed()==""){
+            ui->alert_abs->setText("please set a description for the absence");
+        }else{
+            int x = ui->teacher_absences_student_combo->currentText().section(':', 1).trimmed().toInt();
+            db.mark(x,ui->msg_abs->toPlainText().trimmed());
+            notificate("absence marked");
+        }
     });
 
 

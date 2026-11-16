@@ -320,7 +320,7 @@ def mark(id,desc):
     cons = os.environ["CON_STRING"]
     s = psycopg2.connect(os.environ["DATABASE_URL"])
     cur = s.cursor()
-    cur.execute("INSERT INTO absence (id,date,desc) VALUES(%s,CURRENT_DATE,%s);",(id,desc))
+    cur.execute('INSERT INTO absence (id, date, "desc") VALUES (%s, CURRENT_DATE, %s);', (id, desc))
     s.commit()
     s.close()
     cur.close()

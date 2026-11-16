@@ -6788,33 +6788,46 @@ No image set — select a class to see its schedule</string>
        <cursorShape>PointingHandCursor</cursorShape>
       </property>
      </widget>
+     <widget class="QPlainTextEdit" name="msg_abs">
+      <property name="geometry">
+       <rect>
+        <x>260</x>
+        <y>210</y>
+        <width>900</width>
+        <height>120</height>
+       </rect>
+      </property>
+      <property name="placeholderText">
+       <string>Describe your request…</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="field_label_request_message_2">
+      <property name="geometry">
+       <rect>
+        <x>260</x>
+        <y>190</y>
+        <width>200</width>
+        <height>18</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Message</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="alert_abs">
+      <property name="geometry">
+       <rect>
+        <x>710</x>
+        <y>440</y>
+        <width>361</width>
+        <height>81</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
     </widget>
-   </widget>
-   <widget class="QPlainTextEdit" name="request_message_2">
-    <property name="geometry">
-     <rect>
-      <x>260</x>
-      <y>210</y>
-      <width>900</width>
-      <height>120</height>
-     </rect>
-    </property>
-    <property name="placeholderText">
-     <string>Describe your request…</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="field_label_request_message_2">
-    <property name="geometry">
-     <rect>
-      <x>260</x>
-      <y>190</y>
-      <width>200</width>
-      <height>18</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Message</string>
-    </property>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
