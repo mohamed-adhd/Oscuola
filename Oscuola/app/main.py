@@ -63,7 +63,9 @@ class tb_Request(BaseModel):
     year: int
 class ids(BaseModel):
     id : int
-
+class idsm(BaseModel):
+    id : int
+    desc : str
 class assign(BaseModel):
     id : int
     classs : str
@@ -333,8 +335,8 @@ def fstsc(authorized: None = Depends(verify_key)):
 
 
 @app.post("/mark")
-def mrk(data : ids, authorized: None = Depends(verify_key)):
-    return mark(data.id)
+def mrk(data : idsm, authorized: None = Depends(verify_key)):
+    return mark(data.id,data.desc)
 
 
 @app.post("/teacher_dash")
