@@ -590,7 +590,7 @@ def stud_dash(id):
     cur.execute("SELECT COUNT(*) FROM absence WHERE id = %s;", (id,))
     ab = cur.fetchone()[0]
 
-    cur.execute("SELECT desc,date FROM absence WHERE id =%s;", (id,))
+    cur.execute("SELECT descr,date FROM absence WHERE id =%s;", (id,))
     ta=cur.fetchall()
 
     cur.execute("SELECT syear FROM users WHERE id = %s;", (id,))
