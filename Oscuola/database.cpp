@@ -601,6 +601,7 @@ bool database::ass_tea(QString classs,int id){
         loop.exec();
 
         QByteArray responseData = res->readAll();
+        qDebug().noquote()<<responseData;
         QJsonDocument docs = QJsonDocument::fromJson(responseData);
         QJsonObject obj = docs.object();
 

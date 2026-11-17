@@ -257,7 +257,7 @@ def insert(data: registerRequest, authorized: None = Depends(verify_key)):
     result = insert_request(data.gmail, data.passwd,data.classs,data.name,data.aftername)
     if result == True:
         return {"message": "inserted"}
-    return {"message": result}
+    return result
 
 @app.post("/send_rec")
 def sre(data: gmails , authorized: None = Depends(verify_key)):
