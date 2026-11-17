@@ -581,39 +581,38 @@ bool database::ass_tea(QString classs,int id){
 
 
 
+    int database::registerr(std::string email, std::string passwd, std::string classy, std::string name, std::string aftername)
+    {
+        QNetworkAccessManager manager;
+        QNetworkRequest request = mkreq("/insert_register");
+        request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
+        QJsonObject json;
+        json["gmail"] = QString::fromStdString(email);
+        json["passwd"] = QString::fromStdString(passwd);
+        json["classs"] = QString::fromStdString(classy);
+        json["name"] = QString::fromStdString(name);
+        json["aftername"] = QString::fromStdString(aftername);
 
+        QJsonDocument doc(json);
+        QNetworkReply *res = manager.post(request, doc.toJson());
 
-int database::registerr(std::string email, std::string passwd, std::string classy,std::string name,std::string aftername)
-{
-    QNetworkAccessManager *manager = new QNetworkAccessManager(this);
-    QNetworkRequest request = mkreq("/insert_register");
-    QJsonObject json;
-    json["gmail"] = QString::fromStdString(email);
-    json["passwd"] = QString::fromStdString(passwd);
-    json["classs"] = QString::fromStdString(classy);
-    json["name"] = QString::fromStdString(name);
-    json["aftername"] = QString::fromStdString(aftername);
-    //qDebug() << json["email"].toString();
-    //qDebug() << json["passwd"].toString();
-    QJsonDocument doc(json);
-    QByteArray data = doc.toJson();
-    QNetworkReply *res = manager->post(request, data);
+        QEventLoop loop;
+        connect(res, &QNetworkReply::finished, &loop, &QEventLoop::quit);
+        loop.exec();
 
-    QEventLoop loop;
         QByteArray responseData = res->readAll();
         QJsonDocument docs = QJsonDocument::fromJson(responseData);
         QJsonObject obj = docs.object();
-        std::cout << obj["message"].toString().toStdString() << std::endl;
-        qDebug() << obj["message"].toString();
-        if (obj["message"].toString() == "inserted"){
-            return 0;        }
-        else if (obj["message"].toString() == "gmail"){
-            return 1;
-        }
-        else {
-            return 2;
-    ;
-        }}
+
+        QString msg = obj["message"].toString();
+
+        res->deleteLater();
+
+        if (msg == "inserted") return 0;
+        if (msg == "gmail") return 1;
+        return 2;
+    }
+
 
 
 

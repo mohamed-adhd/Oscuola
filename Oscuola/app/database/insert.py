@@ -46,7 +46,7 @@ def insert_request(email,password,classs,name,aftername):
         s = bcrypt.hashpw(password.encode(), bcrypt.gensalt())
 
 
-        cur.execute("SELECT * FROM users WHERE gmail= %s;",(email))
+        cur.execute("SELECT * FROM users WHERE gmail= %s;",(email,))
         res=cur.fetchone()
         if res is not None :
             return {"message":"gmail"}
