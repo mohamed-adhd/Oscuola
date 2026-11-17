@@ -102,7 +102,7 @@ def check_login(gmail, pswd):
         res = cur.fetchone()
 
         if not res:
-            return {"message":False,"detail":"gmail" }
+            return {"message":"gmail" }
         stored_password = res[0]
 
 
