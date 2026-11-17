@@ -593,7 +593,7 @@ def stud_dash(id):
     cur.execute("SELECT descr,date FROM absence WHERE id =%s;", (id,))
     ta=cur.fetchall()
 
-    cur.execute("SELECT syear FROM users WHERE id = %s;", (id,))
+    cur.execute("SELECT syear FROM students WHERE id = %s;", (id,))
     sy=cur.fetchone()
     if sy[0]==7:
         cur.execute("SELECT message FROM alerts_1st WHERE student_id = %s;", (id,))
