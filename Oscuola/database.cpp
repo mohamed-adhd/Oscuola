@@ -296,7 +296,7 @@ std::vector<int> database::fetchadmn(){
 
 
 std::tuple<int , int, int, std::vector<absis> > database::student_dash(int id){
-    std::vector<int> usas;
+    std::tuple<int , int, int, std::vector<absis> > usas;
     QNetworkAccessManager *manager = new QNetworkAccessManager(this);
     QNetworkRequest request = mkreq("/student_dash");
 
@@ -314,9 +314,19 @@ std::tuple<int , int, int, std::vector<absis> > database::student_dash(int id){
 
     QJsonDocument docs = QJsonDocument::fromJson(responseData);
     QJsonObject obj = docs.object();
-    usas.push_back(obj["abs"].toInt());
-    usas.push_back(obj["al"].toInt());
-    usas.push_back(obj["og"].toInt());
+    std::get<0>(usas)=obj["og"].toInt();
+    std::get<1>(usas)=obj["al"].toInt();
+    std::get<2>(usas)=obj["abs"].toInt();
+    QJsonArray arr = obj.value("data").toArray();
+    for (const QJsonValue &rowVal : arr) {
+        QJsonArray row = rowVal.toArray();
+        absis r;
+        r.time=row[1].toString();
+        r.description=row[0].toString();
+        std::get<3>(usas).push_back(r);
+    }
+
+
 
 
 
