@@ -1007,16 +1007,16 @@ switchpg(4);});
                         ui->pfp->setAlignment(Qt::AlignCenter);
 
                     }
-                    std::tuple<int , int, int, std::vector<absis> >  stdd=db.student_dash(get<4>(s));
+                    std::tuple<int , int, int, std::vector<absis> ,std::vector<QString>>  stdd=db.student_dash(get<4>(s));
                     int m =(std::get<0>(stdd)*100)/20;
                     ui->dash_value_score->setText(QString::number(m)+"%");
                     ui->dash_value_alerts->setText(QString::number(std::get<1>(stdd)));
                     ui->dash_value_absences->setText(QString::number(std::get<2>(stdd)));
                     for(absis &si : std::get<3>(stdd)){
-                        ui->absence_list->addItems(si.time+" : "+si.description);
-
-
-
+                        ui->absence_list->addItem(si.time+" : "+si.description);
+                    }
+                    for(QString &si : std::get<4>(stdd)){
+                        ui->alerts_list_dashboard->addItem(si);
                     }
 
 

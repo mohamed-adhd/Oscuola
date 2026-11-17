@@ -44,6 +44,20 @@ def insert_request(email,password,classs,name,aftername):
         conn = psycopg2.connect(os.environ["DATABASE_URL"])
         cur = conn.cursor()
         s = bcrypt.hashpw(password.encode(), bcrypt.gensalt())
+
+
+        cur.execute("SELECT * FROM users WHERE gmail= %s;",(email))
+        res=cur.fetchone()
+        if res is not None :
+            return {"message":"gmail exist"}
+
+
+
+
+
+
+
+
         cur.execute("INSERT INTO requests (email, password,classs,name,aftername) VALUES (%s, %s,%s,%s,%s);",(email,s,classs,name,aftername))
         conn.commit()
         cur.close()

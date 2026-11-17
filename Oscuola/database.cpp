@@ -310,22 +310,24 @@ std::tuple<int , int, int, std::vector<absis> ,std::vector<QString>> database::s
     connect(res,&QNetworkReply::finished,&loop,&QEventLoop::quit);
     loop.exec();
     QByteArray responseData = res->readAll();
-    qDebug().noquote() << responseData;
+    qDebug().noquote() << "NNNNNNNNAAAAAAAAAFAAAAAAAAAAAA"<<responseData;
 
     QJsonDocument docs = QJsonDocument::fromJson(responseData);
     QJsonObject obj = docs.object();
     std::get<0>(usas)=obj["og"].toInt();
     std::get<1>(usas)=obj["al"].toInt();
     std::get<2>(usas)=obj["abs"].toInt();
-    QJsonArray arr = obj.value("data").toArray();
+    QJsonArray arr = obj.value("ta").toArray();
     for (const QJsonValue &rowVal : arr) {
         QJsonArray row = rowVal.toArray();
         absis r;
-        r.time=row[1].toString();
+        qDebug()<<"AAAAAAAAAAAAAAAAAAAAAh"<<row[1].toString().length();
+        const QString s = row[1].toString();
+        r.time=s.left(10);
         r.description=row[0].toString();
         std::get<3>(usas).push_back(r);
     }
-    QJsonArray arrs= obj.value("datal").toArray();
+    QJsonArray arrs= obj.value("alm").toArray();
     for (const QJsonValue &rowVal : arrs) {
         QJsonArray row = rowVal.toArray();
         std::get<4>(usas).push_back(row[0].toString());

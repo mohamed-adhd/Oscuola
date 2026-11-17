@@ -1992,26 +1992,6 @@ QPushButton#teacher_absences_load_btn:pressed {
        <property name="frameShape">
         <enum>QFrame::Shape::NoFrame</enum>
        </property>
-       <item>
-        <property name="text">
-         <string>⚠️  Missed homework — Mathematics (Sep 3)</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>⚠️  Late arrival (Sep 5)</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>ℹ️  Parent-teacher meeting scheduled (Sep 12)</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>⚠️  Below-average quiz score — Science (Aug 28)</string>
-        </property>
-       </item>
       </widget>
      </widget>
      <widget class="QFrame" name="panel_absence_log">
@@ -2048,21 +2028,6 @@ QPushButton#teacher_absences_load_btn:pressed {
        <property name="frameShape">
         <enum>QFrame::Shape::NoFrame</enum>
        </property>
-       <item>
-        <property name="text">
-         <string>Aug 22 — Full day (Unexcused)</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Sep 1 — Full day (Excused, medical)</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Sep 5 — Late arrival, 2nd period</string>
-        </property>
-       </item>
       </widget>
      </widget>
     </widget>
