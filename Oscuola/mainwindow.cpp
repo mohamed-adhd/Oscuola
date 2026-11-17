@@ -41,6 +41,7 @@ void MainWindow::refreshusers(){
         t->setItem(row, 2, new QTableWidgetItem(QString::fromStdString(c.role)));
         if(c.role=="student"){
             auto *editbtn = new QPushButton("promote to teacher");
+            editbtn->setObjectName("admin_to_teacher_btn");
             t->setCellWidget(row, 3, editbtn);
             connect(editbtn, &QPushButton::clicked, this, [this,dagmail,daname,daftername,darole, row]() {
                 db.promote_user(dagmail,darole,daname,daftername);
@@ -50,6 +51,7 @@ void MainWindow::refreshusers(){
 
         }else if (c.role=="teacher"){
             auto *editbtn = new QPushButton("demote to student");
+            editbtn->setObjectName("admin_to_teacher_btn");
             t->setCellWidget(row, 3, editbtn);
             connect(editbtn, &QPushButton::clicked, this, [this,dagmail,daname,daftername,darole, row]() {
                 db.demote_user(dagmail,darole,daname,daftername);
@@ -58,6 +60,7 @@ void MainWindow::refreshusers(){
 
         }
         auto *delbtn  = new QPushButton("Delete");
+        delbtn->setObjectName("admin_delete_btn");
         t->setCellWidget(row, 4, delbtn);
 
         connect(delbtn, &QPushButton::clicked, this, [this,dagmail,daname,daftername,darole, row]() {
@@ -217,6 +220,7 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
             t->setItem(row, 2, new QTableWidgetItem(QString::fromStdString(c.role)));
             if(c.role=="student"){
                 auto *editbtn = new QPushButton("promote to teacher");
+            editbtn->setObjectName("admin_to_teacher_btn");
                 t->setCellWidget(row, 3, editbtn);
                 connect(editbtn, &QPushButton::clicked, this, [this,dagmail,daname,daftername,darole, row]() {
                     db.promote_user(dagmail,darole,daname,daftername);
@@ -227,6 +231,7 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
 
             }else if (c.role=="teacher"){
                 auto *editbtn = new QPushButton("demote to student");
+            editbtn->setObjectName("admin_to_teacher_btn");
                 t->setCellWidget(row, 3, editbtn);
                 connect(editbtn, &QPushButton::clicked, this, [this,dagmail,daname,daftername,darole, row]() {
                     db.demote_user(dagmail,darole,daname,daftername);
@@ -237,6 +242,7 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
 
             }
             auto *delbtn  = new QPushButton("Delete");
+        delbtn->setObjectName("admin_delete_btn");
             t->setCellWidget(row, 4, delbtn);
 
             connect(delbtn, &QPushButton::clicked, this, [this,dagmail,daname,daftername,darole, row]() {
@@ -804,7 +810,7 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
     connect(reqst_buts,&QButtonGroup::buttonClicked,this,[this](){
 
         QList<QFrame*> oldRows = ui->panel_requests_teacher->findChildren<QFrame*>(
-            QRegularExpression("^request_row_.*"));
+            QRegularExpression("^request_row$"));
         for (QFrame *f : oldRows) {
             f->deleteLater();}
         int y = 50;
@@ -814,18 +820,21 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
         std::vector<req> temp = db.get_requests(std::get<4>(f));
         for (const req &r : temp) {
             QFrame *row = new QFrame(ui->panel_requests_teacher);
-            row->setObjectName(QString("request_row_%1").arg(index));
+            row->setObjectName("request_row");
             row->setGeometry(16, y, 908, rowh);
 
             QLabel *label = new QLabel(row);
+            label->setObjectName("request_label");
             label->setGeometry(16, 8, 550, 48);
             label->setText(QString("%1 %2 (%3)").arg(QString::fromStdString(r.name)).arg(QString::fromStdString(r.aftername)).arg(QString::fromStdString(r.classs)));
 
             QPushButton *acceptBtn = new QPushButton("✅  Accept", row);
+            acceptBtn->setObjectName("accept_btn");
             acceptBtn->setGeometry(590, 12, 140, 40);
             acceptBtn->setCursor(Qt::PointingHandCursor);
 
             QPushButton *declineBtn = new QPushButton("❌  Decline", row);
+            declineBtn->setObjectName("decline_btn");
             declineBtn->setGeometry(740, 12, 140, 40);
             declineBtn->setCursor(Qt::PointingHandCursor);
 
@@ -1007,16 +1016,16 @@ switchpg(4);});
                         ui->pfp->setAlignment(Qt::AlignCenter);
 
                     }
-                    std::tuple<int , int, int, std::vector<absis> >  stdd=db.student_dash(get<4>(s));
+                    std::tuple<int , int, int, std::vector<absis> ,std::vector<QString>>  stdd=db.student_dash(get<4>(s));
                     int m =(std::get<0>(stdd)*100)/20;
                     ui->dash_value_score->setText(QString::number(m)+"%");
                     ui->dash_value_alerts->setText(QString::number(std::get<1>(stdd)));
                     ui->dash_value_absences->setText(QString::number(std::get<2>(stdd)));
                     for(absis &si : std::get<3>(stdd)){
-                        ui->absence_list->addItems(si.time+" : "+si.description);
-
-
-
+                        ui->absence_list->addItem(si.time+" : "+si.description);
+                    }
+                    for(QString &si : std::get<4>(stdd)){
+                        ui->alerts_list_dashboard->addItem(si);
                     }
 
 
@@ -1117,18 +1126,22 @@ switchpg(4);});
             ui->label_2->setText("please enter a valid gmail (xxxxxxx@gmail.com");
         }
         else{
-            db.registerr(ui->reg_email->text().toStdString(),ui->reg_pswd->text().toStdString(),ui->classy->text().toStdString(),ui->reg_name->text().toStdString(),ui->reg_aftername->text().toStdString(),[this](bool success){
-                if (success) {
+            int s=db.registerr(ui->reg_email->text().toStdString(),ui->reg_pswd->text().toStdString(),ui->classy->text().toStdString(),ui->reg_name->text().toStdString(),ui->reg_aftername->text().toStdString());
+                if (s==0) {
                     ui->reg_alert->setText("we have submitted you account request , you will be notified by email when done ");
-                } else {
-                    ui->reg_alert->setText("something went wrong , try again later");
-                }
-            });}});
+                } else if (s==1) {
+                    ui->reg_alert->setText("email already exists");
+                } else if (s==2){
+                    ui->reg_alert->setText("something went wrong , try again");
+            }};
 
-
+    });
 
     connect(ui->reg_but,&QPushButton::clicked,this,[this]() {
         switchpg(1);});
+
+    connect(ui->back_login,&QPushButton::clicked,this,[this]() {
+        switchpg(0);});
 
 
 

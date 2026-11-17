@@ -295,8 +295,8 @@ std::vector<int> database::fetchadmn(){
 
 
 
-std::tuple<int , int, int, std::vector<absis> > database::student_dash(int id){
-    std::vector<int> usas;
+std::tuple<int , int, int, std::vector<absis> ,std::vector<QString>> database::student_dash(int id){
+    std::tuple<int , int, int, std::vector<absis> ,std::vector<QString>> usas;
     QNetworkAccessManager *manager = new QNetworkAccessManager(this);
     QNetworkRequest request = mkreq("/student_dash");
 
@@ -310,13 +310,31 @@ std::tuple<int , int, int, std::vector<absis> > database::student_dash(int id){
     connect(res,&QNetworkReply::finished,&loop,&QEventLoop::quit);
     loop.exec();
     QByteArray responseData = res->readAll();
-    qDebug().noquote() << responseData;
+    qDebug().noquote() << "NNNNNNNNAAAAAAAAAFAAAAAAAAAAAA"<<responseData;
 
     QJsonDocument docs = QJsonDocument::fromJson(responseData);
     QJsonObject obj = docs.object();
-    usas.push_back(obj["abs"].toInt());
-    usas.push_back(obj["al"].toInt());
-    usas.push_back(obj["og"].toInt());
+    std::get<0>(usas)=obj["og"].toInt();
+    std::get<1>(usas)=obj["al"].toInt();
+    std::get<2>(usas)=obj["abs"].toInt();
+    QJsonArray arr = obj.value("ta").toArray();
+    for (const QJsonValue &rowVal : arr) {
+        QJsonArray row = rowVal.toArray();
+        absis r;
+        qDebug()<<"AAAAAAAAAAAAAAAAAAAAAh"<<row[1].toString().length();
+        const QString s = row[1].toString();
+        r.time=s.left(10);
+        r.description=row[0].toString();
+        std::get<3>(usas).push_back(r);
+    }
+    QJsonArray arrs= obj.value("alm").toArray();
+    for (const QJsonValue &rowVal : arrs) {
+        QJsonArray row = rowVal.toArray();
+        std::get<4>(usas).push_back(row[0].toString());
+    }
+
+
+
 
 
 
@@ -563,35 +581,39 @@ bool database::ass_tea(QString classs,int id){
 
 
 
+    int database::registerr(std::string email, std::string passwd, std::string classy, std::string name, std::string aftername)
+    {
+        QNetworkAccessManager manager;
+        QNetworkRequest request = mkreq("/insert_register");
+        request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
+        QJsonObject json;
+        json["gmail"] = QString::fromStdString(email);
+        json["passwd"] = QString::fromStdString(passwd);
+        json["classs"] = QString::fromStdString(classy);
+        json["name"] = QString::fromStdString(name);
+        json["aftername"] = QString::fromStdString(aftername);
 
+        QJsonDocument doc(json);
+        QNetworkReply *res = manager.post(request, doc.toJson());
 
-void database::registerr(std::string email, std::string passwd, std::string classy,std::string name,std::string aftername, std::function<void(bool)> callback)
-{
-    QNetworkAccessManager *manager = new QNetworkAccessManager(this);
-    QNetworkRequest request = mkreq("/insert_register");
+        QEventLoop loop;
+        connect(res, &QNetworkReply::finished, &loop, &QEventLoop::quit);
+        loop.exec();
 
-    QJsonObject json;
-    json["gmail"] = QString::fromStdString(email);
-    json["passwd"] = QString::fromStdString(passwd);
-    json["classs"] = QString::fromStdString(classy);
-    json["name"] = QString::fromStdString(name);
-    json["aftername"] = QString::fromStdString(aftername);
-    //qDebug() << json["email"].toString();
-    //qDebug() << json["passwd"].toString();
-    QJsonDocument doc(json);
-    QByteArray data = doc.toJson();
-    QNetworkReply *res = manager->post(request, data);
-    connect(res, &QNetworkReply::finished, this, [res, callback]() {
         QByteArray responseData = res->readAll();
+        qDebug().noquote()<<responseData;
         QJsonDocument docs = QJsonDocument::fromJson(responseData);
         QJsonObject obj = docs.object();
-        std::cout << obj["message"].toString().toStdString() << std::endl;
-        qDebug() << obj["message"].toString();
-        bool success = (obj["message"].toString() == "inserted");
+
+        QString msg = obj["message"].toString();
+
         res->deleteLater();
-        callback(success);
-    });
-}
+
+        if (msg == "inserted") return 0;
+        if (msg == "gmail") return 1;
+        return 2;
+    }
+
 
 
 
