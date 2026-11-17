@@ -97,7 +97,7 @@ public :
     std::vector<QString>recreg();
     void mark(int id,QString desc);
     QJsonObject teacher_dash(int id);
-    std::tuple<int , int, int, std::vector<absis> >  student_dash(int id);
+    std::tuple<int , int, int, std::vector<absis> ,std::vector<QString>>  student_dash(int id);
 
 
 
