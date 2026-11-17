@@ -49,7 +49,7 @@ def insert_request(email,password,classs,name,aftername):
         cur.execute("SELECT * FROM users WHERE gmail= %s;",(email))
         res=cur.fetchone()
         if res is not None :
-            return {"message":"gmail exist"}
+            return {"message":"gmail"}
 
 
 

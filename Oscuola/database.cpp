@@ -583,11 +583,10 @@ bool database::ass_tea(QString classs,int id){
 
 
 
-void database::registerr(std::string email, std::string passwd, std::string classy,std::string name,std::string aftername, std::function<void(bool)> callback)
+int database::registerr(std::string email, std::string passwd, std::string classy,std::string name,std::string aftername)
 {
     QNetworkAccessManager *manager = new QNetworkAccessManager(this);
     QNetworkRequest request = mkreq("/insert_register");
-
     QJsonObject json;
     json["gmail"] = QString::fromStdString(email);
     json["passwd"] = QString::fromStdString(passwd);
@@ -599,17 +598,22 @@ void database::registerr(std::string email, std::string passwd, std::string clas
     QJsonDocument doc(json);
     QByteArray data = doc.toJson();
     QNetworkReply *res = manager->post(request, data);
-    connect(res, &QNetworkReply::finished, this, [res, callback]() {
+
+    QEventLoop loop;
         QByteArray responseData = res->readAll();
         QJsonDocument docs = QJsonDocument::fromJson(responseData);
         QJsonObject obj = docs.object();
         std::cout << obj["message"].toString().toStdString() << std::endl;
         qDebug() << obj["message"].toString();
-        bool success = (obj["message"].toString() == "inserted");
-        res->deleteLater();
-        callback(success);
-    });
-}
+        if (obj["message"].toString() == "inserted"){
+            return 0;        }
+        else if (obj["message"].toString() == "gmail"){
+            return 1;
+        }
+        else {
+            return 2;
+    ;
+        }}
 
 
 

@@ -1117,15 +1117,16 @@ switchpg(4);});
             ui->label_2->setText("please enter a valid gmail (xxxxxxx@gmail.com");
         }
         else{
-            db.registerr(ui->reg_email->text().toStdString(),ui->reg_pswd->text().toStdString(),ui->classy->text().toStdString(),ui->reg_name->text().toStdString(),ui->reg_aftername->text().toStdString(),[this](bool success){
-                if (success) {
+            int s=db.registerr(ui->reg_email->text().toStdString(),ui->reg_pswd->text().toStdString(),ui->classy->text().toStdString(),ui->reg_name->text().toStdString(),ui->reg_aftername->text().toStdString());
+                if (s==0) {
                     ui->reg_alert->setText("we have submitted you account request , you will be notified by email when done ");
-                } else {
-                    ui->reg_alert->setText("something went wrong , try again later");
-                }
-            });}});
+                } else if (s==1) {
+                    ui->reg_alert->setText("email already exists");
+                } else if (s==2){
+                    ui->reg_alert->setText("something went wrong , try again");
+            }};
 
-
+    });
 
     connect(ui->reg_but,&QPushButton::clicked,this,[this]() {
         switchpg(1);});
