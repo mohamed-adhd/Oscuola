@@ -1131,6 +1131,9 @@ switchpg(4);});
     connect(ui->reg_but,&QPushButton::clicked,this,[this]() {
         switchpg(1);});
 
+    connect(ui->back_login,&QPushButton::clicked,this,[this]() {
+        switchpg(0);});
+
 
 
 
