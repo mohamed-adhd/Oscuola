@@ -6,7 +6,7 @@ sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 from fastapi import FastAPI
 from fastapi import Depends
 from database.delete import deluser
-from database.fetch import check_login,get_grades,get_class_grades,get_alerts_1st,timetable,get_classes,get_reqs,getstudents,test,report_ts,load_reps,get_repcontent,lspci,lsusr,lstuds,lstch,resetpass,fetchadmn,fetchstoclass,recreg,teacher_dash,stud_dash
+from database.fetch import check_login,get_grades,get_class_grades,get_alerts_1st,timetable,get_classes,get_reqs,getstudents,test,report_ts,load_reps,get_repcontent,lspci,lsusr,lstuds,lstch,resetpass,fetchadmn,fetchstoclass,recreg,teacher_dash,stud_dash,alert_stu
 from database.insert import insert_request,postit,accept_it,delete_it,modifygrades,update_tb,promote_that_bih,demote_that_bih,swap,ass_tea,new_class,sendnudes,mark
 from pydantic import BaseModel
 from pathlib import Path
@@ -346,3 +346,7 @@ def tdash(data : ids, authorized: None = Depends(verify_key)):
 @app.post("/student_dash")
 def sdash(data : ids,authorized: None = Depends(verify_key)):
     return stud_dash(data.id)
+
+@app.post("/alerts")
+def als(data:ids,authorized: None = Depends(verify_key)):
+    return alert_stu(data.id)
