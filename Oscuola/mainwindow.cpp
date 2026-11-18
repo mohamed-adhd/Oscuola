@@ -1137,6 +1137,7 @@ switchpg(4);});
 
     });
 
+    });
 
     connect(ui->reg_but,&QPushButton::clicked,this,[this]() {
         switchpg(1);});
