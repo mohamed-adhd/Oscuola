@@ -197,7 +197,7 @@ def reset_page():
 
 @app.get("/")
 def defy():
-    return FileResponse(PUBLIC / "index.html")
+    return FileResponse(PAGES/ "index.html")
 
 
 @app.post("/new_cls")
