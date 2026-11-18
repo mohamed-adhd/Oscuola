@@ -902,7 +902,7 @@ MainWindow::MainWindow(database& dbo,QWidget *parent)
     connect(alerts_buts,&QButtonGroup::buttonClicked,this,[this]() {
         if(!alertsloaded){
             alertsloaded=true;
-            std::vector<QString> alerts1st=db.st1_student_alerts(std::get<4>(f));
+            std::vector<QString> alerts1st=db.student_alerts(std::get<4>(f));
             for (int i=0;i<alerts1st.size();i++){
                 ui->alerts_list_full->addItem(alerts1st[i]);
             }
@@ -1136,6 +1136,7 @@ switchpg(4);});
             }};
 
     });
+
 
     connect(ui->reg_but,&QPushButton::clicked,this,[this]() {
         switchpg(1);});
