@@ -114,6 +114,7 @@ app = FastAPI()
 
 
 PAGES = Path(__file__).parent / "pages"
+PUBLIC = Path(__file__).parent / "public"
 
 
 
@@ -123,10 +124,6 @@ def verify_key(authorization: str = Header(None)):
     if authorization != f"Bearer {os.environ['API_KEY']}":
         raise HTTPException(status_code=401, detail="Unauthorized ass bitch")
 BASE_DIR = Path(__file__).resolve().parent
-
-@app.get("/")
-def root():
-    return FileResponse(BASE_DIR / "public" / "index.html")
 
 
 @app.post("/delete_user")
@@ -197,6 +194,10 @@ def utb(data : tb, authorized: None = Depends(verify_key)):
 @app.get("/reset")
 def reset_page():
     return FileResponse(PAGES / "reset.html")
+
+@app.get("/")
+def defy():
+    return FileResponse(PUBLIC / "index.html")
 
 
 @app.post("/new_cls")
