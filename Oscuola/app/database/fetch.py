@@ -636,3 +636,4 @@ def alert_stu(id):
 
     cur.close()
     s.close()
+    return {"data":sy}

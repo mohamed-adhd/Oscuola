@@ -893,10 +893,10 @@ std::string database::fetch_timetable(int year,int classs)
 
 
 
-std::vector<QString> database::st1_student_alerts(int id)
+std::vector<QString> database::student_alerts(int id)
 {
     QNetworkAccessManager *manager = new QNetworkAccessManager(this);
-    QNetworkRequest request = mkreq("/s1t_alerts");
+    QNetworkRequest request = mkreq("/alerts");
 
     QJsonObject json;
     json["id"] = QString::fromStdString(std::to_string(id));
@@ -962,19 +962,10 @@ std::vector<req> database::get_requests(int id)
         r.name      = row[0].toString().toStdString();
         r.aftername = row[1].toString().toStdString();
         r.classs    = row[2].toString().toStdString();
-
         temp.push_back(r);
     }
-
-
     return temp;
-
-
-
 };
-
-
-
 
 
 bool database::generate_rapport(QString classs,int id,int teid){
