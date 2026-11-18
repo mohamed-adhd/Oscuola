@@ -6,7 +6,7 @@ sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 from fastapi import FastAPI
 from fastapi import Depends
 from database.delete import deluser
-from database.fetch import check_login,get_grades,get_class_grades,get_alerts_1st,timetable,get_classes,get_reqs,getstudents,test,report_ts,load_reps,get_repcontent,lspci,lsusr,lstuds,lstch,resetpass,fetchadmn,fetchstoclass,recreg,teacher_dash,stud_dash
+from database.fetch import check_login,get_grades,get_class_grades,get_alerts_1st,timetable,get_classes,get_reqs,getstudents,test,report_ts,load_reps,get_repcontent,lspci,lsusr,lstuds,lstch,resetpass,fetchadmn,fetchstoclass,recreg,teacher_dash,stud_dash,alert_stu
 from database.insert import insert_request,postit,accept_it,delete_it,modifygrades,update_tb,promote_that_bih,demote_that_bih,swap,ass_tea,new_class,sendnudes,mark
 from pydantic import BaseModel
 from pathlib import Path
@@ -114,6 +114,7 @@ app = FastAPI()
 
 
 PAGES = Path(__file__).parent / "pages"
+PUBLIC = Path(__file__).parent / "public"
 
 
 
@@ -122,11 +123,7 @@ from fastapi import Header, HTTPException
 def verify_key(authorization: str = Header(None)):
     if authorization != f"Bearer {os.environ['API_KEY']}":
         raise HTTPException(status_code=401, detail="Unauthorized ass bitch")
-@app.get("/")
-def root():
-    return {"message": "online"}
-
-
+BASE_DIR = Path(__file__).resolve().parent
 
 
 @app.post("/delete_user")
@@ -198,6 +195,10 @@ def utb(data : tb, authorized: None = Depends(verify_key)):
 def reset_page():
     return FileResponse(PAGES / "reset.html")
 
+@app.get("/")
+def defy():
+    return FileResponse(PAGES/ "index.html")
+
 
 @app.post("/new_cls")
 def ncls(data : cls, authorized: None = Depends(verify_key)):
@@ -257,7 +258,7 @@ def insert(data: registerRequest, authorized: None = Depends(verify_key)):
     result = insert_request(data.gmail, data.passwd,data.classs,data.name,data.aftername)
     if result == True:
         return {"message": "inserted"}
-    return {"message": result}
+    return result
 
 @app.post("/send_rec")
 def sre(data: gmails , authorized: None = Depends(verify_key)):
@@ -346,3 +347,7 @@ def tdash(data : ids, authorized: None = Depends(verify_key)):
 @app.post("/student_dash")
 def sdash(data : ids,authorized: None = Depends(verify_key)):
     return stud_dash(data.id)
+
+@app.post("/alerts")
+def als(data:ids,authorized: None = Depends(verify_key)):
+    return alert_stu(data.id)
