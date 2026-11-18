@@ -863,7 +863,7 @@ std::vector<cgr> database::get_class_grades(std::string classs)
 
 
 
-std::string database::fetch_timetable(int year,int classs)
+std::string database::fetch_timetable(int classs,int year)
 {
     QNetworkAccessManager *manager = new QNetworkAccessManager(this);
     QNetworkRequest request = mkreq("/timetable");
