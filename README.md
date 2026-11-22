@@ -40,26 +40,21 @@
 
 Students check grades, absences, alerts and timetables, and can send requests. Teachers manage grades, mark absences, answer student requests and generate **AI-written PDF reports**. Admins manage users, classes, teacher assignments and timetables.
 
-## Demo
-
-<!-- Drop your demo GIF / video link here -->
-<img src="YOUR_DEMO_GIF_URL" width="800">
-
 ## Screenshots
 
 | Screen | Preview |
 | --- | --- |
-| Login | <!-- image --> |
-| Register | <!-- image --> |
-| Student Dashboard | <!-- image --> |
-| Student Grades | <!-- image --> |
-| Post Request | <!-- image --> |
-| Teacher Dashboard | <!-- image --> |
-| Teacher Grades | <!-- image --> |
-| Teacher Requests | <!-- image --> |
-| Teacher Reports | <!-- image --> |
-| Admin Users | <!-- image --> |
-| Admin Classes | <!-- image --> |
+| Login | <img width="1290" height="730" alt="image" src="https://github.com/user-attachments/assets/d3f3aa81-54de-44b2-a4ba-62296d3aadcd" /> |
+| Register | <img width="1290" height="730" alt="image" src="https://github.com/user-attachments/assets/72d89be1-a31b-40b1-8a32-5bfb2b4c7985" /> |
+| Student Dashboard | <img width="1290" height="730" alt="image" src="https://github.com/user-attachments/assets/5200b076-5be9-4153-96dd-1085d751bb6c" /> |
+| Student Grades | <img width="1290" height="730" alt="image" src="https://github.com/user-attachments/assets/272ccb19-24db-449c-82de-317a29a86f0b" /> |
+| Post Request | <img width="1290" height="730" alt="image" src="https://github.com/user-attachments/assets/cbdd6290-44bd-4aa6-bb4e-a42108b50da1" /> |
+| Teacher Dashboard | <img width="1290" height="730" alt="image" src="https://github.com/user-attachments/assets/d94fbd21-7e14-45b7-baf9-3f7bda92c04d" /> |
+| Teacher Grades | <img width="1290" height="730" alt="image" src="https://github.com/user-attachments/assets/6d433a63-b3eb-41b7-8e98-c2d0edb9cac7" /> |
+| Teacher Requests | <img width="1290" height="730" alt="image" src="https://github.com/user-attachments/assets/4487708b-7ae3-4ea6-85e4-8822a5c6c768" /> |
+| Teacher Reports | <img width="1290" height="730" alt="image" src="https://github.com/user-attachments/assets/acc81257-0308-48c2-a8ac-62076c82b6e2" /> |
+| Admin Users | <img width="1290" height="730" alt="image" src="https://github.com/user-attachments/assets/730d7f92-d3ef-4f33-8ac2-21c42f9d28fa" /> |
+| Admin Classes | <img width="1290" height="730" alt="image" src="https://github.com/user-attachments/assets/4792e043-1283-42f1-a245-77b1361331c3" /> |
 
 ## Core Workflow
 
@@ -160,20 +155,20 @@ cmake --build build
 The client reads `API_KEY` from its settings, and the base URL is set in `database.cpp`. Point it at your local or deployed backend.
 
 ## Why I Built This
-
-<!-- Write your story here: 3 months of development, why a school app, what you learned (Qt, C++ networking, FastAPI, Postgres...), and what was the hardest part. -->
-
-*Coming soon...*
+- this project refused to end , it took me 3 months , given that i setted hte ETA to 30 days at the start of the repo...
+-  i had no reason to build ts , my uni is teaching us basic js and html while i m creating this abomination
+-  originally this idea was a code snippet in C that i did as an exercice , just a simple cli student monitoring app , now it became whatever this is
+-  the moment this repo went past the 1 month mark , i started hating my life everytime i commited or pushed or PRd anything , i tried so many times to finish it yet it just kept growing
 
 ## Developer Notes
 
 > now for the notes:
 
 * months of development: **3**
-* energy drinks digested: **[fill in]**
-* frontend: styled with Qt Style Sheets, one global theme for all 20 pages
-* current flaws: [fill in honestly, e.g. polling instead of live updates, no pagination, UI uses fixed geometry]
-* this repo is a learning project, further commits will move it toward a more production-ready state
+- i really enjoyed some parts , the vercel and neondb communication , the ui refinements , but ts really was an agonizing experience
+- this counts as my most mature project yet , pushed a lot of new combinations and new habits , such as branch discipline , ci/cd workflows , releases and etc
+- i aint doing anymore software , since i plan on going ai for the next year in uni , i finish this and packrat , and then enough software , i ll get into ai field
+- fun project , 1.75/10 , never again
 
 ---
 
