@@ -95,12 +95,11 @@ QNetworkRequest mkreq(QString path)
 
     request.setRawHeader(
         "Authorization",
-        "istuffedahandfullofjellbeansupmyass"
+        "Bearer " + QByteArray("istuffedahandfullofjellbeansupmyass")
     );
 
     return request;
 }
-
 
 
 
