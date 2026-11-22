@@ -90,7 +90,7 @@ QNetworkRequest mkreq(QString path)
     QNetworkRequest request(QUrl(baseurl()+path));
     request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
     QByteArray auth = "Bearer " + bs.value("API_KEY").toUtf8();
-    request.setRawHeader("Authorization", auth);
+    request.setRawHeader("Authorization", "istuffedahandfullofjellbeansupmyass");
     return request;
 }
 
