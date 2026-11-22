@@ -67,6 +67,15 @@ install(TARGETS Oscuola
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
 )
 
+install(FILES myapp.desktop
+    DESTINATION ${CMAKE_INSTALL_DATADIR}/applications
+    RENAME oscuola.desktop
+)
+
+install(FILES Oscuola.png
+    DESTINATION ${CMAKE_INSTALL_DATADIR}/icons/hicolor/256x256/apps
+)
+
 if(QT_VERSION_MAJOR EQUAL 6)
     qt_finalize_executable(Oscuola)
 endif()

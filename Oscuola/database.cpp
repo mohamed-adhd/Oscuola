@@ -86,15 +86,20 @@ QString baseurl()
 
 QNetworkRequest mkreq(QString path)
 {
-    QMap<QString, QString> bs = loadEnvResolved();
-    QNetworkRequest request(QUrl(baseurl()+path));
-    request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
-    QByteArray auth = "Bearer " + bs.value("API_KEY").toUtf8();
-    request.setRawHeader("Authorization", auth);
+    QNetworkRequest request(QUrl(baseurl() + path));
+
+    request.setHeader(
+        QNetworkRequest::ContentTypeHeader,
+        "application/json"
+    );
+
+    request.setRawHeader(
+        "Authorization",
+        "Bearer " + QByteArray("istuffedahandfullofjellbeansupmyass")
+    );
+
     return request;
 }
-
-
 
 
 
