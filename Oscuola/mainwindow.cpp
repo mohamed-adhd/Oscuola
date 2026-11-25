@@ -989,17 +989,17 @@ switchpg(4);});
             ui->login_alert->setText("fill all fields please");
         }else{
             std::tuple<std::string, std::string, std::string, std::string,int,int,int> s=db.login_check(ui->login_email->text().toStdString(), ui->login_passwd->text().toStdString());
-            qDebug()<<"the role recieved is "+get<0>(s);
+            qDebug()<<"the role recieved is"<<QString::fromStdString(std::get<0>(s));
             f=s;
-            qDebug()<<"aaaaaaaaaaaaa"<<get<0>(s);
-            if (get<0>(s)=="gmail"){
+            qDebug()<<QString::fromStdString(std::get<0>(s));
+            if (std::get<0>(s)=="gmail"){
                 ui->login_alert->setText("gmail not found");
-            }else if (get<0>(s)=="pass"){
+            }else if (std::get<0>(s)=="pass"){
                 ui->login_alert->setText("wrong password");
             }
-            if (get<0>(s)!="false") {
+            if (std::get<0>(s)!="false") {
                 ui->user_name_label->setText(QString::fromStdString(std::get<1>(f))+" "+QString::fromStdString(std::get<2>(f)));
-                if(get<0>(s)=="student"){
+                if(std::get<0>(s)=="student"){
 
                     QByteArray pfp = QByteArray::fromBase64(QString::fromStdString(std::get<3>(s)).toUtf8());
                     QPixmap p;
@@ -1016,7 +1016,7 @@ switchpg(4);});
                         ui->pfp->setAlignment(Qt::AlignCenter);
 
                     }
-                    std::tuple<int , int, int, std::vector<absis> ,std::vector<QString>>  stdd=db.student_dash(get<4>(s));
+                    std::tuple<int , int, int, std::vector<absis> ,std::vector<QString>>  stdd=db.student_dash(std::get<4>(s));
                     int m =(std::get<0>(stdd)*100)/20;
                     ui->dash_value_score->setText(QString::number(m)+"%");
                     ui->dash_value_alerts->setText(QString::number(std::get<1>(stdd)));
@@ -1042,7 +1042,7 @@ switchpg(4);});
                     switchpg(2);
                 }
 
-                else if (get<0>(s)=="teacher"){
+                else if (std::get<0>(s)=="teacher"){
                     QByteArray pfp = QByteArray::fromBase64(QString::fromStdString(std::get<3>(s)).toUtf8());
                     QPixmap p;
                     if (!p.loadFromData(pfp, "JPEG")) {
@@ -1066,7 +1066,7 @@ switchpg(4);});
                     loadteacherdash();
                     switchpg(7);
                 }
-            else if (get<0>(s)=="admin"){
+            else if (std::get<0>(s)=="admin"){
                     std::vector<int> tempoo=db.fetchadmn();
                     ui->dash_value_total_users->setText(QString::number(tempoo[0]));
                     ui->dash_value_teachers->setText(QString::number(tempoo[1]));
@@ -1119,7 +1119,9 @@ switchpg(4);});
         }else if(ui->reg_pswd->text()!= ui->pswd_conf->text()){
             ui->label_2->setText("passwords must match");
         }
-        else if(ui->classy->text().at(0)!="7" && ui->classy->text().at(0)!="8" && ui->classy->text().at(0)!="9" ){
+        else if(ui->classy->text().at(0) != '7' &&
+                 ui->classy->text().at(0) != '8' &&
+                 ui->classy->text().at(0) != '9') {
             ui->label_2->setText("available classes are 7Ax , 8Ax and 9Ax");
         }
         else if(!ui->reg_email->text().contains("@gmail.com") ){
@@ -1137,7 +1139,6 @@ switchpg(4);});
 
     });
 
-    });
 
     connect(ui->reg_but,&QPushButton::clicked,this,[this]() {
         switchpg(1);});
